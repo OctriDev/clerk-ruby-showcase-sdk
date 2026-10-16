@@ -5,227 +5,225 @@
 
 # shared_session domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalSessionMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    user_id: "user_id",
-    client_id: "client_id",
-    actor: "actor",
-    status: "status",
-    last_active_organization_id: "last_active_organization_id",
-    last_active_at: "last_active_at",
-    latest_activity: "latest_activity",
-    expire_at: "expire_at",
-    abandon_at: "abandon_at",
-    updated_at: "updated_at",
-    created_at: "created_at",
-    tasks: "tasks",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    user_id
-    client_id
-    status
-    last_active_at
-    expire_at
-    abandon_at
-    updated_at
-    created_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::SessionObject.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::SessionStatus.from_value(value)
-    end,
-    latest_activity: lambda do |value|
-      ::OctridevClerk::SessionActivityResponse.from_hash(value)
-    end,
-    tasks: lambda do |value|
-      value&.map { |item| ::OctridevClerk::SessionTask.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for Session.
-# Typed representation of the `Session` API schema.
-class Session
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSessionMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSessionMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSessionMetadata::DECODERS
-
-  # @return [SessionObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `user_id` wire field.
-  attr_reader :user_id
-  # @return [String] Required `string` value serialized in the `client_id` wire field.
-  attr_reader :client_id
-  # @return [Hash] Optional object value serialized in the `actor` wire field.
-  attr_reader :actor
-  # @return [SessionStatus] Required enumerated value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [String] Optional `string` value serialized in the `last_active_organization_id` wire field.
-  attr_reader :last_active_organization_id
-  # @return [Integer] Required `integer` value serialized in the `last_active_at` wire field.
-  attr_reader :last_active_at
-  # @return [SessionActivityResponse] Optional object value serialized in the `latest_activity` wire field.
-  attr_reader :latest_activity
-  # @return [Integer] Unix timestamp of expiration.
-  attr_reader :expire_at
-  # @return [Integer] Unix timestamp of abandonment.
-  attr_reader :abandon_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Array_of_SessionTask] Optional array value serialized in the `tasks` wire field.
-  attr_reader :tasks
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSessionMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      user_id: 'user_id',
+      client_id: 'client_id',
+      actor: 'actor',
+      status: 'status',
+      last_active_organization_id: 'last_active_organization_id',
+      last_active_at: 'last_active_at',
+      latest_activity: 'latest_activity',
+      expire_at: 'expire_at',
+      abandon_at: 'abandon_at',
+      updated_at: 'updated_at',
+      created_at: 'created_at',
+      tasks: 'tasks'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      user_id
+      client_id
+      status
+      last_active_at
+      expire_at
+      abandon_at
+      updated_at
+      created_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::SessionObject.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::SessionStatus.from_value(value)
+      end,
+      latest_activity: lambda do |value|
+        ::OctridevClerk::SessionActivityResponse.from_hash(value)
+      end,
+      tasks: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SessionTask.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for Session.
+  # Typed representation of the `Session` API schema.
+  class Session
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSessionMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSessionMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSessionMetadata::DECODERS
+
+    # @return [SessionObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `user_id` wire field.
+    attr_reader :user_id
+    # @return [String] Required `string` value serialized in the `client_id` wire field.
+    attr_reader :client_id
+    # @return [Hash] Optional object value serialized in the `actor` wire field.
+    attr_reader :actor
+    # @return [SessionStatus] Required enumerated value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [String] Optional `string` value serialized in the `last_active_organization_id` wire field.
+    attr_reader :last_active_organization_id
+    # @return [Integer] Required `integer` value serialized in the `last_active_at` wire field.
+    attr_reader :last_active_at
+    # @return [SessionActivityResponse] Optional object value serialized in the `latest_activity` wire field.
+    attr_reader :latest_activity
+    # @return [Integer] Unix timestamp of expiration.
+    attr_reader :expire_at
+    # @return [Integer] Unix timestamp of abandonment.
+    attr_reader :abandon_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Array_of_SessionTask] Optional array value serialized in the `tasks` wire field.
+    attr_reader :tasks
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the SessionObject SDK namespace.
-module SessionObject
-  SESSION = 'session'
-  VALUES = ['session'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the SessionStatus SDK namespace.
-module SessionStatus
-  ACTIVE = 'active'
-  REVOKED = 'revoked'
-  ENDED = 'ended'
-  EXPIRED = 'expired'
-  REMOVED = 'removed'
-  ABANDONED = 'abandoned'
-  REPLACED = 'replaced'
-  PENDING = 'pending'
-  VALUES = [
-    'active', 'revoked', 'ended', 'expired', 'removed', 'abandoned', 'replaced', 'pending'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSessionActivityResponseMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    device_type: "device_type",
-    is_mobile: "is_mobile",
-    browser_name: "browser_name",
-    browser_version: "browser_version",
-    ip_address: "ip_address",
-    city: "city",
-    country: "country",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    is_mobile
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for SessionActivityResponse.
-# Typed representation of the `SessionActivityResponse` API schema.
-class SessionActivityResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSessionActivityResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSessionActivityResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSessionActivityResponseMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Optional `string` value serialized in the `device_type` wire field.
-  attr_reader :device_type
-  # @return [Boolean] Required `boolean` value serialized in the `is_mobile` wire field.
-  attr_reader :is_mobile
-  # @return [String] Optional `string` value serialized in the `browser_name` wire field.
-  attr_reader :browser_name
-  # @return [String] Optional `string` value serialized in the `browser_version` wire field.
-  attr_reader :browser_version
-  # @return [String] Optional `string` value serialized in the `ip_address` wire field.
-  attr_reader :ip_address
-  # @return [String] Optional `string` value serialized in the `city` wire field.
-  attr_reader :city
-  # @return [String] Optional `string` value serialized in the `country` wire field.
-  attr_reader :country
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the SessionObject SDK namespace.
+  module SessionObject
+    SESSION = 'session'
+    VALUES = ['session'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the SessionStatus SDK namespace.
+  module SessionStatus
+    ACTIVE = 'active'
+    REVOKED = 'revoked'
+    ENDED = 'ended'
+    EXPIRED = 'expired'
+    REMOVED = 'removed'
+    ABANDONED = 'abandoned'
+    REPLACED = 'replaced'
+    PENDING = 'pending'
+    VALUES = %w[
+      active revoked ended expired removed abandoned replaced pending
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSessionTaskMetadata
-  FIELDS = {
-    key: "key",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    key
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for SessionTask.
-# Typed representation of the `SessionTask` API schema.
-class SessionTask
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSessionTaskMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSessionTaskMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSessionTaskMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `key` wire field.
-  attr_reader :key
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSessionActivityResponseMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      device_type: 'device_type',
+      is_mobile: 'is_mobile',
+      browser_name: 'browser_name',
+      browser_version: 'browser_version',
+      ip_address: 'ip_address',
+      city: 'city',
+      country: 'country'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      is_mobile
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for SessionActivityResponse.
+  # Typed representation of the `SessionActivityResponse` API schema.
+  class SessionActivityResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSessionActivityResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSessionActivityResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSessionActivityResponseMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Optional `string` value serialized in the `device_type` wire field.
+    attr_reader :device_type
+    # @return [Boolean] Required `boolean` value serialized in the `is_mobile` wire field.
+    attr_reader :is_mobile
+    # @return [String] Optional `string` value serialized in the `browser_name` wire field.
+    attr_reader :browser_name
+    # @return [String] Optional `string` value serialized in the `browser_version` wire field.
+    attr_reader :browser_version
+    # @return [String] Optional `string` value serialized in the `ip_address` wire field.
+    attr_reader :ip_address
+    # @return [String] Optional `string` value serialized in the `city` wire field.
+    attr_reader :city
+    # @return [String] Optional `string` value serialized in the `country` wire field.
+    attr_reader :country
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalSessionTaskMetadata
+    FIELDS = {
+      key: 'key'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      key
+    ].freeze
+    DECODERS = {}.freeze
   end
-end
+
+  # API model for SessionTask.
+  # Typed representation of the `SessionTask` API schema.
+  class SessionTask
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSessionTaskMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSessionTaskMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSessionTaskMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `key` wire field.
+    attr_reader :key
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

@@ -5,168 +5,168 @@
 
 # saml_connections domain models
 module OctridevClerk
-# Defines the SAMLConnection SDK namespace.
-module SAMLConnection
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::Object)
-    return hash if hash.is_a?(::Object)
-    raise "Could not deserialize SAMLConnection from #{hash.inspect}"
-  end
-end
+  # Defines the SAMLConnection SDK namespace.
+  module SAMLConnection
+    def self.from_hash(hash)
+      return hash if hash.is_a?(::Object)
+      return hash if hash.is_a?(::Object)
 
-# Defines the SAMLConnectionObject SDK namespace.
-module SAMLConnectionObject
-  SAML_CONNECTION = 'saml_connection'
-  VALUES = ['saml_connection'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSAMLConnectionAttributeMappingMetadata
-  FIELDS = {
-    user_id: "user_id",
-    email_address: "email_address",
-    first_name: "first_name",
-    last_name: "last_name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    user_id
-    email_address
-    first_name
-    last_name
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for SAMLConnectionAttributeMapping.
-# Typed representation of the `SAMLConnectionAttributeMapping` API schema.
-class SAMLConnectionAttributeMapping
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSAMLConnectionAttributeMappingMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSAMLConnectionAttributeMappingMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSAMLConnectionAttributeMappingMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `user_id` wire field.
-  attr_reader :user_id
-  # @return [String] Required `string` value serialized in the `email_address` wire field.
-  attr_reader :email_address
-  # @return [String] Required `string` value serialized in the `first_name` wire field.
-  attr_reader :first_name
-  # @return [String] Required `string` value serialized in the `last_name` wire field.
-  attr_reader :last_name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise "Could not deserialize SAMLConnection from #{hash.inspect}"
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the SAMLConnectionObject SDK namespace.
+  module SAMLConnectionObject
+    SAML_CONNECTION = 'saml_connection'
+    VALUES = ['saml_connection'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSAMLConnectionLoginHintMetadata
-  FIELDS = {
-    mode: "mode",
-    source: "source",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    mode
-  ].freeze
-  DECODERS = {
-    mode: lambda do |value|
-      ::OctridevClerk::SAMLConnectionLoginHintMode.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for SAMLConnectionLoginHint.
-# Configuration for the login_hint sent to the IdP on SSO sign-in
-class SAMLConnectionLoginHint
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSAMLConnectionLoginHintMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSAMLConnectionLoginHintMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSAMLConnectionLoginHintMetadata::DECODERS
-
-  # @return [SAMLConnectionLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
-  attr_reader :mode
-  # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
-  attr_reader :source
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSAMLConnectionAttributeMappingMetadata
+    FIELDS = {
+      user_id: 'user_id',
+      email_address: 'email_address',
+      first_name: 'first_name',
+      last_name: 'last_name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      user_id
+      email_address
+      first_name
+      last_name
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for SAMLConnectionAttributeMapping.
+  # Typed representation of the `SAMLConnectionAttributeMapping` API schema.
+  class SAMLConnectionAttributeMapping
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSAMLConnectionAttributeMappingMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSAMLConnectionAttributeMappingMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSAMLConnectionAttributeMappingMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `user_id` wire field.
+    attr_reader :user_id
+    # @return [String] Required `string` value serialized in the `email_address` wire field.
+    attr_reader :email_address
+    # @return [String] Required `string` value serialized in the `first_name` wire field.
+    attr_reader :first_name
+    # @return [String] Required `string` value serialized in the `last_name` wire field.
+    attr_reader :last_name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the SAMLConnectionLoginHintMode SDK namespace.
-module SAMLConnectionLoginHintMode
-  EMAIL_ADDRESS = 'email_address'
-  CUSTOM_ATTRIBUTE = 'custom_attribute'
-  OFF = 'off'
-  VALUES = ['email_address', 'custom_attribute', 'off'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSAMLConnectionsMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::SAMLConnection.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for SAMLConnections.
-# Typed representation of the `SAMLConnections` API schema.
-class SAMLConnections
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSAMLConnectionsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSAMLConnectionsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSAMLConnectionsMetadata::DECODERS
-
-  # @return [Array_of_SAMLConnection] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of SAML Connections
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSAMLConnectionLoginHintMetadata
+    FIELDS = {
+      mode: 'mode',
+      source: 'source'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      mode
+    ].freeze
+    DECODERS = {
+      mode: lambda do |value|
+        ::OctridevClerk::SAMLConnectionLoginHintMode.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for SAMLConnectionLoginHint.
+  # Configuration for the login_hint sent to the IdP on SSO sign-in
+  class SAMLConnectionLoginHint
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSAMLConnectionLoginHintMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSAMLConnectionLoginHintMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSAMLConnectionLoginHintMetadata::DECODERS
+
+    # @return [SAMLConnectionLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
+    attr_reader :mode
+    # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
+    attr_reader :source
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the SAMLConnectionLoginHintMode SDK namespace.
+  module SAMLConnectionLoginHintMode
+    EMAIL_ADDRESS = 'email_address'
+    CUSTOM_ATTRIBUTE = 'custom_attribute'
+    OFF = 'off'
+    VALUES = %w[email_address custom_attribute off].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalSAMLConnectionsMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SAMLConnection.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for SAMLConnections.
+  # Typed representation of the `SAMLConnections` API schema.
+  class SAMLConnections
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSAMLConnectionsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSAMLConnectionsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSAMLConnectionsMetadata::DECODERS
+
+    # @return [Array_of_SAMLConnection] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of SAML Connections
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

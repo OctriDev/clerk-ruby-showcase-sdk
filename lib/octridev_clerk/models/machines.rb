@@ -5,206 +5,206 @@
 
 # machines domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalMachineMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    instance_id: "instance_id",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    default_token_ttl: "default_token_ttl",
-    scoped_machines: "scoped_machines",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    instance_id
-    created_at
-    updated_at
-    scoped_machines
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
-    end,
-    scoped_machines: lambda do |value|
-      value&.map { |item| ::OctridevClerk::MachineWithoutScopedMachines.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for Machine.
-# Typed representation of the `Machine` API schema.
-class Machine
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMachineMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMachineMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMachineMetadata::DECODERS
-
-  # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Unique identifier for the machine.
-  attr_reader :id
-  # @return [String] The name of the machine.
-  attr_reader :name
-  # @return [String] The ID of the instance this machine belongs to.
-  attr_reader :instance_id
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
-  attr_reader :default_token_ttl
-  # @return [Array_of_MachineWithoutScopedMachines] Array of machines this machine has access to.
-  attr_reader :scoped_machines
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalMachineMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      instance_id: 'instance_id',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      default_token_ttl: 'default_token_ttl',
+      scoped_machines: 'scoped_machines'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      instance_id
+      created_at
+      updated_at
+      scoped_machines
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
+      end,
+      scoped_machines: lambda do |value|
+        value&.map { |item| ::OctridevClerk::MachineWithoutScopedMachines.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for Machine.
+  # Typed representation of the `Machine` API schema.
+  class Machine
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineMetadata::DECODERS
+
+    # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Unique identifier for the machine.
+    attr_reader :id
+    # @return [String] The name of the machine.
+    attr_reader :name
+    # @return [String] The ID of the instance this machine belongs to.
+    attr_reader :instance_id
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
+    attr_reader :default_token_ttl
+    # @return [Array_of_MachineWithoutScopedMachines] Array of machines this machine has access to.
+    attr_reader :scoped_machines
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalMachineScopeMetadata
-  FIELDS = {
-    object: "object",
-    from_machine_id: "from_machine_id",
-    to_machine_id: "to_machine_id",
-    created_at: "created_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    from_machine_id
-    to_machine_id
-    created_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::MachineScopeObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for MachineScope.
-# Typed representation of the `MachineScope` API schema.
-class MachineScope
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMachineScopeMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMachineScopeMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMachineScopeMetadata::DECODERS
-
-  # @return [MachineScopeObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] The ID of the machine that has access to the target machine.
-  attr_reader :from_machine_id
-  # @return [String] The ID of the machine that is being accessed.
-  attr_reader :to_machine_id
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalMachineScopeMetadata
+    FIELDS = {
+      object: 'object',
+      from_machine_id: 'from_machine_id',
+      to_machine_id: 'to_machine_id',
+      created_at: 'created_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      from_machine_id
+      to_machine_id
+      created_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineScopeObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for MachineScope.
+  # Typed representation of the `MachineScope` API schema.
+  class MachineScope
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineScopeMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineScopeMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineScopeMetadata::DECODERS
+
+    # @return [MachineScopeObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] The ID of the machine that has access to the target machine.
+    attr_reader :from_machine_id
+    # @return [String] The ID of the machine that is being accessed.
+    attr_reader :to_machine_id
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the MachineScopeObject SDK namespace.
-module MachineScopeObject
-  MACHINE_SCOPE = 'machine_scope'
-  VALUES = ['machine_scope'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalMachineWithoutScopedMachinesMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    instance_id: "instance_id",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    default_token_ttl: "default_token_ttl",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    instance_id
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for MachineWithoutScopedMachines.
-# Typed representation of the `MachineWithoutScopedMachines` API schema.
-class MachineWithoutScopedMachines
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMachineWithoutScopedMachinesMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMachineWithoutScopedMachinesMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMachineWithoutScopedMachinesMetadata::DECODERS
-
-  # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Unique identifier for the machine.
-  attr_reader :id
-  # @return [String] The name of the machine.
-  attr_reader :name
-  # @return [String] The ID of the instance this machine belongs to.
-  attr_reader :instance_id
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
-  attr_reader :default_token_ttl
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the MachineScopeObject SDK namespace.
+  module MachineScopeObject
+    MACHINE_SCOPE = 'machine_scope'
+    VALUES = ['machine_scope'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalMachineWithoutScopedMachinesMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      instance_id: 'instance_id',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      default_token_ttl: 'default_token_ttl'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      instance_id
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for MachineWithoutScopedMachines.
+  # Typed representation of the `MachineWithoutScopedMachines` API schema.
+  class MachineWithoutScopedMachines
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineWithoutScopedMachinesMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineWithoutScopedMachinesMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineWithoutScopedMachinesMetadata::DECODERS
 
-# Defines the MachineWithoutScopedMachinesObject SDK namespace.
-module MachineWithoutScopedMachinesObject
-  MACHINE = 'machine'
-  VALUES = ['machine'].freeze
-  def self.from_value(value)
-    value
+    # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Unique identifier for the machine.
+    attr_reader :id
+    # @return [String] The name of the machine.
+    attr_reader :name
+    # @return [String] The ID of the instance this machine belongs to.
+    attr_reader :instance_id
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
+    attr_reader :default_token_ttl
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the MachineWithoutScopedMachinesObject SDK namespace.
+  module MachineWithoutScopedMachinesObject
+    MACHINE = 'machine'
+    VALUES = ['machine'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
 end

@@ -5,584 +5,580 @@
 
 # shared_organization domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalOrganizationMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    slug: "slug",
-    image_url: "image_url",
-    has_image: "has_image",
-    members_count: "members_count",
-    missing_member_with_elevated_permissions: "missing_member_with_elevated_permissions",
-    pending_invitations_count: "pending_invitations_count",
-    max_allowed_memberships: "max_allowed_memberships",
-    admin_delete_enabled: "admin_delete_enabled",
-    self_serve_sso_enabled: "self_serve_sso_enabled",
-    self_serve_directory_sync_enabled: "self_serve_directory_sync_enabled",
-    public_metadata: "public_metadata",
-    private_metadata: "private_metadata",
-    created_by: "created_by",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    last_active_at: "last_active_at",
-    role_set_key: "role_set_key",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    slug
-    has_image
-    max_allowed_memberships
-    admin_delete_enabled
-    public_metadata
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::OrganizationObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for Organization.
-# Typed representation of the `Organization` API schema.
-class Organization
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationMetadata::DECODERS
-
-  # @return [OrganizationObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [String] Required `string` value serialized in the `slug` wire field.
-  attr_reader :slug
-  # @return [String] Optional `string` value serialized in the `image_url` wire field.
-  attr_reader :image_url
-  # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
-  attr_reader :has_image
-  # @return [Integer] Optional `integer` value serialized in the `members_count` wire field.
-  attr_reader :members_count
-  # @return [Boolean] Optional `boolean` value serialized in the `missing_member_with_elevated_permissions` wire field.
-  attr_reader :missing_member_with_elevated_permissions
-  # @return [Integer] Optional `integer` value serialized in the `pending_invitations_count` wire field.
-  attr_reader :pending_invitations_count
-  # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
-  attr_reader :max_allowed_memberships
-  # @return [Boolean] Required `boolean` value serialized in the `admin_delete_enabled` wire field.
-  attr_reader :admin_delete_enabled
-  # @return [Boolean] Whether this organization can configure self-serve enterprise SSO.
-  attr_reader :self_serve_sso_enabled
-  # @return [Boolean] Whether this organization can configure self-serve Directory Sync (SCIM).
-  attr_reader :self_serve_directory_sync_enabled
-  # @return [Hash] Required object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
-  attr_reader :private_metadata
-  # @return [String] Optional `string` value serialized in the `created_by` wire field.
-  attr_reader :created_by
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] Unix timestamp of last activity.
-  attr_reader :last_active_at
-  # @return [String] The key of the role set assigned to this organization.
-  attr_reader :role_set_key
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      slug: 'slug',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      members_count: 'members_count',
+      missing_member_with_elevated_permissions: 'missing_member_with_elevated_permissions',
+      pending_invitations_count: 'pending_invitations_count',
+      max_allowed_memberships: 'max_allowed_memberships',
+      admin_delete_enabled: 'admin_delete_enabled',
+      self_serve_sso_enabled: 'self_serve_sso_enabled',
+      self_serve_directory_sync_enabled: 'self_serve_directory_sync_enabled',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      created_by: 'created_by',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      last_active_at: 'last_active_at',
+      role_set_key: 'role_set_key'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      slug
+      has_image
+      max_allowed_memberships
+      admin_delete_enabled
+      public_metadata
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::OrganizationObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for Organization.
+  # Typed representation of the `Organization` API schema.
+  class Organization
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationMetadata::DECODERS
+
+    # @return [OrganizationObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] Required `string` value serialized in the `slug` wire field.
+    attr_reader :slug
+    # @return [String] Optional `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
+    # @return [Integer] Optional `integer` value serialized in the `members_count` wire field.
+    attr_reader :members_count
+    # @return [Boolean] Optional `boolean` value serialized in the `missing_member_with_elevated_permissions` wire field.
+    attr_reader :missing_member_with_elevated_permissions
+    # @return [Integer] Optional `integer` value serialized in the `pending_invitations_count` wire field.
+    attr_reader :pending_invitations_count
+    # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
+    attr_reader :max_allowed_memberships
+    # @return [Boolean] Required `boolean` value serialized in the `admin_delete_enabled` wire field.
+    attr_reader :admin_delete_enabled
+    # @return [Boolean] Whether this organization can configure self-serve enterprise SSO.
+    attr_reader :self_serve_sso_enabled
+    # @return [Boolean] Whether this organization can configure self-serve Directory Sync (SCIM).
+    attr_reader :self_serve_directory_sync_enabled
+    # @return [Hash] Required object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
+    attr_reader :private_metadata
+    # @return [String] Optional `string` value serialized in the `created_by` wire field.
+    attr_reader :created_by
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of last activity.
+    attr_reader :last_active_at
+    # @return [String] The key of the role set assigned to this organization.
+    attr_reader :role_set_key
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the OrganizationObject SDK namespace.
-module OrganizationObject
-  ORGANIZATION = 'organization'
-  VALUES = ['organization'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalOrganizationInvitationPublicOrganizationDataMetadata
-  FIELDS = {
-    id: "id",
-    name: "name",
-    slug: "slug",
-    image_url: "image_url",
-    has_image: "has_image",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    name
-    slug
-    has_image
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for OrganizationInvitationPublicOrganizationData.
-# Typed representation of the `OrganizationInvitationPublicOrganizationData` API schema.
-class OrganizationInvitationPublicOrganizationData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [String] Required `string` value serialized in the `slug` wire field.
-  attr_reader :slug
-  # @return [String] Optional `string` value serialized in the `image_url` wire field.
-  attr_reader :image_url
-  # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
-  attr_reader :has_image
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the OrganizationObject SDK namespace.
+  module OrganizationObject
+    ORGANIZATION = 'organization'
+    VALUES = ['organization'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationInvitationPublicOrganizationDataMetadata
+    FIELDS = {
+      id: 'id',
+      name: 'name',
+      slug: 'slug',
+      image_url: 'image_url',
+      has_image: 'has_image'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      name
+      slug
+      has_image
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for OrganizationInvitationPublicOrganizationData.
+  # Typed representation of the `OrganizationInvitationPublicOrganizationData` API schema.
+  class OrganizationInvitationPublicOrganizationData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationInvitationPublicOrganizationDataMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalOrganizationInvitationPublicUserDataMetadata
-  FIELDS = {
-    user_id: "user_id",
-    first_name: "first_name",
-    last_name: "last_name",
-    image_url: "image_url",
-    has_image: "has_image",
-    identifier: "identifier",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    user_id
-    first_name
-    last_name
-    image_url
-    has_image
-    identifier
-  ].freeze
-  DECODERS = {
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    first_name
-    last_name
-  ].freeze
-end
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] Required `string` value serialized in the `slug` wire field.
+    attr_reader :slug
+    # @return [String] Optional `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
 
-# API model for OrganizationInvitationPublicUserData.
-# An organization inviter's public user data
-class OrganizationInvitationPublicUserData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationInvitationPublicUserDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationInvitationPublicUserDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationInvitationPublicUserDataMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [String] Required `string` value serialized in the `user_id` wire field.
-  attr_reader :user_id
-  # @return [String] Required `string` value serialized in the `first_name` wire field.
-  attr_reader :first_name
-  # @return [String] Required `string` value serialized in the `last_name` wire field.
-  attr_reader :last_name
-  # @return [String] Required `string` value serialized in the `image_url` wire field.
-  attr_reader :image_url
-  # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
-  attr_reader :has_image
-  # @return [String] Required `string` value serialized in the `identifier` wire field.
-  attr_reader :identifier
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationInvitationPublicUserDataMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationInvitationPublicUserDataMetadata
+    FIELDS = {
+      user_id: 'user_id',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      identifier: 'identifier'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      user_id
+      first_name
+      last_name
+      image_url
+      has_image
+      identifier
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      first_name
+      last_name
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for OrganizationInvitationPublicUserData.
+  # An organization inviter's public user data
+  class OrganizationInvitationPublicUserData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationInvitationPublicUserDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationInvitationPublicUserDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationInvitationPublicUserDataMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::OrganizationInvitationWithPublicOrganizationData.from_hash(item) }
-    end,
-  }.freeze
-end
+    # @return [String] Required `string` value serialized in the `user_id` wire field.
+    attr_reader :user_id
+    # @return [String] Required `string` value serialized in the `first_name` wire field.
+    attr_reader :first_name
+    # @return [String] Required `string` value serialized in the `last_name` wire field.
+    attr_reader :last_name
+    # @return [String] Required `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
+    # @return [String] Required `string` value serialized in the `identifier` wire field.
+    attr_reader :identifier
 
-# API model for OrganizationInvitationsWithPublicOrganizationData.
-# Typed representation of the `OrganizationInvitationsWithPublicOrganizationData` API schema.
-class OrganizationInvitationsWithPublicOrganizationData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Array_of_OrganizationInvitationWithPublicOrganizationData] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of organization invitations
-  attr_reader :total_count
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationInvitationPublicUserDataMetadata::NULLABLE_FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::OrganizationInvitationWithPublicOrganizationData.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for OrganizationInvitationsWithPublicOrganizationData.
+  # Typed representation of the `OrganizationInvitationsWithPublicOrganizationData` API schema.
+  class OrganizationInvitationsWithPublicOrganizationData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationInvitationsWithPublicOrganizationDataMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    email_address: "email_address",
-    role: "role",
-    role_name: "role_name",
-    organization_id: "organization_id",
-    inviter_id: "inviter_id",
-    public_inviter_data: "public_inviter_data",
-    status: "status",
-    public_metadata: "public_metadata",
-    private_metadata: "private_metadata",
-    url: "url",
-    expires_at: "expires_at",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    public_organization_data: "public_organization_data",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::OrganizationInvitationWithPublicOrganizationDataVariant0Object.from_value(value)
-    end,
-    public_inviter_data: lambda do |value|
-      ::OctridevClerk::OrganizationInvitationPublicUserData.from_hash(value)
-    end,
-    public_organization_data: lambda do |value|
-      ::OctridevClerk::OrganizationInvitationPublicOrganizationData.from_hash(value)
-    end,
-  }.freeze
-end
+    # @return [Array_of_OrganizationInvitationWithPublicOrganizationData] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of organization invitations
+    attr_reader :total_count
 
-# API model for OrganizationInvitationWithPublicOrganizationData.
-# An organization invitation with public organization data populated
-class OrganizationInvitationWithPublicOrganizationData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [OrganizationInvitationWithPublicOrganizationDataVariant0Object] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Optional `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Optional `string` value serialized in the `email_address` wire field.
-  attr_reader :email_address
-  # @return [String] Optional `string` value serialized in the `role` wire field.
-  attr_reader :role
-  # @return [String] Optional `string` value serialized in the `role_name` wire field.
-  attr_reader :role_name
-  # @return [String] Optional `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Optional `string` value serialized in the `inviter_id` wire field.
-  attr_reader :inviter_id
-  # @return [OrganizationInvitationPublicUserData] An organization inviter's public user data
-  attr_reader :public_inviter_data
-  # @return [String] Optional `string` value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [Hash] Optional object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
-  attr_reader :private_metadata
-  # @return [String] Optional `string` value serialized in the `url` wire field.
-  attr_reader :url
-  # @return [Integer] Unix timestamp of expiration.
-  attr_reader :expires_at
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [OrganizationInvitationPublicOrganizationData] Optional object value serialized in the `public_organization_data` wire field.
-  attr_reader :public_organization_data
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      email_address: 'email_address',
+      role: 'role',
+      role_name: 'role_name',
+      organization_id: 'organization_id',
+      inviter_id: 'inviter_id',
+      public_inviter_data: 'public_inviter_data',
+      status: 'status',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      url: 'url',
+      expires_at: 'expires_at',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      public_organization_data: 'public_organization_data'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::OrganizationInvitationWithPublicOrganizationDataVariant0Object.from_value(value)
+      end,
+      public_inviter_data: lambda do |value|
+        ::OctridevClerk::OrganizationInvitationPublicUserData.from_hash(value)
+      end,
+      public_organization_data: lambda do |value|
+        ::OctridevClerk::OrganizationInvitationPublicOrganizationData.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for OrganizationInvitationWithPublicOrganizationData.
+  # An organization invitation with public organization data populated
+  class OrganizationInvitationWithPublicOrganizationData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::DECODERS
 
-# Defines the OrganizationInvitationWithPublicOrganizationDataVariant0Object SDK namespace.
-module OrganizationInvitationWithPublicOrganizationDataVariant0Object
-  ORGANIZATION_INVITATION = 'organization_invitation'
-  VALUES = ['organization_invitation'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [OrganizationInvitationWithPublicOrganizationDataVariant0Object] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Optional `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Optional `string` value serialized in the `email_address` wire field.
+    attr_reader :email_address
+    # @return [String] Optional `string` value serialized in the `role` wire field.
+    attr_reader :role
+    # @return [String] Optional `string` value serialized in the `role_name` wire field.
+    attr_reader :role_name
+    # @return [String] Optional `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Optional `string` value serialized in the `inviter_id` wire field.
+    attr_reader :inviter_id
+    # @return [OrganizationInvitationPublicUserData] An organization inviter's public user data
+    attr_reader :public_inviter_data
+    # @return [String] Optional `string` value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [Hash] Optional object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
+    attr_reader :private_metadata
+    # @return [String] Optional `string` value serialized in the `url` wire field.
+    attr_reader :url
+    # @return [Integer] Unix timestamp of expiration.
+    attr_reader :expires_at
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [OrganizationInvitationPublicOrganizationData] Optional object value serialized in the `public_organization_data` wire field.
+    attr_reader :public_organization_data
 
-# Internal model hydration metadata.
-class SdkInternalOrganizationMembershipMetadata
-  FIELDS = {
-    id: "id",
-    object: "object",
-    role: "role",
-    role_name: "role_name",
-    permissions: "permissions",
-    public_metadata: "public_metadata",
-    private_metadata: "private_metadata",
-    organization: "organization",
-    public_user_data: "public_user_data",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    object
-    role
-    permissions
-    public_metadata
-    organization
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::OrganizationMembershipObject.from_value(value)
-    end,
-    organization: lambda do |value|
-      ::OctridevClerk::Organization.from_hash(value)
-    end,
-    public_user_data: lambda do |value|
-      ::OctridevClerk::OrganizationMembershipPublicUserData.from_hash(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for OrganizationMembership.
-# A user's membership in an organization
-class OrganizationMembership
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationMembershipMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationMembershipMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationMembershipMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [OrganizationMembershipObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `role` wire field.
-  attr_reader :role
-  # @return [String] Optional `string` value serialized in the `role_name` wire field.
-  attr_reader :role_name
-  # @return [Array_of_String] Required array value serialized in the `permissions` wire field.
-  attr_reader :permissions
-  # @return [Hash] Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
-  attr_reader :public_metadata
-  # @return [Hash] Metadata saved on the organization membership, accessible only from the Backend API
-  attr_reader :private_metadata
-  # @return [Organization] Required object value serialized in the `organization` wire field.
-  attr_reader :organization
-  # @return [OrganizationMembershipPublicUserData] An organization membership with public user data populated
-  attr_reader :public_user_data
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the OrganizationInvitationWithPublicOrganizationDataVariant0Object SDK namespace.
+  module OrganizationInvitationWithPublicOrganizationDataVariant0Object
+    ORGANIZATION_INVITATION = 'organization_invitation'
+    VALUES = ['organization_invitation'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the OrganizationMembershipObject SDK namespace.
-module OrganizationMembershipObject
-  ORGANIZATION_MEMBERSHIP = 'organization_membership'
-  VALUES = ['organization_membership'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalOrganizationMembershipPublicUserDataMetadata
-  FIELDS = {
-    user_id: "user_id",
-    first_name: "first_name",
-    last_name: "last_name",
-    profile_image_url: "profile_image_url",
-    image_url: "image_url",
-    has_image: "has_image",
-    identifier: "identifier",
-    username: "username",
-    banned: "banned",
-    deprovisioned: "deprovisioned",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    user_id
-    first_name
-    last_name
-    profile_image_url
-    image_url
-    has_image
-  ].freeze
-  DECODERS = {
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    first_name
-    last_name
-    profile_image_url
-  ].freeze
-end
-
-# API model for OrganizationMembershipPublicUserData.
-# An organization membership with public user data populated
-class OrganizationMembershipPublicUserData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationMembershipPublicUserDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationMembershipPublicUserDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationMembershipPublicUserDataMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `user_id` wire field.
-  attr_reader :user_id
-  # @return [String] Required `string` value serialized in the `first_name` wire field.
-  attr_reader :first_name
-  # @return [String] Required `string` value serialized in the `last_name` wire field.
-  attr_reader :last_name
-  # @return [String] Required `string` value serialized in the `profile_image_url` wire field.
-  attr_reader :profile_image_url
-  # @return [String] Required `string` value serialized in the `image_url` wire field.
-  attr_reader :image_url
-  # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
-  attr_reader :has_image
-  # @return [String] Optional `string` value serialized in the `identifier` wire field.
-  attr_reader :identifier
-  # @return [String] Optional `string` value serialized in the `username` wire field.
-  attr_reader :username
-  # @return [Boolean] Optional `boolean` value serialized in the `banned` wire field.
-  attr_reader :banned
-  # @return [Boolean] Optional `boolean` value serialized in the `deprovisioned` wire field.
-  attr_reader :deprovisioned
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationMembershipMetadata
+    FIELDS = {
+      id: 'id',
+      object: 'object',
+      role: 'role',
+      role_name: 'role_name',
+      permissions: 'permissions',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      organization: 'organization',
+      public_user_data: 'public_user_data',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      object
+      role
+      permissions
+      public_metadata
+      organization
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::OrganizationMembershipObject.from_value(value)
+      end,
+      organization: lambda do |value|
+        ::OctridevClerk::Organization.from_hash(value)
+      end,
+      public_user_data: lambda do |value|
+        ::OctridevClerk::OrganizationMembershipPublicUserData.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationMembershipPublicUserDataMetadata::NULLABLE_FIELDS)
+  # API model for OrganizationMembership.
+  # A user's membership in an organization
+  class OrganizationMembership
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationMembershipMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationMembershipMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationMembershipMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [OrganizationMembershipObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `role` wire field.
+    attr_reader :role
+    # @return [String] Optional `string` value serialized in the `role_name` wire field.
+    attr_reader :role_name
+    # @return [Array_of_String] Required array value serialized in the `permissions` wire field.
+    attr_reader :permissions
+    # @return [Hash] Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
+    attr_reader :public_metadata
+    # @return [Hash] Metadata saved on the organization membership, accessible only from the Backend API
+    attr_reader :private_metadata
+    # @return [Organization] Required object value serialized in the `organization` wire field.
+    attr_reader :organization
+    # @return [OrganizationMembershipPublicUserData] An organization membership with public user data populated
+    attr_reader :public_user_data
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalOrganizationMembershipsMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::OrganizationMembership.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for OrganizationMemberships.
-# Typed representation of the `OrganizationMemberships` API schema.
-class OrganizationMemberships
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationMembershipsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationMembershipsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationMembershipsMetadata::DECODERS
-
-  # @return [Array_of_OrganizationMembership] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of organization memberships
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the OrganizationMembershipObject SDK namespace.
+  module OrganizationMembershipObject
+    ORGANIZATION_MEMBERSHIP = 'organization_membership'
+    VALUES = ['organization_membership'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationMembershipPublicUserDataMetadata
+    FIELDS = {
+      user_id: 'user_id',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      profile_image_url: 'profile_image_url',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      identifier: 'identifier',
+      username: 'username',
+      banned: 'banned',
+      deprovisioned: 'deprovisioned'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      user_id
+      first_name
+      last_name
+      profile_image_url
+      image_url
+      has_image
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      first_name
+      last_name
+      profile_image_url
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for OrganizationMembershipPublicUserData.
+  # An organization membership with public user data populated
+  class OrganizationMembershipPublicUserData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationMembershipPublicUserDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationMembershipPublicUserDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationMembershipPublicUserDataMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `user_id` wire field.
+    attr_reader :user_id
+    # @return [String] Required `string` value serialized in the `first_name` wire field.
+    attr_reader :first_name
+    # @return [String] Required `string` value serialized in the `last_name` wire field.
+    attr_reader :last_name
+    # @return [String] Required `string` value serialized in the `profile_image_url` wire field.
+    attr_reader :profile_image_url
+    # @return [String] Required `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
+    # @return [String] Optional `string` value serialized in the `identifier` wire field.
+    attr_reader :identifier
+    # @return [String] Optional `string` value serialized in the `username` wire field.
+    attr_reader :username
+    # @return [Boolean] Optional `boolean` value serialized in the `banned` wire field.
+    attr_reader :banned
+    # @return [Boolean] Optional `boolean` value serialized in the `deprovisioned` wire field.
+    attr_reader :deprovisioned
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationMembershipPublicUserDataMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationMembershipsMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::OrganizationMembership.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for OrganizationMemberships.
+  # Typed representation of the `OrganizationMemberships` API schema.
+  class OrganizationMemberships
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationMembershipsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationMembershipsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationMembershipsMetadata::DECODERS
+
+    # @return [Array_of_OrganizationMembership] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of organization memberships
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

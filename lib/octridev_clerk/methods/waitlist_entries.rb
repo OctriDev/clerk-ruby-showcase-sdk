@@ -12,8 +12,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema45ad91e0Metadata
         FIELDS = {
-          data: "data",
-          total_count: "total_count",
+          data: 'data',
+          total_count: 'total_count'
         }.freeze
         REQUIRED_FIELDS = %i[
           data
@@ -22,7 +22,7 @@ module OctridevClerk
         DECODERS = {
           data: lambda do |value|
             value&.map { |item| ::OctridevClerk::WaitlistEntry.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -54,14 +54,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateWaitlistEntryMetadata
         FIELDS = {
-          email_address: "email_address",
-          notify: "notify",
+          email_address: 'email_address',
+          notify: 'notify'
         }.freeze
         REQUIRED_FIELDS = %i[
           email_address
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateWaitlistEntry.
@@ -93,12 +92,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalInviteWaitlistEntryMetadata
         FIELDS = {
-          ignore_existing: "ignore_existing",
+          ignore_existing: 'ignore_existing'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for InviteWaitlistEntry.
@@ -131,7 +128,7 @@ module OctridevClerk
         INVITED = 'invited'
         COMPLETED = 'completed'
         REJECTED = 'rejected'
-        VALUES = ['pending', 'invited', 'completed', 'rejected'].freeze
+        VALUES = %w[pending invited completed rejected].freeze
         def self.from_value(value)
           value
         end
@@ -159,26 +156,25 @@ module OctridevClerk
         order_by: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/waitlist_entries",
+          '/waitlist_entries',
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
             'query' => QueryValue.new(query, style: 'form', explode: true),
             'status' => QueryValue.new(status, style: 'form', explode: true),
-            'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
+            'order_by' => QueryValue.new(order_by, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::Methods::WaitlistEntries::SchemaSchema45ad91e0,
           decoder: :json,
           operation_id: 'list_waitlist_entries',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -193,20 +189,19 @@ module OctridevClerk
         notify: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/waitlist_entries",
+          '/waitlist_entries',
           config: config,
           body: {
             'email_address' => email_address,
-            'notify' => notify,
+            'notify' => notify
           },
           return_type: ::OctridevClerk::WaitlistEntry,
           decoder: :json,
           operation_id: 'create_waitlist_entry',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -218,19 +213,18 @@ module OctridevClerk
         body: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(body) { Validation.validate_items('body', body, min: 1, max: 50) }
 
         SdkClient.request(
           'POST',
-          "/waitlist_entries/bulk",
+          '/waitlist_entries/bulk',
           config: config,
           body: body,
           return_type: [::OctridevClerk::WaitlistEntry],
           decoder: :json,
           operation_id: 'create_bulk_waitlist_entries',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -244,11 +238,10 @@ module OctridevClerk
         waitlist_entry_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/waitlist_entries/",
+            '/waitlist_entries/',
             SdkClient.encode_path_segment(waitlist_entry_id)
           ].join,
           config: config,
@@ -256,7 +249,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_waitlist_entry',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -272,23 +265,22 @@ module OctridevClerk
         ignore_existing: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/waitlist_entries/",
+            '/waitlist_entries/',
             SdkClient.encode_path_segment(waitlist_entry_id),
-            "/invite"
+            '/invite'
           ].join,
           config: config,
           body: {
-            'ignore_existing' => ignore_existing,
+            'ignore_existing' => ignore_existing
           },
           return_type: ::OctridevClerk::WaitlistEntry,
           decoder: :json,
           operation_id: 'invite_waitlist_entry',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -302,20 +294,19 @@ module OctridevClerk
         waitlist_entry_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/waitlist_entries/",
+            '/waitlist_entries/',
             SdkClient.encode_path_segment(waitlist_entry_id),
-            "/reject"
+            '/reject'
           ].join,
           config: config,
           return_type: ::OctridevClerk::WaitlistEntry,
           decoder: :json,
           operation_id: 'reject_waitlist_entry',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

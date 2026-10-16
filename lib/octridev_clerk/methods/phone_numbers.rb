@@ -12,18 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreatePhoneNumberMetadata
         FIELDS = {
-          user_id: "user_id",
-          phone_number: "phone_number",
-          verified: "verified",
-          primary: "primary",
-          reserved_for_second_factor: "reserved_for_second_factor",
+          user_id: 'user_id',
+          phone_number: 'phone_number',
+          verified: 'verified',
+          primary: 'primary',
+          reserved_for_second_factor: 'reserved_for_second_factor'
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
           phone_number
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreatePhoneNumber.
@@ -61,14 +60,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdatePhoneNumberMetadata
         FIELDS = {
-          verified: "verified",
-          primary: "primary",
-          reserved_for_second_factor: "reserved_for_second_factor",
+          verified: 'verified',
+          primary: 'primary',
+          reserved_for_second_factor: 'reserved_for_second_factor'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdatePhoneNumber.
@@ -102,18 +99,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema3e93ce8eMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          status: "status",
-          strategy: "strategy",
-          attempts: "attempts",
-          expire_at: "expire_at",
-          channel: "channel",
+          object: 'object',
+          id: 'id',
+          status: 'status',
+          strategy: 'strategy',
+          attempts: 'attempts',
+          expire_at: 'expire_at',
+          channel: 'channel'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for SchemaSchema3e93ce8e.
@@ -155,15 +150,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalAttemptPhoneNumberVerificationMetadata
         FIELDS = {
-          verification_id: "verification_id",
-          code: "code",
+          verification_id: 'verification_id',
+          code: 'code'
         }.freeze
         REQUIRED_FIELDS = %i[
           verification_id
           code
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for AttemptPhoneNumberVerification.
@@ -195,8 +189,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceUserPhoneNumberMetadata
         FIELDS = {
-          phone_number: "phone_number",
-          identification_status: "identification_status",
+          phone_number: 'phone_number',
+          identification_status: 'identification_status'
         }.freeze
         REQUIRED_FIELDS = %i[
           phone_number
@@ -204,7 +198,7 @@ module OctridevClerk
         DECODERS = {
           identification_status: lambda do |value|
             ::OctridevClerk::Methods::PhoneNumbers::ReplaceUserPhoneNumberIdentificationStatus.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -239,7 +233,7 @@ module OctridevClerk
         VERIFIED = 'verified'
         RESERVED = 'reserved'
         UNVERIFIED = 'unverified'
-        VALUES = ['verified', 'reserved', 'unverified'].freeze
+        VALUES = %w[verified reserved unverified].freeze
         def self.from_value(value)
           value
         end
@@ -269,23 +263,22 @@ module OctridevClerk
         reserved_for_second_factor: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/phone_numbers",
+          '/phone_numbers',
           config: config,
           body: {
             'user_id' => user_id,
             'phone_number' => phone_number,
             'verified' => verified,
             'primary' => primary,
-            'reserved_for_second_factor' => reserved_for_second_factor,
+            'reserved_for_second_factor' => reserved_for_second_factor
           },
           return_type: ::OctridevClerk::PhoneNumber,
           decoder: :json,
           operation_id: 'create_phone_number',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -294,16 +287,11 @@ module OctridevClerk
       # Returns the details of a phone number
       #
       # @param phone_number_id [String] The ID of the phone number to retrieve
-      singleton_class.define_method(:get_phone_number) do |
-        config:,
-        phone_number_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_phone_number) do |config:, phone_number_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/phone_numbers/",
+            '/phone_numbers/',
             SdkClient.encode_path_segment(phone_number_id)
           ].join,
           config: config,
@@ -311,7 +299,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_phone_number',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -325,11 +313,10 @@ module OctridevClerk
         phone_number_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/phone_numbers/",
+            '/phone_numbers/',
             SdkClient.encode_path_segment(phone_number_id)
           ].join,
           config: config,
@@ -337,7 +324,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_phone_number',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -361,24 +348,23 @@ module OctridevClerk
         reserved_for_second_factor: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/phone_numbers/",
+            '/phone_numbers/',
             SdkClient.encode_path_segment(phone_number_id)
           ].join,
           config: config,
           body: {
             'verified' => verified,
             'primary' => primary,
-            'reserved_for_second_factor' => reserved_for_second_factor,
+            'reserved_for_second_factor' => reserved_for_second_factor
           },
           return_type: ::OctridevClerk::PhoneNumber,
           decoder: :json,
           operation_id: 'update_phone_number',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -391,20 +377,19 @@ module OctridevClerk
         phone_number_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/phone_numbers/",
+            '/phone_numbers/',
             SdkClient.encode_path_segment(phone_number_id),
-            "/prepare_verification"
+            '/prepare_verification'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::PhoneNumbers::SchemaSchema3e93ce8e,
           decoder: :json,
           operation_id: 'prepare_phone_number_verification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -422,24 +407,23 @@ module OctridevClerk
         code:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/phone_numbers/",
+            '/phone_numbers/',
             SdkClient.encode_path_segment(phone_number_id),
-            "/attempt_verification"
+            '/attempt_verification'
           ].join,
           config: config,
           body: {
             'verification_id' => verification_id,
-            'code' => code,
+            'code' => code
           },
           return_type: ::OctridevClerk::Methods::PhoneNumbers::SchemaSchema3e93ce8e,
           decoder: :json,
           operation_id: 'attempt_phone_number_verification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -463,24 +447,23 @@ module OctridevClerk
         identification_status: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/phone_number"
+            '/phone_number'
           ].join,
           config: config,
           body: {
             'phone_number' => phone_number,
-            'identification_status' => identification_status,
+            'identification_status' => identification_status
           },
           return_type: ::OctridevClerk::PhoneNumber,
           decoder: :json,
           operation_id: 'replace_user_phone_number',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

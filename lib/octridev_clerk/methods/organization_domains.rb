@@ -12,14 +12,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOrganizationDomainMetadata
         FIELDS = {
-          name: "name",
-          enrollment_mode: "enrollment_mode",
-          verified: "verified",
+          name: 'name',
+          enrollment_mode: 'enrollment_mode',
+          verified: 'verified'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateOrganizationDomain.
@@ -53,13 +51,11 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOrganizationDomainMetadata
         FIELDS = {
-          enrollment_mode: "enrollment_mode",
-          verified: "verified",
+          enrollment_mode: 'enrollment_mode',
+          verified: 'verified'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateOrganizationDomain.
@@ -92,7 +88,7 @@ module OctridevClerk
       module ListAllOrganizationDomainsParameter
         TRUE = 'true'
         FALSE = 'false'
-        VALUES = ['true', 'false'].freeze
+        VALUES = %w[true false].freeze
         def self.from_value(value)
           value
         end
@@ -135,25 +131,24 @@ module OctridevClerk
         verified: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/domains"
+            '/domains'
           ].join,
           config: config,
           body: {
             'name' => name,
             'enrollment_mode' => enrollment_mode,
-            'verified' => verified,
+            'verified' => verified
           },
           return_type: ::OctridevClerk::OrganizationDomain,
           decoder: :json,
           operation_id: 'create_organization_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -183,7 +178,6 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -191,22 +185,22 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/domains"
+            '/domains'
           ].join,
           config: config,
           query: {
             'verified' => QueryValue.new(verified, style: 'form', explode: true),
             'enrollment_mode' => QueryValue.new(enrollment_mode, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::OrganizationDomains,
           decoder: :json,
           operation_id: 'list_organization_domains',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -227,25 +221,24 @@ module OctridevClerk
         verified: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/domains/",
+            '/domains/',
             SdkClient.encode_path_segment(domain_id)
           ].join,
           config: config,
           body: {
             'enrollment_mode' => enrollment_mode,
-            'verified' => verified,
+            'verified' => verified
           },
           return_type: ::OctridevClerk::OrganizationDomain,
           decoder: :json,
           operation_id: 'update_organization_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -262,13 +255,12 @@ module OctridevClerk
         domain_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/domains/",
+            '/domains/',
             SdkClient.encode_path_segment(domain_id)
           ].join,
           config: config,
@@ -276,7 +268,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_organization_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -291,22 +283,21 @@ module OctridevClerk
         domain_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/domains/",
+            '/domains/',
             SdkClient.encode_path_segment(domain_id),
-            "/verify_ownership"
+            '/verify_ownership'
           ].join,
           config: config,
           return_type: ::OctridevClerk::OrganizationDomain,
           decoder: :json,
           operation_id: 'verify_organization_domain_ownership',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -351,14 +342,13 @@ module OctridevClerk
         limit: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         SdkClient.request(
           'GET',
-          "/organization_domains",
+          '/organization_domains',
           config: config,
           query: {
             'organization_id' => QueryValue.new(organization_id, style: 'form', explode: true),
@@ -368,13 +358,13 @@ module OctridevClerk
             'domains' => QueryValue.new(domains, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'limit' => QueryValue.new(limit, style: 'form', explode: true),
+            'limit' => QueryValue.new(limit, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::OrganizationDomains,
           decoder: :json,
           operation_id: 'list_all_organization_domains',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

@@ -5,691 +5,692 @@
 
 # users domain models (part 2)
 module OctridevClerk
-# Defines the SAMLAccountVerification SDK namespace.
-module SAMLAccountVerification
-  DISCRIMINATOR_MAPPING = {
-    "verification_saml" => -> { VerificationSaml },
-    "verification_ticket" => -> { VerificationTicket },
-  }.freeze
+  # Defines the SAMLAccountVerification SDK namespace.
+  module SAMLAccountVerification
+    DISCRIMINATOR_MAPPING = {
+      'verification_saml' => -> { VerificationSaml },
+      'verification_ticket' => -> { VerificationTicket }
+    }.freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["object"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["object"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['object']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('SAMLAccountVerification', 'variant', "Unknown SAMLAccountVerification discriminator: #{hash["object"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['object'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalSCIMUserMetadataGroupsItemMetadata
-  FIELDS = {
-    id: "id",
-    display_name: "display_name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    display_name
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for SCIMUserMetadataGroupsItem.
-# Required object value serialized in the `groups[]` wire field.
-class SCIMUserMetadataGroupsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSCIMUserMetadataGroupsItemMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSCIMUserMetadataGroupsItemMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSCIMUserMetadataGroupsItemMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `display_name` wire field.
-  attr_reader :display_name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('SAMLAccountVerification', 'variant', "Unknown SAMLAccountVerification discriminator: #{hash['object'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalSCIMUserMetadataGroupsItemMetadata
+    FIELDS = {
+      id: 'id',
+      display_name: 'display_name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      display_name
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for SCIMUserMetadataGroupsItem.
+  # Required object value serialized in the `groups[]` wire field.
+  class SCIMUserMetadataGroupsItem
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSCIMUserMetadataGroupsItemMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSCIMUserMetadataGroupsItemMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSCIMUserMetadataGroupsItemMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalSCIMUserMetadataMetadata
-  FIELDS = {
-    id: "id",
-    directory_name: "directory_name",
-    provider: "provider",
-    enterprise_connection_id: "enterprise_connection_id",
-    groups: "groups",
-    directory_id: "directory_id",
-    directory_enabled: "directory_enabled",
-    external_id: "external_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    directory_name
-    provider
-    enterprise_connection_id
-    directory_id
-    directory_enabled
-    external_id
-  ].freeze
-  DECODERS = {
-    groups: lambda do |value|
-      value&.map { |item| ::OctridevClerk::SCIMUserMetadataGroupsItem.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    enterprise_connection_id
-    external_id
-  ].freeze
-end
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `display_name` wire field.
+    attr_reader :display_name
 
-# API model for SCIMUserMetadata.
-# Metadata describing a user's linkage to a directory. Included in user responses when directory data is requested, and in directory-triggered user webhooks. Its absence does not necessarily mean the user is not managed by a directory.
-class SCIMUserMetadata
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSCIMUserMetadataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSCIMUserMetadataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSCIMUserMetadataMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [String] The user's resource ID in this directory.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `directory_name` wire field.
-  attr_reader :directory_name
-  # @return [String] Required `string` value serialized in the `provider` wire field.
-  attr_reader :provider
-  # @return [String] Required `string` value serialized in the `enterprise_connection_id` wire field.
-  attr_reader :enterprise_connection_id
-  # @return [Array_of_SCIMUserMetadataGroupsItem] Omitted when groups were not loaded; an empty array means no group memberships.
-  attr_reader :groups
-  # @return [String] The ID of the directory the user is provisioned from.
-  attr_reader :directory_id
-  # @return [Boolean] Whether the directory is currently enabled.
-  attr_reader :directory_enabled
-  # @return [String] The user's external ID as reported by the directory, if any.
-  attr_reader :external_id
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSCIMUserMetadataMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalSCIMUserMetadataMetadata
+    FIELDS = {
+      id: 'id',
+      directory_name: 'directory_name',
+      provider: 'provider',
+      enterprise_connection_id: 'enterprise_connection_id',
+      groups: 'groups',
+      directory_id: 'directory_id',
+      directory_enabled: 'directory_enabled',
+      external_id: 'external_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      directory_name
+      provider
+      enterprise_connection_id
+      directory_id
+      directory_enabled
+      external_id
+    ].freeze
+    DECODERS = {
+      groups: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SCIMUserMetadataGroupsItem.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      enterprise_connection_id
+      external_id
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for SCIMUserMetadata.
+  # Metadata describing a user's linkage to a directory. Included in user responses when directory data is requested, and in directory-triggered user webhooks. Its absence does not necessarily mean the user is not managed by a directory.
+  class SCIMUserMetadata
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSCIMUserMetadataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSCIMUserMetadataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSCIMUserMetadataMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalTotalCountMetadata
-  FIELDS = {
-    object: "object",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    total_count
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::TotalCountObject.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [String] The user's resource ID in this directory.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `directory_name` wire field.
+    attr_reader :directory_name
+    # @return [String] Required `string` value serialized in the `provider` wire field.
+    attr_reader :provider
+    # @return [String] Required `string` value serialized in the `enterprise_connection_id` wire field.
+    attr_reader :enterprise_connection_id
+    # @return [Array_of_SCIMUserMetadataGroupsItem] Omitted when groups were not loaded; an empty array means no group memberships.
+    attr_reader :groups
+    # @return [String] The ID of the directory the user is provisioned from.
+    attr_reader :directory_id
+    # @return [Boolean] Whether the directory is currently enabled.
+    attr_reader :directory_enabled
+    # @return [String] The user's external ID as reported by the directory, if any.
+    attr_reader :external_id
 
-# API model for TotalCount.
-# Typed representation of the `TotalCount` API schema.
-class TotalCount
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalTotalCountMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalTotalCountMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalTotalCountMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [TotalCountObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [Integer] Required `int64`-formatted value serialized in the `total_count` wire field.
-  attr_reader :total_count
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSCIMUserMetadataMetadata::NULLABLE_FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the TotalCountObject SDK namespace.
-module TotalCountObject
-  TOTAL_COUNT = 'total_count'
-  VALUES = ['total_count'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalTrustedDeviceMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    platform: "platform",
-    app_identifier: "app_identifier",
-    name: "name",
-    algorithm: "algorithm",
-    status: "status",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    last_used_at: "last_used_at",
-    revoked_at: "revoked_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    platform
-    app_identifier
-    algorithm
-    status
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::TrustedDeviceObject.from_value(value)
-    end,
-    platform: lambda do |value|
-      ::OctridevClerk::TrustedDevicePlatform.from_value(value)
-    end,
-    algorithm: lambda do |value|
-      ::OctridevClerk::TrustedDeviceAlgorithm.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::TrustedDeviceStatus.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for TrustedDevice.
-# Typed representation of the `TrustedDevice` API schema.
-class TrustedDevice
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalTrustedDeviceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalTrustedDeviceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalTrustedDeviceMetadata::DECODERS
-
-  # @return [TrustedDeviceObject] String representing the object's type.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [TrustedDevicePlatform] Required enumerated value serialized in the `platform` wire field.
-  attr_reader :platform
-  # @return [String] Required `string` value serialized in the `app_identifier` wire field.
-  attr_reader :app_identifier
-  # @return [String] Optional `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [TrustedDeviceAlgorithm] Required enumerated value serialized in the `algorithm` wire field.
-  attr_reader :algorithm
-  # @return [TrustedDeviceStatus] Required enumerated value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [Integer] Unix timestamp of creation in milliseconds.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of the last update in milliseconds.
-  attr_reader :updated_at
-  # @return [Integer] Unix timestamp of the last use in milliseconds.
-  attr_reader :last_used_at
-  # @return [Integer] Unix timestamp of revocation in milliseconds.
-  attr_reader :revoked_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalTotalCountMetadata
+    FIELDS = {
+      object: 'object',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      total_count
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::TotalCountObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for TotalCount.
+  # Typed representation of the `TotalCount` API schema.
+  class TotalCount
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalTotalCountMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalTotalCountMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalTotalCountMetadata::DECODERS
+
+    # @return [TotalCountObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [Integer] Required `int64`-formatted value serialized in the `total_count` wire field.
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the TrustedDeviceAlgorithm SDK namespace.
-module TrustedDeviceAlgorithm
-  ES256 = 'ES256'
-  VALUES = ['ES256'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the TrustedDeviceObject SDK namespace.
-module TrustedDeviceObject
-  TRUSTED_DEVICE = 'trusted_device'
-  VALUES = ['trusted_device'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the TrustedDevicePlatform SDK namespace.
-module TrustedDevicePlatform
-  IOS = 'ios'
-  ANDROID = 'android'
-  VALUES = ['ios', 'android'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the TrustedDeviceStatus SDK namespace.
-module TrustedDeviceStatus
-  ACTIVE = 'active'
-  REVOKED = 'revoked'
-  VALUES = ['active', 'revoked'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalUserMetadata
-  FIELDS = {
-    id: "id",
-    object: "object",
-    external_id: "external_id",
-    primary_email_address_id: "primary_email_address_id",
-    primary_phone_number_id: "primary_phone_number_id",
-    primary_web3_wallet_id: "primary_web3_wallet_id",
-    username: "username",
-    first_name: "first_name",
-    last_name: "last_name",
-    locale: "locale",
-    timezone: "timezone",
-    profile_image_url: "profile_image_url",
-    image_url: "image_url",
-    has_image: "has_image",
-    public_metadata: "public_metadata",
-    private_metadata: "private_metadata",
-    unsafe_metadata: "unsafe_metadata",
-    email_addresses: "email_addresses",
-    phone_numbers: "phone_numbers",
-    web3_wallets: "web3_wallets",
-    passkeys: "passkeys",
-    password_enabled: "password_enabled",
-    two_factor_enabled: "two_factor_enabled",
-    totp_enabled: "totp_enabled",
-    backup_code_enabled: "backup_code_enabled",
-    mfa_enabled_at: "mfa_enabled_at",
-    mfa_disabled_at: "mfa_disabled_at",
-    password_last_updated_at: "password_last_updated_at",
-    external_accounts: "external_accounts",
-    saml_accounts: "saml_accounts",
-    enterprise_accounts: "enterprise_accounts",
-    organization_memberships: "organization_memberships",
-    last_sign_in_at: "last_sign_in_at",
-    banned: "banned",
-    locked: "locked",
-    deprovisioned: "deprovisioned",
-    lockout_expires_in_seconds: "lockout_expires_in_seconds",
-    verification_attempts_remaining: "verification_attempts_remaining",
-    updated_at: "updated_at",
-    created_at: "created_at",
-    delete_self_enabled: "delete_self_enabled",
-    create_organization_enabled: "create_organization_enabled",
-    create_organizations_limit: "create_organizations_limit",
-    last_active_at: "last_active_at",
-    legal_accepted_at: "legal_accepted_at",
-    bypass_client_trust: "bypass_client_trust",
-    directories: "directories",
-    directory: "directory",
-    scim: "scim",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    object
-    external_id
-    primary_email_address_id
-    primary_phone_number_id
-    primary_web3_wallet_id
-    username
-    first_name
-    last_name
-    has_image
-    public_metadata
-    email_addresses
-    phone_numbers
-    web3_wallets
-    passkeys
-    password_enabled
-    two_factor_enabled
-    totp_enabled
-    backup_code_enabled
-    mfa_enabled_at
-    mfa_disabled_at
-    external_accounts
-    saml_accounts
-    enterprise_accounts
-    last_sign_in_at
-    banned
-    locked
-    lockout_expires_in_seconds
-    verification_attempts_remaining
-    updated_at
-    created_at
-    delete_self_enabled
-    create_organization_enabled
-    last_active_at
-    legal_accepted_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::UserObject.from_value(value)
-    end,
-    email_addresses: lambda do |value|
-      value&.map { |item| ::OctridevClerk::EmailAddress.from_hash(item) }
-    end,
-    phone_numbers: lambda do |value|
-      value&.map { |item| ::OctridevClerk::PhoneNumber.from_hash(item) }
-    end,
-    web3_wallets: lambda do |value|
-      value&.map { |item| ::OctridevClerk::Web3Wallet.from_hash(item) }
-    end,
-    passkeys: lambda do |value|
-      value&.map { |item| ::OctridevClerk::Passkey.from_hash(item) }
-    end,
-    external_accounts: lambda do |value|
-      value&.map { |item| ::OctridevClerk::ExternalAccountWithVerification.from_hash(item) }
-    end,
-    saml_accounts: lambda do |value|
-      value&.map { |item| ::OctridevClerk::SAMLAccount.from_hash(item) }
-    end,
-    enterprise_accounts: lambda do |value|
-      value&.map { |item| ::OctridevClerk::EnterpriseAccount.from_hash(item) }
-    end,
-    organization_memberships: lambda do |value|
-      value&.map { |item| ::OctridevClerk::OrganizationMembership.from_hash(item) }
-    end,
-    directories: lambda do |value|
-      value&.map { |item| ::OctridevClerk::SCIMUserMetadata.from_hash(item) }
-    end,
-    directory: lambda do |value|
-      ::OctridevClerk::SCIMUserMetadata.from_hash(value)
-    end,
-    scim: lambda do |value|
-      ::OctridevClerk::SCIMUserMetadata.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    external_id
-    primary_email_address_id
-    primary_phone_number_id
-    primary_web3_wallet_id
-    username
-    first_name
-    last_name
-    mfa_enabled_at
-    mfa_disabled_at
-    last_sign_in_at
-    lockout_expires_in_seconds
-    verification_attempts_remaining
-    last_active_at
-    legal_accepted_at
-  ].freeze
-end
-
-# API model for User.
-# Typed representation of the `User` API schema.
-class User
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalUserMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalUserMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalUserMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [UserObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `external_id` wire field.
-  attr_reader :external_id
-  # @return [String] Required `string` value serialized in the `primary_email_address_id` wire field.
-  attr_reader :primary_email_address_id
-  # @return [String] Required `string` value serialized in the `primary_phone_number_id` wire field.
-  attr_reader :primary_phone_number_id
-  # @return [String] Required `string` value serialized in the `primary_web3_wallet_id` wire field.
-  attr_reader :primary_web3_wallet_id
-  # @return [String] Required `string` value serialized in the `username` wire field.
-  attr_reader :username
-  # @return [String] Required `string` value serialized in the `first_name` wire field.
-  attr_reader :first_name
-  # @return [String] Required `string` value serialized in the `last_name` wire field.
-  attr_reader :last_name
-  # @return [String] Optional `string` value serialized in the `locale` wire field.
-  attr_reader :locale
-  # @return [String] Optional `string` value serialized in the `timezone` wire field.
-  attr_reader :timezone
-  # @return [String] Optional `string` value serialized in the `profile_image_url` wire field.
-  attr_reader :profile_image_url
-  # @return [String] Optional `string` value serialized in the `image_url` wire field.
-  attr_reader :image_url
-  # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
-  attr_reader :has_image
-  # @return [Hash] Required object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
-  attr_reader :private_metadata
-  # @return [Hash] Optional object value serialized in the `unsafe_metadata` wire field.
-  attr_reader :unsafe_metadata
-  # @return [Array_of_EmailAddress] Required array value serialized in the `email_addresses` wire field.
-  attr_reader :email_addresses
-  # @return [Array_of_PhoneNumber] Required array value serialized in the `phone_numbers` wire field.
-  attr_reader :phone_numbers
-  # @return [Array_of_Web3Wallet] Required array value serialized in the `web3_wallets` wire field.
-  attr_reader :web3_wallets
-  # @return [Array_of_Passkey] Required array value serialized in the `passkeys` wire field.
-  attr_reader :passkeys
-  # @return [Boolean] Required `boolean` value serialized in the `password_enabled` wire field.
-  attr_reader :password_enabled
-  # @return [Boolean] Required `boolean` value serialized in the `two_factor_enabled` wire field.
-  attr_reader :two_factor_enabled
-  # @return [Boolean] Required `boolean` value serialized in the `totp_enabled` wire field.
-  attr_reader :totp_enabled
-  # @return [Boolean] Required `boolean` value serialized in the `backup_code_enabled` wire field.
-  attr_reader :backup_code_enabled
-  # @return [Integer] Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
-  attr_reader :mfa_enabled_at
-  # @return [Integer] Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
-  attr_reader :mfa_disabled_at
-  # @return [Integer] Unix timestamp of when the user's password was last updated.
-  attr_reader :password_last_updated_at
-  # @return [Array_of_ExternalAccountWithVerification] Required array value serialized in the `external_accounts` wire field.
-  attr_reader :external_accounts
-  # @return [Array_of_SAMLAccount] Required array value serialized in the `saml_accounts` wire field.
-  attr_reader :saml_accounts
-  # @return [Array_of_EnterpriseAccount] Required array value serialized in the `enterprise_accounts` wire field.
-  attr_reader :enterprise_accounts
-  # @return [Array_of_OrganizationMembership] Optional array value serialized in the `organization_memberships` wire field.
-  attr_reader :organization_memberships
-  # @return [Integer] Unix timestamp of last sign-in.
-  attr_reader :last_sign_in_at
-  # @return [Boolean] Flag to denote whether user is banned or not.
-  attr_reader :banned
-  # @return [Boolean] Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
-  attr_reader :locked
-  # @return [Boolean] Flag to denote whether user has been deprovisioned and is restricted from signing in.
-  attr_reader :deprovisioned
-  # @return [Integer] The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
-  attr_reader :lockout_expires_in_seconds
-  # @return [Integer] The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
-  attr_reader :verification_attempts_remaining
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Boolean] If enabled, user can delete themselves via FAPI.
-  attr_reader :delete_self_enabled
-  # @return [Boolean] If enabled, user can create organizations via FAPI.
-  attr_reader :create_organization_enabled
-  # @return [Integer] The maximum number of organizations the user can create. 0 means unlimited.
-  attr_reader :create_organizations_limit
-  # @return [Integer] Unix timestamp of the latest session activity, with day precision.
-  attr_reader :last_active_at
-  # @return [Integer] Unix timestamp of when the user accepted the legal requirements.
-  attr_reader :legal_accepted_at
-  # @return [Boolean] When set to `true`, the user will bypass Device Trust checks during sign-in.
-  attr_reader :bypass_client_trust
-  # @return [Array_of_SCIMUserMetadata] All loaded directory links. Omitted when links were not loaded; an empty array means the user has no directory links.
-  attr_reader :directories
-  # @return [SCIMUserMetadata] The most recently updated directory link. Use directories for all links.
-  attr_reader :directory
-  # @return [SCIMUserMetadata] Alias of directory. Use directories for all links.
-  attr_reader :scim
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the TotalCountObject SDK namespace.
+  module TotalCountObject
+    TOTAL_COUNT = 'total_count'
+    VALUES = ['total_count'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalUserMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalTrustedDeviceMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      platform: 'platform',
+      app_identifier: 'app_identifier',
+      name: 'name',
+      algorithm: 'algorithm',
+      status: 'status',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      last_used_at: 'last_used_at',
+      revoked_at: 'revoked_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      platform
+      app_identifier
+      algorithm
+      status
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::TrustedDeviceObject.from_value(value)
+      end,
+      platform: lambda do |value|
+        ::OctridevClerk::TrustedDevicePlatform.from_value(value)
+      end,
+      algorithm: lambda do |value|
+        ::OctridevClerk::TrustedDeviceAlgorithm.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::TrustedDeviceStatus.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for TrustedDevice.
+  # Typed representation of the `TrustedDevice` API schema.
+  class TrustedDevice
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalTrustedDeviceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalTrustedDeviceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalTrustedDeviceMetadata::DECODERS
 
-# Defines the UserObject SDK namespace.
-module UserObject
-  USER = 'user'
-  VALUES = ['user'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [TrustedDeviceObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [TrustedDevicePlatform] Required enumerated value serialized in the `platform` wire field.
+    attr_reader :platform
+    # @return [String] Required `string` value serialized in the `app_identifier` wire field.
+    attr_reader :app_identifier
+    # @return [String] Optional `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [TrustedDeviceAlgorithm] Required enumerated value serialized in the `algorithm` wire field.
+    attr_reader :algorithm
+    # @return [TrustedDeviceStatus] Required enumerated value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [Integer] Unix timestamp of creation in milliseconds.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of the last update in milliseconds.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of the last use in milliseconds.
+    attr_reader :last_used_at
+    # @return [Integer] Unix timestamp of revocation in milliseconds.
+    attr_reader :revoked_at
 
-# Internal model hydration metadata.
-class SdkInternalVerificationGoogleOneTapMetadata
-  FIELDS = {
-    object: "object",
-    status: "status",
-    strategy: "strategy",
-    expire_at: "expire_at",
-    attempts: "attempts",
-    verified_at_client: "verified_at_client",
-    error: "error",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    status
-    strategy
-    expire_at
-    attempts
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::VerificationGoogleOneTapObject.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::VerificationGoogleOneTapStatus.from_value(value)
-    end,
-    strategy: lambda do |value|
-      ::OctridevClerk::VerificationGoogleOneTapStrategy.from_value(value)
-    end,
-    error: lambda do |value|
-      ::OctridevClerk::ClerkError.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    expire_at
-    attempts
-  ].freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for VerificationGoogleOneTap.
-# Typed representation of the `VerificationGoogleOneTap` API schema.
-class VerificationGoogleOneTap
-  include ExternalAccountWithVerificationVerification
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerificationGoogleOneTapMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerificationGoogleOneTapMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerificationGoogleOneTapMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [VerificationGoogleOneTapObject] Optional enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [VerificationGoogleOneTapStatus] Required enumerated value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [VerificationGoogleOneTapStrategy] Required enumerated value serialized in the `strategy` wire field.
-  attr_reader :strategy
-  # @return [Integer] Required `integer` value serialized in the `expire_at` wire field.
-  attr_reader :expire_at
-  # @return [Integer] Required `integer` value serialized in the `attempts` wire field.
-  attr_reader :attempts
-  # @return [String] Optional `string` value serialized in the `verified_at_client` wire field.
-  attr_reader :verified_at_client
-  # @return [ClerkError] Optional object value serialized in the `error` wire field.
-  attr_reader :error
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerificationGoogleOneTapMetadata::NULLABLE_FIELDS)
+  # Defines the TrustedDeviceAlgorithm SDK namespace.
+  module TrustedDeviceAlgorithm
+    ES256 = 'ES256'
+    VALUES = ['ES256'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the TrustedDeviceObject SDK namespace.
+  module TrustedDeviceObject
+    TRUSTED_DEVICE = 'trusted_device'
+    VALUES = ['trusted_device'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the VerificationGoogleOneTapObject SDK namespace.
-module VerificationGoogleOneTapObject
-  VERIFICATION_GOOGLE_ONE_TAP = 'verification_google_one_tap'
-  VALUES = ['verification_google_one_tap'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('VerificationGoogleOneTapObject', 'enum', "Unknown VerificationGoogleOneTapObject: #{value}")
+  # Defines the TrustedDevicePlatform SDK namespace.
+  module TrustedDevicePlatform
+    IOS = 'ios'
+    ANDROID = 'android'
+    VALUES = %w[ios android].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the VerificationGoogleOneTapStatus SDK namespace.
-module VerificationGoogleOneTapStatus
-  UNVERIFIED = 'unverified'
-  VERIFIED = 'verified'
-  VALUES = ['unverified', 'verified'].freeze
-  def self.from_value(value)
-    value
+  # Defines the TrustedDeviceStatus SDK namespace.
+  module TrustedDeviceStatus
+    ACTIVE = 'active'
+    REVOKED = 'revoked'
+    VALUES = %w[active revoked].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the VerificationGoogleOneTapStrategy SDK namespace.
-module VerificationGoogleOneTapStrategy
-  GOOGLE_ONE_TAP = 'google_one_tap'
-  VALUES = ['google_one_tap'].freeze
-  def self.from_value(value)
-    value
+  # Internal model hydration metadata.
+  class SdkInternalUserMetadata
+    FIELDS = {
+      id: 'id',
+      object: 'object',
+      external_id: 'external_id',
+      primary_email_address_id: 'primary_email_address_id',
+      primary_phone_number_id: 'primary_phone_number_id',
+      primary_web3_wallet_id: 'primary_web3_wallet_id',
+      username: 'username',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      locale: 'locale',
+      timezone: 'timezone',
+      profile_image_url: 'profile_image_url',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      unsafe_metadata: 'unsafe_metadata',
+      email_addresses: 'email_addresses',
+      phone_numbers: 'phone_numbers',
+      web3_wallets: 'web3_wallets',
+      passkeys: 'passkeys',
+      password_enabled: 'password_enabled',
+      two_factor_enabled: 'two_factor_enabled',
+      totp_enabled: 'totp_enabled',
+      backup_code_enabled: 'backup_code_enabled',
+      mfa_enabled_at: 'mfa_enabled_at',
+      mfa_disabled_at: 'mfa_disabled_at',
+      password_last_updated_at: 'password_last_updated_at',
+      external_accounts: 'external_accounts',
+      saml_accounts: 'saml_accounts',
+      enterprise_accounts: 'enterprise_accounts',
+      organization_memberships: 'organization_memberships',
+      last_sign_in_at: 'last_sign_in_at',
+      banned: 'banned',
+      locked: 'locked',
+      deprovisioned: 'deprovisioned',
+      lockout_expires_in_seconds: 'lockout_expires_in_seconds',
+      verification_attempts_remaining: 'verification_attempts_remaining',
+      updated_at: 'updated_at',
+      created_at: 'created_at',
+      delete_self_enabled: 'delete_self_enabled',
+      create_organization_enabled: 'create_organization_enabled',
+      create_organizations_limit: 'create_organizations_limit',
+      last_active_at: 'last_active_at',
+      legal_accepted_at: 'legal_accepted_at',
+      bypass_client_trust: 'bypass_client_trust',
+      directories: 'directories',
+      directory: 'directory',
+      scim: 'scim'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      object
+      external_id
+      primary_email_address_id
+      primary_phone_number_id
+      primary_web3_wallet_id
+      username
+      first_name
+      last_name
+      has_image
+      public_metadata
+      email_addresses
+      phone_numbers
+      web3_wallets
+      passkeys
+      password_enabled
+      two_factor_enabled
+      totp_enabled
+      backup_code_enabled
+      mfa_enabled_at
+      mfa_disabled_at
+      external_accounts
+      saml_accounts
+      enterprise_accounts
+      last_sign_in_at
+      banned
+      locked
+      lockout_expires_in_seconds
+      verification_attempts_remaining
+      updated_at
+      created_at
+      delete_self_enabled
+      create_organization_enabled
+      last_active_at
+      legal_accepted_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::UserObject.from_value(value)
+      end,
+      email_addresses: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EmailAddress.from_hash(item) }
+      end,
+      phone_numbers: lambda do |value|
+        value&.map { |item| ::OctridevClerk::PhoneNumber.from_hash(item) }
+      end,
+      web3_wallets: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Web3Wallet.from_hash(item) }
+      end,
+      passkeys: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Passkey.from_hash(item) }
+      end,
+      external_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::ExternalAccountWithVerification.from_hash(item) }
+      end,
+      saml_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SAMLAccount.from_hash(item) }
+      end,
+      enterprise_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EnterpriseAccount.from_hash(item) }
+      end,
+      organization_memberships: lambda do |value|
+        value&.map { |item| ::OctridevClerk::OrganizationMembership.from_hash(item) }
+      end,
+      directories: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SCIMUserMetadata.from_hash(item) }
+      end,
+      directory: lambda do |value|
+        ::OctridevClerk::SCIMUserMetadata.from_hash(value)
+      end,
+      scim: lambda do |value|
+        ::OctridevClerk::SCIMUserMetadata.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      external_id
+      primary_email_address_id
+      primary_phone_number_id
+      primary_web3_wallet_id
+      username
+      first_name
+      last_name
+      mfa_enabled_at
+      mfa_disabled_at
+      last_sign_in_at
+      lockout_expires_in_seconds
+      verification_attempts_remaining
+      last_active_at
+      legal_accepted_at
+    ].freeze
   end
-end
+
+  # API model for User.
+  # Typed representation of the `User` API schema.
+  class User
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalUserMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalUserMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalUserMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [UserObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `external_id` wire field.
+    attr_reader :external_id
+    # @return [String] Required `string` value serialized in the `primary_email_address_id` wire field.
+    attr_reader :primary_email_address_id
+    # @return [String] Required `string` value serialized in the `primary_phone_number_id` wire field.
+    attr_reader :primary_phone_number_id
+    # @return [String] Required `string` value serialized in the `primary_web3_wallet_id` wire field.
+    attr_reader :primary_web3_wallet_id
+    # @return [String] Required `string` value serialized in the `username` wire field.
+    attr_reader :username
+    # @return [String] Required `string` value serialized in the `first_name` wire field.
+    attr_reader :first_name
+    # @return [String] Required `string` value serialized in the `last_name` wire field.
+    attr_reader :last_name
+    # @return [String] Optional `string` value serialized in the `locale` wire field.
+    attr_reader :locale
+    # @return [String] Optional `string` value serialized in the `timezone` wire field.
+    attr_reader :timezone
+    # @return [String] Optional `string` value serialized in the `profile_image_url` wire field.
+    attr_reader :profile_image_url
+    # @return [String] Optional `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
+    # @return [Hash] Required object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
+    attr_reader :private_metadata
+    # @return [Hash] Optional object value serialized in the `unsafe_metadata` wire field.
+    attr_reader :unsafe_metadata
+    # @return [Array_of_EmailAddress] Required array value serialized in the `email_addresses` wire field.
+    attr_reader :email_addresses
+    # @return [Array_of_PhoneNumber] Required array value serialized in the `phone_numbers` wire field.
+    attr_reader :phone_numbers
+    # @return [Array_of_Web3Wallet] Required array value serialized in the `web3_wallets` wire field.
+    attr_reader :web3_wallets
+    # @return [Array_of_Passkey] Required array value serialized in the `passkeys` wire field.
+    attr_reader :passkeys
+    # @return [Boolean] Required `boolean` value serialized in the `password_enabled` wire field.
+    attr_reader :password_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `two_factor_enabled` wire field.
+    attr_reader :two_factor_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `totp_enabled` wire field.
+    attr_reader :totp_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `backup_code_enabled` wire field.
+    attr_reader :backup_code_enabled
+    # @return [Integer] Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+    attr_reader :mfa_enabled_at
+    # @return [Integer] Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+    attr_reader :mfa_disabled_at
+    # @return [Integer] Unix timestamp of when the user's password was last updated.
+    attr_reader :password_last_updated_at
+    # @return [Array_of_ExternalAccountWithVerification] Required array value serialized in the `external_accounts` wire field.
+    attr_reader :external_accounts
+    # @return [Array_of_SAMLAccount] Required array value serialized in the `saml_accounts` wire field.
+    attr_reader :saml_accounts
+    # @return [Array_of_EnterpriseAccount] Required array value serialized in the `enterprise_accounts` wire field.
+    attr_reader :enterprise_accounts
+    # @return [Array_of_OrganizationMembership] Optional array value serialized in the `organization_memberships` wire field.
+    attr_reader :organization_memberships
+    # @return [Integer] Unix timestamp of last sign-in.
+    attr_reader :last_sign_in_at
+    # @return [Boolean] Flag to denote whether user is banned or not.
+    attr_reader :banned
+    # @return [Boolean] Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
+    attr_reader :locked
+    # @return [Boolean] Flag to denote whether user has been deprovisioned and is restricted from signing in.
+    attr_reader :deprovisioned
+    # @return [Integer] The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+    attr_reader :lockout_expires_in_seconds
+    # @return [Integer] The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+    attr_reader :verification_attempts_remaining
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Boolean] If enabled, user can delete themselves via FAPI.
+    attr_reader :delete_self_enabled
+    # @return [Boolean] If enabled, user can create organizations via FAPI.
+    attr_reader :create_organization_enabled
+    # @return [Integer] The maximum number of organizations the user can create. 0 means unlimited.
+    attr_reader :create_organizations_limit
+    # @return [Integer] Unix timestamp of the latest session activity, with day precision.
+    attr_reader :last_active_at
+    # @return [Integer] Unix timestamp of when the user accepted the legal requirements.
+    attr_reader :legal_accepted_at
+    # @return [Boolean] When set to `true`, the user will bypass Device Trust checks during sign-in.
+    attr_reader :bypass_client_trust
+    # @return [Array_of_SCIMUserMetadata] All loaded directory links. Omitted when links were not loaded; an empty array means the user has no directory links.
+    attr_reader :directories
+    # @return [SCIMUserMetadata] The most recently updated directory link. Use directories for all links.
+    attr_reader :directory
+    # @return [SCIMUserMetadata] Alias of directory. Use directories for all links.
+    attr_reader :scim
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalUserMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the UserObject SDK namespace.
+  module UserObject
+    USER = 'user'
+    VALUES = ['user'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalVerificationGoogleOneTapMetadata
+    FIELDS = {
+      object: 'object',
+      status: 'status',
+      strategy: 'strategy',
+      expire_at: 'expire_at',
+      attempts: 'attempts',
+      verified_at_client: 'verified_at_client',
+      error: 'error'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      status
+      strategy
+      expire_at
+      attempts
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapObject.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapStatus.from_value(value)
+      end,
+      strategy: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapStrategy.from_value(value)
+      end,
+      error: lambda do |value|
+        ::OctridevClerk::ClerkError.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      expire_at
+      attempts
+    ].freeze
+  end
+
+  # API model for VerificationGoogleOneTap.
+  # Typed representation of the `VerificationGoogleOneTap` API schema.
+  class VerificationGoogleOneTap
+    include ExternalAccountWithVerificationVerification
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerificationGoogleOneTapMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerificationGoogleOneTapMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerificationGoogleOneTapMetadata::DECODERS
+
+    # @return [VerificationGoogleOneTapObject] Optional enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [VerificationGoogleOneTapStatus] Required enumerated value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [VerificationGoogleOneTapStrategy] Required enumerated value serialized in the `strategy` wire field.
+    attr_reader :strategy
+    # @return [Integer] Required `integer` value serialized in the `expire_at` wire field.
+    attr_reader :expire_at
+    # @return [Integer] Required `integer` value serialized in the `attempts` wire field.
+    attr_reader :attempts
+    # @return [String] Optional `string` value serialized in the `verified_at_client` wire field.
+    attr_reader :verified_at_client
+    # @return [ClerkError] Optional object value serialized in the `error` wire field.
+    attr_reader :error
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerificationGoogleOneTapMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapObject SDK namespace.
+  module VerificationGoogleOneTapObject
+    VERIFICATION_GOOGLE_ONE_TAP = 'verification_google_one_tap'
+    VALUES = ['verification_google_one_tap'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('VerificationGoogleOneTapObject', 'enum', "Unknown VerificationGoogleOneTapObject: #{value}")
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapStatus SDK namespace.
+  module VerificationGoogleOneTapStatus
+    UNVERIFIED = 'unverified'
+    VERIFIED = 'verified'
+    VALUES = %w[unverified verified].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapStrategy SDK namespace.
+  module VerificationGoogleOneTapStrategy
+    GOOGLE_ONE_TAP = 'google_one_tap'
+    VALUES = ['google_one_tap'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
 end

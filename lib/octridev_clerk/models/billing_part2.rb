@@ -5,681 +5,681 @@
 
 # billing domain models (part 2)
 module OctridevClerk
-# Defines the CommerceDiscountRedemptionResponseSource SDK namespace.
-module CommerceDiscountRedemptionResponseSource
-  PROMOTION = 'promotion'
-  MANUAL = 'manual'
-  PROMO_CODE = 'promo_code'
-  VALUES = ['promotion', 'manual', 'promo_code'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the CommerceDiscountRedemptionResponseStatus SDK namespace.
-module CommerceDiscountRedemptionResponseStatus
-  ACTIVE = 'active'
-  EXHAUSTED = 'exhausted'
-  REMOVED = 'removed'
-  VALUES = ['active', 'exhausted', 'removed'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePayerResponse2Metadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    instance_id: "instance_id",
-    user_id: "user_id",
-    first_name: "first_name",
-    last_name: "last_name",
-    email: "email",
-    organization_id: "organization_id",
-    organization_name: "organization_name",
-    image_url: "image_url",
-    credits_balance: "credits_balance",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    instance_id
-    first_name
-    last_name
-    email
-    image_url
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePayerResponse2Object.from_value(value)
-    end,
-    credits_balance: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for CommercePayerResponse2.
-# Typed representation of the `CommercePayerResponse2` API schema.
-class CommercePayerResponse2
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePayerResponse2Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePayerResponse2Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePayerResponse2Metadata::DECODERS
-
-  # @return [CommercePayerResponse2Object] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Unique identifier for the payer.
-  attr_reader :id
-  # @return [String] Unique identifier for the Clerk instance.
-  attr_reader :instance_id
-  # @return [String] User ID for user-type payers.
-  attr_reader :user_id
-  # @return [String] First name of the payer.
-  attr_reader :first_name
-  # @return [String] Last name of the payer.
-  attr_reader :last_name
-  # @return [String] Email address of the payer.
-  attr_reader :email
-  # @return [String] Organization ID for org-type payers.
-  attr_reader :organization_id
-  # @return [String] Organization name for org-type payers.
-  attr_reader :organization_name
-  # @return [String] URL of the payer's image/avatar.
-  attr_reader :image_url
-  # @return [CommerceMoneyResponse] Current credits balance for the payer.
-  attr_reader :credits_balance
-  # @return [Integer] Unix timestamp (in milliseconds) when the payer was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp (in milliseconds) when the payer was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the CommerceDiscountRedemptionResponseSource SDK namespace.
+  module CommerceDiscountRedemptionResponseSource
+    PROMOTION = 'promotion'
+    MANUAL = 'manual'
+    PROMO_CODE = 'promo_code'
+    VALUES = %w[promotion manual promo_code].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the CommerceDiscountRedemptionResponseStatus SDK namespace.
+  module CommerceDiscountRedemptionResponseStatus
+    ACTIVE = 'active'
+    EXHAUSTED = 'exhausted'
+    REMOVED = 'removed'
+    VALUES = %w[active exhausted removed].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the CommercePayerResponse2Object SDK namespace.
-module CommercePayerResponse2Object
-  COMMERCE_PAYER = 'commerce_payer'
-  VALUES = ['commerce_payer'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePaymentSourceResponseMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    payer_id: "payer_id",
-    payment_method: "payment_method",
-    is_default: "is_default",
-    gateway: "gateway",
-    gateway_external_id: "gateway_external_id",
-    gateway_external_account_id: "gateway_external_account_id",
-    last4: "last4",
-    status: "status",
-    wallet_type: "wallet_type",
-    card_type: "card_type",
-    expiry_year: "expiry_year",
-    expiry_month: "expiry_month",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    is_removable: "is_removable",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    payer_id
-    payment_method
-    gateway
-    gateway_external_id
-    last4
-    status
-    wallet_type
-    card_type
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePaymentSourceResponseObject.from_value(value)
-    end,
-    payment_method: lambda do |value|
-      ::OctridevClerk::CommercePaymentSourceResponsePaymentMethod.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::CommercePaymentSourceResponseStatus.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for CommercePaymentSourceResponse.
-# Typed representation of the `CommercePaymentSourceResponse` API schema.
-class CommercePaymentSourceResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePaymentSourceResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePaymentSourceResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePaymentSourceResponseMetadata::DECODERS
-
-  # @return [CommercePaymentSourceResponseObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Unique identifier for the payment source.
-  attr_reader :id
-  # @return [String] Unique identifier for the payer.
-  attr_reader :payer_id
-  # @return [CommercePaymentSourceResponsePaymentMethod] The payment method type.
-  attr_reader :payment_method
-  # @return [Boolean] Whether this is the default payment source for the payer.
-  attr_reader :is_default
-  # @return [String] The payment gateway.
-  attr_reader :gateway
-  # @return [String] External ID in the payment gateway.
-  attr_reader :gateway_external_id
-  # @return [String] External account ID in the payment gateway.
-  attr_reader :gateway_external_account_id
-  # @return [String] Last 4 digits of the card (for card payment sources).
-  attr_reader :last4
-  # @return [CommercePaymentSourceResponseStatus] Status of the payment source.
-  attr_reader :status
-  # @return [String] Type of wallet (if applicable).
-  attr_reader :wallet_type
-  # @return [String] Type of card (if applicable).
-  attr_reader :card_type
-  # @return [Integer] Card expiration year (for card payment sources).
-  attr_reader :expiry_year
-  # @return [Integer] Card expiration month (for card payment sources).
-  attr_reader :expiry_month
-  # @return [Integer] Unix timestamp (in milliseconds) when the payment source was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp (in milliseconds) when the payment source was last updated.
-  attr_reader :updated_at
-  # @return [Boolean] Whether this payment source can be removed.
-  attr_reader :is_removable
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommercePayerResponse2Metadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      instance_id: 'instance_id',
+      user_id: 'user_id',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      email: 'email',
+      organization_id: 'organization_id',
+      organization_name: 'organization_name',
+      image_url: 'image_url',
+      credits_balance: 'credits_balance',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      instance_id
+      first_name
+      last_name
+      email
+      image_url
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePayerResponse2Object.from_value(value)
+      end,
+      credits_balance: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CommercePayerResponse2.
+  # Typed representation of the `CommercePayerResponse2` API schema.
+  class CommercePayerResponse2
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePayerResponse2Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePayerResponse2Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePayerResponse2Metadata::DECODERS
+
+    # @return [CommercePayerResponse2Object] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Unique identifier for the payer.
+    attr_reader :id
+    # @return [String] Unique identifier for the Clerk instance.
+    attr_reader :instance_id
+    # @return [String] User ID for user-type payers.
+    attr_reader :user_id
+    # @return [String] First name of the payer.
+    attr_reader :first_name
+    # @return [String] Last name of the payer.
+    attr_reader :last_name
+    # @return [String] Email address of the payer.
+    attr_reader :email
+    # @return [String] Organization ID for org-type payers.
+    attr_reader :organization_id
+    # @return [String] Organization name for org-type payers.
+    attr_reader :organization_name
+    # @return [String] URL of the payer's image/avatar.
+    attr_reader :image_url
+    # @return [CommerceMoneyResponse] Current credits balance for the payer.
+    attr_reader :credits_balance
+    # @return [Integer] Unix timestamp (in milliseconds) when the payer was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp (in milliseconds) when the payer was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the CommercePaymentSourceResponseObject SDK namespace.
-module CommercePaymentSourceResponseObject
-  COMMERCE_SOURCE = 'commerce_source'
-  VALUES = ['commerce_source'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the CommercePaymentSourceResponsePaymentMethod SDK namespace.
-module CommercePaymentSourceResponsePaymentMethod
-  CARD = 'card'
-  APPLE_PAY = 'apple_pay'
-  GOOGLE_PAY = 'google_pay'
-  VALUES = ['card', 'apple_pay', 'google_pay'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the CommercePaymentSourceResponseStatus SDK namespace.
-module CommercePaymentSourceResponseStatus
-  ACTIVE = 'active'
-  DISCONNECTED = 'disconnected'
-  VALUES = ['active', 'disconnected'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePlan2Metadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    fee: "fee",
-    annual_monthly_fee: "annual_monthly_fee",
-    annual_fee: "annual_fee",
-    amount: "amount",
-    amount_formatted: "amount_formatted",
-    annual_monthly_amount: "annual_monthly_amount",
-    annual_monthly_amount_formatted: "annual_monthly_amount_formatted",
-    annual_amount: "annual_amount",
-    annual_amount_formatted: "annual_amount_formatted",
-    currency_symbol: "currency_symbol",
-    currency: "currency",
-    description: "description",
-    product_id: "product_id",
-    is_default: "is_default",
-    is_recurring: "is_recurring",
-    publicly_visible: "publicly_visible",
-    has_base_fee: "has_base_fee",
-    payer_type: "payer_type",
-    for_payer_type: "for_payer_type",
-    slug: "slug",
-    avatar_url: "avatar_url",
-    period: "period",
-    interval: "interval",
-    features: "features",
-    free_trial_enabled: "free_trial_enabled",
-    free_trial_days: "free_trial_days",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    fee
-    annual_monthly_fee
-    annual_fee
-    amount
-    amount_formatted
-    annual_monthly_amount
-    annual_monthly_amount_formatted
-    annual_amount
-    annual_amount_formatted
-    currency_symbol
-    currency
-    description
-    product_id
-    is_default
-    is_recurring
-    publicly_visible
-    has_base_fee
-    payer_type
-    for_payer_type
-    slug
-    avatar_url
-    features
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePlan2Object.from_value(value)
-    end,
-    fee: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    annual_monthly_fee: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    annual_fee: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    features: lambda do |value|
-      value&.map { |item| ::OctridevClerk::FeatureResponse2.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    fee
-    annual_monthly_fee
-    annual_fee
-  ].freeze
-end
-
-# API model for CommercePlan2.
-# Typed representation of the `CommercePlan2` API schema.
-class CommercePlan2
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePlan2Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePlan2Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePlan2Metadata::DECODERS
-
-  # @return [CommercePlan2Object] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Unique identifier for the commerce plan.
-  attr_reader :id
-  # @return [String] The name of the commerce plan.
-  attr_reader :name
-  # @return [CommerceMoneyResponse] Required API value serialized in the `fee` wire field.
-  attr_reader :fee
-  # @return [CommerceMoneyResponse] Required API value serialized in the `annual_monthly_fee` wire field.
-  attr_reader :annual_monthly_fee
-  # @return [CommerceMoneyResponse] Required API value serialized in the `annual_fee` wire field.
-  attr_reader :annual_fee
-  # @return [Integer] The amount in cents for the plan.
-  attr_reader :amount
-  # @return [String] The formatted amount as a string (e.g., "$49.99").
-  attr_reader :amount_formatted
-  # @return [Integer] The monthly amount in cents when billed annually.
-  attr_reader :annual_monthly_amount
-  # @return [String] The formatted annual monthly amount as a string.
-  attr_reader :annual_monthly_amount_formatted
-  # @return [Integer] The total annual amount in cents.
-  attr_reader :annual_amount
-  # @return [String] The formatted annual amount as a string.
-  attr_reader :annual_amount_formatted
-  # @return [String] The currency symbol (e.g., "$").
-  attr_reader :currency_symbol
-  # @return [String] The currency code (e.g., "USD").
-  attr_reader :currency
-  # @return [String] The description of the commerce plan.
-  attr_reader :description
-  # @return [String] The ID of the product this plan belongs to.
-  attr_reader :product_id
-  # @return [Boolean] Whether this is the default plan.
-  attr_reader :is_default
-  # @return [Boolean] Whether this is a recurring plan.
-  attr_reader :is_recurring
-  # @return [Boolean] Whether this plan is publicly visible.
-  attr_reader :publicly_visible
-  # @return [Boolean] Whether this plan has a base fee.
-  attr_reader :has_base_fee
-  # @return [Array_of_String] The types of payers that can use this plan.
-  attr_reader :payer_type
-  # @return [String] The payer type this plan is designed for.
-  attr_reader :for_payer_type
-  # @return [String] The URL-friendly slug for the plan.
-  attr_reader :slug
-  # @return [String] The URL of the plan's avatar image.
-  attr_reader :avatar_url
-  # @return [String] The billing period for the plan.
-  attr_reader :period
-  # @return [Integer] The billing interval.
-  attr_reader :interval
-  # @return [Array_of_FeatureResponse2] The features included in this plan.
-  attr_reader :features
-  # @return [Boolean] Whether free trial is enabled for this plan.
-  attr_reader :free_trial_enabled
-  # @return [Integer] Number of free trial days for this plan.
-  attr_reader :free_trial_days
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the CommercePayerResponse2Object SDK namespace.
+  module CommercePayerResponse2Object
+    COMMERCE_PAYER = 'commerce_payer'
+    VALUES = ['commerce_payer'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommercePlan2Metadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalCommercePaymentSourceResponseMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      payer_id: 'payer_id',
+      payment_method: 'payment_method',
+      is_default: 'is_default',
+      gateway: 'gateway',
+      gateway_external_id: 'gateway_external_id',
+      gateway_external_account_id: 'gateway_external_account_id',
+      last4: 'last4',
+      status: 'status',
+      wallet_type: 'wallet_type',
+      card_type: 'card_type',
+      expiry_year: 'expiry_year',
+      expiry_month: 'expiry_month',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      is_removable: 'is_removable'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      payer_id
+      payment_method
+      gateway
+      gateway_external_id
+      last4
+      status
+      wallet_type
+      card_type
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePaymentSourceResponseObject.from_value(value)
+      end,
+      payment_method: lambda do |value|
+        ::OctridevClerk::CommercePaymentSourceResponsePaymentMethod.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::CommercePaymentSourceResponseStatus.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for CommercePaymentSourceResponse.
+  # Typed representation of the `CommercePaymentSourceResponse` API schema.
+  class CommercePaymentSourceResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePaymentSourceResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePaymentSourceResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePaymentSourceResponseMetadata::DECODERS
 
-# Defines the CommercePlan2Object SDK namespace.
-module CommercePlan2Object
-  COMMERCE_PLAN = 'commerce_plan'
-  VALUES = ['commerce_plan'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [CommercePaymentSourceResponseObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Unique identifier for the payment source.
+    attr_reader :id
+    # @return [String] Unique identifier for the payer.
+    attr_reader :payer_id
+    # @return [CommercePaymentSourceResponsePaymentMethod] The payment method type.
+    attr_reader :payment_method
+    # @return [Boolean] Whether this is the default payment source for the payer.
+    attr_reader :is_default
+    # @return [String] The payment gateway.
+    attr_reader :gateway
+    # @return [String] External ID in the payment gateway.
+    attr_reader :gateway_external_id
+    # @return [String] External account ID in the payment gateway.
+    attr_reader :gateway_external_account_id
+    # @return [String] Last 4 digits of the card (for card payment sources).
+    attr_reader :last4
+    # @return [CommercePaymentSourceResponseStatus] Status of the payment source.
+    attr_reader :status
+    # @return [String] Type of wallet (if applicable).
+    attr_reader :wallet_type
+    # @return [String] Type of card (if applicable).
+    attr_reader :card_type
+    # @return [Integer] Card expiration year (for card payment sources).
+    attr_reader :expiry_year
+    # @return [Integer] Card expiration month (for card payment sources).
+    attr_reader :expiry_month
+    # @return [Integer] Unix timestamp (in milliseconds) when the payment source was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp (in milliseconds) when the payment source was last updated.
+    attr_reader :updated_at
+    # @return [Boolean] Whether this payment source can be removed.
+    attr_reader :is_removable
 
-# Internal model hydration metadata.
-class SdkInternalCommercePriceTransitionDetailsMetadata
-  FIELDS = {
-    previous_plan: "previous_plan",
-    previous_price: "previous_price",
-    effective_at: "effective_at",
-    effective_mode: "effective_mode",
-    next_billing_date: "next_billing_date",
-    charged_immediately: "charged_immediately",
-    immediate_charge: "immediate_charge",
-    previous_subscription_item_status: "previous_subscription_item_status",
-    previous_subscription_item_id: "previous_subscription_item_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    previous_plan
-    previous_price
-    effective_at
-    effective_mode
-    charged_immediately
-    previous_subscription_item_status
-    previous_subscription_item_id
-  ].freeze
-  DECODERS = {
-    previous_plan: lambda do |value|
-      ::OctridevClerk::CommercePlan2.from_hash(value)
-    end,
-    previous_price: lambda do |value|
-      ::OctridevClerk::BillingPriceResponse.from_hash(value)
-    end,
-    effective_mode: lambda do |value|
-      ::OctridevClerk::CommercePriceTransitionDetailsEffectiveMode.from_value(value)
-    end,
-    immediate_charge: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    previous_subscription_item_status: lambda do |value|
-      ::OctridevClerk::CommercePriceTransitionDetailsPreviousSubscriptionItemStatus.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for CommercePriceTransitionDetails.
-# Typed representation of the `CommercePriceTransitionDetails` API schema.
-class CommercePriceTransitionDetails
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePriceTransitionDetailsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePriceTransitionDetailsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePriceTransitionDetailsMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [CommercePlan2] Required object value serialized in the `previous_plan` wire field.
-  attr_reader :previous_plan
-  # @return [BillingPriceResponse] Required object value serialized in the `previous_price` wire field.
-  attr_reader :previous_price
-  # @return [Integer] Unix timestamp (milliseconds) when the new price takes effect.
-  attr_reader :effective_at
-  # @return [CommercePriceTransitionDetailsEffectiveMode] When the new price takes effect.
-  attr_reader :effective_mode
-  # @return [Integer] Unix timestamp (milliseconds) for the next billing date.
-  attr_reader :next_billing_date
-  # @return [Boolean] Whether an immediate charge was made.
-  attr_reader :charged_immediately
-  # @return [CommerceMoneyResponse] Amount charged immediately, if any.
-  attr_reader :immediate_charge
-  # @return [CommercePriceTransitionDetailsPreviousSubscriptionItemStatus] The status of the previous subscription item after transition.
-  attr_reader :previous_subscription_item_status
-  # @return [String] The ID of the previous subscription item.
-  attr_reader :previous_subscription_item_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the CommercePaymentSourceResponseObject SDK namespace.
+  module CommercePaymentSourceResponseObject
+    COMMERCE_SOURCE = 'commerce_source'
+    VALUES = ['commerce_source'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the CommercePriceTransitionDetailsEffectiveMode SDK namespace.
-module CommercePriceTransitionDetailsEffectiveMode
-  IMMEDIATE = 'immediate'
-  END_OF_PERIOD = 'end_of_period'
-  VALUES = ['immediate', 'end_of_period'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the CommercePriceTransitionDetailsPreviousSubscriptionItemStatus SDK namespace.
-module CommercePriceTransitionDetailsPreviousSubscriptionItemStatus
-  CANCELED = 'canceled'
-  ENDED = 'ended'
-  ABANDONED = 'abandoned'
-  VALUES = ['canceled', 'ended', 'abandoned'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePriceTransitionResponseMetadata
-  FIELDS = {
-    object: "object",
-    subscription_item: "subscription_item",
-    transition: "transition",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    subscription_item
-    transition
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePriceTransitionResponseObject.from_value(value)
-    end,
-    subscription_item: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItem2.from_hash(value)
-    end,
-    transition: lambda do |value|
-      ::OctridevClerk::CommercePriceTransitionDetails.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for CommercePriceTransitionResponse.
-# Typed representation of the `CommercePriceTransitionResponse` API schema.
-class CommercePriceTransitionResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePriceTransitionResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePriceTransitionResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePriceTransitionResponseMetadata::DECODERS
-
-  # @return [CommercePriceTransitionResponseObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [CommerceSubscriptionItem2] Required object value serialized in the `subscription_item` wire field.
-  attr_reader :subscription_item
-  # @return [CommercePriceTransitionDetails] Required object value serialized in the `transition` wire field.
-  attr_reader :transition
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the CommercePaymentSourceResponsePaymentMethod SDK namespace.
+  module CommercePaymentSourceResponsePaymentMethod
+    CARD = 'card'
+    APPLE_PAY = 'apple_pay'
+    GOOGLE_PAY = 'google_pay'
+    VALUES = %w[card apple_pay google_pay].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the CommercePaymentSourceResponseStatus SDK namespace.
+  module CommercePaymentSourceResponseStatus
+    ACTIVE = 'active'
+    DISCONNECTED = 'disconnected'
+    VALUES = %w[active disconnected].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalCommercePlan2Metadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      fee: 'fee',
+      annual_monthly_fee: 'annual_monthly_fee',
+      annual_fee: 'annual_fee',
+      amount: 'amount',
+      amount_formatted: 'amount_formatted',
+      annual_monthly_amount: 'annual_monthly_amount',
+      annual_monthly_amount_formatted: 'annual_monthly_amount_formatted',
+      annual_amount: 'annual_amount',
+      annual_amount_formatted: 'annual_amount_formatted',
+      currency_symbol: 'currency_symbol',
+      currency: 'currency',
+      description: 'description',
+      product_id: 'product_id',
+      is_default: 'is_default',
+      is_recurring: 'is_recurring',
+      publicly_visible: 'publicly_visible',
+      has_base_fee: 'has_base_fee',
+      payer_type: 'payer_type',
+      for_payer_type: 'for_payer_type',
+      slug: 'slug',
+      avatar_url: 'avatar_url',
+      period: 'period',
+      interval: 'interval',
+      features: 'features',
+      free_trial_enabled: 'free_trial_enabled',
+      free_trial_days: 'free_trial_days'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      fee
+      annual_monthly_fee
+      annual_fee
+      amount
+      amount_formatted
+      annual_monthly_amount
+      annual_monthly_amount_formatted
+      annual_amount
+      annual_amount_formatted
+      currency_symbol
+      currency
+      description
+      product_id
+      is_default
+      is_recurring
+      publicly_visible
+      has_base_fee
+      payer_type
+      for_payer_type
+      slug
+      avatar_url
+      features
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePlan2Object.from_value(value)
+      end,
+      fee: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      annual_monthly_fee: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      annual_fee: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      features: lambda do |value|
+        value&.map { |item| ::OctridevClerk::FeatureResponse2.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      fee
+      annual_monthly_fee
+      annual_fee
+    ].freeze
   end
-end
 
-# Defines the CommercePriceTransitionResponseObject SDK namespace.
-module CommercePriceTransitionResponseObject
-  COMMERCE_PRICE_TRANSITION = 'commerce_price_transition'
-  VALUES = ['commerce_price_transition'].freeze
-  def self.from_value(value)
-    value
+  # API model for CommercePlan2.
+  # Typed representation of the `CommercePlan2` API schema.
+  class CommercePlan2
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePlan2Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePlan2Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePlan2Metadata::DECODERS
+
+    # @return [CommercePlan2Object] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Unique identifier for the commerce plan.
+    attr_reader :id
+    # @return [String] The name of the commerce plan.
+    attr_reader :name
+    # @return [CommerceMoneyResponse] Required API value serialized in the `fee` wire field.
+    attr_reader :fee
+    # @return [CommerceMoneyResponse] Required API value serialized in the `annual_monthly_fee` wire field.
+    attr_reader :annual_monthly_fee
+    # @return [CommerceMoneyResponse] Required API value serialized in the `annual_fee` wire field.
+    attr_reader :annual_fee
+    # @return [Integer] The amount in cents for the plan.
+    attr_reader :amount
+    # @return [String] The formatted amount as a string (e.g., "$49.99").
+    attr_reader :amount_formatted
+    # @return [Integer] The monthly amount in cents when billed annually.
+    attr_reader :annual_monthly_amount
+    # @return [String] The formatted annual monthly amount as a string.
+    attr_reader :annual_monthly_amount_formatted
+    # @return [Integer] The total annual amount in cents.
+    attr_reader :annual_amount
+    # @return [String] The formatted annual amount as a string.
+    attr_reader :annual_amount_formatted
+    # @return [String] The currency symbol (e.g., "$").
+    attr_reader :currency_symbol
+    # @return [String] The currency code (e.g., "USD").
+    attr_reader :currency
+    # @return [String] The description of the commerce plan.
+    attr_reader :description
+    # @return [String] The ID of the product this plan belongs to.
+    attr_reader :product_id
+    # @return [Boolean] Whether this is the default plan.
+    attr_reader :is_default
+    # @return [Boolean] Whether this is a recurring plan.
+    attr_reader :is_recurring
+    # @return [Boolean] Whether this plan is publicly visible.
+    attr_reader :publicly_visible
+    # @return [Boolean] Whether this plan has a base fee.
+    attr_reader :has_base_fee
+    # @return [Array_of_String] The types of payers that can use this plan.
+    attr_reader :payer_type
+    # @return [String] The payer type this plan is designed for.
+    attr_reader :for_payer_type
+    # @return [String] The URL-friendly slug for the plan.
+    attr_reader :slug
+    # @return [String] The URL of the plan's avatar image.
+    attr_reader :avatar_url
+    # @return [String] The billing period for the plan.
+    attr_reader :period
+    # @return [Integer] The billing interval.
+    attr_reader :interval
+    # @return [Array_of_FeatureResponse2] The features included in this plan.
+    attr_reader :features
+    # @return [Boolean] Whether free trial is enabled for this plan.
+    attr_reader :free_trial_enabled
+    # @return [Integer] Number of free trial days for this plan.
+    attr_reader :free_trial_days
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommercePlan2Metadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalCommerceSubscriptionItem2Metadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    instance_id: "instance_id",
-    status: "status",
-    credit: "credit",
-    plan_id: "plan_id",
-    price_id: "price_id",
-    plan: "plan",
-    plan_period: "plan_period",
-    payment_source_id: "payment_source_id",
-    payment_source: "payment_source",
-    lifetime_paid: "lifetime_paid",
-    amount: "amount",
-    next_invoice: "next_invoice",
-    next_payment: "next_payment",
-    payer_id: "payer_id",
-    payer: "payer",
-    is_free_trial: "is_free_trial",
-    period_start: "period_start",
-    period_end: "period_end",
-    proration_date: "proration_date",
-    canceled_at: "canceled_at",
-    past_due_at: "past_due_at",
-    ended_at: "ended_at",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    instance_id
-    status
-    plan_id
-    plan
-    plan_period
-    payment_source_id
-    payer_id
-    is_free_trial
-    proration_date
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItem2Object.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItem2Status.from_value(value)
-    end,
-    credit: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionCreditResponse.from_hash(value)
-    end,
-    plan: lambda do |value|
-      ::OctridevClerk::CommercePlan2.from_hash(value)
-    end,
-    plan_period: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItem2PlanPeriod.from_value(value)
-    end,
-    payment_source: lambda do |value|
-      ::OctridevClerk::CommercePaymentSourceResponse.from_hash(value)
-    end,
-    lifetime_paid: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    amount: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    next_invoice: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItemNextPaymentResponse.from_hash(value)
-    end,
-    next_payment: lambda do |value|
-      ::OctridevClerk::CommerceSubscriptionItemNextPaymentResponse.from_hash(value)
-    end,
-    payer: lambda do |value|
-      ::OctridevClerk::CommercePayerResponse2.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    plan
-  ].freeze
-end
+  # Defines the CommercePlan2Object SDK namespace.
+  module CommercePlan2Object
+    COMMERCE_PLAN = 'commerce_plan'
+    VALUES = ['commerce_plan'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalCommercePriceTransitionDetailsMetadata
+    FIELDS = {
+      previous_plan: 'previous_plan',
+      previous_price: 'previous_price',
+      effective_at: 'effective_at',
+      effective_mode: 'effective_mode',
+      next_billing_date: 'next_billing_date',
+      charged_immediately: 'charged_immediately',
+      immediate_charge: 'immediate_charge',
+      previous_subscription_item_status: 'previous_subscription_item_status',
+      previous_subscription_item_id: 'previous_subscription_item_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      previous_plan
+      previous_price
+      effective_at
+      effective_mode
+      charged_immediately
+      previous_subscription_item_status
+      previous_subscription_item_id
+    ].freeze
+    DECODERS = {
+      previous_plan: lambda do |value|
+        ::OctridevClerk::CommercePlan2.from_hash(value)
+      end,
+      previous_price: lambda do |value|
+        ::OctridevClerk::BillingPriceResponse.from_hash(value)
+      end,
+      effective_mode: lambda do |value|
+        ::OctridevClerk::CommercePriceTransitionDetailsEffectiveMode.from_value(value)
+      end,
+      immediate_charge: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      previous_subscription_item_status: lambda do |value|
+        ::OctridevClerk::CommercePriceTransitionDetailsPreviousSubscriptionItemStatus.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for CommercePriceTransitionDetails.
+  # Typed representation of the `CommercePriceTransitionDetails` API schema.
+  class CommercePriceTransitionDetails
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePriceTransitionDetailsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePriceTransitionDetailsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePriceTransitionDetailsMetadata::DECODERS
+
+    # @return [CommercePlan2] Required object value serialized in the `previous_plan` wire field.
+    attr_reader :previous_plan
+    # @return [BillingPriceResponse] Required object value serialized in the `previous_price` wire field.
+    attr_reader :previous_price
+    # @return [Integer] Unix timestamp (milliseconds) when the new price takes effect.
+    attr_reader :effective_at
+    # @return [CommercePriceTransitionDetailsEffectiveMode] When the new price takes effect.
+    attr_reader :effective_mode
+    # @return [Integer] Unix timestamp (milliseconds) for the next billing date.
+    attr_reader :next_billing_date
+    # @return [Boolean] Whether an immediate charge was made.
+    attr_reader :charged_immediately
+    # @return [CommerceMoneyResponse] Amount charged immediately, if any.
+    attr_reader :immediate_charge
+    # @return [CommercePriceTransitionDetailsPreviousSubscriptionItemStatus] The status of the previous subscription item after transition.
+    attr_reader :previous_subscription_item_status
+    # @return [String] The ID of the previous subscription item.
+    attr_reader :previous_subscription_item_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the CommercePriceTransitionDetailsEffectiveMode SDK namespace.
+  module CommercePriceTransitionDetailsEffectiveMode
+    IMMEDIATE = 'immediate'
+    END_OF_PERIOD = 'end_of_period'
+    VALUES = %w[immediate end_of_period].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the CommercePriceTransitionDetailsPreviousSubscriptionItemStatus SDK namespace.
+  module CommercePriceTransitionDetailsPreviousSubscriptionItemStatus
+    CANCELED = 'canceled'
+    ENDED = 'ended'
+    ABANDONED = 'abandoned'
+    VALUES = %w[canceled ended abandoned].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalCommercePriceTransitionResponseMetadata
+    FIELDS = {
+      object: 'object',
+      subscription_item: 'subscription_item',
+      transition: 'transition'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      subscription_item
+      transition
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePriceTransitionResponseObject.from_value(value)
+      end,
+      subscription_item: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItem2.from_hash(value)
+      end,
+      transition: lambda do |value|
+        ::OctridevClerk::CommercePriceTransitionDetails.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for CommercePriceTransitionResponse.
+  # Typed representation of the `CommercePriceTransitionResponse` API schema.
+  class CommercePriceTransitionResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePriceTransitionResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePriceTransitionResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePriceTransitionResponseMetadata::DECODERS
+
+    # @return [CommercePriceTransitionResponseObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [CommerceSubscriptionItem2] Required object value serialized in the `subscription_item` wire field.
+    attr_reader :subscription_item
+    # @return [CommercePriceTransitionDetails] Required object value serialized in the `transition` wire field.
+    attr_reader :transition
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the CommercePriceTransitionResponseObject SDK namespace.
+  module CommercePriceTransitionResponseObject
+    COMMERCE_PRICE_TRANSITION = 'commerce_price_transition'
+    VALUES = ['commerce_price_transition'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalCommerceSubscriptionItem2Metadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      instance_id: 'instance_id',
+      status: 'status',
+      credit: 'credit',
+      plan_id: 'plan_id',
+      price_id: 'price_id',
+      plan: 'plan',
+      plan_period: 'plan_period',
+      payment_source_id: 'payment_source_id',
+      payment_source: 'payment_source',
+      lifetime_paid: 'lifetime_paid',
+      amount: 'amount',
+      next_invoice: 'next_invoice',
+      next_payment: 'next_payment',
+      payer_id: 'payer_id',
+      payer: 'payer',
+      is_free_trial: 'is_free_trial',
+      period_start: 'period_start',
+      period_end: 'period_end',
+      proration_date: 'proration_date',
+      canceled_at: 'canceled_at',
+      past_due_at: 'past_due_at',
+      ended_at: 'ended_at',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      instance_id
+      status
+      plan_id
+      plan
+      plan_period
+      payment_source_id
+      payer_id
+      is_free_trial
+      proration_date
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItem2Object.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItem2Status.from_value(value)
+      end,
+      credit: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionCreditResponse.from_hash(value)
+      end,
+      plan: lambda do |value|
+        ::OctridevClerk::CommercePlan2.from_hash(value)
+      end,
+      plan_period: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItem2PlanPeriod.from_value(value)
+      end,
+      payment_source: lambda do |value|
+        ::OctridevClerk::CommercePaymentSourceResponse.from_hash(value)
+      end,
+      lifetime_paid: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      amount: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      next_invoice: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItemNextPaymentResponse.from_hash(value)
+      end,
+      next_payment: lambda do |value|
+        ::OctridevClerk::CommerceSubscriptionItemNextPaymentResponse.from_hash(value)
+      end,
+      payer: lambda do |value|
+        ::OctridevClerk::CommercePayerResponse2.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      plan
+    ].freeze
+  end
 end

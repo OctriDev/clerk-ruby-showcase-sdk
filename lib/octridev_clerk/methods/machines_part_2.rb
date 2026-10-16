@@ -22,29 +22,28 @@ module OctridevClerk
         default_token_ttl: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(name) { Validation.validate_length('name', name, min: 1, max: 255) }
 
         Validation.if_given(default_token_ttl) do
-          Validation.validate_range('default_token_ttl', default_token_ttl, min: 1, max: 315360000)
+          Validation.validate_range('default_token_ttl', default_token_ttl, min: 1, max: 315_360_000)
         end
 
         SdkClient.request(
           'PATCH',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id)
           ].join,
           config: config,
           body: {
             'name' => name,
-            'default_token_ttl' => default_token_ttl,
+            'default_token_ttl' => default_token_ttl
           },
           return_type: ::OctridevClerk::Machine,
           decoder: :json,
           operation_id: 'update_machine',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -58,11 +57,10 @@ module OctridevClerk
         machine_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id)
           ].join,
           config: config,
@@ -70,7 +68,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_machine',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -80,25 +78,20 @@ module OctridevClerk
       #
       # @param machine_id [String] The ID of the machine to retrieve the secret key
       #   for
-      singleton_class.define_method(:get_machine_secret_key) do |
-        config:,
-        machine_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_machine_secret_key) do |config:, machine_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id),
-            "/secret_key"
+            '/secret_key'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Machines::SchemaSchema23990ad7,
           decoder: :json,
           operation_id: 'get_machine_secret_key',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -117,25 +110,24 @@ module OctridevClerk
         previous_token_ttl:,
         request_options: nil
       )
-
-        Validation.validate_range('previous_token_ttl', previous_token_ttl, min: 0, max: 28800)
+        Validation.validate_range('previous_token_ttl', previous_token_ttl, min: 0, max: 28_800)
 
         SdkClient.request(
           'POST',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id),
-            "/secret_key/rotate"
+            '/secret_key/rotate'
           ].join,
           config: config,
           body: {
-            'previous_token_ttl' => previous_token_ttl,
+            'previous_token_ttl' => previous_token_ttl
           },
           return_type: ::OctridevClerk::Methods::Machines::SchemaSchema23990ad7,
           decoder: :json,
           operation_id: 'rotate_machine_secret_key',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -151,23 +143,22 @@ module OctridevClerk
         to_machine_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id),
-            "/scopes"
+            '/scopes'
           ].join,
           config: config,
           body: {
-            'to_machine_id' => to_machine_id,
+            'to_machine_id' => to_machine_id
           },
           return_type: ::OctridevClerk::MachineScope,
           decoder: :json,
           operation_id: 'create_machine_scope',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -183,13 +174,12 @@ module OctridevClerk
         other_machine_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id),
-            "/scopes/",
+            '/scopes/',
             SdkClient.encode_path_segment(other_machine_id)
           ].join,
           config: config,
@@ -197,7 +187,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_machine_scope',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

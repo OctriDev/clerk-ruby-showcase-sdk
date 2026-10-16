@@ -17,11 +17,10 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id)
           ].join,
           config: config,
@@ -29,7 +28,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_scim_directory',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -42,20 +41,19 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id),
-            "/rotate_api_key"
+            '/rotate_api_key'
           ].join,
           config: config,
           return_type: ::OctridevClerk::SCIMDirectory,
           decoder: :json,
           operation_id: 'rotate_scim_directory_api_key',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -67,20 +65,19 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id),
-            "/group_role_mappings"
+            '/group_role_mappings'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::ScimDirectories::SchemaSchemaC6c780d9,
           decoder: :json,
           operation_id: 'list_scim_group_role_mappings',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -101,27 +98,26 @@ module OctridevClerk
         precedence: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
 
         SdkClient.request(
           'POST',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id),
-            "/group_role_mappings"
+            '/group_role_mappings'
           ].join,
           config: config,
           body: {
             'scim_group_id' => scim_group_id,
             'role_id' => role_id,
-            'precedence' => precedence,
+            'precedence' => precedence
           },
           return_type: ::OctridevClerk::SCIMGroupRoleMapping,
           decoder: :json,
           operation_id: 'create_scim_group_role_mapping',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -136,23 +132,22 @@ module OctridevClerk
         mappings:,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id),
-            "/group_role_mappings"
+            '/group_role_mappings'
           ].join,
           config: config,
           body: {
-            'mappings' => mappings,
+            'mappings' => mappings
           },
           return_type: ::OctridevClerk::Methods::ScimDirectories::SchemaSchemaC6c780d9,
           decoder: :json,
           operation_id: 'replace_scim_group_role_mappings',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -166,13 +161,12 @@ module OctridevClerk
         mapping_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/scim_directories/",
+            '/scim_directories/',
             SdkClient.encode_path_segment(scim_directory_id),
-            "/group_role_mappings/",
+            '/group_role_mappings/',
             SdkClient.encode_path_segment(mapping_id)
           ].join,
           config: config,
@@ -180,7 +174,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_scim_group_role_mapping',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

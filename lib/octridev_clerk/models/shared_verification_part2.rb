@@ -5,34 +5,34 @@
 
 # shared_verification domain models (part 2)
 module OctridevClerk
-# Defines the VerificationTicketObject SDK namespace.
-module VerificationTicketObject
-  VERIFICATION_TICKET = 'verification_ticket'
-  VALUES = ['verification_ticket'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the VerificationTicketObject SDK namespace.
+  module VerificationTicketObject
+    VERIFICATION_TICKET = 'verification_ticket'
+    VALUES = ['verification_ticket'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('VerificationTicketObject', 'enum', "Unknown VerificationTicketObject: #{value}")
+      raise SdkValidationError.new('VerificationTicketObject', 'enum', "Unknown VerificationTicketObject: #{value}")
+    end
   end
-end
 
-# Defines the VerificationTicketStatus SDK namespace.
-module VerificationTicketStatus
-  UNVERIFIED = 'unverified'
-  VERIFIED = 'verified'
-  EXPIRED = 'expired'
-  VALUES = ['unverified', 'verified', 'expired'].freeze
-  def self.from_value(value)
-    value
+  # Defines the VerificationTicketStatus SDK namespace.
+  module VerificationTicketStatus
+    UNVERIFIED = 'unverified'
+    VERIFIED = 'verified'
+    EXPIRED = 'expired'
+    VALUES = %w[unverified verified expired].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the VerificationTicketStrategy SDK namespace.
-module VerificationTicketStrategy
-  TICKET = 'ticket'
-  VALUES = ['ticket'].freeze
-  def self.from_value(value)
-    value
+  # Defines the VerificationTicketStrategy SDK namespace.
+  module VerificationTicketStrategy
+    TICKET = 'ticket'
+    VALUES = ['ticket'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 end

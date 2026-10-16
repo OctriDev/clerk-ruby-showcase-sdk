@@ -12,18 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEmailAddressMetadata
         FIELDS = {
-          user_id: "user_id",
-          email_address: "email_address",
-          verified: "verified",
-          primary: "primary",
-          notify_primary_email_address_changed: "notify_primary_email_address_changed",
+          user_id: 'user_id',
+          email_address: 'email_address',
+          verified: 'verified',
+          primary: 'primary',
+          notify_primary_email_address_changed: 'notify_primary_email_address_changed'
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
           email_address
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateEmailAddress.
@@ -61,14 +60,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEmailAddressMetadata
         FIELDS = {
-          verified: "verified",
-          primary: "primary",
-          notify_primary_email_address_changed: "notify_primary_email_address_changed",
+          verified: 'verified',
+          primary: 'primary',
+          notify_primary_email_address_changed: 'notify_primary_email_address_changed'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateEmailAddress.
@@ -102,18 +99,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema3e93ce8eMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          status: "status",
-          strategy: "strategy",
-          attempts: "attempts",
-          expire_at: "expire_at",
-          channel: "channel",
+          object: 'object',
+          id: 'id',
+          status: 'status',
+          strategy: 'strategy',
+          attempts: 'attempts',
+          expire_at: 'expire_at',
+          channel: 'channel'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for SchemaSchema3e93ce8e.
@@ -155,15 +150,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalAttemptEmailAddressVerificationMetadata
         FIELDS = {
-          verification_id: "verification_id",
-          code: "code",
+          verification_id: 'verification_id',
+          code: 'code'
         }.freeze
         REQUIRED_FIELDS = %i[
           verification_id
           code
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for AttemptEmailAddressVerification.
@@ -195,9 +189,9 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceUserEmailAddressMetadata
         FIELDS = {
-          email_address: "email_address",
-          identification_status: "identification_status",
-          notify_primary_email_address_changed: "notify_primary_email_address_changed",
+          email_address: 'email_address',
+          identification_status: 'identification_status',
+          notify_primary_email_address_changed: 'notify_primary_email_address_changed'
         }.freeze
         REQUIRED_FIELDS = %i[
           email_address
@@ -205,7 +199,7 @@ module OctridevClerk
         DECODERS = {
           identification_status: lambda do |value|
             ::OctridevClerk::Methods::EmailAddresses::ReplaceUserEmailAddressIdentificationStatus.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -242,7 +236,7 @@ module OctridevClerk
         VERIFIED = 'verified'
         RESERVED = 'reserved'
         UNVERIFIED = 'unverified'
-        VALUES = ['verified', 'reserved', 'unverified'].freeze
+        VALUES = %w[verified reserved unverified].freeze
         def self.from_value(value)
           value
         end
@@ -272,23 +266,22 @@ module OctridevClerk
         notify_primary_email_address_changed: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/email_addresses",
+          '/email_addresses',
           config: config,
           body: {
             'user_id' => user_id,
             'email_address' => email_address,
             'verified' => verified,
             'primary' => primary,
-            'notify_primary_email_address_changed' => notify_primary_email_address_changed,
+            'notify_primary_email_address_changed' => notify_primary_email_address_changed
           },
           return_type: ::OctridevClerk::EmailAddress,
           decoder: :json,
           operation_id: 'create_email_address',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -297,16 +290,11 @@ module OctridevClerk
       # Returns the details of an email address.
       #
       # @param email_address_id [String] The ID of the email address to retrieve
-      singleton_class.define_method(:get_email_address) do |
-        config:,
-        email_address_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_email_address) do |config:, email_address_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/email_addresses/",
+            '/email_addresses/',
             SdkClient.encode_path_segment(email_address_id)
           ].join,
           config: config,
@@ -314,7 +302,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_email_address',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -328,11 +316,10 @@ module OctridevClerk
         email_address_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/email_addresses/",
+            '/email_addresses/',
             SdkClient.encode_path_segment(email_address_id)
           ].join,
           config: config,
@@ -340,7 +327,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_email_address',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -364,24 +351,23 @@ module OctridevClerk
         notify_primary_email_address_changed: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/email_addresses/",
+            '/email_addresses/',
             SdkClient.encode_path_segment(email_address_id)
           ].join,
           config: config,
           body: {
             'verified' => verified,
             'primary' => primary,
-            'notify_primary_email_address_changed' => notify_primary_email_address_changed,
+            'notify_primary_email_address_changed' => notify_primary_email_address_changed
           },
           return_type: ::OctridevClerk::EmailAddress,
           decoder: :json,
           operation_id: 'update_email_address',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -394,20 +380,19 @@ module OctridevClerk
         email_address_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/email_addresses/",
+            '/email_addresses/',
             SdkClient.encode_path_segment(email_address_id),
-            "/prepare_verification"
+            '/prepare_verification'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::EmailAddresses::SchemaSchema3e93ce8e,
           decoder: :json,
           operation_id: 'prepare_email_address_verification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -426,24 +411,23 @@ module OctridevClerk
         code:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/email_addresses/",
+            '/email_addresses/',
             SdkClient.encode_path_segment(email_address_id),
-            "/attempt_verification"
+            '/attempt_verification'
           ].join,
           config: config,
           body: {
             'verification_id' => verification_id,
-            'code' => code,
+            'code' => code
           },
           return_type: ::OctridevClerk::Methods::EmailAddresses::SchemaSchema3e93ce8e,
           decoder: :json,
           operation_id: 'attempt_email_address_verification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -472,25 +456,24 @@ module OctridevClerk
         notify_primary_email_address_changed: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/email_address"
+            '/email_address'
           ].join,
           config: config,
           body: {
             'email_address' => email_address,
             'identification_status' => identification_status,
-            'notify_primary_email_address_changed' => notify_primary_email_address_changed,
+            'notify_primary_email_address_changed' => notify_primary_email_address_changed
           },
           return_type: ::OctridevClerk::EmailAddress,
           decoder: :json,
           operation_id: 'replace_user_email_address',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

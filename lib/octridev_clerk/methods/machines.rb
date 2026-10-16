@@ -12,8 +12,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema11ae8042Metadata
         FIELDS = {
-          data: "data",
-          total_count: "total_count",
+          data: 'data',
+          total_count: 'total_count'
         }.freeze
         REQUIRED_FIELDS = %i[
           data
@@ -22,7 +22,7 @@ module OctridevClerk
         DECODERS = {
           data: lambda do |value|
             value&.map { |item| ::OctridevClerk::Machine.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -54,15 +54,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateMachineMetadata
         FIELDS = {
-          name: "name",
-          scoped_machines: "scoped_machines",
-          default_token_ttl: "default_token_ttl",
+          name: 'name',
+          scoped_machines: 'scoped_machines',
+          default_token_ttl: 'default_token_ttl'
         }.freeze
         REQUIRED_FIELDS = %i[
           name
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateMachine.
@@ -96,15 +95,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema6ad3d7e4Metadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          name: "name",
-          instance_id: "instance_id",
-          created_at: "created_at",
-          updated_at: "updated_at",
-          default_token_ttl: "default_token_ttl",
-          scoped_machines: "scoped_machines",
-          secret_key: "secret_key",
+          object: 'object',
+          id: 'id',
+          name: 'name',
+          instance_id: 'instance_id',
+          created_at: 'created_at',
+          updated_at: 'updated_at',
+          default_token_ttl: 'default_token_ttl',
+          scoped_machines: 'scoped_machines',
+          secret_key: 'secret_key'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -122,7 +121,7 @@ module OctridevClerk
           end,
           scoped_machines: lambda do |value|
             value&.map { |item| ::OctridevClerk::MachineWithoutScopedMachines.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -169,13 +168,11 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateMachineMetadata
         FIELDS = {
-          name: "name",
-          default_token_ttl: "default_token_ttl",
+          name: 'name',
+          default_token_ttl: 'default_token_ttl'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateMachine.
@@ -207,9 +204,9 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema7a4a2eaaMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          deleted: "deleted",
+          object: 'object',
+          id: 'id',
+          deleted: 'deleted'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -222,7 +219,7 @@ module OctridevClerk
           end,
           deleted: lambda do |value|
             ::OctridevClerk::SchemaSchemaDeletedB1392ec9.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -257,8 +254,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema23990ad7Metadata
         FIELDS = {
-          object: "object",
-          secret: "secret",
+          object: 'object',
+          secret: 'secret'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -267,7 +264,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::SchemaSchemaObjectAb22cdb6.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -300,13 +297,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRotateMachineSecretKeyMetadata
         FIELDS = {
-          previous_token_ttl: "previous_token_ttl",
+          previous_token_ttl: 'previous_token_ttl'
         }.freeze
         REQUIRED_FIELDS = %i[
           previous_token_ttl
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RotateMachineSecretKey.
@@ -336,13 +332,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateMachineScopeMetadata
         FIELDS = {
-          to_machine_id: "to_machine_id",
+          to_machine_id: 'to_machine_id'
         }.freeze
         REQUIRED_FIELDS = %i[
           to_machine_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateMachineScope.
@@ -372,10 +367,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSchemaSchema5f07b6afMetadata
         FIELDS = {
-          object: "object",
-          from_machine_id: "from_machine_id",
-          to_machine_id: "to_machine_id",
-          deleted: "deleted",
+          object: 'object',
+          from_machine_id: 'from_machine_id',
+          to_machine_id: 'to_machine_id',
+          deleted: 'deleted'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -389,7 +384,7 @@ module OctridevClerk
           end,
           deleted: lambda do |value|
             ::OctridevClerk::SchemaSchemaDeleted92e27971.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -446,26 +441,25 @@ module OctridevClerk
         order_by: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/machines",
+          '/machines',
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
             'query' => QueryValue.new(query, style: 'form', explode: true),
-            'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
+            'order_by' => QueryValue.new(order_by, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::Methods::Machines::SchemaSchema11ae8042,
           decoder: :json,
           operation_id: 'list_machines',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -485,7 +479,6 @@ module OctridevClerk
         default_token_ttl: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_length('name', name, min: 1, max: 255)
 
         Validation.if_given(scoped_machines) do
@@ -493,23 +486,23 @@ module OctridevClerk
         end
 
         Validation.if_given(default_token_ttl) do
-          Validation.validate_range('default_token_ttl', default_token_ttl, min: 1, max: 315360000)
+          Validation.validate_range('default_token_ttl', default_token_ttl, min: 1, max: 315_360_000)
         end
 
         SdkClient.request(
           'POST',
-          "/machines",
+          '/machines',
           config: config,
           body: {
             'name' => name,
             'scoped_machines' => scoped_machines,
-            'default_token_ttl' => default_token_ttl,
+            'default_token_ttl' => default_token_ttl
           },
           return_type: ::OctridevClerk::Methods::Machines::SchemaSchema6ad3d7e4,
           decoder: :json,
           operation_id: 'create_machine',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -518,16 +511,11 @@ module OctridevClerk
       # Returns the details of a machine.
       #
       # @param machine_id [String] The ID of the machine to retrieve
-      singleton_class.define_method(:get_machine) do |
-        config:,
-        machine_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_machine) do |config:, machine_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/machines/",
+            '/machines/',
             SdkClient.encode_path_segment(machine_id)
           ].join,
           config: config,
@@ -535,7 +523,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_machine',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

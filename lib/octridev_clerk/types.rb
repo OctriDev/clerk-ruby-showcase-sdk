@@ -8,33 +8,43 @@ module OctridevClerk
   # Defines the EmailAddressVerification SDK namespace.
   module EmailAddressVerification
   end
+
   # Defines the EnterpriseAccountConnection SDK namespace.
   module EnterpriseAccountConnection
   end
+
   # Defines the EnterpriseAccountVerification SDK namespace.
   module EnterpriseAccountVerification
   end
+
   # Defines the ExternalAccountWithVerificationVerification SDK namespace.
   module ExternalAccountWithVerificationVerification
   end
+
   # Defines the JWKSKeysItem SDK namespace.
   module JWKSKeysItem
   end
+
   # Defines the PhoneNumberVerification SDK namespace.
   module PhoneNumberVerification
   end
+
   # Defines the SAMLAccountConnection SDK namespace.
   module SAMLAccountConnection
   end
+
   # Defines the SAMLAccountVerification SDK namespace.
   module SAMLAccountVerification
   end
+
   # Defines the SAMLConnection SDK namespace.
   module SAMLConnection
   end
+
   # Defines the SessionRefresh SDK namespace.
   module SessionRefresh
   end
+
   # Defines the Web3WalletVerification SDK namespace.
   module Web3WalletVerification
   end
