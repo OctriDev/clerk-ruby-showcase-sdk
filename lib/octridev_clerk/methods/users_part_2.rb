@@ -36,15 +36,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyTOTPResponseMetadata
         FIELDS = {
-          verified: "verified",
-          code_type: "code_type",
+          verified: 'verified',
+          code_type: 'code_type'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           code_type: lambda do |value|
             ::OctridevClerk::Methods::Users::VerifyTOTPResponseCodeType.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -74,12 +73,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDisableMFAResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DisableMFAResponse.
@@ -108,12 +105,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDeleteBackupCodeResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DeleteBackupCodeResponse.
@@ -142,12 +137,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDeleteTOTPResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DeleteTOTPResponse.
@@ -176,12 +169,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSetUserPasswordCompromisedMetadata
         FIELDS = {
-          revoke_all_sessions: "revoke_all_sessions",
+          revoke_all_sessions: 'revoke_all_sessions'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for SetUserPasswordCompromised.
@@ -211,7 +202,7 @@ module OctridevClerk
       module CreateUserPhoneNumberIdentificationStatusItem
         VERIFIED = 'verified'
         RESERVED = 'reserved'
-        VALUES = ['verified', 'reserved'].freeze
+        VALUES = %w[verified reserved].freeze
         def self.from_value(value)
           value
         end
@@ -223,7 +214,7 @@ module OctridevClerk
         ACCEPTED = 'accepted'
         REVOKED = 'revoked'
         EXPIRED = 'expired'
-        VALUES = ['pending', 'accepted', 'revoked', 'expired'].freeze
+        VALUES = %w[pending accepted revoked expired].freeze
         def self.from_value(value)
           value
         end
@@ -233,7 +224,7 @@ module OctridevClerk
       module VerifyTOTPResponseCodeType
         TOTP = 'totp'
         BACKUP_CODE = 'backup_code'
-        VALUES = ['totp', 'backup_code'].freeze
+        VALUES = %w[totp backup_code].freeze
         def self.from_value(value)
           value
         end
@@ -243,7 +234,7 @@ module OctridevClerk
       module CreateUserEmailAddressIdentificationStatusItem
         VERIFIED = 'verified'
         RESERVED = 'reserved'
-        VALUES = ['verified', 'reserved'].freeze
+        VALUES = %w[verified reserved].freeze
         def self.from_value(value)
           value
         end
@@ -381,20 +372,20 @@ module OctridevClerk
         order_by: NOT_GIVEN,
         request_options: nil
       )
-
         __sdk_validate_list_users(limit: limit, offset: offset)
 
         SdkClient.request(
           'GET',
-          "/users",
+          '/users',
           config: config,
           query: __sdk_query_list_users_part1(email_address: email_address, phone_number: phone_number, external_id: external_id, username: username, web3_wallet: web3_wallet, user_id: user_id, organization_id: organization_id, query: query, email_address_query: email_address_query, phone_number_query: phone_number_query, username_query: username_query, name_query: name_query, banned: banned, last_active_at_before: last_active_at_before, last_active_at_after: last_active_at_after, last_active_at_since: last_active_at_since, created_at_before: created_at_before, created_at_after: created_at_after).merge(
-            __sdk_query_list_users_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id, limit: limit, offset: offset, starting_after: starting_after, order_by: order_by)),
+            __sdk_query_list_users_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id, limit: limit, offset: offset, starting_after: starting_after, order_by: order_by)
+          ),
           return_type: [::OctridevClerk::User],
           decoder: :json,
           operation_id: 'list_users',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -446,7 +437,7 @@ module OctridevClerk
           'last_active_at_after' => QueryValue.new(last_active_at_after, style: 'form', explode: true),
           'last_active_at_since' => QueryValue.new(last_active_at_since, style: 'form', explode: true),
           'created_at_before' => QueryValue.new(created_at_before, style: 'form', explode: true),
-          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true),
+          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true)
         }
       end
       private_class_method :__sdk_query_list_users_part1
@@ -469,7 +460,7 @@ module OctridevClerk
           'limit' => QueryValue.new(limit, style: 'form', explode: true),
           'offset' => QueryValue.new(offset, style: 'form', explode: true),
           'starting_after' => QueryValue.new(starting_after, style: 'form', explode: true),
-          'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
+          'order_by' => QueryValue.new(order_by, style: 'form', explode: true)
         }
       end
       private_class_method :__sdk_query_list_users_part2

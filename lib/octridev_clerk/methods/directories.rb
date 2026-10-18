@@ -12,18 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingsItemMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          directory_group_display_name: "directory_group_display_name",
-          scim_group_display_name: "scim_group_display_name",
-          role_id: "role_id",
-          precedence: "precedence",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          directory_group_display_name: 'directory_group_display_name',
+          scim_group_display_name: 'scim_group_display_name',
+          role_id: 'role_id',
+          precedence: 'precedence'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateDirectoryGroupRoleMappingsItem.
@@ -63,10 +62,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryMetadata
         FIELDS = {
-          enterprise_connection_id: "enterprise_connection_id",
-          name: "name",
-          provider: "provider",
-          group_role_mappings: "group_role_mappings",
+          enterprise_connection_id: 'enterprise_connection_id',
+          name: 'name',
+          provider: 'provider',
+          group_role_mappings: 'group_role_mappings'
         }.freeze
         REQUIRED_FIELDS = %i[
           enterprise_connection_id
@@ -75,7 +74,7 @@ module OctridevClerk
         DECODERS = {
           group_role_mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::Directories::CreateDirectoryGroupRoleMappingsItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -112,16 +111,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateDirectoryMetadata
         FIELDS = {
-          name: "name",
-          enabled: "enabled",
-          provider: "provider",
-          attribute_mapping: "attribute_mapping",
-          group_role_mapping_enabled: "group_role_mapping_enabled",
+          name: 'name',
+          enabled: 'enabled',
+          provider: 'provider',
+          attribute_mapping: 'attribute_mapping',
+          group_role_mapping_enabled: 'group_role_mapping_enabled'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateDirectory.
@@ -159,16 +156,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          role_id: "role_id",
-          precedence: "precedence",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          role_id: 'role_id',
+          precedence: 'precedence'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateDirectoryGroupRoleMapping.
@@ -204,15 +200,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceDirectoryGroupRoleMappingsMappingsItemMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          role_id: "role_id",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          role_id: 'role_id'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for ReplaceDirectoryGroupRoleMappingsMappingsItem.
@@ -246,7 +241,7 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceDirectoryGroupRoleMappingsMetadata
         FIELDS = {
-          mappings: "mappings",
+          mappings: 'mappings'
         }.freeze
         REQUIRED_FIELDS = %i[
           mappings
@@ -254,7 +249,7 @@ module OctridevClerk
         DECODERS = {
           mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::Directories::ReplaceDirectoryGroupRoleMappingsMappingsItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -295,24 +290,23 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/directories",
+          '/directories',
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::DirectoryList,
           decoder: :json,
           operation_id: 'list_directories',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -334,22 +328,21 @@ module OctridevClerk
         group_role_mappings: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/directories",
+          '/directories',
           config: config,
           body: {
             'enterprise_connection_id' => enterprise_connection_id,
             'provider' => provider,
             'name' => name,
-            'group_role_mappings' => group_role_mappings,
+            'group_role_mappings' => group_role_mappings
           },
           return_type: ::OctridevClerk::Directory,
           decoder: :json,
           operation_id: 'create_directory',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -358,16 +351,11 @@ module OctridevClerk
       # Returns the details of a directory.
       #
       # @param directory_id [String] The ID of the directory to retrieve
-      singleton_class.define_method(:get_directory) do |
-        config:,
-        directory_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_directory) do |config:, directory_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id)
           ].join,
           config: config,
@@ -375,7 +363,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_directory',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -402,11 +390,10 @@ module OctridevClerk
         group_role_mapping_enabled: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id)
           ].join,
           config: config,
@@ -415,13 +402,13 @@ module OctridevClerk
             'enabled' => enabled,
             'provider' => provider,
             'attribute_mapping' => attribute_mapping,
-            'group_role_mapping_enabled' => group_role_mapping_enabled,
+            'group_role_mapping_enabled' => group_role_mapping_enabled
           },
           return_type: ::OctridevClerk::Directory,
           decoder: :json,
           operation_id: 'update_directory',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -433,11 +420,10 @@ module OctridevClerk
         directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id)
           ].join,
           config: config,
@@ -445,7 +431,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_directory',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -457,20 +443,19 @@ module OctridevClerk
         directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id),
-            "/rotate_api_key"
+            '/rotate_api_key'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Directory,
           decoder: :json,
           operation_id: 'rotate_directory_api_key',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -482,20 +467,19 @@ module OctridevClerk
         directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id),
-            "/group_role_mappings"
+            '/group_role_mappings'
           ].join,
           config: config,
           return_type: ::OctridevClerk::DirectoryGroupRoleMappingList,
           decoder: :json,
           operation_id: 'list_directory_group_role_mappings',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -521,28 +505,27 @@ module OctridevClerk
         precedence: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
 
         SdkClient.request(
           'POST',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id),
-            "/group_role_mappings"
+            '/group_role_mappings'
           ].join,
           config: config,
           body: {
             'role_id' => role_id,
             'directory_group_id' => directory_group_id,
             'scim_group_id' => scim_group_id,
-            'precedence' => precedence,
+            'precedence' => precedence
           },
           return_type: ::OctridevClerk::DirectoryGroupRoleMapping,
           decoder: :json,
           operation_id: 'create_directory_group_role_mapping',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

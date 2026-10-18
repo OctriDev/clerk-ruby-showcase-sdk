@@ -5,114 +5,115 @@
 
 # shared_email domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalEmailAddressMetadata
-  FIELDS = {
-    id: "id",
-    object: "object",
-    email_address: "email_address",
-    reserved: "reserved",
-    verification: "verification",
-    linked_to: "linked_to",
-    matches_sso_connection: "matches_sso_connection",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    email_address
-    reserved
-    verification
-    linked_to
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::EmailAddressObject.from_value(value)
-    end,
-    verification: lambda do |value|
-      ::OctridevClerk::EmailAddressVerification.from_hash(value)
-    end,
-    linked_to: lambda do |value|
-      value&.map { |item| ::OctridevClerk::IdentificationLink.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    verification
-  ].freeze
-end
-
-# API model for EmailAddress.
-# Typed representation of the `EmailAddress` API schema.
-class EmailAddress
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalEmailAddressMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalEmailAddressMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalEmailAddressMetadata::DECODERS
-
-  # @return [String] Optional `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [EmailAddressObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `email_address` wire field.
-  attr_reader :email_address
-  # @return [Boolean] Required `boolean` value serialized in the `reserved` wire field.
-  attr_reader :reserved
-  # @return [EmailAddressVerification] Required object value serialized in the `verification` wire field.
-  attr_reader :verification
-  # @return [Array_of_IdentificationLink] Required array value serialized in the `linked_to` wire field.
-  attr_reader :linked_to
-  # @return [Boolean] Indicates whether this email address domain matches an active enterprise connection.
-  attr_reader :matches_sso_connection
-  # @return [Integer] Unix timestamp of creation
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of creation
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalEmailAddressMetadata
+    FIELDS = {
+      id: 'id',
+      object: 'object',
+      email_address: 'email_address',
+      reserved: 'reserved',
+      verification: 'verification',
+      linked_to: 'linked_to',
+      matches_sso_connection: 'matches_sso_connection',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      email_address
+      reserved
+      verification
+      linked_to
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::EmailAddressObject.from_value(value)
+      end,
+      verification: lambda do |value|
+        ::OctridevClerk::EmailAddressVerification.from_hash(value)
+      end,
+      linked_to: lambda do |value|
+        value&.map { |item| ::OctridevClerk::IdentificationLink.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      verification
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalEmailAddressMetadata::NULLABLE_FIELDS)
+  # API model for EmailAddress.
+  # Typed representation of the `EmailAddress` API schema.
+  class EmailAddress
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalEmailAddressMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalEmailAddressMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalEmailAddressMetadata::DECODERS
+
+    # @return [String] Optional `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [EmailAddressObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `email_address` wire field.
+    attr_reader :email_address
+    # @return [Boolean] Required `boolean` value serialized in the `reserved` wire field.
+    attr_reader :reserved
+    # @return [EmailAddressVerification] Required object value serialized in the `verification` wire field.
+    attr_reader :verification
+    # @return [Array_of_IdentificationLink] Required array value serialized in the `linked_to` wire field.
+    attr_reader :linked_to
+    # @return [Boolean] Indicates whether this email address domain matches an active enterprise connection.
+    attr_reader :matches_sso_connection
+    # @return [Integer] Unix timestamp of creation
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of creation
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalEmailAddressMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the EmailAddressObject SDK namespace.
+  module EmailAddressObject
+    EMAIL_ADDRESS = 'email_address'
+    VALUES = ['email_address'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the EmailAddressObject SDK namespace.
-module EmailAddressObject
-  EMAIL_ADDRESS = 'email_address'
-  VALUES = ['email_address'].freeze
-  def self.from_value(value)
-    value
+  # Defines the EmailAddressVerification SDK namespace.
+  module EmailAddressVerification
+    DISCRIMINATOR_MAPPING = {
+      'verification_otp' => -> { VerificationOtp },
+      'verification_admin' => -> { VerificationAdmin },
+      'verification_from_oauth' => -> { VerificationFromOauth },
+      'verification_ticket' => -> { VerificationTicket },
+      'verification_saml' => -> { VerificationSaml },
+      'verification_email_link' => -> { VerificationEmailLink },
+      'verification_scim' => -> { VerificationScim }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['object']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['object'].is_a?(::String)
+
+      raise SdkValidationError.new('EmailAddressVerification', 'variant', "Unknown EmailAddressVerification discriminator: #{hash['object'].inspect}")
+    end
   end
-end
-
-# Defines the EmailAddressVerification SDK namespace.
-module EmailAddressVerification
-  DISCRIMINATOR_MAPPING = {
-    "verification_otp" => -> { VerificationOtp },
-    "verification_admin" => -> { VerificationAdmin },
-    "verification_from_oauth" => -> { VerificationFromOauth },
-    "verification_ticket" => -> { VerificationTicket },
-    "verification_saml" => -> { VerificationSaml },
-    "verification_email_link" => -> { VerificationEmailLink },
-    "verification_scim" => -> { VerificationScim },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["object"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["object"].is_a?(::String)
-
-    raise SdkValidationError.new('EmailAddressVerification', 'variant', "Unknown EmailAddressVerification discriminator: #{hash["object"].inspect}")
-  end
-end
 end
