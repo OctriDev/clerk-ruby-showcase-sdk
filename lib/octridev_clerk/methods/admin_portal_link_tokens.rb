@@ -12,15 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateAdminPortalLinkTokenMetadata
         FIELDS = {
-          organization_id: "organization_id",
-          it_contact_id: "it_contact_id",
-          scopes: "scopes",
-          seconds_until_expiration: "seconds_until_expiration",
+          organization_id: 'organization_id',
+          it_contact_id: 'it_contact_id',
+          scopes: 'scopes',
+          seconds_until_expiration: 'seconds_until_expiration'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateAdminPortalLinkToken.
@@ -49,20 +47,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateAdminPortalLinkTokenResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          admin_portal_link_id: "admin_portal_link_id",
-          instance_id: "instance_id",
-          organization_id: "organization_id",
-          it_contact_id: "it_contact_id",
-          scopes: "scopes",
-          token: "token",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          admin_portal_link_id: 'admin_portal_link_id',
+          instance_id: 'instance_id',
+          organization_id: 'organization_id',
+          it_contact_id: 'it_contact_id',
+          scopes: 'scopes',
+          token: 'token',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -83,7 +81,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::AdminPortalLinkTokens::CreateAdminPortalLinkTokenResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           organization_id
@@ -136,12 +134,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeAdminPortalLinkTokenMetadata
         FIELDS = {
-          revocation_reason: "revocation_reason",
+          revocation_reason: 'revocation_reason'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RevokeAdminPortalLinkToken.
@@ -170,19 +166,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeAdminPortalLinkTokenResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          admin_portal_link_id: "admin_portal_link_id",
-          instance_id: "instance_id",
-          organization_id: "organization_id",
-          it_contact_id: "it_contact_id",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          admin_portal_link_id: 'admin_portal_link_id',
+          instance_id: 'instance_id',
+          organization_id: 'organization_id',
+          it_contact_id: 'it_contact_id',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -202,7 +198,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::AdminPortalLinkTokens::RevokeAdminPortalLinkTokenResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           organization_id
@@ -277,7 +273,6 @@ module OctridevClerk
         seconds_until_expiration: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(organization_id) do
           Validation.validate_pattern('organization_id', organization_id, '^org_\\w{27}$')
         end
@@ -285,23 +280,23 @@ module OctridevClerk
         Validation.if_given(it_contact_id) { Validation.validate_length('it_contact_id', it_contact_id, min: 1) }
 
         Validation.if_given(seconds_until_expiration) do
-          Validation.validate_range('seconds_until_expiration', seconds_until_expiration, max: 86400, exclusive_min: 0)
+          Validation.validate_range('seconds_until_expiration', seconds_until_expiration, max: 86_400, exclusive_min: 0)
         end
 
         SdkClient.request(
           'POST',
-          "/admin_portal_link_tokens",
+          '/admin_portal_link_tokens',
           config: config,
           body: {
             'organization_id' => organization_id,
             'it_contact_id' => it_contact_id,
             'scopes' => scopes,
-            'seconds_until_expiration' => seconds_until_expiration,
+            'seconds_until_expiration' => seconds_until_expiration
           },
           return_type: ::OctridevClerk::Methods::AdminPortalLinkTokens::CreateAdminPortalLinkTokenResponse,
           decoder: :json,
           operation_id: 'create_admin_portal_link_token',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -312,24 +307,23 @@ module OctridevClerk
         revocation_reason: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('adminPortalLinkTokenID', admin_portal_link_token_id, '^aplt_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'POST',
           [
-            "/admin_portal_link_tokens/",
+            '/admin_portal_link_tokens/',
             SdkClient.encode_path_segment(admin_portal_link_token_id),
-            "/revoke"
+            '/revoke'
           ].join,
           config: config,
           body: {
-            'revocation_reason' => revocation_reason,
+            'revocation_reason' => revocation_reason
           },
           return_type: ::OctridevClerk::Methods::AdminPortalLinkTokens::RevokeAdminPortalLinkTokenResponse,
           decoder: :json,
           operation_id: 'revoke_admin_portal_link_token',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end

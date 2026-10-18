@@ -5,97 +5,97 @@
 
 # invitations domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalInvitationRevokedMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    email_address: "email_address",
-    public_metadata: "public_metadata",
-    revoked: "revoked",
-    status: "status",
-    url: "url",
-    expires_at: "expires_at",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    email_address
-    public_metadata
-    status
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::InvitationObject.from_value(value)
-    end,
-    revoked: lambda do |value|
-      ::OctridevClerk::InvitationRevokedVariant1Revoked.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::InvitationRevokedVariant1Status.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for InvitationRevoked.
-# Typed representation of the `InvitationRevoked` API schema.
-class InvitationRevoked
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalInvitationRevokedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalInvitationRevokedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalInvitationRevokedMetadata::DECODERS
-
-  attr_reader :revoked, :status
-  # @return [InvitationObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `email`-formatted value serialized in the `email_address` wire field.
-  attr_reader :email_address
-  # @return [Hash] Required object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [String] Optional `string` value serialized in the `url` wire field.
-  attr_reader :url
-  # @return [Integer] Unix timestamp of expiration.
-  attr_reader :expires_at
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalInvitationRevokedMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      email_address: 'email_address',
+      public_metadata: 'public_metadata',
+      revoked: 'revoked',
+      status: 'status',
+      url: 'url',
+      expires_at: 'expires_at',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      email_address
+      public_metadata
+      status
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::InvitationObject.from_value(value)
+      end,
+      revoked: lambda do |value|
+        ::OctridevClerk::InvitationRevokedVariant1Revoked.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::InvitationRevokedVariant1Status.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for InvitationRevoked.
+  # Typed representation of the `InvitationRevoked` API schema.
+  class InvitationRevoked
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalInvitationRevokedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalInvitationRevokedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalInvitationRevokedMetadata::DECODERS
+
+    attr_reader :revoked, :status
+    # @return [InvitationObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `email`-formatted value serialized in the `email_address` wire field.
+    attr_reader :email_address
+    # @return [Hash] Required object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [String] Optional `string` value serialized in the `url` wire field.
+    attr_reader :url
+    # @return [Integer] Unix timestamp of expiration.
+    attr_reader :expires_at
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the InvitationRevokedVariant1Revoked SDK namespace.
+  module InvitationRevokedVariant1Revoked
+    TRUE = true
+    VALUES = [true].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the InvitationRevokedVariant1Revoked SDK namespace.
-module InvitationRevokedVariant1Revoked
-  TRUE = true
-  VALUES = [true].freeze
-  def self.from_value(value)
-    value
+  # Defines the InvitationRevokedVariant1Status SDK namespace.
+  module InvitationRevokedVariant1Status
+    REVOKED = 'revoked'
+    VALUES = ['revoked'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the InvitationRevokedVariant1Status SDK namespace.
-module InvitationRevokedVariant1Status
-  REVOKED = 'revoked'
-  VALUES = ['revoked'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

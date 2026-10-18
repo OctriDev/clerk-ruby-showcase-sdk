@@ -12,13 +12,11 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateSignUpMetadata
         FIELDS = {
-          external_id: "external_id",
-          custom_action: "custom_action",
+          external_id: 'external_id',
+          custom_action: 'custom_action'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateSignUp.
@@ -50,16 +48,11 @@ module OctridevClerk
       # Retrieve the details of the sign-up with the given ID
       #
       # @param id [String] The ID of the sign-up to retrieve
-      singleton_class.define_method(:get_sign_up) do |
-        config:,
-        id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_sign_up) do |config:, id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/sign_ups/",
+            '/sign_ups/',
             SdkClient.encode_path_segment(id)
           ].join,
           config: config,
@@ -67,7 +60,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_sign_up',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -88,23 +81,22 @@ module OctridevClerk
         custom_action: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/sign_ups/",
+            '/sign_ups/',
             SdkClient.encode_path_segment(id)
           ].join,
           config: config,
           body: {
             'external_id' => external_id,
-            'custom_action' => custom_action,
+            'custom_action' => custom_action
           },
           return_type: ::OctridevClerk::SignUp,
           decoder: :json,
           operation_id: 'update_sign_up',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

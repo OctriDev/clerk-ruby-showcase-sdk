@@ -12,18 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOrganizationRoleMetadata
         FIELDS = {
-          name: "name",
-          key: "key",
-          description: "description",
-          permissions: "permissions",
-          include_in_initial_role_set: "include_in_initial_role_set",
+          name: 'name',
+          key: 'key',
+          description: 'description',
+          permissions: 'permissions',
+          include_in_initial_role_set: 'include_in_initial_role_set'
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           key
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateOrganizationRole.
@@ -61,15 +60,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOrganizationRoleMetadata
         FIELDS = {
-          name: "name",
-          key: "key",
-          description: "description",
-          permissions: "permissions",
+          name: 'name',
+          key: 'key',
+          description: 'description',
+          permissions: 'permissions'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateOrganizationRole.
@@ -127,26 +124,25 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/organization_roles",
+          '/organization_roles',
           config: config,
           query: {
             'query' => QueryValue.new(query, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::Roles,
           decoder: :json,
           operation_id: 'list_organization_roles',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -169,39 +165,33 @@ module OctridevClerk
         include_in_initial_role_set: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/organization_roles",
+          '/organization_roles',
           config: config,
           body: {
             'name' => name,
             'key' => key,
             'description' => description,
             'permissions' => permissions,
-            'include_in_initial_role_set' => include_in_initial_role_set,
+            'include_in_initial_role_set' => include_in_initial_role_set
           },
           return_type: ::OctridevClerk::Role,
           decoder: :json,
           operation_id: 'create_organization_role',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
       # Use this request to retrieve an existing organization role by its ID.
       #
       # @param organization_role_id [String] The ID of the organization role
-      singleton_class.define_method(:get_organization_role) do |
-        config:,
-        organization_role_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_organization_role) do |config:, organization_role_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/organization_roles/",
+            '/organization_roles/',
             SdkClient.encode_path_segment(organization_role_id)
           ].join,
           config: config,
@@ -209,7 +199,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_organization_role',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -232,11 +222,10 @@ module OctridevClerk
         permissions: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/organization_roles/",
+            '/organization_roles/',
             SdkClient.encode_path_segment(organization_role_id)
           ].join,
           config: config,
@@ -244,13 +233,13 @@ module OctridevClerk
             'name' => name,
             'key' => key,
             'description' => description,
-            'permissions' => permissions,
+            'permissions' => permissions
           },
           return_type: ::OctridevClerk::Role,
           decoder: :json,
           operation_id: 'update_organization_role',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -263,11 +252,10 @@ module OctridevClerk
         organization_role_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/organization_roles/",
+            '/organization_roles/',
             SdkClient.encode_path_segment(organization_role_id)
           ].join,
           config: config,
@@ -275,7 +263,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_organization_role',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -291,13 +279,12 @@ module OctridevClerk
         permission_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/organization_roles/",
+            '/organization_roles/',
             SdkClient.encode_path_segment(organization_role_id),
-            "/permissions/",
+            '/permissions/',
             SdkClient.encode_path_segment(permission_id)
           ].join,
           config: config,
@@ -305,7 +292,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'assign_permission_to_organization_role',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -321,13 +308,12 @@ module OctridevClerk
         permission_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/organization_roles/",
+            '/organization_roles/',
             SdkClient.encode_path_segment(organization_role_id),
-            "/permissions/",
+            '/permissions/',
             SdkClient.encode_path_segment(permission_id)
           ].join,
           config: config,
@@ -335,7 +321,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'remove_permission_from_organization_role',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end
