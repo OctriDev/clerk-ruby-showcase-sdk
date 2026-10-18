@@ -1025,9 +1025,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -1061,6 +1067,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -1433,9 +1442,15 @@
                   "id": "id-1",
                   "name": "Example Name",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "provider": "provider",
                   "sync_user_attributes": false,
+                  "allow_subdomains": false,
+                  "allow_idp_initiated": false,
+                  "disable_additional_identifications": false,
                   "created_at": 1,
                   "updated_at": 1
                 }
@@ -1469,6 +1484,9 @@
                   "name": "Example Name",
                   "logo_public_url": "https://example.com",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "sync_user_attributes": false,
                   "allow_subdomains": false,
@@ -6116,6 +6134,9 @@
           "id": "id-1",
           "name": "Example Name",
           "domain": "domain",
+          "domains": [
+            "domains"
+          ],
           "idp_entity_id": "idp_entity-1",
           "idp_sso_url": "https://example.com",
           "idp_certificate": "idp_certificate",
@@ -6128,9 +6149,18 @@
               "expires_at": 1
             }
           ],
+          "idp_metadata_url": "https://example.com",
+          "idp_metadata": "idp_metadata",
           "acs_url": "https://example.com",
           "sp_entity_id": "sp_entity-1",
           "sp_metadata_url": "https://example.com",
+          "organization_id": "organization-1",
+          "attribute_mapping": {
+            "user_id": "user-1",
+            "email_address": "user@example.com",
+            "first_name": "Example Name",
+            "last_name": "Example Name"
+          },
           "active": false,
           "provider": "saml_custom",
           "user_count": 1,
@@ -6144,6 +6174,7 @@
             "mode": "email_address",
             "source": "source"
           },
+          "enterprise_connection_id": "enterprise_connection-1",
           "created_at": 1,
           "updated_at": 1
         },
@@ -7284,9 +7315,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -7320,6 +7357,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -9945,9 +9985,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -9981,6 +10027,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -11568,7 +11617,29 @@
                           "currency": "currency",
                           "currency_symbol": "currency_symbol"
                         },
-                        "per_unit_totals": [],
+                        "per_unit_totals": [
+                          {
+                            "name": "Example Name",
+                            "block_size": 1,
+                            "tiers": [
+                              {
+                                "quantity": 1,
+                                "fee_per_block": {
+                                  "amount": 100,
+                                  "amount_formatted": "amount_formatted",
+                                  "currency": "currency",
+                                  "currency_symbol": "currency_symbol"
+                                },
+                                "total": {
+                                  "amount": 100,
+                                  "amount_formatted": "amount_formatted",
+                                  "currency": "currency",
+                                  "currency_symbol": "currency_symbol"
+                                }
+                              }
+                            ]
+                          }
+                        ],
                         "credits": {
                           "proration": {
                             "amount": {
@@ -15199,6 +15270,9 @@
           "id": "id-1",
           "name": "Example Name",
           "domain": "domain",
+          "domains": [
+            "domains"
+          ],
           "idp_entity_id": "idp_entity-1",
           "idp_sso_url": "https://example.com",
           "idp_certificate": "idp_certificate",
@@ -15211,9 +15285,18 @@
               "expires_at": 1
             }
           ],
+          "idp_metadata_url": "https://example.com",
+          "idp_metadata": "idp_metadata",
           "acs_url": "https://example.com",
           "sp_entity_id": "sp_entity-1",
           "sp_metadata_url": "https://example.com",
+          "organization_id": "organization-1",
+          "attribute_mapping": {
+            "user_id": "user-1",
+            "email_address": "user@example.com",
+            "first_name": "Example Name",
+            "last_name": "Example Name"
+          },
           "active": false,
           "provider": "provider",
           "user_count": 1,
@@ -15227,6 +15310,7 @@
             "mode": "email_address",
             "source": "source"
           },
+          "enterprise_connection_id": "enterprise_connection-1",
           "created_at": 1,
           "updated_at": 1
         },
@@ -15980,9 +16064,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -16016,6 +16106,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -19923,6 +20016,9 @@
               "id": "id-1",
               "name": "Example Name",
               "domain": "domain",
+              "domains": [
+                "domains"
+              ],
               "idp_entity_id": "idp_entity-1",
               "idp_sso_url": "https://example.com",
               "idp_certificate": "idp_certificate",
@@ -19935,9 +20031,18 @@
                   "expires_at": 1
                 }
               ],
+              "idp_metadata_url": "https://example.com",
+              "idp_metadata": "idp_metadata",
               "acs_url": "https://example.com",
               "sp_entity_id": "sp_entity-1",
               "sp_metadata_url": "https://example.com",
+              "organization_id": "organization-1",
+              "attribute_mapping": {
+                "user_id": "user-1",
+                "email_address": "user@example.com",
+                "first_name": "Example Name",
+                "last_name": "Example Name"
+              },
               "active": false,
               "provider": "provider",
               "user_count": 1,
@@ -19951,6 +20056,7 @@
                 "mode": "email_address",
                 "source": "source"
               },
+              "enterprise_connection_id": "enterprise_connection-1",
               "created_at": 1,
               "updated_at": 1
             }
@@ -20789,9 +20895,15 @@
                   "id": "id-1",
                   "name": "Example Name",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "provider": "provider",
                   "sync_user_attributes": false,
+                  "allow_subdomains": false,
+                  "allow_idp_initiated": false,
+                  "disable_additional_identifications": false,
                   "created_at": 1,
                   "updated_at": 1
                 }
@@ -20825,6 +20937,9 @@
                   "name": "Example Name",
                   "logo_public_url": "https://example.com",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "sync_user_attributes": false,
                   "allow_subdomains": false,
@@ -21427,9 +21542,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -21463,6 +21584,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -22535,9 +22659,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -22571,6 +22701,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -23620,9 +23753,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -23656,6 +23795,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -25423,9 +25565,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -25459,6 +25607,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -25836,9 +25987,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -25872,6 +26029,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -26353,9 +26513,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -26389,6 +26555,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -26761,9 +26930,15 @@
                   "id": "id-1",
                   "name": "Example Name",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "provider": "provider",
                   "sync_user_attributes": false,
+                  "allow_subdomains": false,
+                  "allow_idp_initiated": false,
+                  "disable_additional_identifications": false,
                   "created_at": 1,
                   "updated_at": 1
                 }
@@ -26797,6 +26972,9 @@
                   "name": "Example Name",
                   "logo_public_url": "https://example.com",
                   "domain": "domain",
+                  "domains": [
+                    "domains"
+                  ],
                   "active": false,
                   "sync_user_attributes": false,
                   "allow_subdomains": false,
@@ -27171,9 +27349,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -27207,6 +27391,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -27576,9 +27763,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -27612,6 +27805,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -30709,6 +30905,9 @@
           "id": "id-1",
           "name": "Example Name",
           "domain": "domain",
+          "domains": [
+            "domains"
+          ],
           "idp_entity_id": "idp_entity-1",
           "idp_sso_url": "https://example.com",
           "idp_certificate": "idp_certificate",
@@ -30721,9 +30920,18 @@
               "expires_at": 1
             }
           ],
+          "idp_metadata_url": "https://example.com",
+          "idp_metadata": "idp_metadata",
           "acs_url": "https://example.com",
           "sp_entity_id": "sp_entity-1",
           "sp_metadata_url": "https://example.com",
+          "organization_id": "organization-1",
+          "attribute_mapping": {
+            "user_id": "user-1",
+            "email_address": "user@example.com",
+            "first_name": "Example Name",
+            "last_name": "Example Name"
+          },
           "active": false,
           "provider": "provider",
           "user_count": 1,
@@ -30737,6 +30945,7 @@
             "mode": "email_address",
             "source": "source"
           },
+          "enterprise_connection_id": "enterprise_connection-1",
           "created_at": 1,
           "updated_at": 1
         },
@@ -31392,9 +31601,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -31428,6 +31643,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,
@@ -31885,9 +32103,15 @@
                 "id": "id-1",
                 "name": "Example Name",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "provider": "provider",
                 "sync_user_attributes": false,
+                "allow_subdomains": false,
+                "allow_idp_initiated": false,
+                "disable_additional_identifications": false,
                 "created_at": 1,
                 "updated_at": 1
               }
@@ -31921,6 +32145,9 @@
                 "name": "Example Name",
                 "logo_public_url": "https://example.com",
                 "domain": "domain",
+                "domains": [
+                  "domains"
+                ],
                 "active": false,
                 "sync_user_attributes": false,
                 "allow_subdomains": false,

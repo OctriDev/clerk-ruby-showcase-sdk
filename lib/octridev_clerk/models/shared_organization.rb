@@ -298,6 +298,18 @@ class SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata
     public_organization_data: "public_organization_data",
   }.freeze
   REQUIRED_FIELDS = %i[
+    object
+    id
+    email_address
+    role
+    role_name
+    inviter_id
+    public_inviter_data
+    public_metadata
+    url
+    expires_at
+    created_at
+    updated_at
   ].freeze
   DECODERS = {
     object: lambda do |value|
@@ -310,6 +322,12 @@ class SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata
       ::OctridevClerk::OrganizationInvitationPublicOrganizationData.from_hash(value)
     end,
   }.freeze
+  NULLABLE_FIELDS = %i[
+    inviter_id
+    public_inviter_data
+    url
+    expires_at
+  ].freeze
 end
 
 # API model for OrganizationInvitationWithPublicOrganizationData.
@@ -359,7 +377,7 @@ class OrganizationInvitationWithPublicOrganizationData
   end
 
   def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationInvitationWithPublicOrganizationDataMetadata::NULLABLE_FIELDS)
   end
 
   def to_h

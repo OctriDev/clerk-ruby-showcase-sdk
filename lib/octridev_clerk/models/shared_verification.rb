@@ -407,6 +407,60 @@ module VerificationOtpStrategy
 end
 
 # Internal model hydration metadata.
+class SdkInternalVerificationResponseMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    status: "status",
+    strategy: "strategy",
+    attempts: "attempts",
+    expire_at: "expire_at",
+    channel: "channel",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for VerificationResponse.
+# Typed representation of the `VerificationResponse` API schema.
+class VerificationResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalVerificationResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalVerificationResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalVerificationResponseMetadata::DECODERS
+
+  # @return [String] The type of the verification object.
+  attr_reader :object
+  # @return [String] The ID of the verification. Pass this to attempt_verification.
+  attr_reader :id
+  # @return [String] The status of the verification (unverified, verified, expired, or failed).
+  attr_reader :status
+  # @return [String] The verification strategy (email_code or phone_code).
+  attr_reader :strategy
+  # @return [Integer] The number of attempts made against this verification.
+  attr_reader :attempts
+  # @return [Integer] Unix timestamp (milliseconds) at which the code expires.
+  attr_reader :expire_at
+  # @return [String] The channel the code was sent over (phone numbers only).
+  attr_reader :channel
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
+  end
+
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
 class SdkInternalVerificationSamlMetadata
   FIELDS = {
     object: "object",
@@ -609,77 +663,6 @@ module VerificationScimStrategy
   VALUES = ['scim'].freeze
   def self.from_value(value)
     value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalVerificationTicketMetadata
-  FIELDS = {
-    object: "object",
-    status: "status",
-    strategy: "strategy",
-    attempts: "attempts",
-    expire_at: "expire_at",
-    verified_at_client: "verified_at_client",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    status
-    strategy
-    attempts
-    expire_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::VerificationTicketObject.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::VerificationTicketStatus.from_value(value)
-    end,
-    strategy: lambda do |value|
-      ::OctridevClerk::VerificationTicketStrategy.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    attempts
-    expire_at
-  ].freeze
-end
-
-# API model for VerificationTicket.
-# Typed representation of the `VerificationTicket` API schema.
-class VerificationTicket
-  include EmailAddressVerification
-  include SAMLAccountVerification
-  include EnterpriseAccountVerification
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerificationTicketMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerificationTicketMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerificationTicketMetadata::DECODERS
-
-  # @return [VerificationTicketObject] Optional enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [VerificationTicketStatus] Required enumerated value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [VerificationTicketStrategy] Required enumerated value serialized in the `strategy` wire field.
-  attr_reader :strategy
-  # @return [Integer] Required `integer` value serialized in the `attempts` wire field.
-  attr_reader :attempts
-  # @return [Integer] Required `integer` value serialized in the `expire_at` wire field.
-  attr_reader :expire_at
-  # @return [String] Optional `string` value serialized in the `verified_at_client` wire field.
-  attr_reader :verified_at_client
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerificationTicketMetadata::NULLABLE_FIELDS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
   end
 end
 end

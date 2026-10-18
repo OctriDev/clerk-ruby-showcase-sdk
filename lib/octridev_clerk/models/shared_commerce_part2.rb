@@ -170,11 +170,11 @@ class CommercePlan
   attr_reader :id
   # @return [String] The name of the plan.
   attr_reader :name
-  # @return [CommerceMoneyResponse] Required API value serialized in the `fee` wire field.
+  # @return [CommerceMoneyResponse] Required object value serialized in the `fee` wire field.
   attr_reader :fee
-  # @return [CommerceMoneyResponse] Required API value serialized in the `annual_monthly_fee` wire field.
+  # @return [CommerceMoneyResponse] Required object value serialized in the `annual_monthly_fee` wire field.
   attr_reader :annual_monthly_fee
-  # @return [CommerceMoneyResponse] Required API value serialized in the `annual_fee` wire field.
+  # @return [CommerceMoneyResponse] Required object value serialized in the `annual_fee` wire field.
   attr_reader :annual_fee
   # @return [String] The description of the plan.
   attr_reader :description

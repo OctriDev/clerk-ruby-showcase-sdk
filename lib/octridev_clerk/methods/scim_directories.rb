@@ -10,48 +10,6 @@ module OctridevClerk
     # Defines the ScimDirectories SDK namespace.
     module ScimDirectories
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchemaA0ee7c0bMetadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            ::OctridevClerk::SCIMDirectories.from_hash(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchemaA0ee7c0b.
-      class SchemaSchemaA0ee7c0b
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchemaA0ee7c0bMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchemaA0ee7c0bMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchemaA0ee7c0bMetadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of directories.
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateSCIMDirectoryGroupRoleMappingsItemMetadata
         FIELDS = {
           scim_group_id: "scim_group_id",
@@ -194,48 +152,6 @@ module OctridevClerk
       end
 
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchemaC6c780d9Metadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            ::OctridevClerk::SCIMGroupRoleMappings.from_hash(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchemaC6c780d9.
-      class SchemaSchemaC6c780d9
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchemaC6c780d9Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchemaC6c780d9Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchemaC6c780d9Metadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of SCIM group role mappings in the directory.
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateSCIMGroupRoleMappingMetadata
         FIELDS = {
           scim_group_id: "scim_group_id",
@@ -357,56 +273,6 @@ module OctridevClerk
         end
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchemaB78302a9Metadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          deleted: "deleted",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          deleted
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObject3d55986b.from_value(value)
-          end,
-          deleted: lambda do |value|
-            ::OctridevClerk::SchemaSchemaDeleted85fe41d0.from_value(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchemaB78302a9.
-      class SchemaSchemaB78302a9
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchemaB78302a9Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchemaB78302a9Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchemaB78302a9Metadata::DECODERS
-
-        # @return [SchemaSchemaObject3d55986b] String representing the object's type.
-        attr_reader :object
-        # @return [String] The ID of the deleted SCIM group role mapping.
-        attr_reader :id
-        # @return [SchemaSchemaDeleted85fe41d0] Whether the SCIM group role mapping was successfully deleted.
-        attr_reader :deleted
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
       # Returns a list of all directories for the instance.
       #
       # @param limit [Integer] Applies a limit to the number of results returned.
@@ -433,7 +299,7 @@ module OctridevClerk
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
-          return_type: ::OctridevClerk::Methods::ScimDirectories::SchemaSchemaA0ee7c0b,
+          return_type: ::OctridevClerk::SCIMDirectoryList,
           decoder: :json,
           operation_id: 'list_scim_directories',
           request_options: request_options,
@@ -545,6 +411,153 @@ module OctridevClerk
           return_type: ::OctridevClerk::SCIMDirectory,
           decoder: :json,
           operation_id: 'update_scim_directory',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Deletes a directory and stops provisioning for it. SCIM requests authenticated with the directory's API key are rejected afterwards.
+      #
+      # @param scim_directory_id [String] The ID of the directory to delete
+      def self.delete_scim_directory(
+        config:,
+        scim_directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'DELETE',
+          [
+            "/scim_directories/",
+            SdkClient.encode_path_segment(scim_directory_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::DeletedObject,
+          decoder: :json,
+          operation_id: 'delete_scim_directory',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Generates a new API key for the directory and returns it in the `api_key` field. This is the only way to obtain the key after creation, so make sure to update it in your identity provider. The previous key remains valid for a short grace period before it expires.
+      #
+      # @param scim_directory_id [String] The ID of the directory whose API key to
+      #   rotate
+      def self.rotate_scim_directory_api_key(
+        config:,
+        scim_directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'POST',
+          [
+            "/scim_directories/",
+            SdkClient.encode_path_segment(scim_directory_id),
+            "/rotate_api_key"
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::SCIMDirectory,
+          decoder: :json,
+          operation_id: 'rotate_scim_directory_api_key',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Returns the list of SCIM group to organization role mappings for a directory, ordered by precedence.
+      #
+      # @param scim_directory_id [String] The ID of the directory.
+      def self.list_scim_group_role_mappings(
+        config:,
+        scim_directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'GET',
+          [
+            "/scim_directories/",
+            SdkClient.encode_path_segment(scim_directory_id),
+            "/group_role_mappings"
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::SCIMGroupRoleMappingList,
+          decoder: :json,
+          operation_id: 'list_scim_group_role_mappings',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Creates a new SCIM group to organization role mapping for a directory. Mappings can be created while group role mapping is disabled on the directory, but they only take effect once it is enabled.
+      #
+      # @param scim_directory_id [String] The ID of the directory.
+      # @param scim_group_id [String] The SCIM group ID from the identity provider.
+      # @param role_id [String] The ID of the organization role to assign to members
+      #   of the SCIM group.
+      # @param precedence [Integer] The precedence for this mapping. Lower values
+      #   take priority when a user belongs to multiple mapped groups. If omitted, the
+      #   mapping is appended with the next-highest precedence.
+      def self.create_scim_group_role_mapping(
+        config:,
+        scim_directory_id:,
+        scim_group_id:,
+        role_id:,
+        precedence: NOT_GIVEN,
+        request_options: nil
+      )
+
+        Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
+
+        SdkClient.request(
+          'POST',
+          [
+            "/scim_directories/",
+            SdkClient.encode_path_segment(scim_directory_id),
+            "/group_role_mappings"
+          ].join,
+          config: config,
+          body: {
+            'scim_group_id' => scim_group_id,
+            'role_id' => role_id,
+            'precedence' => precedence,
+          },
+          return_type: ::OctridevClerk::SCIMGroupRoleMapping,
+          decoder: :json,
+          operation_id: 'create_scim_group_role_mapping',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Replaces the entire set of SCIM group role mappings for a directory. The position of each item in the `mappings` array determines its precedence (the first item gets precedence 1). Passing an empty array removes all mappings. Mappings can be replaced while group role mapping is disabled on the directory, but they only take effect once it is enabled.
+      #
+      # @param scim_directory_id [String] The ID of the directory.
+      # @param mappings [Array_of_Hash] The desired set of mappings. Array order
+      #   sets precedence (1-indexed). An empty array clears all mappings.
+      def self.replace_scim_group_role_mappings(
+        config:,
+        scim_directory_id:,
+        mappings:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'PUT',
+          [
+            "/scim_directories/",
+            SdkClient.encode_path_segment(scim_directory_id),
+            "/group_role_mappings"
+          ].join,
+          config: config,
+          body: {
+            'mappings' => mappings,
+          },
+          return_type: ::OctridevClerk::SCIMGroupRoleMappingList,
+          decoder: :json,
+          operation_id: 'replace_scim_group_role_mappings',
           request_options: request_options,
           errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data

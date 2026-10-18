@@ -285,9 +285,9 @@ class BillingPriceResponse
   attr_reader :amount
   # @return [Integer] The monthly amount in cents when billed annually.
   attr_reader :annual_monthly_amount
-  # @return [CommerceMoneyResponse] Required API value serialized in the `fee` wire field.
+  # @return [CommerceMoneyResponse] Required object value serialized in the `fee` wire field.
   attr_reader :fee
-  # @return [CommerceMoneyResponse] Required API value serialized in the `annual_monthly_fee` wire field.
+  # @return [CommerceMoneyResponse] Required object value serialized in the `annual_monthly_fee` wire field.
   attr_reader :annual_monthly_fee
   # @return [String] The description of the price.
   attr_reader :description

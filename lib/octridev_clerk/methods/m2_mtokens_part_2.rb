@@ -22,7 +22,7 @@ module OctridevClerk
         request_options: nil
       |
 
-        Validation.validate_pattern('subject', subject, '^mch_\w{27}$')
+        Validation.validate_pattern('subject', subject, '^mch_\\w{27}$')
 
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 100) }
 

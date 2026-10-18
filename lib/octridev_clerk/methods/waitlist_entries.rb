@@ -10,48 +10,6 @@ module OctridevClerk
     # Defines the WaitlistEntries SDK namespace.
     module WaitlistEntries
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema45ad91e0Metadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            value&.map { |item| ::OctridevClerk::WaitlistEntry.from_hash(item) }
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchema45ad91e0.
-      class SchemaSchema45ad91e0
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema45ad91e0Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema45ad91e0Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema45ad91e0Metadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of waitlist entries
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateWaitlistEntryMetadata
         FIELDS = {
           email_address: "email_address",
@@ -175,7 +133,7 @@ module OctridevClerk
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
           },
-          return_type: ::OctridevClerk::Methods::WaitlistEntries::SchemaSchema45ad91e0,
+          return_type: ::OctridevClerk::WaitlistEntries,
           decoder: :json,
           operation_id: 'list_waitlist_entries',
           request_options: request_options,

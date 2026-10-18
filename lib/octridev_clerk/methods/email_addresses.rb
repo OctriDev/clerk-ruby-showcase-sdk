@@ -100,59 +100,6 @@ module OctridevClerk
       end
 
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema3e93ce8eMetadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          status: "status",
-          strategy: "strategy",
-          attempts: "attempts",
-          expire_at: "expire_at",
-          channel: "channel",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for SchemaSchema3e93ce8e.
-      class SchemaSchema3e93ce8e
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema3e93ce8eMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema3e93ce8eMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema3e93ce8eMetadata::DECODERS
-
-        # @return [String] The type of the verification object.
-        attr_reader :object
-        # @return [String] The ID of the verification. Pass this to attempt_verification.
-        attr_reader :id
-        # @return [String] The status of the verification (unverified, verified, expired, or failed).
-        attr_reader :status
-        # @return [String] The verification strategy (email_code or phone_code).
-        attr_reader :strategy
-        # @return [Integer] The number of attempts made against this verification.
-        attr_reader :attempts
-        # @return [Integer] Unix timestamp (milliseconds) at which the code expires.
-        attr_reader :expire_at
-        # @return [String] The channel the code was sent over (phone numbers only).
-        attr_reader :channel
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalAttemptEmailAddressVerificationMetadata
         FIELDS = {
           verification_id: "verification_id",
@@ -403,7 +350,7 @@ module OctridevClerk
             "/prepare_verification"
           ].join,
           config: config,
-          return_type: ::OctridevClerk::Methods::EmailAddresses::SchemaSchema3e93ce8e,
+          return_type: ::OctridevClerk::VerificationResponse,
           decoder: :json,
           operation_id: 'prepare_email_address_verification',
           request_options: request_options,
@@ -439,7 +386,7 @@ module OctridevClerk
             'verification_id' => verification_id,
             'code' => code,
           },
-          return_type: ::OctridevClerk::Methods::EmailAddresses::SchemaSchema3e93ce8e,
+          return_type: ::OctridevClerk::VerificationResponse,
           decoder: :json,
           operation_id: 'attempt_email_address_verification',
           request_options: request_options,

@@ -10,48 +10,6 @@ module OctridevClerk
     # Defines the Directories SDK namespace.
     module Directories
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchemaDb46323dMetadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            ::OctridevClerk::Directories.from_hash(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchemaDb46323d.
-      class SchemaSchemaDb46323d
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchemaDb46323dMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchemaDb46323dMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchemaDb46323dMetadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of directories.
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingsItemMetadata
         FIELDS = {
           directory_group_id: "directory_group_id",
@@ -199,48 +157,6 @@ module OctridevClerk
       end
 
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema1459c10bMetadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            ::OctridevClerk::DirectoryGroupRoleMappings.from_hash(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchema1459c10b.
-      class SchemaSchema1459c10b
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema1459c10bMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema1459c10bMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema1459c10bMetadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of directory group role mappings in the directory.
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingMetadata
         FIELDS = {
           directory_group_id: "directory_group_id",
@@ -366,56 +282,6 @@ module OctridevClerk
         end
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchema0a4178a1Metadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          deleted: "deleted",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          deleted
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObject.from_value(value)
-          end,
-          deleted: lambda do |value|
-            ::OctridevClerk::SchemaSchemaDeleted.from_value(value)
-          end,
-        }.freeze
-      end
-
-      # API model for SchemaSchema0a4178a1.
-      class SchemaSchema0a4178a1
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema0a4178a1Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema0a4178a1Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema0a4178a1Metadata::DECODERS
-
-        # @return [SchemaSchemaObject] String representing the object's type.
-        attr_reader :object
-        # @return [String] The ID of the deleted directory group role mapping.
-        attr_reader :id
-        # @return [SchemaSchemaDeleted] Whether the directory group role mapping was successfully deleted.
-        attr_reader :deleted
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
       # Returns a list of all directories for the instance.
       #
       # @param limit [Integer] Applies a limit to the number of results returned.
@@ -442,7 +308,7 @@ module OctridevClerk
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
-          return_type: ::OctridevClerk::Methods::Directories::SchemaSchemaDb46323d,
+          return_type: ::OctridevClerk::DirectoryList,
           decoder: :json,
           operation_id: 'list_directories',
           request_options: request_options,
@@ -554,6 +420,127 @@ module OctridevClerk
           return_type: ::OctridevClerk::Directory,
           decoder: :json,
           operation_id: 'update_directory',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Deletes a directory and stops provisioning for it. Provisioning requests authenticated with the directory's API key are rejected afterwards.
+      #
+      # @param directory_id [String] The ID of the directory to delete
+      def self.delete_directory(
+        config:,
+        directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'DELETE',
+          [
+            "/directories/",
+            SdkClient.encode_path_segment(directory_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::DeletedObject,
+          decoder: :json,
+          operation_id: 'delete_directory',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Generates a new API key for the directory and returns it in the `api_key` field. This is the only way to obtain the key after creation, so make sure to update it in your identity provider. The previous key remains valid for a short grace period before it expires.
+      #
+      # @param directory_id [String] The ID of the directory whose API key to rotate
+      def self.rotate_directory_api_key(
+        config:,
+        directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'POST',
+          [
+            "/directories/",
+            SdkClient.encode_path_segment(directory_id),
+            "/rotate_api_key"
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::Directory,
+          decoder: :json,
+          operation_id: 'rotate_directory_api_key',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Returns the list of directory group to organization role mappings for a directory, ordered by precedence.
+      #
+      # @param directory_id [String] The ID of the directory.
+      def self.list_directory_group_role_mappings(
+        config:,
+        directory_id:,
+        request_options: nil
+      )
+
+        SdkClient.request(
+          'GET',
+          [
+            "/directories/",
+            SdkClient.encode_path_segment(directory_id),
+            "/group_role_mappings"
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::DirectoryGroupRoleMappingList,
+          decoder: :json,
+          operation_id: 'list_directory_group_role_mappings',
+          request_options: request_options,
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
+      end
+
+      # Creates a new directory group to organization role mapping for a directory. Mappings can be created while group role mapping is disabled on the directory, but they only take effect once it is enabled.
+      #
+      # @param directory_id [String] The ID of the directory.
+      # @param role_id [String] The ID of the organization role to assign to members
+      #   of the group.
+      # @param directory_group_id [String] The group ID from the identity provider.
+      #   Exactly one of `directory_group_id` or `scim_group_id` is required.
+      # @param scim_group_id [String] The legacy name for `directory_group_id`. Send
+      #   either one, or both with the same value; sending both with different values
+      #   is rejected.
+      # @param precedence [Integer] The precedence for this mapping. Lower values
+      #   take priority when a user belongs to multiple mapped groups. If omitted, the
+      #   mapping is appended with the next-highest precedence.
+      def self.create_directory_group_role_mapping(
+        config:,
+        directory_id:,
+        role_id:,
+        directory_group_id: NOT_GIVEN,
+        scim_group_id: NOT_GIVEN,
+        precedence: NOT_GIVEN,
+        request_options: nil
+      )
+
+        Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
+
+        SdkClient.request(
+          'POST',
+          [
+            "/directories/",
+            SdkClient.encode_path_segment(directory_id),
+            "/group_role_mappings"
+          ].join,
+          config: config,
+          body: {
+            'role_id' => role_id,
+            'directory_group_id' => directory_group_id,
+            'scim_group_id' => scim_group_id,
+            'precedence' => precedence,
+          },
+          return_type: ::OctridevClerk::DirectoryGroupRoleMapping,
+          decoder: :json,
+          operation_id: 'create_directory_group_role_mapping',
           request_options: request_options,
           errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data

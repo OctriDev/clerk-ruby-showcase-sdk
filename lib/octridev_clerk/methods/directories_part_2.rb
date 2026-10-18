@@ -9,127 +9,6 @@ module OctridevClerk
   module Methods
     # Defines the Directories SDK namespace.
     module Directories
-      # Deletes a directory and stops provisioning for it. Provisioning requests authenticated with the directory's API key are rejected afterwards.
-      #
-      # @param directory_id [String] The ID of the directory to delete
-      def self.delete_directory(
-        config:,
-        directory_id:,
-        request_options: nil
-      )
-
-        SdkClient.request(
-          'DELETE',
-          [
-            "/directories/",
-            SdkClient.encode_path_segment(directory_id)
-          ].join,
-          config: config,
-          return_type: ::OctridevClerk::DeletedObject,
-          decoder: :json,
-          operation_id: 'delete_directory',
-          request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
-        ).data
-      end
-
-      # Generates a new API key for the directory and returns it in the `api_key` field. This is the only way to obtain the key after creation, so make sure to update it in your identity provider. The previous key remains valid for a short grace period before it expires.
-      #
-      # @param directory_id [String] The ID of the directory whose API key to rotate
-      def self.rotate_directory_api_key(
-        config:,
-        directory_id:,
-        request_options: nil
-      )
-
-        SdkClient.request(
-          'POST',
-          [
-            "/directories/",
-            SdkClient.encode_path_segment(directory_id),
-            "/rotate_api_key"
-          ].join,
-          config: config,
-          return_type: ::OctridevClerk::Directory,
-          decoder: :json,
-          operation_id: 'rotate_directory_api_key',
-          request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
-        ).data
-      end
-
-      # Returns the list of directory group to organization role mappings for a directory, ordered by precedence.
-      #
-      # @param directory_id [String] The ID of the directory.
-      def self.list_directory_group_role_mappings(
-        config:,
-        directory_id:,
-        request_options: nil
-      )
-
-        SdkClient.request(
-          'GET',
-          [
-            "/directories/",
-            SdkClient.encode_path_segment(directory_id),
-            "/group_role_mappings"
-          ].join,
-          config: config,
-          return_type: ::OctridevClerk::Methods::Directories::SchemaSchema1459c10b,
-          decoder: :json,
-          operation_id: 'list_directory_group_role_mappings',
-          request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
-        ).data
-      end
-
-      # Creates a new directory group to organization role mapping for a directory. Mappings can be created while group role mapping is disabled on the directory, but they only take effect once it is enabled.
-      #
-      # @param directory_id [String] The ID of the directory.
-      # @param role_id [String] The ID of the organization role to assign to members
-      #   of the group.
-      # @param directory_group_id [String] The group ID from the identity provider.
-      #   Exactly one of `directory_group_id` or `scim_group_id` is required.
-      # @param scim_group_id [String] The legacy name for `directory_group_id`. Send
-      #   either one, or both with the same value; sending both with different values
-      #   is rejected.
-      # @param precedence [Integer] The precedence for this mapping. Lower values
-      #   take priority when a user belongs to multiple mapped groups. If omitted, the
-      #   mapping is appended with the next-highest precedence.
-      def self.create_directory_group_role_mapping(
-        config:,
-        directory_id:,
-        role_id:,
-        directory_group_id: NOT_GIVEN,
-        scim_group_id: NOT_GIVEN,
-        precedence: NOT_GIVEN,
-        request_options: nil
-      )
-
-        Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
-
-        SdkClient.request(
-          'POST',
-          [
-            "/directories/",
-            SdkClient.encode_path_segment(directory_id),
-            "/group_role_mappings"
-          ].join,
-          config: config,
-          body: {
-            'role_id' => role_id,
-            'directory_group_id' => directory_group_id,
-            'scim_group_id' => scim_group_id,
-            'precedence' => precedence,
-          },
-          return_type: ::OctridevClerk::DirectoryGroupRoleMapping,
-          decoder: :json,
-          operation_id: 'create_directory_group_role_mapping',
-          request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
-        ).data
-      end
-
       # Replaces the entire set of directory group role mappings for a directory. The position of each item in the `mappings` array determines its precedence (the first item gets precedence 1). Passing an empty array removes all mappings. Mappings can be replaced while group role mapping is disabled on the directory, but they only take effect once it is enabled.
       #
       # @param directory_id [String] The ID of the directory.
@@ -153,7 +32,7 @@ module OctridevClerk
           body: {
             'mappings' => mappings,
           },
-          return_type: ::OctridevClerk::Methods::Directories::SchemaSchema1459c10b,
+          return_type: ::OctridevClerk::DirectoryGroupRoleMappingList,
           decoder: :json,
           operation_id: 'replace_directory_group_role_mappings',
           request_options: request_options,
@@ -182,7 +61,7 @@ module OctridevClerk
             SdkClient.encode_path_segment(mapping_id)
           ].join,
           config: config,
-          return_type: ::OctridevClerk::Methods::Directories::SchemaSchema0a4178a1,
+          return_type: ::OctridevClerk::DirectoryGroupRoleMappingDeleted,
           decoder: :json,
           operation_id: 'delete_directory_group_role_mapping',
           request_options: request_options,

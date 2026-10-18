@@ -130,6 +130,50 @@ module BiometricCredentialStatus
 end
 
 # Internal model hydration metadata.
+class SdkInternalBiometricCredentialListMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::BiometricCredential.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BiometricCredentialList.
+# Typed representation of the `BiometricCredentialList` API schema.
+class BiometricCredentialList
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBiometricCredentialListMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBiometricCredentialListMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBiometricCredentialListMetadata::DECODERS
+
+  # @return [Array_of_BiometricCredential] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of biometric credentials
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
+  end
+
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
 class SdkInternalEnterpriseAccountMetadata
   FIELDS = {
     id: "id",
@@ -244,12 +288,93 @@ module EnterpriseAccountProtocol
   end
 end
 
-# Defines the EnterpriseAccountConnection SDK namespace.
-module EnterpriseAccountConnection
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::Object)
-    return hash if hash.is_a?(::Object)
-    raise "Could not deserialize EnterpriseAccountConnection from #{hash.inspect}"
+# Internal model hydration metadata.
+class SdkInternalEnterpriseAccountConnectionMetadata
+  FIELDS = {
+    id: "id",
+    protocol: "protocol",
+    provider: "provider",
+    name: "name",
+    logo_public_url: "logo_public_url",
+    domain: "domain",
+    domains: "domains",
+    active: "active",
+    sync_user_attributes: "sync_user_attributes",
+    allow_subdomains: "allow_subdomains",
+    allow_idp_initiated: "allow_idp_initiated",
+    disable_additional_identifications: "disable_additional_identifications",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    protocol
+    provider
+    name
+    logo_public_url
+    active
+    sync_user_attributes
+    allow_subdomains
+    allow_idp_initiated
+    disable_additional_identifications
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    logo_public_url
+  ].freeze
+end
+
+# API model for EnterpriseAccountConnection.
+# Typed representation of the `EnterpriseAccountConnection` API schema.
+class EnterpriseAccountConnection
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalEnterpriseAccountConnectionMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalEnterpriseAccountConnectionMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalEnterpriseAccountConnectionMetadata::DECODERS
+
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `protocol` wire field.
+  attr_reader :protocol
+  # @return [String] Required `string` value serialized in the `provider` wire field.
+  attr_reader :provider
+  # @return [String] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [String] Required `string` value serialized in the `logo_public_url` wire field.
+  attr_reader :logo_public_url
+  # @return [String] Optional `string` value serialized in the `domain` wire field.
+  attr_reader :domain
+  # @return [Array_of_String] Optional array value serialized in the `domains` wire field.
+  attr_reader :domains
+  # @return [Boolean] Required `boolean` value serialized in the `active` wire field.
+  attr_reader :active
+  # @return [Boolean] Required `boolean` value serialized in the `sync_user_attributes` wire field.
+  attr_reader :sync_user_attributes
+  # @return [Boolean] Required `boolean` value serialized in the `allow_subdomains` wire field.
+  attr_reader :allow_subdomains
+  # @return [Boolean] Required `boolean` value serialized in the `allow_idp_initiated` wire field.
+  attr_reader :allow_idp_initiated
+  # @return [Boolean] Required `boolean` value serialized in the `disable_additional_identifications` wire field.
+  attr_reader :disable_additional_identifications
+  # @return [Integer] Unix timestamp of creation.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last update.
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
+  end
+
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalEnterpriseAccountConnectionMetadata::NULLABLE_FIELDS)
+  end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
 end
 
@@ -533,159 +658,5 @@ class SdkInternalPasskeyMetadata
   NULLABLE_FIELDS = %i[
     verification
   ].freeze
-end
-
-# API model for Passkey.
-# Typed representation of the `Passkey` API schema.
-class Passkey
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalPasskeyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalPasskeyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalPasskeyMetadata::DECODERS
-
-  # @return [String] Optional `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [PasskeyObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [Integer] Unix timestamp of when the passkey was last used.
-  attr_reader :last_used_at
-  # @return [VerificationPasskey] Required object value serialized in the `verification` wire field.
-  attr_reader :verification
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalPasskeyMetadata::NULLABLE_FIELDS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the PasskeyObject SDK namespace.
-module PasskeyObject
-  PASSKEY = 'passkey'
-  VALUES = ['passkey'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the PasswordHasher SDK value decoder.
-module PasswordHasher
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSAMLAccountMetadata
-  FIELDS = {
-    id: "id",
-    object: "object",
-    provider: "provider",
-    active: "active",
-    email_address: "email_address",
-    first_name: "first_name",
-    last_name: "last_name",
-    provider_user_id: "provider_user_id",
-    last_authenticated_at: "last_authenticated_at",
-    public_metadata: "public_metadata",
-    verification: "verification",
-    saml_connection: "saml_connection",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    object
-    provider
-    active
-    email_address
-    verification
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::SAMLAccountObject.from_value(value)
-    end,
-    verification: lambda do |value|
-      ::OctridevClerk::SAMLAccountVerification.from_hash(value)
-    end,
-    saml_connection: lambda do |value|
-      ::OctridevClerk::SAMLAccountConnection.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    verification
-  ].freeze
-end
-
-# API model for SAMLAccount.
-# Typed representation of the `SAMLAccount` API schema.
-class SAMLAccount
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSAMLAccountMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSAMLAccountMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSAMLAccountMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [SAMLAccountObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `provider` wire field.
-  attr_reader :provider
-  # @return [Boolean] Required `boolean` value serialized in the `active` wire field.
-  attr_reader :active
-  # @return [String] Required `string` value serialized in the `email_address` wire field.
-  attr_reader :email_address
-  # @return [String] Optional `string` value serialized in the `first_name` wire field.
-  attr_reader :first_name
-  # @return [String] Optional `string` value serialized in the `last_name` wire field.
-  attr_reader :last_name
-  # @return [String] Optional `string` value serialized in the `provider_user_id` wire field.
-  attr_reader :provider_user_id
-  # @return [Integer] Unix timestamp of last authentication.
-  attr_reader :last_authenticated_at
-  # @return [Hash] Optional object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [SAMLAccountVerification] Required object value serialized in the `verification` wire field.
-  attr_reader :verification
-  # @return [SAMLAccountConnection] Optional object value serialized in the `saml_connection` wire field.
-  attr_reader :saml_connection
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSAMLAccountMetadata::NULLABLE_FIELDS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the SAMLAccountObject SDK namespace.
-module SAMLAccountObject
-  SAML_ACCOUNT = 'saml_account'
-  VALUES = ['saml_account'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the SAMLAccountConnection SDK namespace.
-module SAMLAccountConnection
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::Object)
-    return hash if hash.is_a?(::Object)
-    raise "Could not deserialize SAMLAccountConnection from #{hash.inspect}"
-  end
 end
 end
