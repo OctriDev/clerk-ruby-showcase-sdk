@@ -12,12 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateRedirectURLMetadata
         FIELDS = {
-          url: 'url'
+          url: "url",
         }.freeze
         REQUIRED_FIELDS = %i[
           url
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateRedirectURL.
@@ -60,23 +61,24 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/redirect_urls',
+          "/redirect_urls",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::RedirectURL],
           decoder: :json,
           operation_id: 'list_redirect_ur_ls',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -91,29 +93,35 @@ module OctridevClerk
         url:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/redirect_urls',
+          "/redirect_urls",
           config: config,
           body: {
-            'url' => url
+            'url' => url,
           },
           return_type: ::OctridevClerk::RedirectURL,
           decoder: :json,
           operation_id: 'create_redirect_url',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Retrieve the details of the redirect URL with the given ID
       #
       # @param id [String] The ID of the redirect URL
-      singleton_class.define_method(:get_redirect_url) do |config:, id:, request_options: nil|
+      singleton_class.define_method(:get_redirect_url) do |
+        config:,
+        id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/redirect_urls/',
+            "/redirect_urls/",
             SdkClient.encode_path_segment(id)
           ].join,
           config: config,
@@ -121,7 +129,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_redirect_url',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -133,10 +141,11 @@ module OctridevClerk
         id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/redirect_urls/',
+            "/redirect_urls/",
             SdkClient.encode_path_segment(id)
           ].join,
           config: config,
@@ -144,7 +153,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_redirect_url',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -21,21 +21,22 @@ module OctridevClerk
         token:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/oauth_applications/',
+            "/oauth_applications/",
             SdkClient.encode_path_segment(oauth_application_id),
-            '/revoke_token'
+            "/revoke_token"
           ].join,
           config: config,
           body: {
-            'token' => token
+            'token' => token,
           },
           decoder: :empty,
           operation_id: 'revoke_oauth_application_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

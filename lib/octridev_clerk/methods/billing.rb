@@ -16,7 +16,7 @@ module OctridevClerk
         PAST_DUE = 'past_due'
         UPCOMING = 'upcoming'
         FREE_TRIAL = 'free_trial'
-        VALUES = %w[active ended past_due upcoming free_trial].freeze
+        VALUES = ['active', 'ended', 'past_due', 'upcoming', 'free_trial'].freeze
         def self.from_value(value)
           value
         end
@@ -26,7 +26,7 @@ module OctridevClerk
       module GetCommerceSubscriptionItemListParameterB777ef14
         USER = 'user'
         ORG = 'org'
-        VALUES = %w[user org].freeze
+        VALUES = ['user', 'org'].freeze
         def self.from_value(value)
           value
         end
@@ -36,7 +36,7 @@ module OctridevClerk
       module GetCommercePlanListParameter
         USER = 'user'
         ORG = 'org'
-        VALUES = %w[user org].freeze
+        VALUES = ['user', 'org'].freeze
         def self.from_value(value)
           value
         end
@@ -52,26 +52,34 @@ module OctridevClerk
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
       # @param payer_type [GetCommercePlanListParameter] Filter plans by payer type
-      singleton_class.define_method(:get_commerce_plan_list) do |config:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, payer_type: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_commerce_plan_list) do |
+        config:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        payer_type: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/billing/plans',
+          "/billing/plans",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'payer_type' => QueryValue.new(payer_type, style: 'form', explode: true)
+            'payer_type' => QueryValue.new(payer_type, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::PaginatedCommercePlanResponse,
           decoder: :json,
           operation_id: 'get_commerce_plan_list',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -85,26 +93,34 @@ module OctridevClerk
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
       # @param plan_id [String] Filter prices by plan ID
-      singleton_class.define_method(:get_billing_price_list) do |config:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, plan_id: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_billing_price_list) do |
+        config:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        plan_id: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/billing/prices',
+          "/billing/prices",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'plan_id' => QueryValue.new(plan_id, style: 'form', explode: true)
+            'plan_id' => QueryValue.new(plan_id, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::PaginatedBillingPriceResponse,
           decoder: :json,
           operation_id: 'get_billing_price_list',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -131,9 +147,10 @@ module OctridevClerk
         supported_billing_periods: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/billing/prices',
+          "/billing/prices",
           config: config,
           body: {
             'plan_id' => plan_id,
@@ -141,13 +158,13 @@ module OctridevClerk
             'currency' => currency,
             'annual_monthly_amount' => annual_monthly_amount,
             'description' => description,
-            'supported_billing_periods' => supported_billing_periods
+            'supported_billing_periods' => supported_billing_periods,
           },
           return_type: ::OctridevClerk::BillingPriceResponse,
           decoder: :json,
           operation_id: 'create_billing_price',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -168,14 +185,26 @@ module OctridevClerk
       # @param include_free [Boolean] Whether to include free plan subscription
       #   items
       # @param query [String] Search query to filter subscription items
-      singleton_class.define_method(:get_commerce_subscription_item_list) do |config:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, status: NOT_GIVEN, payer_type: NOT_GIVEN, plan_id: NOT_GIVEN, include_free: NOT_GIVEN, query: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_commerce_subscription_item_list) do |
+        config:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        status: NOT_GIVEN,
+        payer_type: NOT_GIVEN,
+        plan_id: NOT_GIVEN,
+        include_free: NOT_GIVEN,
+        query: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/billing/subscription_items',
+          "/billing/subscription_items",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
@@ -185,13 +214,13 @@ module OctridevClerk
             'payer_type' => QueryValue.new(payer_type, style: 'form', explode: true),
             'plan_id' => QueryValue.new(plan_id, style: 'form', explode: true),
             'include_free' => QueryValue.new(include_free, style: 'form', explode: true),
-            'query' => QueryValue.new(query, style: 'form', explode: true)
+            'query' => QueryValue.new(query, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::PaginatedCommerceSubscriptionItemResponse,
           decoder: :json,
           operation_id: 'get_commerce_subscription_item_list',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -207,21 +236,22 @@ module OctridevClerk
         end_now: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/billing/subscription_items/',
+            "/billing/subscription_items/",
             SdkClient.encode_path_segment(subscription_item_id)
           ].join,
           config: config,
           query: {
-            'end_now' => QueryValue.new(end_now, style: 'form', explode: true)
+            'end_now' => QueryValue.new(end_now, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::CommerceSubscriptionItem,
           decoder: :json,
           operation_id: 'cancel_commerce_subscription_item',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -237,24 +267,25 @@ module OctridevClerk
         extend_to:,
         request_options: nil
       )
+
         Validation.validate_date_time('extend_to', extend_to)
 
         SdkClient.request(
           'POST',
           [
-            '/billing/subscription_items/',
+            "/billing/subscription_items/",
             SdkClient.encode_path_segment(subscription_item_id),
-            '/extend_free_trial'
+            "/extend_free_trial"
           ].join,
           config: config,
           body: {
-            'extend_to' => extend_to
+            'extend_to' => extend_to,
           },
           return_type: ::OctridevClerk::CommerceSubscriptionItem2,
           decoder: :json,
           operation_id: 'extend_billing_subscription_item_free_trial',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -271,23 +302,24 @@ module OctridevClerk
         to_price_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/billing/subscription_items/',
+            "/billing/subscription_items/",
             SdkClient.encode_path_segment(subscription_item_id),
-            '/price_transition'
+            "/price_transition"
           ].join,
           config: config,
           body: {
             'from_price_id' => from_price_id,
-            'to_price_id' => to_price_id
+            'to_price_id' => to_price_id,
           },
           return_type: ::OctridevClerk::CommercePriceTransitionResponse,
           decoder: :json,
           operation_id: 'create_billing_price_transition',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -303,22 +335,23 @@ module OctridevClerk
         discount_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/billing/subscription_items/',
+            "/billing/subscription_items/",
             SdkClient.encode_path_segment(subscription_item_id),
-            '/discounts'
+            "/discounts"
           ].join,
           config: config,
           body: {
-            'discount_id' => discount_id
+            'discount_id' => discount_id,
           },
           return_type: ::OctridevClerk::CommerceDiscountRedemptionResponse,
           decoder: :json,
           operation_id: 'apply_billing_subscription_item_discount',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -333,12 +366,13 @@ module OctridevClerk
         discount_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/billing/subscription_items/',
+            "/billing/subscription_items/",
             SdkClient.encode_path_segment(subscription_item_id),
-            '/discounts/',
+            "/discounts/",
             SdkClient.encode_path_segment(discount_id)
           ].join,
           config: config,
@@ -346,7 +380,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'remove_billing_subscription_item_discount',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -359,25 +393,32 @@ module OctridevClerk
       # @param offset [Integer] Skip the first `offset` results when paginating.
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
-      singleton_class.define_method(:get_billing_statement_list) do |config:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_billing_statement_list) do |
+        config:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/billing/statements',
+          "/billing/statements",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::PaginatedBillingStatementResponse,
           decoder: :json,
           operation_id: 'get_billing_statement_list',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -386,11 +427,16 @@ module OctridevClerk
       # Retrieves the details of a billing statement.
       #
       # @param statement_id [String] The ID of the statement to retrieve.
-      singleton_class.define_method(:get_billing_statement) do |config:, statement_id:, request_options: nil|
+      singleton_class.define_method(:get_billing_statement) do |
+        config:,
+        statement_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/billing/statements/',
+            "/billing/statements/",
             SdkClient.encode_path_segment(statement_id)
           ].join,
           config: config,
@@ -398,7 +444,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_billing_statement',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -413,7 +459,15 @@ module OctridevClerk
       # @param offset [Integer] Skip the first `offset` results when paginating.
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
-      singleton_class.define_method(:get_billing_statement_payment_attempts) do |config:, statement_id:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_billing_statement_payment_attempts) do |
+        config:,
+        statement_id:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -421,21 +475,21 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/billing/statements/',
+            "/billing/statements/",
             SdkClient.encode_path_segment(statement_id),
-            '/payment_attempts'
+            "/payment_attempts"
           ].join,
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::PaginatedBillingPaymentAttemptResponse,
           decoder: :json,
           operation_id: 'get_billing_statement_payment_attempts',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -5,88 +5,88 @@
 
 # jwt_templates domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalJWTTemplateMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      name: 'name',
-      claims: 'claims',
-      lifetime: 'lifetime',
-      allowed_clock_skew: 'allowed_clock_skew',
-      custom_signing_key: 'custom_signing_key',
-      signing_algorithm: 'signing_algorithm',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      name
-      claims
-      lifetime
-      allowed_clock_skew
-      custom_signing_key
-      signing_algorithm
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::JWTTemplateObject.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalJWTTemplateMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    name: "name",
+    claims: "claims",
+    lifetime: "lifetime",
+    allowed_clock_skew: "allowed_clock_skew",
+    custom_signing_key: "custom_signing_key",
+    signing_algorithm: "signing_algorithm",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    name
+    claims
+    lifetime
+    allowed_clock_skew
+    custom_signing_key
+    signing_algorithm
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::JWTTemplateObject.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for JWTTemplate.
+# Typed representation of the `JWTTemplate` API schema.
+class JWTTemplate
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalJWTTemplateMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalJWTTemplateMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalJWTTemplateMetadata::DECODERS
+
+  # @return [JWTTemplateObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [Hash] Required object value serialized in the `claims` wire field.
+  attr_reader :claims
+  # @return [Integer] Required `integer` value serialized in the `lifetime` wire field.
+  attr_reader :lifetime
+  # @return [Integer] Required `integer` value serialized in the `allowed_clock_skew` wire field.
+  attr_reader :allowed_clock_skew
+  # @return [Boolean] Required `boolean` value serialized in the `custom_signing_key` wire field.
+  attr_reader :custom_signing_key
+  # @return [String] Required `string` value serialized in the `signing_algorithm` wire field.
+  attr_reader :signing_algorithm
+  # @return [Integer] Unix timestamp of creation.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last update.
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for JWTTemplate.
-  # Typed representation of the `JWTTemplate` API schema.
-  class JWTTemplate
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalJWTTemplateMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalJWTTemplateMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalJWTTemplateMetadata::DECODERS
-
-    # @return [JWTTemplateObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [Hash] Required object value serialized in the `claims` wire field.
-    attr_reader :claims
-    # @return [Integer] Required `integer` value serialized in the `lifetime` wire field.
-    attr_reader :lifetime
-    # @return [Integer] Required `integer` value serialized in the `allowed_clock_skew` wire field.
-    attr_reader :allowed_clock_skew
-    # @return [Boolean] Required `boolean` value serialized in the `custom_signing_key` wire field.
-    attr_reader :custom_signing_key
-    # @return [String] Required `string` value serialized in the `signing_algorithm` wire field.
-    attr_reader :signing_algorithm
-    # @return [Integer] Unix timestamp of creation.
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of last update.
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the JWTTemplateObject SDK namespace.
-  module JWTTemplateObject
-    JWT_TEMPLATE = 'jwt_template'
-    VALUES = ['jwt_template'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the JWTTemplateObject SDK namespace.
+module JWTTemplateObject
+  JWT_TEMPLATE = 'jwt_template'
+  VALUES = ['jwt_template'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end

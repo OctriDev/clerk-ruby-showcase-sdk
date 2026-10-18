@@ -5,105 +5,105 @@
 
 # shared_billing domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalBillingDiscountsResponseMetadata
-    FIELDS = {
-      proration: 'proration',
-      total: 'total'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      proration
-      total
-    ].freeze
-    DECODERS = {
-      proration: lambda do |value|
-        ::OctridevClerk::BillingProrationDiscountDetail.from_hash(value)
-      end,
-      total: lambda do |value|
-        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      proration
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBillingDiscountsResponseMetadata
+  FIELDS = {
+    proration: "proration",
+    total: "total",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    proration
+    total
+  ].freeze
+  DECODERS = {
+    proration: lambda do |value|
+      ::OctridevClerk::BillingProrationDiscountDetail.from_hash(value)
+    end,
+    total: lambda do |value|
+      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    proration
+  ].freeze
+end
+
+# API model for BillingDiscountsResponse.
+# Typed representation of the `BillingDiscountsResponse` API schema.
+class BillingDiscountsResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBillingDiscountsResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBillingDiscountsResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBillingDiscountsResponseMetadata::DECODERS
+
+  # @return [BillingProrationDiscountDetail] Proration details from passed subscription time
+  attr_reader :proration
+  # @return [CommerceMoneyResponse] Total discounts applied
+  attr_reader :total
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BillingDiscountsResponse.
-  # Typed representation of the `BillingDiscountsResponse` API schema.
-  class BillingDiscountsResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBillingDiscountsResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBillingDiscountsResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBillingDiscountsResponseMetadata::DECODERS
-
-    # @return [BillingProrationDiscountDetail] Proration details from passed subscription time
-    attr_reader :proration
-    # @return [CommerceMoneyResponse] Total discounts applied
-    attr_reader :total
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBillingDiscountsResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBillingDiscountsResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBillingProrationDiscountDetailMetadata
-    FIELDS = {
-      amount: 'amount',
-      cycle_days_passed: 'cycle_days_passed',
-      cycle_days_total: 'cycle_days_total',
-      cycle_passed_percent: 'cycle_passed_percent'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      amount
-      cycle_days_passed
-      cycle_days_total
-      cycle_passed_percent
-    ].freeze
-    DECODERS = {
-      amount: lambda do |value|
-        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBillingProrationDiscountDetailMetadata
+  FIELDS = {
+    amount: "amount",
+    cycle_days_passed: "cycle_days_passed",
+    cycle_days_total: "cycle_days_total",
+    cycle_passed_percent: "cycle_passed_percent",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    amount
+    cycle_days_passed
+    cycle_days_total
+    cycle_passed_percent
+  ].freeze
+  DECODERS = {
+    amount: lambda do |value|
+      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BillingProrationDiscountDetail.
+# Typed representation of the `BillingProrationDiscountDetail` API schema.
+class BillingProrationDiscountDetail
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBillingProrationDiscountDetailMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBillingProrationDiscountDetailMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBillingProrationDiscountDetailMetadata::DECODERS
+
+  # @return [CommerceMoneyResponse] Credit amount with formatting
+  attr_reader :amount
+  # @return [Integer] Number of days that have passed in the billing cycle
+  attr_reader :cycle_days_passed
+  # @return [Integer] Total number of days in the billing cycle
+  attr_reader :cycle_days_total
+  # @return [Float] Percentage of the billing cycle that has passed
+  attr_reader :cycle_passed_percent
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BillingProrationDiscountDetail.
-  # Typed representation of the `BillingProrationDiscountDetail` API schema.
-  class BillingProrationDiscountDetail
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBillingProrationDiscountDetailMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBillingProrationDiscountDetailMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBillingProrationDiscountDetailMetadata::DECODERS
-
-    # @return [CommerceMoneyResponse] Credit amount with formatting
-    attr_reader :amount
-    # @return [Integer] Number of days that have passed in the billing cycle
-    attr_reader :cycle_days_passed
-    # @return [Integer] Total number of days in the billing cycle
-    attr_reader :cycle_days_total
-    # @return [Float] Percentage of the billing cycle that has passed
-    attr_reader :cycle_passed_percent
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

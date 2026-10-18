@@ -80,23 +80,23 @@ module OctridevClerk
         consent_verified_domains_deletion: NOT_GIVEN,
         request_options: nil
       )
+
         __sdk_validate_update_saml_connection(idp_certificates: idp_certificates)
 
         SdkClient.request(
           'PATCH',
           [
-            '/saml_connections/',
+            "/saml_connections/",
             SdkClient.encode_path_segment(saml_connection_id)
           ].join,
           config: config,
           body: __sdk_body_update_saml_connection_part1(name: name, domain: domain, domains: domains, idp_entity_id: idp_entity_id, idp_sso_url: idp_sso_url, idp_certificate: idp_certificate, idp_certificates: idp_certificates, idp_metadata_url: idp_metadata_url, idp_metadata: idp_metadata, organization_id: organization_id, attribute_mapping: attribute_mapping, active: active, sync_user_attributes: sync_user_attributes, allow_subdomains: allow_subdomains, allow_idp_initiated: allow_idp_initiated, disable_additional_identifications: disable_additional_identifications, allow_organization_account_linking: allow_organization_account_linking, force_authn: force_authn).merge(
-            __sdk_body_update_saml_connection_part2(login_hint: login_hint, consent_verified_domains_deletion: consent_verified_domains_deletion)
-          ),
+            __sdk_body_update_saml_connection_part2(login_hint: login_hint, consent_verified_domains_deletion: consent_verified_domains_deletion)),
           return_type: ::OctridevClerk::SAMLConnection,
           decoder: :json,
           operation_id: 'update_saml_connection',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -147,7 +147,7 @@ module OctridevClerk
           'allow_idp_initiated' => allow_idp_initiated,
           'disable_additional_identifications' => disable_additional_identifications,
           'allow_organization_account_linking' => allow_organization_account_linking,
-          'force_authn' => force_authn
+          'force_authn' => force_authn,
         }
       end
       private_class_method :__sdk_body_update_saml_connection_part1
@@ -158,7 +158,7 @@ module OctridevClerk
       )
         {
           'login_hint' => login_hint,
-          'consent_verified_domains_deletion' => consent_verified_domains_deletion
+          'consent_verified_domains_deletion' => consent_verified_domains_deletion,
         }
       end
       private_class_method :__sdk_body_update_saml_connection_part2
@@ -173,10 +173,11 @@ module OctridevClerk
         saml_connection_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/saml_connections/',
+            "/saml_connections/",
             SdkClient.encode_path_segment(saml_connection_id)
           ].join,
           config: config,
@@ -184,7 +185,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_saml_connection',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

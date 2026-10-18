@@ -19,10 +19,21 @@ module OctridevClerk
       # @param sign_in_url [String] The sign in URL of your instance
       # @param use_domain_for_script [Boolean] Whether to use the domain for the
       #   script URL
-      singleton_class.define_method(:get_public_interstitial) do |config:, frontend_api: NOT_GIVEN, frontend_api2: NOT_GIVEN, publishable_key: NOT_GIVEN, proxy_url: NOT_GIVEN, domain: NOT_GIVEN, sign_in_url: NOT_GIVEN, use_domain_for_script: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_public_interstitial) do |
+        config:,
+        frontend_api: NOT_GIVEN,
+        frontend_api2: NOT_GIVEN,
+        publishable_key: NOT_GIVEN,
+        proxy_url: NOT_GIVEN,
+        domain: NOT_GIVEN,
+        sign_in_url: NOT_GIVEN,
+        use_domain_for_script: NOT_GIVEN,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/public/interstitial',
+          "/public/interstitial",
           config: config,
           query: {
             'frontendApi' => QueryValue.new(frontend_api, style: 'form', explode: true),
@@ -31,11 +42,11 @@ module OctridevClerk
             'proxy_url' => QueryValue.new(proxy_url, style: 'form', explode: true),
             'domain' => QueryValue.new(domain, style: 'form', explode: true),
             'sign_in_url' => QueryValue.new(sign_in_url, style: 'form', explode: true),
-            'use_domain_for_script' => QueryValue.new(use_domain_for_script, style: 'form', explode: true)
+            'use_domain_for_script' => QueryValue.new(use_domain_for_script, style: 'form', explode: true),
           },
           decoder: :empty,
           operation_id: 'get_public_interstitial',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

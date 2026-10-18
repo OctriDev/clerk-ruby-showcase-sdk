@@ -12,13 +12,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionMetadata
         FIELDS = {
-          user_id: 'user_id',
-          active_organization_id: 'active_organization_id'
+          user_id: "user_id",
+          active_organization_id: "active_organization_id",
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSession.
@@ -50,12 +51,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRefreshSessionMetadata
         FIELDS = {
-          expired_token: 'expired_token',
-          refresh_token: 'refresh_token',
-          request_origin: 'request_origin',
-          request_headers: 'request_headers',
-          format: 'format',
-          request_originating_ip: 'request_originating_ip'
+          expired_token: "expired_token",
+          refresh_token: "refresh_token",
+          request_origin: "request_origin",
+          request_headers: "request_headers",
+          format: "format",
+          request_originating_ip: "request_originating_ip",
         }.freeze
         REQUIRED_FIELDS = %i[
           expired_token
@@ -65,7 +66,7 @@ module OctridevClerk
         DECODERS = {
           format: lambda do |value|
             ::OctridevClerk::Methods::Sessions::RefreshSessionFormat.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -106,10 +107,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenMetadata
         FIELDS = {
-          expires_in_seconds: 'expires_in_seconds'
+          expires_in_seconds: "expires_in_seconds",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSessionToken.
@@ -139,14 +142,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenResponseMetadata
         FIELDS = {
-          object: 'object',
-          jwt: 'jwt'
+          object: "object",
+          jwt: "jwt",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::Sessions::CreateSessionTokenResponseObject.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -176,10 +180,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenFromTemplateMetadata
         FIELDS = {
-          expires_in_seconds: 'expires_in_seconds'
+          expires_in_seconds: "expires_in_seconds",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSessionTokenFromTemplate.
@@ -209,14 +215,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenFromTemplateResponseMetadata
         FIELDS = {
-          object: 'object',
-          jwt: 'jwt'
+          object: "object",
+          jwt: "jwt",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::Sessions::CreateSessionTokenFromTemplateResponseObject.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -261,8 +268,8 @@ module OctridevClerk
         REMOVED = 'removed'
         REPLACED = 'replaced'
         REVOKED = 'revoked'
-        VALUES = %w[
-          abandoned active ended expired removed replaced revoked
+        VALUES = [
+          'abandoned', 'active', 'ended', 'expired', 'removed', 'replaced', 'revoked'
         ].freeze
         def self.from_value(value)
           value
@@ -282,7 +289,7 @@ module OctridevClerk
       module RefreshSessionFormat
         TOKEN = 'token'
         COOKIE = 'cookie'
-        VALUES = %w[token cookie].freeze
+        VALUES = ['token', 'cookie'].freeze
         def self.from_value(value)
           value
         end
@@ -310,13 +317,14 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/sessions',
+          "/sessions",
           config: config,
           query: {
             'client_id' => QueryValue.new(client_id, style: 'form', explode: true),
@@ -324,13 +332,13 @@ module OctridevClerk
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::Session],
           decoder: :json,
           operation_id: 'list_sessions',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -345,19 +353,20 @@ module OctridevClerk
         active_organization_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/sessions',
+          "/sessions",
           config: config,
           body: {
             'user_id' => user_id,
-            'active_organization_id' => active_organization_id
+            'active_organization_id' => active_organization_id,
           },
           return_type: ::OctridevClerk::Session,
           decoder: :json,
           operation_id: 'create_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -366,11 +375,16 @@ module OctridevClerk
       # Retrieve the details of a session
       #
       # @param session_id [String] The ID of the session
-      singleton_class.define_method(:get_session) do |config:, session_id:, request_options: nil|
+      singleton_class.define_method(:get_session) do |
+        config:,
+        session_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id)
           ].join,
           config: config,
@@ -378,7 +392,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -405,12 +419,13 @@ module OctridevClerk
         request_originating_ip: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/refresh'
+            "/refresh"
           ].join,
           config: config,
           body: {
@@ -419,13 +434,13 @@ module OctridevClerk
             'request_origin' => request_origin,
             'request_headers' => request_headers,
             'format' => format,
-            'request_originating_ip' => request_originating_ip
+            'request_originating_ip' => request_originating_ip,
           },
           return_type: ::OctridevClerk::SessionRefresh,
           decoder: :json,
           operation_id: 'refresh_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -434,13 +449,19 @@ module OctridevClerk
       # @param session_id [String] The ID of the session the reverification belongs
       #   to
       # @param reverification_id [String] The ID of the reverification
-      singleton_class.define_method(:get_reverification) do |config:, session_id:, reverification_id:, request_options: nil|
+      singleton_class.define_method(:get_reverification) do |
+        config:,
+        session_id:,
+        reverification_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/reverifications/',
+            "/reverifications/",
             SdkClient.encode_path_segment(reverification_id)
           ].join,
           config: config,
@@ -448,7 +469,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_reverification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -460,19 +481,20 @@ module OctridevClerk
         session_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Session,
           decoder: :json,
           operation_id: 'revoke_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -489,26 +511,27 @@ module OctridevClerk
         expires_in_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_seconds) do
-          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315_360_000)
+          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315360000)
         end
 
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/tokens'
+            "/tokens"
           ].join,
           config: config,
           body: {
-            'expires_in_seconds' => expires_in_seconds
+            'expires_in_seconds' => expires_in_seconds,
           },
           return_type: ::OctridevClerk::Methods::Sessions::CreateSessionTokenResponse,
           decoder: :json,
           operation_id: 'create_session_token',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

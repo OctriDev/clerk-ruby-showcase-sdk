@@ -5,12 +5,12 @@
 
 # jwks domain models (part 2)
 module OctridevClerk
-  # Defines the JWKSSymmetricKeyKty SDK namespace.
-  module JWKSSymmetricKeyKty
-    OCT = 'oct'
-    VALUES = ['oct'].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the JWKSSymmetricKeyKty SDK namespace.
+module JWKSSymmetricKeyKty
+  OCT = 'oct'
+  VALUES = ['oct'].freeze
+  def self.from_value(value)
+    value
   end
+end
 end

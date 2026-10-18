@@ -5,294 +5,295 @@
 
 # sign_ups domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalSignUpMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      status: 'status',
-      required_fields: 'required_fields',
-      optional_fields: 'optional_fields',
-      missing_fields: 'missing_fields',
-      unverified_fields: 'unverified_fields',
-      verifications: 'verifications',
-      username: 'username',
-      email_address: 'email_address',
-      phone_number: 'phone_number',
-      web3_wallet: 'web3_wallet',
-      password_enabled: 'password_enabled',
-      first_name: 'first_name',
-      last_name: 'last_name',
-      unsafe_metadata: 'unsafe_metadata',
-      public_metadata: 'public_metadata',
-      custom_action: 'custom_action',
-      external_id: 'external_id',
-      created_session_id: 'created_session_id',
-      created_user_id: 'created_user_id',
-      abandon_at: 'abandon_at',
-      legal_accepted_at: 'legal_accepted_at',
-      timezone: 'timezone',
-      locale: 'locale',
-      external_account: 'external_account'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      status
-      required_fields
-      optional_fields
-      missing_fields
-      unverified_fields
-      verifications
-      username
-      email_address
-      phone_number
-      web3_wallet
-      password_enabled
-      first_name
-      last_name
-      custom_action
-      external_id
-      created_session_id
-      created_user_id
-      abandon_at
-      legal_accepted_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::SignUpObject.from_value(value)
-      end,
-      status: lambda do |value|
-        ::OctridevClerk::SignUpStatus.from_value(value)
-      end,
-      verifications: lambda do |value|
-        ::OctridevClerk::SignUpVerifications.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      username
-      email_address
-      phone_number
-      web3_wallet
-      first_name
-      last_name
-      external_id
-      created_session_id
-      created_user_id
-      legal_accepted_at
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalSignUpMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    status: "status",
+    required_fields: "required_fields",
+    optional_fields: "optional_fields",
+    missing_fields: "missing_fields",
+    unverified_fields: "unverified_fields",
+    verifications: "verifications",
+    username: "username",
+    email_address: "email_address",
+    phone_number: "phone_number",
+    web3_wallet: "web3_wallet",
+    password_enabled: "password_enabled",
+    first_name: "first_name",
+    last_name: "last_name",
+    unsafe_metadata: "unsafe_metadata",
+    public_metadata: "public_metadata",
+    custom_action: "custom_action",
+    external_id: "external_id",
+    created_session_id: "created_session_id",
+    created_user_id: "created_user_id",
+    abandon_at: "abandon_at",
+    legal_accepted_at: "legal_accepted_at",
+    timezone: "timezone",
+    locale: "locale",
+    external_account: "external_account",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    status
+    required_fields
+    optional_fields
+    missing_fields
+    unverified_fields
+    verifications
+    username
+    email_address
+    phone_number
+    web3_wallet
+    password_enabled
+    first_name
+    last_name
+    custom_action
+    external_id
+    created_session_id
+    created_user_id
+    abandon_at
+    legal_accepted_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::SignUpObject.from_value(value)
+    end,
+    status: lambda do |value|
+      ::OctridevClerk::SignUpStatus.from_value(value)
+    end,
+    verifications: lambda do |value|
+      ::OctridevClerk::SignUpVerifications.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    username
+    email_address
+    phone_number
+    web3_wallet
+    first_name
+    last_name
+    external_id
+    created_session_id
+    created_user_id
+    legal_accepted_at
+  ].freeze
+end
+
+# API model for SignUp.
+# Typed representation of the `SignUp` API schema.
+class SignUp
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSignUpMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSignUpMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSignUpMetadata::DECODERS
+
+  # @return [SignUpObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [SignUpStatus] Required enumerated value serialized in the `status` wire field.
+  attr_reader :status
+  # @return [Array_of_String] Required array value serialized in the `required_fields` wire field.
+  attr_reader :required_fields
+  # @return [Array_of_String] Required array value serialized in the `optional_fields` wire field.
+  attr_reader :optional_fields
+  # @return [Array_of_String] Required array value serialized in the `missing_fields` wire field.
+  attr_reader :missing_fields
+  # @return [Array_of_String] Required array value serialized in the `unverified_fields` wire field.
+  attr_reader :unverified_fields
+  # @return [SignUpVerifications] Required object value serialized in the `verifications` wire field.
+  attr_reader :verifications
+  # @return [String] Required `string` value serialized in the `username` wire field.
+  attr_reader :username
+  # @return [String] Required `string` value serialized in the `email_address` wire field.
+  attr_reader :email_address
+  # @return [String] Required `string` value serialized in the `phone_number` wire field.
+  attr_reader :phone_number
+  # @return [String] Required `string` value serialized in the `web3_wallet` wire field.
+  attr_reader :web3_wallet
+  # @return [Boolean] Required `boolean` value serialized in the `password_enabled` wire field.
+  attr_reader :password_enabled
+  # @return [String] Required `string` value serialized in the `first_name` wire field.
+  attr_reader :first_name
+  # @return [String] Required `string` value serialized in the `last_name` wire field.
+  attr_reader :last_name
+  # @return [Hash] Optional object value serialized in the `unsafe_metadata` wire field.
+  attr_reader :unsafe_metadata
+  # @return [Hash] Optional object value serialized in the `public_metadata` wire field.
+  attr_reader :public_metadata
+  # @return [Boolean] Required `boolean` value serialized in the `custom_action` wire field.
+  attr_reader :custom_action
+  # @return [String] Required `string` value serialized in the `external_id` wire field.
+  attr_reader :external_id
+  # @return [String] Required `string` value serialized in the `created_session_id` wire field.
+  attr_reader :created_session_id
+  # @return [String] Required `string` value serialized in the `created_user_id` wire field.
+  attr_reader :created_user_id
+  # @return [Integer] Unix timestamp at which the user abandoned the sign up attempt.
+  attr_reader :abandon_at
+  # @return [Integer] Unix timestamp at which the user accepted the legal requirements.
+  attr_reader :legal_accepted_at
+  # @return [String] The IANA timezone associated with the sign-up attempt.
+  attr_reader :timezone
+  # @return [String] The user locale preference for the sign-up specified as a BCP-47 language tag.
+  attr_reader :locale
+  # @return [Hash] Optional object value serialized in the `external_account` wire field.
+  attr_reader :external_account
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for SignUp.
-  # Typed representation of the `SignUp` API schema.
-  class SignUp
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSignUpMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSignUpMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSignUpMetadata::DECODERS
-
-    # @return [SignUpObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [SignUpStatus] Required enumerated value serialized in the `status` wire field.
-    attr_reader :status
-    # @return [Array_of_String] Required array value serialized in the `required_fields` wire field.
-    attr_reader :required_fields
-    # @return [Array_of_String] Required array value serialized in the `optional_fields` wire field.
-    attr_reader :optional_fields
-    # @return [Array_of_String] Required array value serialized in the `missing_fields` wire field.
-    attr_reader :missing_fields
-    # @return [Array_of_String] Required array value serialized in the `unverified_fields` wire field.
-    attr_reader :unverified_fields
-    # @return [SignUpVerifications] Required object value serialized in the `verifications` wire field.
-    attr_reader :verifications
-    # @return [String] Required `string` value serialized in the `username` wire field.
-    attr_reader :username
-    # @return [String] Required `string` value serialized in the `email_address` wire field.
-    attr_reader :email_address
-    # @return [String] Required `string` value serialized in the `phone_number` wire field.
-    attr_reader :phone_number
-    # @return [String] Required `string` value serialized in the `web3_wallet` wire field.
-    attr_reader :web3_wallet
-    # @return [Boolean] Required `boolean` value serialized in the `password_enabled` wire field.
-    attr_reader :password_enabled
-    # @return [String] Required `string` value serialized in the `first_name` wire field.
-    attr_reader :first_name
-    # @return [String] Required `string` value serialized in the `last_name` wire field.
-    attr_reader :last_name
-    # @return [Hash] Optional object value serialized in the `unsafe_metadata` wire field.
-    attr_reader :unsafe_metadata
-    # @return [Hash] Optional object value serialized in the `public_metadata` wire field.
-    attr_reader :public_metadata
-    # @return [Boolean] Required `boolean` value serialized in the `custom_action` wire field.
-    attr_reader :custom_action
-    # @return [String] Required `string` value serialized in the `external_id` wire field.
-    attr_reader :external_id
-    # @return [String] Required `string` value serialized in the `created_session_id` wire field.
-    attr_reader :created_session_id
-    # @return [String] Required `string` value serialized in the `created_user_id` wire field.
-    attr_reader :created_user_id
-    # @return [Integer] Unix timestamp at which the user abandoned the sign up attempt.
-    attr_reader :abandon_at
-    # @return [Integer] Unix timestamp at which the user accepted the legal requirements.
-    attr_reader :legal_accepted_at
-    # @return [String] The IANA timezone associated with the sign-up attempt.
-    attr_reader :timezone
-    # @return [String] The user locale preference for the sign-up specified as a BCP-47 language tag.
-    attr_reader :locale
-    # @return [Hash] Optional object value serialized in the `external_account` wire field.
-    attr_reader :external_account
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSignUpMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSignUpMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the SignUpObject SDK namespace.
-  module SignUpObject
-    SIGN_UP_ATTEMPT = 'sign_up_attempt'
-    VALUES = ['sign_up_attempt'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the SignUpObject SDK namespace.
+module SignUpObject
+  SIGN_UP_ATTEMPT = 'sign_up_attempt'
+  VALUES = ['sign_up_attempt'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the SignUpStatus SDK namespace.
+module SignUpStatus
+  MISSING_REQUIREMENTS = 'missing_requirements'
+  COMPLETE = 'complete'
+  ABANDONED = 'abandoned'
+  VALUES = ['missing_requirements', 'complete', 'abandoned'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalSignUpVerificationMetadata
+  FIELDS = {
+    next_action: "next_action",
+    supported_strategies: "supported_strategies",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    next_action: lambda do |value|
+      ::OctridevClerk::SignUpVerificationNextAction.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for SignUpVerification.
+# Typed representation of the `SignUpVerification` API schema.
+class SignUpVerification
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSignUpVerificationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSignUpVerificationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSignUpVerificationMetadata::DECODERS
+
+  # @return [SignUpVerificationNextAction] Optional enumerated value serialized in the `next_action` wire field.
+  attr_reader :next_action
+  # @return [Array_of_String] Optional array value serialized in the `supported_strategies` wire field.
+  attr_reader :supported_strategies
+  # @return [Hash{String => Object}] Keys the schema admits beside the declared fields.
+  attr_reader :additional_properties
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS, extras: true)
+    freeze
   end
 
-  # Defines the SignUpStatus SDK namespace.
-  module SignUpStatus
-    MISSING_REQUIREMENTS = 'missing_requirements'
-    COMPLETE = 'complete'
-    ABANDONED = 'abandoned'
-    VALUES = %w[missing_requirements complete abandoned].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, extras: true)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSignUpVerificationMetadata
-    FIELDS = {
-      next_action: 'next_action',
-      supported_strategies: 'supported_strategies'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      next_action: lambda do |value|
-        ::OctridevClerk::SignUpVerificationNextAction.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS, extras: true)
+  end
+end
+
+# Defines the SignUpVerificationNextAction SDK namespace.
+module SignUpVerificationNextAction
+  NEEDS_PREPARE = 'needs_prepare'
+  NEEDS_ATTEMPT = 'needs_attempt'
+  UNKNOWN = ''
+  VALUES = ['needs_prepare', 'needs_attempt', ''].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalSignUpVerificationsMetadata
+  FIELDS = {
+    email_address: "email_address",
+    phone_number: "phone_number",
+    web3_wallet: "web3_wallet",
+    external_account: "external_account",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    email_address
+    phone_number
+    web3_wallet
+    external_account
+  ].freeze
+  DECODERS = {
+    email_address: lambda do |value|
+      ::OctridevClerk::SignUpVerification.from_hash(value)
+    end,
+    phone_number: lambda do |value|
+      ::OctridevClerk::SignUpVerification.from_hash(value)
+    end,
+    web3_wallet: lambda do |value|
+      ::OctridevClerk::SignUpVerification.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    email_address
+    phone_number
+    web3_wallet
+    external_account
+  ].freeze
+end
+
+# API model for SignUpVerifications.
+# Typed representation of the `SignUpVerifications` API schema.
+class SignUpVerifications
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSignUpVerificationsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSignUpVerificationsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSignUpVerificationsMetadata::DECODERS
+
+  # @return [SignUpVerification] Required object value serialized in the `email_address` wire field.
+  attr_reader :email_address
+  # @return [SignUpVerification] Required object value serialized in the `phone_number` wire field.
+  attr_reader :phone_number
+  # @return [SignUpVerification] Required object value serialized in the `web3_wallet` wire field.
+  attr_reader :web3_wallet
+  # @return [Hash] Required object value serialized in the `external_account` wire field.
+  attr_reader :external_account
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for SignUpVerification.
-  # Typed representation of the `SignUpVerification` API schema.
-  class SignUpVerification
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSignUpVerificationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSignUpVerificationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSignUpVerificationMetadata::DECODERS
-
-    # @return [SignUpVerificationNextAction] Optional enumerated value serialized in the `next_action` wire field.
-    attr_reader :next_action
-    # @return [Array_of_String] Optional array value serialized in the `supported_strategies` wire field.
-    attr_reader :supported_strategies
-    # @return [Hash{String => Object}] Keys the schema admits beside the declared fields.
-    attr_reader :additional_properties
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS, extras: true)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, extras: true)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS, extras: true)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSignUpVerificationsMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the SignUpVerificationNextAction SDK namespace.
-  module SignUpVerificationNextAction
-    NEEDS_PREPARE = 'needs_prepare'
-    NEEDS_ATTEMPT = 'needs_attempt'
-    UNKNOWN = ''
-    VALUES = ['needs_prepare', 'needs_attempt', ''].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalSignUpVerificationsMetadata
-    FIELDS = {
-      email_address: 'email_address',
-      phone_number: 'phone_number',
-      web3_wallet: 'web3_wallet',
-      external_account: 'external_account'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      email_address
-      phone_number
-      web3_wallet
-      external_account
-    ].freeze
-    DECODERS = {
-      email_address: lambda do |value|
-        ::OctridevClerk::SignUpVerification.from_hash(value)
-      end,
-      phone_number: lambda do |value|
-        ::OctridevClerk::SignUpVerification.from_hash(value)
-      end,
-      web3_wallet: lambda do |value|
-        ::OctridevClerk::SignUpVerification.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      email_address
-      phone_number
-      web3_wallet
-      external_account
-    ].freeze
-  end
-
-  # API model for SignUpVerifications.
-  # Typed representation of the `SignUpVerifications` API schema.
-  class SignUpVerifications
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSignUpVerificationsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSignUpVerificationsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSignUpVerificationsMetadata::DECODERS
-
-    # @return [SignUpVerification] Required object value serialized in the `email_address` wire field.
-    attr_reader :email_address
-    # @return [SignUpVerification] Required object value serialized in the `phone_number` wire field.
-    attr_reader :phone_number
-    # @return [SignUpVerification] Required object value serialized in the `web3_wallet` wire field.
-    attr_reader :web3_wallet
-    # @return [Hash] Required object value serialized in the `external_account` wire field.
-    attr_reader :external_account
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSignUpVerificationsMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

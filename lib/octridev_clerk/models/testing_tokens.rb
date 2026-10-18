@@ -5,60 +5,60 @@
 
 # testing_tokens domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalTestingTokenMetadata
-    FIELDS = {
-      object: 'object',
-      token: 'token',
-      expires_at: 'expires_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      token
-      expires_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::TestingTokenObject.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalTestingTokenMetadata
+  FIELDS = {
+    object: "object",
+    token: "token",
+    expires_at: "expires_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    token
+    expires_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::TestingTokenObject.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for TestingToken.
+# Typed representation of the `TestingToken` API schema.
+class TestingToken
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalTestingTokenMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalTestingTokenMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalTestingTokenMetadata::DECODERS
+
+  # @return [TestingTokenObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
+  attr_reader :token
+  # @return [Integer] Unix timestamp of the token's expiration time.
+  attr_reader :expires_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for TestingToken.
-  # Typed representation of the `TestingToken` API schema.
-  class TestingToken
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalTestingTokenMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalTestingTokenMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalTestingTokenMetadata::DECODERS
-
-    # @return [TestingTokenObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
-    attr_reader :token
-    # @return [Integer] Unix timestamp of the token's expiration time.
-    attr_reader :expires_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the TestingTokenObject SDK namespace.
-  module TestingTokenObject
-    TESTING_TOKEN = 'testing_token'
-    VALUES = ['testing_token'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the TestingTokenObject SDK namespace.
+module TestingTokenObject
+  TESTING_TOKEN = 'testing_token'
+  VALUES = ['testing_token'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end

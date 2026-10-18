@@ -12,10 +12,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSignInTokenMetadata
         FIELDS = {
-          user_id: 'user_id',
-          org_id: 'org_id',
-          expires_in_seconds: 'expires_in_seconds',
-          second_factor_verification: 'second_factor_verification'
+          user_id: "user_id",
+          org_id: "org_id",
+          expires_in_seconds: "expires_in_seconds",
+          second_factor_verification: "second_factor_verification",
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
@@ -23,7 +23,7 @@ module OctridevClerk
         DECODERS = {
           second_factor_verification: lambda do |value|
             ::OctridevClerk::Methods::SignInTokens::CreateSignInTokenSecondFactorVerification.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -61,7 +61,7 @@ module OctridevClerk
       module CreateSignInTokenSecondFactorVerification
         FRESH = 'fresh'
         STALE = 'stale'
-        VALUES = %w[fresh stale].freeze
+        VALUES = ['fresh', 'stale'].freeze
         def self.from_value(value)
           value
         end
@@ -94,25 +94,26 @@ module OctridevClerk
         second_factor_verification: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_seconds) do
           Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 1)
         end
 
         SdkClient.request(
           'POST',
-          '/sign_in_tokens',
+          "/sign_in_tokens",
           config: config,
           body: {
             'user_id' => user_id,
             'org_id' => org_id,
             'expires_in_seconds' => expires_in_seconds,
-            'second_factor_verification' => second_factor_verification
+            'second_factor_verification' => second_factor_verification,
           },
           return_type: ::OctridevClerk::SignInToken,
           decoder: :json,
           operation_id: 'create_sign_in_token',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -126,19 +127,20 @@ module OctridevClerk
         sign_in_token_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/sign_in_tokens/',
+            "/sign_in_tokens/",
             SdkClient.encode_path_segment(sign_in_token_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::SignInToken,
           decoder: :json,
           operation_id: 'revoke_sign_in_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

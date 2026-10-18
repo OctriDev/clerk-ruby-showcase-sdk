@@ -19,12 +19,13 @@ module OctridevClerk
         mapping_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id),
-            '/group_role_mappings/',
+            "/group_role_mappings/",
             SdkClient.encode_path_segment(mapping_id)
           ].join,
           config: config,
@@ -32,7 +33,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_scim_group_role_mapping',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

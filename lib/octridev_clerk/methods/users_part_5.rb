@@ -32,12 +32,13 @@ module OctridevClerk
         note: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/billing/credits'
+            "/billing/credits"
           ].join,
           config: config,
           body: {
@@ -45,13 +46,13 @@ module OctridevClerk
             'action' => action,
             'idempotency_key' => idempotency_key,
             'currency' => currency,
-            'note' => note
+            'note' => note,
           },
           return_type: ::OctridevClerk::CommerceCreditLedgerResponse,
           decoder: :json,
           operation_id: 'adjust_user_billing_credit_balance',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -67,7 +68,16 @@ module OctridevClerk
       # @param offset [Integer] Skip the first `offset` results when paginating.
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
-      singleton_class.define_method(:get_oauth_access_token) do |config:, user_id:, provider:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_oauth_access_token) do |
+        config:,
+        user_id:,
+        provider:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -75,22 +85,22 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/oauth_access_tokens/',
+            "/oauth_access_tokens/",
             SdkClient.encode_path_segment(provider)
           ].join,
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OAuthAccessToken,
           decoder: :json,
           operation_id: 'get_oauth_access_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -110,6 +120,7 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -117,20 +128,20 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/organization_memberships'
+            "/organization_memberships"
           ].join,
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OrganizationMemberships,
           decoder: :json,
           operation_id: 'users_get_organization_memberships',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -153,6 +164,7 @@ module OctridevClerk
         status: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -160,21 +172,21 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/organization_invitations'
+            "/organization_invitations"
           ].join,
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'status' => QueryValue.new(status, style: 'form', explode: true)
+            'status' => QueryValue.new(status, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OrganizationInvitationsWithPublicOrganizationData,
           decoder: :json,
           operation_id: 'users_get_organization_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -189,22 +201,23 @@ module OctridevClerk
         sign_out_of_other_sessions: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/remove_password'
+            "/remove_password"
           ].join,
           config: config,
           body: {
-            'sign_out_of_other_sessions' => sign_out_of_other_sessions
+            'sign_out_of_other_sessions' => sign_out_of_other_sessions,
           },
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'remove_user_password',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -218,22 +231,23 @@ module OctridevClerk
         password:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/verify_password'
+            "/verify_password"
           ].join,
           config: config,
           body: {
-            'password' => password
+            'password' => password,
           },
           return_type: ::OctridevClerk::Methods::Users::VerifyPasswordResponse,
           decoder: :json,
           operation_id: 'verify_password',
           request_options: request_options,
-          errors: { '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -247,22 +261,23 @@ module OctridevClerk
         code:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/verify_totp'
+            "/verify_totp"
           ].join,
           config: config,
           body: {
-            'code' => code
+            'code' => code,
           },
           return_type: ::OctridevClerk::Methods::Users::VerifyTOTPResponse,
           decoder: :json,
           operation_id: 'verify_totp',
           request_options: request_options,
-          errors: { '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -275,19 +290,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/mfa'
+            "/mfa"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Users::DisableMFAResponse,
           decoder: :json,
           operation_id: 'disable_mfa',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -302,19 +318,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/backup_code'
+            "/backup_code"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Users::DeleteBackupCodeResponse,
           decoder: :json,
           operation_id: 'delete_backup_code',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -329,12 +346,13 @@ module OctridevClerk
         passkey_identification_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/passkeys/',
+            "/passkeys/",
             SdkClient.encode_path_segment(passkey_identification_id)
           ].join,
           config: config,
@@ -342,7 +360,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_users_passkey',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -357,19 +375,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/trusted_devices'
+            "/trusted_devices"
           ].join,
           config: config,
           return_type: ::OctridevClerk::TrustedDeviceList,
           decoder: :json,
           operation_id: 'list_user_trusted_devices',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -385,12 +404,13 @@ module OctridevClerk
         trusted_device_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/trusted_devices/',
+            "/trusted_devices/",
             SdkClient.encode_path_segment(trusted_device_id)
           ].join,
           config: config,
@@ -398,7 +418,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'revoke_user_trusted_device',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -411,19 +431,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/biometric_credentials'
+            "/biometric_credentials"
           ].join,
           config: config,
           return_type: ::OctridevClerk::BiometricCredentialList,
           decoder: :json,
           operation_id: 'list_user_biometric_credentials',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -439,12 +460,13 @@ module OctridevClerk
         biometric_credential_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/biometric_credentials/',
+            "/biometric_credentials/",
             SdkClient.encode_path_segment(biometric_credential_id)
           ].join,
           config: config,
@@ -452,7 +474,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'revoke_user_biometric_credential',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -467,12 +489,13 @@ module OctridevClerk
         web3_wallet_identification_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/web3_wallets/',
+            "/web3_wallets/",
             SdkClient.encode_path_segment(web3_wallet_identification_id)
           ].join,
           config: config,
@@ -480,7 +503,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_users_web3_wallet',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -494,19 +517,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/totp'
+            "/totp"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Users::DeleteTOTPResponse,
           decoder: :json,
           operation_id: 'delete_totp',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -522,12 +546,13 @@ module OctridevClerk
         external_account_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/external_accounts/',
+            "/external_accounts/",
             SdkClient.encode_path_segment(external_account_id)
           ].join,
           config: config,
@@ -535,7 +560,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_external_account',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

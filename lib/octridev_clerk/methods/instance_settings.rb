@@ -12,23 +12,24 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceMetadata
         FIELDS = {
-          test_mode: 'test_mode',
-          hibp: 'hibp',
-          support_email: 'support_email',
-          clerk_js_version: 'clerk_js_version',
-          development_origin: 'development_origin',
-          allowed_origins: 'allowed_origins',
-          allowed_subdomains: 'allowed_subdomains',
-          subdomain_allowlist_enabled: 'subdomain_allowlist_enabled',
-          cookieless_dev: 'cookieless_dev',
-          url_based_session_syncing: 'url_based_session_syncing',
-          preferred_sign_in_strategy_when_password_required: 'preferred_sign_in_strategy_when_password_required'
+          test_mode: "test_mode",
+          hibp: "hibp",
+          support_email: "support_email",
+          clerk_js_version: "clerk_js_version",
+          development_origin: "development_origin",
+          allowed_origins: "allowed_origins",
+          allowed_subdomains: "allowed_subdomains",
+          subdomain_allowlist_enabled: "subdomain_allowlist_enabled",
+          cookieless_dev: "cookieless_dev",
+          url_based_session_syncing: "url_based_session_syncing",
+          preferred_sign_in_strategy_when_password_required: "preferred_sign_in_strategy_when_password_required",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           preferred_sign_in_strategy_when_password_required: lambda do |value|
             ::OctridevClerk::Methods::InstanceSettings::UpdateInstancePreferredSignInStrategyWhenPasswordRequired.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -74,14 +75,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceRestrictionsMetadata
         FIELDS = {
-          allowlist: 'allowlist',
-          blocklist: 'blocklist',
-          allowlist_blocklist_disabled_on_sign_in: 'allowlist_blocklist_disabled_on_sign_in',
-          block_email_subaddresses: 'block_email_subaddresses',
-          block_disposable_email_domains: 'block_disposable_email_domains'
+          allowlist: "allowlist",
+          blocklist: "blocklist",
+          allowlist_blocklist_disabled_on_sign_in: "allowlist_blocklist_disabled_on_sign_in",
+          block_email_subaddresses: "block_email_subaddresses",
+          block_disposable_email_domains: "block_disposable_email_domains",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceRestrictions.
@@ -111,10 +114,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceProtectMetadata
         FIELDS = {
-          rules_enabled: 'rules_enabled'
+          rules_enabled: "rules_enabled",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceProtect.
@@ -144,10 +149,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceCommunicationMetadata
         FIELDS = {
-          blocked_country_codes: 'blocked_country_codes'
+          blocked_country_codes: "blocked_country_codes",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceCommunication.
@@ -177,19 +184,21 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceOAuthApplicationSettingsMetadata
         FIELDS = {
-          dynamic_oauth_client_registration: 'dynamic_oauth_client_registration',
-          dynamic_client_allowed_scopes: 'dynamic_client_allowed_scopes',
-          default_scopes: 'default_scopes',
-          oauth_jwt_access_tokens: 'oauth_jwt_access_tokens',
-          aud_claim_enabled: 'aud_claim_enabled',
-          aud_claim_refresh_backfill_enabled: 'aud_claim_refresh_backfill_enabled',
-          pkce_required: 'pkce_required',
-          client_id_metadata_documents_advertised: 'client_id_metadata_documents_advertised',
-          client_id_metadata_documents_only_allow_pre_registered_clients: 'client_id_metadata_documents_only_allow_pre_registered_clients',
-          client_id_metadata_documents_block_implicitly_allowed_clients: 'client_id_metadata_documents_block_implicitly_allowed_clients'
+          dynamic_oauth_client_registration: "dynamic_oauth_client_registration",
+          dynamic_client_allowed_scopes: "dynamic_client_allowed_scopes",
+          default_scopes: "default_scopes",
+          oauth_jwt_access_tokens: "oauth_jwt_access_tokens",
+          aud_claim_enabled: "aud_claim_enabled",
+          aud_claim_refresh_backfill_enabled: "aud_claim_refresh_backfill_enabled",
+          pkce_required: "pkce_required",
+          client_id_metadata_documents_advertised: "client_id_metadata_documents_advertised",
+          client_id_metadata_documents_only_allow_pre_registered_clients: "client_id_metadata_documents_only_allow_pre_registered_clients",
+          client_id_metadata_documents_block_implicitly_allowed_clients: "client_id_metadata_documents_block_implicitly_allowed_clients",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceOAuthApplicationSettings.
@@ -237,17 +246,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceOrganizationSettingsMetadata
         FIELDS = {
-          enabled: 'enabled',
-          max_allowed_memberships: 'max_allowed_memberships',
-          admin_delete_enabled: 'admin_delete_enabled',
-          domains_enabled: 'domains_enabled',
-          slug_disabled: 'slug_disabled',
-          domains_enrollment_modes: 'domains_enrollment_modes',
-          creator_role_id: 'creator_role_id',
-          domains_default_role_id: 'domains_default_role_id'
+          enabled: "enabled",
+          max_allowed_memberships: "max_allowed_memberships",
+          admin_delete_enabled: "admin_delete_enabled",
+          domains_enabled: "domains_enabled",
+          slug_disabled: "slug_disabled",
+          domains_enrollment_modes: "domains_enrollment_modes",
+          creator_role_id: "creator_role_id",
+          domains_default_role_id: "domains_default_role_id",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceOrganizationSettings.
@@ -294,15 +305,19 @@ module OctridevClerk
       # Retrieves the current instance configuration, including its environment, allowed origins, and subdomain access settings. Use the returned `allowed_subdomains` and `subdomain_allowlist_enabled` values to understand which subdomains may originate requests.
       #
       # Fetches the current instance
-      singleton_class.define_method(:get_instance) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance',
+          "/instance",
           config: config,
           return_type: ::OctridevClerk::Instance,
           decoder: :json,
           operation_id: 'get_instance',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -360,9 +375,10 @@ module OctridevClerk
         preferred_sign_in_strategy_when_password_required: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/instance',
+          "/instance",
           config: config,
           body: {
             'test_mode' => test_mode,
@@ -375,12 +391,12 @@ module OctridevClerk
             'subdomain_allowlist_enabled' => subdomain_allowlist_enabled,
             'cookieless_dev' => cookieless_dev,
             'url_based_session_syncing' => url_based_session_syncing,
-            'preferred_sign_in_strategy_when_password_required' => preferred_sign_in_strategy_when_password_required
+            'preferred_sign_in_strategy_when_password_required' => preferred_sign_in_strategy_when_password_required,
           },
           decoder: :empty,
           operation_id: 'update_instance',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -396,35 +412,40 @@ module OctridevClerk
         block_disposable_email_domains: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/instance/restrictions',
+          "/instance/restrictions",
           config: config,
           body: {
             'allowlist' => allowlist,
             'blocklist' => blocklist,
             'allowlist_blocklist_disabled_on_sign_in' => allowlist_blocklist_disabled_on_sign_in,
             'block_email_subaddresses' => block_email_subaddresses,
-            'block_disposable_email_domains' => block_disposable_email_domains
+            'block_disposable_email_domains' => block_disposable_email_domains,
           },
           return_type: ::OctridevClerk::InstanceRestrictions,
           decoder: :json,
           operation_id: 'update_instance_restrictions',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Retrieves the Protect settings for the instance, including rule enforcement and prerequisite check status. Use `rules_enabled` to distinguish active enforcement from shadow evaluation, where rules are scored and recorded without blocking traffic.
-      singleton_class.define_method(:get_instance_protect) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance_protect) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance/protect',
+          "/instance/protect",
           config: config,
           return_type: ::OctridevClerk::InstanceProtect,
           decoder: :json,
           operation_id: 'get_instance_protect',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -439,31 +460,36 @@ module OctridevClerk
         rules_enabled: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/instance/protect',
+          "/instance/protect",
           config: config,
           body: {
-            'rules_enabled' => rules_enabled
+            'rules_enabled' => rules_enabled,
           },
           return_type: ::OctridevClerk::InstanceProtect,
           decoder: :json,
           operation_id: 'update_instance_protect',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
-      singleton_class.define_method(:get_instance_communication) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance_communication) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance/communication',
+          "/instance/communication",
           config: config,
           return_type: ::OctridevClerk::InstanceCommunication,
           decoder: :json,
           operation_id: 'get_instance_communication',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -477,35 +503,40 @@ module OctridevClerk
         blocked_country_codes: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(blocked_country_codes) do
           Validation.validate_items('blocked_country_codes', blocked_country_codes, max: 250)
         end
 
         SdkClient.request(
           'PATCH',
-          '/instance/communication',
+          "/instance/communication",
           config: config,
           body: {
-            'blocked_country_codes' => blocked_country_codes
+            'blocked_country_codes' => blocked_country_codes,
           },
           return_type: ::OctridevClerk::InstanceCommunication,
           decoder: :json,
           operation_id: 'update_instance_communication',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT access tokens, etc.).
-      singleton_class.define_method(:get_instance_oauth_application_settings) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance_oauth_application_settings) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance/oauth_application_settings',
+          "/instance/oauth_application_settings",
           config: config,
           return_type: ::OctridevClerk::OAuthApplicationSettings,
           decoder: :json,
           operation_id: 'get_instance_oauth_application_settings',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

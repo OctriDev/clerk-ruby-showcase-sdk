@@ -5,140 +5,140 @@
 
 # waitlist_entries domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalWaitlistEntriesMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::WaitlistEntry.from_hash(item) }
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalWaitlistEntriesMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::WaitlistEntry.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for WaitlistEntries.
+# Typed representation of the `WaitlistEntries` API schema.
+class WaitlistEntries
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalWaitlistEntriesMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalWaitlistEntriesMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalWaitlistEntriesMetadata::DECODERS
+
+  # @return [Array_of_WaitlistEntry] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of waitlist entries
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for WaitlistEntries.
-  # Typed representation of the `WaitlistEntries` API schema.
-  class WaitlistEntries
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalWaitlistEntriesMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalWaitlistEntriesMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalWaitlistEntriesMetadata::DECODERS
-
-    # @return [Array_of_WaitlistEntry] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Integer] Total number of waitlist entries
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalWaitlistEntryMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      email_address: 'email_address',
-      status: 'status',
-      is_locked: 'is_locked',
-      created_at: 'created_at',
-      updated_at: 'updated_at',
-      invitation: 'invitation'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      email_address
-      status
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::WaitlistEntryObject.from_value(value)
-      end,
-      status: lambda do |value|
-        ::OctridevClerk::WaitlistEntryStatus.from_value(value)
-      end,
-      invitation: lambda do |value|
-        ::OctridevClerk::Invitation.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalWaitlistEntryMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    email_address: "email_address",
+    status: "status",
+    is_locked: "is_locked",
+    created_at: "created_at",
+    updated_at: "updated_at",
+    invitation: "invitation",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    email_address
+    status
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::WaitlistEntryObject.from_value(value)
+    end,
+    status: lambda do |value|
+      ::OctridevClerk::WaitlistEntryStatus.from_value(value)
+    end,
+    invitation: lambda do |value|
+      ::OctridevClerk::Invitation.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for WaitlistEntry.
+# Typed representation of the `WaitlistEntry` API schema.
+class WaitlistEntry
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalWaitlistEntryMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalWaitlistEntryMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalWaitlistEntryMetadata::DECODERS
+
+  # @return [WaitlistEntryObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `email`-formatted value serialized in the `email_address` wire field.
+  attr_reader :email_address
+  # @return [WaitlistEntryStatus] Required enumerated value serialized in the `status` wire field.
+  attr_reader :status
+  # @return [Boolean] Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+  attr_reader :is_locked
+  # @return [Integer] Unix timestamp of creation.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last update.
+  attr_reader :updated_at
+  # @return [Invitation] Optional object value serialized in the `invitation` wire field.
+  attr_reader :invitation
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for WaitlistEntry.
-  # Typed representation of the `WaitlistEntry` API schema.
-  class WaitlistEntry
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalWaitlistEntryMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalWaitlistEntryMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalWaitlistEntryMetadata::DECODERS
-
-    # @return [WaitlistEntryObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [String] Required `email`-formatted value serialized in the `email_address` wire field.
-    attr_reader :email_address
-    # @return [WaitlistEntryStatus] Required enumerated value serialized in the `status` wire field.
-    attr_reader :status
-    # @return [Boolean] Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
-    attr_reader :is_locked
-    # @return [Integer] Unix timestamp of creation.
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of last update.
-    attr_reader :updated_at
-    # @return [Invitation] Optional object value serialized in the `invitation` wire field.
-    attr_reader :invitation
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the WaitlistEntryObject SDK namespace.
-  module WaitlistEntryObject
-    WAITLIST_ENTRY = 'waitlist_entry'
-    VALUES = ['waitlist_entry'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the WaitlistEntryStatus SDK namespace.
-  module WaitlistEntryStatus
-    PENDING = 'pending'
-    INVITED = 'invited'
-    REJECTED = 'rejected'
-    COMPLETED = 'completed'
-    VALUES = %w[pending invited rejected completed].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the WaitlistEntryObject SDK namespace.
+module WaitlistEntryObject
+  WAITLIST_ENTRY = 'waitlist_entry'
+  VALUES = ['waitlist_entry'].freeze
+  def self.from_value(value)
+    value
   end
+end
+
+# Defines the WaitlistEntryStatus SDK namespace.
+module WaitlistEntryStatus
+  PENDING = 'pending'
+  INVITED = 'invited'
+  REJECTED = 'rejected'
+  COMPLETED = 'completed'
+  VALUES = ['pending', 'invited', 'rejected', 'completed'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end
