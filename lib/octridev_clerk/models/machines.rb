@@ -76,6 +76,193 @@ module OctridevClerk
   end
 
   # Internal model hydration metadata.
+  class SdkInternalMachineCreatedMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      instance_id: 'instance_id',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      default_token_ttl: 'default_token_ttl',
+      scoped_machines: 'scoped_machines',
+      secret_key: 'secret_key'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      instance_id
+      created_at
+      updated_at
+      scoped_machines
+      secret_key
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
+      end,
+      scoped_machines: lambda do |value|
+        value&.map { |item| ::OctridevClerk::MachineWithoutScopedMachines.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for MachineCreated.
+  # Typed representation of the `MachineCreated` API schema.
+  class MachineCreated
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineCreatedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineCreatedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineCreatedMetadata::DECODERS
+
+    # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Unique identifier for the machine.
+    attr_reader :id
+    # @return [String] The name of the machine.
+    attr_reader :name
+    # @return [String] The ID of the instance this machine belongs to.
+    attr_reader :instance_id
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
+    attr_reader :default_token_ttl
+    # @return [Array_of_MachineWithoutScopedMachines] Array of machines this machine has access to.
+    attr_reader :scoped_machines
+    # @return [String] The secret key for the machine, only returned upon creation.
+    attr_reader :secret_key
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalMachineDeletedMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      deleted: 'deleted'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      deleted
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineDeletedObject.from_value(value)
+      end,
+      deleted: lambda do |value|
+        ::OctridevClerk::MachineDeletedDeleted.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for MachineDeleted.
+  # Typed representation of the `MachineDeleted` API schema.
+  class MachineDeleted
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineDeletedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineDeletedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineDeletedMetadata::DECODERS
+
+    # @return [MachineDeletedObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] The ID of the deleted machine
+    attr_reader :id
+    # @return [MachineDeletedDeleted] Whether the machine was successfully deleted
+    attr_reader :deleted
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the MachineDeletedDeleted SDK namespace.
+  module MachineDeletedDeleted
+    TRUE = true
+    VALUES = [true].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the MachineDeletedObject SDK namespace.
+  module MachineDeletedObject
+    MACHINE = 'machine'
+    VALUES = ['machine'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalMachineListMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Machine.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for MachineList.
+  # Typed representation of the `MachineList` API schema.
+  class MachineList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineListMetadata::DECODERS
+
+    # @return [Array_of_Machine] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of machines
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
   class SdkInternalMachineScopeMetadata
     FIELDS = {
       object: 'object',
@@ -131,6 +318,132 @@ module OctridevClerk
   module MachineScopeObject
     MACHINE_SCOPE = 'machine_scope'
     VALUES = ['machine_scope'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalMachineScopeDeletedMetadata
+    FIELDS = {
+      object: 'object',
+      from_machine_id: 'from_machine_id',
+      to_machine_id: 'to_machine_id',
+      deleted: 'deleted'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      from_machine_id
+      to_machine_id
+      deleted
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineScopeDeletedObject.from_value(value)
+      end,
+      deleted: lambda do |value|
+        ::OctridevClerk::MachineScopeDeletedDeleted.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for MachineScopeDeleted.
+  # Typed representation of the `MachineScopeDeleted` API schema.
+  class MachineScopeDeleted
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineScopeDeletedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineScopeDeletedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineScopeDeletedMetadata::DECODERS
+
+    # @return [MachineScopeDeletedObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] The ID of the machine that had access to the target machine
+    attr_reader :from_machine_id
+    # @return [String] The ID of the machine that was being accessed
+    attr_reader :to_machine_id
+    # @return [MachineScopeDeletedDeleted] Whether the machine scope was successfully deleted
+    attr_reader :deleted
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the MachineScopeDeletedDeleted SDK namespace.
+  module MachineScopeDeletedDeleted
+    TRUE = true
+    VALUES = [true].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the MachineScopeDeletedObject SDK namespace.
+  module MachineScopeDeletedObject
+    MACHINE_SCOPE = 'machine_scope'
+    VALUES = ['machine_scope'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalMachineSecretKeyMetadata
+    FIELDS = {
+      object: 'object',
+      secret: 'secret'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      secret
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::MachineSecretKeyObject.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for MachineSecretKey.
+  # Typed representation of the `MachineSecretKey` API schema.
+  class MachineSecretKey
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMachineSecretKeyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMachineSecretKeyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMachineSecretKeyMetadata::DECODERS
+
+    # @return [MachineSecretKeyObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] The secret key for the machine.
+    attr_reader :secret
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the MachineSecretKeyObject SDK namespace.
+  module MachineSecretKeyObject
+    MACHINE_SECRET_KEY = 'machine_secret_key'
+    VALUES = ['machine_secret_key'].freeze
     def self.from_value(value)
       value
     end

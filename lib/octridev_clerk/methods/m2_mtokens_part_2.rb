@@ -13,7 +13,7 @@ module OctridevClerk
       #
       # Fetches M2M tokens for a specific machine. Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M tokens are stateless and are not stored. This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key. - When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated machine can be retrieved. - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the…
       singleton_class.define_method(:get_m2_mtokens) do |config:, subject:, revoked: NOT_GIVEN, expired: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
-        Validation.validate_pattern('subject', subject, '^mch_\w{27}$')
+        Validation.validate_pattern('subject', subject, '^mch_\\w{27}$')
 
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 100) }
 

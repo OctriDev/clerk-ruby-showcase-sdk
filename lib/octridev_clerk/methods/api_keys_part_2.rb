@@ -328,15 +328,17 @@ module OctridevClerk
         request_options: nil
       )
         Validation.validate_length('name', name, min: 3)
-        Validation.validate_pattern('name', name, '^(\S(.*\S)?)?$')
+        Validation.validate_pattern('name', name, '^(\\S(.*\\S)?)?$')
 
-        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\w{27}$')
+        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
 
         Validation.if_given(type) { Validation.validate_length('type', type, min: 3, max: 25) }
 
         Validation.if_given(description) { Validation.validate_length('description', description, max: 255) }
 
-        Validation.if_given(created_by) { Validation.validate_pattern('created_by', created_by, '^user_\w{27}$') }
+        Validation.if_given(created_by) do
+          Validation.validate_pattern('created_by', created_by, '^user_\\w{27}$')
+        end
 
         Validation.if_given(seconds_until_expiration) do
           Validation.validate_range('seconds_until_expiration', seconds_until_expiration, exclusive_min: 0)
@@ -374,7 +376,7 @@ module OctridevClerk
         query: NOT_GIVEN,
         request_options: nil
       )
-        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\w{27}$')
+        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
 
         Validation.if_given(type) { Validation.validate_length('type', type, min: 3) }
 
@@ -435,7 +437,7 @@ module OctridevClerk
         Validation.if_given(description) { Validation.validate_length('description', description, max: 255) }
 
         Validation.if_given(subject) do
-          Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\w{27}$')
+          Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
         end
 
         Validation.if_given(seconds_until_expiration) do

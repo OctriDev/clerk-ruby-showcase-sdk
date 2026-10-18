@@ -274,7 +274,7 @@ module OctridevClerk
         request_options: nil
       )
         Validation.if_given(organization_id) do
-          Validation.validate_pattern('organization_id', organization_id, '^org_\w{27}$')
+          Validation.validate_pattern('organization_id', organization_id, '^org_\\w{27}$')
         end
 
         Validation.if_given(it_contact_id) { Validation.validate_length('it_contact_id', it_contact_id, min: 1) }

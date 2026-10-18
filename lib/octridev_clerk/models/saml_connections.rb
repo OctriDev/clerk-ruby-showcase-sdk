@@ -5,13 +5,220 @@
 
 # saml_connections domain models
 module OctridevClerk
-  # Defines the SAMLConnection SDK namespace.
-  module SAMLConnection
-    def self.from_hash(hash)
-      return hash if hash.is_a?(::Object)
-      return hash if hash.is_a?(::Object)
+  # Internal model hydration metadata.
+  class SdkInternalSAMLConnectionIdpCertificatesItemMetadata
+    FIELDS = {
+      certificate: 'certificate',
+      issued_at: 'issued_at',
+      expires_at: 'expires_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      certificate
+      issued_at
+      expires_at
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      issued_at
+      expires_at
+    ].freeze
+  end
 
-      raise "Could not deserialize SAMLConnection from #{hash.inspect}"
+  # API model for SAMLConnectionIdpCertificatesItem.
+  # Required object value serialized in the `idp_certificates[]` wire field.
+  class SAMLConnectionIdpCertificatesItem
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSAMLConnectionIdpCertificatesItemMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSAMLConnectionIdpCertificatesItemMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSAMLConnectionIdpCertificatesItemMetadata::DECODERS
+
+    # @return [String] The X.509 certificate, base64 DER without PEM armor
+    attr_reader :certificate
+    # @return [Integer] Unix timestamp (milliseconds) of the X.509 NotBefore
+    attr_reader :issued_at
+    # @return [Integer] Unix timestamp (milliseconds) of the X.509 NotAfter
+    attr_reader :expires_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSAMLConnectionIdpCertificatesItemMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalSAMLConnectionMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      domain: 'domain',
+      domains: 'domains',
+      idp_entity_id: 'idp_entity_id',
+      idp_sso_url: 'idp_sso_url',
+      idp_certificate: 'idp_certificate',
+      idp_certificate_issued_at: 'idp_certificate_issued_at',
+      idp_certificate_expires_at: 'idp_certificate_expires_at',
+      idp_certificates: 'idp_certificates',
+      idp_metadata_url: 'idp_metadata_url',
+      idp_metadata: 'idp_metadata',
+      acs_url: 'acs_url',
+      sp_entity_id: 'sp_entity_id',
+      sp_metadata_url: 'sp_metadata_url',
+      organization_id: 'organization_id',
+      attribute_mapping: 'attribute_mapping',
+      active: 'active',
+      provider: 'provider',
+      user_count: 'user_count',
+      sync_user_attributes: 'sync_user_attributes',
+      allow_subdomains: 'allow_subdomains',
+      allow_idp_initiated: 'allow_idp_initiated',
+      disable_additional_identifications: 'disable_additional_identifications',
+      allow_organization_account_linking: 'allow_organization_account_linking',
+      force_authn: 'force_authn',
+      login_hint: 'login_hint',
+      enterprise_connection_id: 'enterprise_connection_id',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      idp_entity_id
+      idp_sso_url
+      idp_certificate
+      idp_certificate_issued_at
+      idp_certificate_expires_at
+      idp_certificates
+      acs_url
+      sp_entity_id
+      sp_metadata_url
+      active
+      provider
+      user_count
+      sync_user_attributes
+      allow_subdomains
+      allow_idp_initiated
+      disable_additional_identifications
+      allow_organization_account_linking
+      force_authn
+      login_hint
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::SAMLConnectionObject.from_value(value)
+      end,
+      idp_certificates: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SAMLConnectionIdpCertificatesItem.from_hash(item) }
+      end,
+      attribute_mapping: lambda do |value|
+        ::OctridevClerk::SAMLConnectionAttributeMapping.from_hash(value)
+      end,
+      login_hint: lambda do |value|
+        ::OctridevClerk::SAMLConnectionLoginHint.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      idp_entity_id
+      idp_sso_url
+      idp_certificate
+      idp_certificate_issued_at
+      idp_certificate_expires_at
+    ].freeze
+  end
+
+  # API model for SAMLConnection.
+  # Typed representation of the `SAMLConnection` API schema.
+  class SAMLConnection
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSAMLConnectionMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSAMLConnectionMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSAMLConnectionMetadata::DECODERS
+
+    # @return [SAMLConnectionObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] Optional `string` value serialized in the `domain` wire field.
+    attr_reader :domain
+    # @return [Array_of_String] Optional array value serialized in the `domains` wire field.
+    attr_reader :domains
+    # @return [String] Required `string` value serialized in the `idp_entity_id` wire field.
+    attr_reader :idp_entity_id
+    # @return [String] Required `string` value serialized in the `idp_sso_url` wire field.
+    attr_reader :idp_sso_url
+    # @return [String] Required `string` value serialized in the `idp_certificate` wire field.
+    attr_reader :idp_certificate
+    # @return [Integer] Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore). Null when no certificate is configured.
+    attr_reader :idp_certificate_issued_at
+    # @return [Integer] Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter). Null when no certificate is configured.
+    attr_reader :idp_certificate_expires_at
+    # @return [Array_of_SAMLConnectionIdpCertificatesItem] Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against any of them.
+    attr_reader :idp_certificates
+    # @return [String] Optional `string` value serialized in the `idp_metadata_url` wire field.
+    attr_reader :idp_metadata_url
+    # @return [String] Optional `string` value serialized in the `idp_metadata` wire field.
+    attr_reader :idp_metadata
+    # @return [String] Required `string` value serialized in the `acs_url` wire field.
+    attr_reader :acs_url
+    # @return [String] Required `string` value serialized in the `sp_entity_id` wire field.
+    attr_reader :sp_entity_id
+    # @return [String] Required `string` value serialized in the `sp_metadata_url` wire field.
+    attr_reader :sp_metadata_url
+    # @return [String] Optional `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [SAMLConnectionAttributeMapping] Optional object value serialized in the `attribute_mapping` wire field.
+    attr_reader :attribute_mapping
+    # @return [Boolean] Required `boolean` value serialized in the `active` wire field.
+    attr_reader :active
+    # @return [String] Required `string` value serialized in the `provider` wire field.
+    attr_reader :provider
+    # @return [Integer] Required `integer` value serialized in the `user_count` wire field.
+    attr_reader :user_count
+    # @return [Boolean] Required `boolean` value serialized in the `sync_user_attributes` wire field.
+    attr_reader :sync_user_attributes
+    # @return [Boolean] Required `boolean` value serialized in the `allow_subdomains` wire field.
+    attr_reader :allow_subdomains
+    # @return [Boolean] Required `boolean` value serialized in the `allow_idp_initiated` wire field.
+    attr_reader :allow_idp_initiated
+    # @return [Boolean] Required `boolean` value serialized in the `disable_additional_identifications` wire field.
+    attr_reader :disable_additional_identifications
+    # @return [Boolean] Required `boolean` value serialized in the `allow_organization_account_linking` wire field.
+    attr_reader :allow_organization_account_linking
+    # @return [Boolean] Enable or deactivate ForceAuthn
+    attr_reader :force_authn
+    # @return [SAMLConnectionLoginHint] Configuration for the login_hint sent to the IdP on SSO sign-in
+    attr_reader :login_hint
+    # @return [String] Optional `string` value serialized in the `enterprise_connection_id` wire field.
+    attr_reader :enterprise_connection_id
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalSAMLConnectionMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
     end
   end
 

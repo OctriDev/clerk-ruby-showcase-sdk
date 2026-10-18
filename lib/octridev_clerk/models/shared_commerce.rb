@@ -156,9 +156,9 @@ module OctridevClerk
     REQUIRED_FIELDS = SdkInternalCommerceCreditsResponseMetadata::REQUIRED_FIELDS
     DECODERS = SdkInternalCommerceCreditsResponseMetadata::DECODERS
 
-    # @return [CommerceProrationCreditDetailResponse] Required API value serialized in the `proration` wire field.
+    # @return [CommerceProrationCreditDetailResponse] Required object value serialized in the `proration` wire field.
     attr_reader :proration
-    # @return [CommercePayerCreditResponse] Required API value serialized in the `payer` wire field.
+    # @return [CommercePayerCreditResponse] Required object value serialized in the `payer` wire field.
     attr_reader :payer
     # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
     attr_reader :total
@@ -208,7 +208,7 @@ module OctridevClerk
     REQUIRED_FIELDS = SdkInternalCommerceDiscountsResponseMetadata::REQUIRED_FIELDS
     DECODERS = SdkInternalCommerceDiscountsResponseMetadata::DECODERS
 
-    # @return [CommerceProrationDiscountResponse] Required API value serialized in the `proration` wire field.
+    # @return [CommerceProrationDiscountResponse] Required object value serialized in the `proration` wire field.
     attr_reader :proration
     # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
     attr_reader :total

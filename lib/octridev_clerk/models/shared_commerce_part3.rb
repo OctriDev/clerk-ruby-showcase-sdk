@@ -332,9 +332,9 @@ module OctridevClerk
     attr_reader :grand_total
     # @return [Array_of_CommercePerUnitTotal] Optional array value serialized in the `per_unit_totals` wire field.
     attr_reader :per_unit_totals
-    # @return [CommerceCreditsResponse] Optional API value serialized in the `credits` wire field.
+    # @return [CommerceCreditsResponse] Optional object value serialized in the `credits` wire field.
     attr_reader :credits
-    # @return [CommerceDiscountsResponse] Optional API value serialized in the `discounts` wire field.
+    # @return [CommerceDiscountsResponse] Optional object value serialized in the `discounts` wire field.
     attr_reader :discounts
 
     def initialize(**attributes)
@@ -411,7 +411,7 @@ module OctridevClerk
     attr_reader :grand_total
     # @return [Array_of_CommercePerUnitTotal2] Optional array value serialized in the `per_unit_totals` wire field.
     attr_reader :per_unit_totals
-    # @return [CommerceCreditsResponse] Optional API value serialized in the `credits` wire field.
+    # @return [CommerceCreditsResponse] Optional object value serialized in the `credits` wire field.
     attr_reader :credits
     # @return [BillingDiscountsResponse] Information about the discounts applied to the payment
     attr_reader :discounts

@@ -6,6 +6,50 @@
 # waitlist_entries domain models
 module OctridevClerk
   # Internal model hydration metadata.
+  class SdkInternalWaitlistEntriesMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::WaitlistEntry.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for WaitlistEntries.
+  # Typed representation of the `WaitlistEntries` API schema.
+  class WaitlistEntries
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalWaitlistEntriesMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalWaitlistEntriesMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalWaitlistEntriesMetadata::DECODERS
+
+    # @return [Array_of_WaitlistEntry] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of waitlist entries
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
   class SdkInternalWaitlistEntryMetadata
     FIELDS = {
       object: 'object',

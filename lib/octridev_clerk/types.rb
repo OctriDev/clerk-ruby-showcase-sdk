@@ -9,10 +9,6 @@ module OctridevClerk
   module EmailAddressVerification
   end
 
-  # Defines the EnterpriseAccountConnection SDK namespace.
-  module EnterpriseAccountConnection
-  end
-
   # Defines the EnterpriseAccountVerification SDK namespace.
   module EnterpriseAccountVerification
   end
@@ -29,20 +25,16 @@ module OctridevClerk
   module PhoneNumberVerification
   end
 
-  # Defines the SAMLAccountConnection SDK namespace.
-  module SAMLAccountConnection
-  end
-
   # Defines the SAMLAccountVerification SDK namespace.
   module SAMLAccountVerification
   end
 
-  # Defines the SAMLConnection SDK namespace.
-  module SAMLConnection
-  end
-
   # Defines the SessionRefresh SDK namespace.
   module SessionRefresh
+  end
+
+  # Defines the VerifyOAuthAccessTokenResponse SDK namespace.
+  module VerifyOAuthAccessTokenResponse
   end
 
   # Defines the Web3WalletVerification SDK namespace.
@@ -53,6 +45,7 @@ end
 require_relative 'models/actor_tokens'
 require_relative 'models/agent_tasks'
 require_relative 'models/allow_list_block_list'
+require_relative 'models/beta_features'
 require_relative 'models/billing'
 require_relative 'models/billing_part2'
 require_relative 'models/billing_part3'
@@ -63,10 +56,12 @@ require_relative 'models/email_sms_templates'
 require_relative 'models/enterprise_connections'
 require_relative 'models/enterprise_connections_part2'
 require_relative 'models/instance_settings'
+require_relative 'models/invitations'
 require_relative 'models/jwks'
 require_relative 'models/jwks_part2'
 require_relative 'models/jwt_templates'
 require_relative 'models/machines'
+require_relative 'models/oauth_access_tokens'
 require_relative 'models/oauth_applications'
 require_relative 'models/organization_domains'
 require_relative 'models/organization_invitations'
@@ -98,5 +93,6 @@ require_relative 'models/testing_tokens'
 require_relative 'models/users'
 require_relative 'models/users_part2'
 require_relative 'models/users_part3'
+require_relative 'models/users_part4'
 require_relative 'models/waitlist_entries'
 require_relative 'models/webhooks'

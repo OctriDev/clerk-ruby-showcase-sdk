@@ -45,24 +45,6 @@ module OctridevClerk
         end
       end
 
-      # Defines the VerifyOAuthAccessTokenResponseVariant0Object SDK namespace.
-      module VerifyOAuthAccessTokenResponseVariant0Object
-        CLERK_IDP_OAUTH_ACCESS_TOKEN = 'clerk_idp_oauth_access_token'
-        VALUES = ['clerk_idp_oauth_access_token'].freeze
-        def self.from_value(value)
-          value
-        end
-      end
-
-      # Defines the VerifyOAuthAccessTokenResponseVariant1Active SDK namespace.
-      module VerifyOAuthAccessTokenResponseVariant1Active
-        FALSE = false
-        VALUES = [false].freeze
-        def self.from_value(value)
-          value
-        end
-      end
-
       # Verifies an OAuth access token and returns its token details or active status. Supply the token in `access_token`; the legacy `secret` field is deprecated. Use this endpoint to check whether an access token is active and retrieve its associated client, subject, and scopes when available.
       #
       # @param access_token [String] The access token to verify.
@@ -82,6 +64,7 @@ module OctridevClerk
             'access_token' => access_token,
             'secret' => secret
           },
+          return_type: ::OctridevClerk::VerifyOAuthAccessTokenResponse,
           decoder: :json,
           operation_id: 'verify_oauth_access_token',
           request_options: request_options

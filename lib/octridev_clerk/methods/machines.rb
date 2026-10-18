@@ -10,48 +10,6 @@ module OctridevClerk
     # Defines the Machines SDK namespace.
     module Machines
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema11ae8042Metadata
-        FIELDS = {
-          data: 'data',
-          total_count: 'total_count'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            value&.map { |item| ::OctridevClerk::Machine.from_hash(item) }
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema11ae8042.
-      class SchemaSchema11ae8042
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema11ae8042Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema11ae8042Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema11ae8042Metadata::DECODERS
-
-        attr_reader :data
-        # @return [Integer] Total number of machines
-        attr_reader :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalCreateMachineMetadata
         FIELDS = {
           name: 'name',
@@ -93,79 +51,6 @@ module OctridevClerk
       end
 
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema6ad3d7e4Metadata
-        FIELDS = {
-          object: 'object',
-          id: 'id',
-          name: 'name',
-          instance_id: 'instance_id',
-          created_at: 'created_at',
-          updated_at: 'updated_at',
-          default_token_ttl: 'default_token_ttl',
-          scoped_machines: 'scoped_machines',
-          secret_key: 'secret_key'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          name
-          instance_id
-          created_at
-          updated_at
-          scoped_machines
-          secret_key
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::MachineWithoutScopedMachinesObject.from_value(value)
-          end,
-          scoped_machines: lambda do |value|
-            value&.map { |item| ::OctridevClerk::MachineWithoutScopedMachines.from_hash(item) }
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema6ad3d7e4.
-      class SchemaSchema6ad3d7e4
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema6ad3d7e4Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema6ad3d7e4Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema6ad3d7e4Metadata::DECODERS
-
-        # @return [MachineWithoutScopedMachinesObject] Required enumerated value serialized in the `object` wire field.
-        attr_reader :object
-        # @return [String] Unique identifier for the machine.
-        attr_reader :id
-        # @return [String] The name of the machine.
-        attr_reader :name
-        # @return [String] The ID of the instance this machine belongs to.
-        attr_reader :instance_id
-        # @return [Integer] Unix timestamp of creation.
-        attr_reader :created_at
-        # @return [Integer] Unix timestamp of last update.
-        attr_reader :updated_at
-        # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine.
-        attr_reader :default_token_ttl
-        # @return [Array_of_MachineWithoutScopedMachines] Array of machines this machine has access to.
-        attr_reader :scoped_machines
-        # @return [String] The secret key for the machine, only returned upon creation.
-        attr_reader :secret_key
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalUpdateMachineMetadata
         FIELDS = {
           name: 'name',
@@ -186,99 +71,6 @@ module OctridevClerk
         attr_reader :name
         # @return [Integer] The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
         attr_reader :default_token_ttl
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchema7a4a2eaaMetadata
-        FIELDS = {
-          object: 'object',
-          id: 'id',
-          deleted: 'deleted'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          deleted
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObject384b96ba.from_value(value)
-          end,
-          deleted: lambda do |value|
-            ::OctridevClerk::SchemaSchemaDeletedB1392ec9.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema7a4a2eaa.
-      class SchemaSchema7a4a2eaa
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema7a4a2eaaMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema7a4a2eaaMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema7a4a2eaaMetadata::DECODERS
-
-        # @return [SchemaSchemaObject384b96ba] String representing the object's type.
-        attr_reader :object
-        # @return [String] The ID of the deleted machine
-        attr_reader :id
-        # @return [SchemaSchemaDeletedB1392ec9] Whether the machine was successfully deleted
-        attr_reader :deleted
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchema23990ad7Metadata
-        FIELDS = {
-          object: 'object',
-          secret: 'secret'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          secret
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObjectAb22cdb6.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema23990ad7.
-      class SchemaSchema23990ad7
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema23990ad7Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema23990ad7Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema23990ad7Metadata::DECODERS
-
-        # @return [SchemaSchemaObjectAb22cdb6] String representing the object's type.
-        attr_reader :object
-        # @return [String] The secret key for the machine.
-        attr_reader :secret
 
         def initialize(**attributes)
           SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
@@ -364,60 +156,6 @@ module OctridevClerk
         end
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchema5f07b6afMetadata
-        FIELDS = {
-          object: 'object',
-          from_machine_id: 'from_machine_id',
-          to_machine_id: 'to_machine_id',
-          deleted: 'deleted'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          from_machine_id
-          to_machine_id
-          deleted
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObject47b1d8ed.from_value(value)
-          end,
-          deleted: lambda do |value|
-            ::OctridevClerk::SchemaSchemaDeleted92e27971.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema5f07b6af.
-      class SchemaSchema5f07b6af
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema5f07b6afMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema5f07b6afMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema5f07b6afMetadata::DECODERS
-
-        # @return [SchemaSchemaObject47b1d8ed] String representing the object's type.
-        attr_reader :object
-        # @return [String] The ID of the machine that had access to the target machine
-        attr_reader :from_machine_id
-        # @return [String] The ID of the machine that was being accessed
-        attr_reader :to_machine_id
-        # @return [SchemaSchemaDeleted92e27971] Whether the machine scope was successfully deleted
-        attr_reader :deleted
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
       # This request returns the list of machines for an instance. The machines are ordered by descending creation date (i.e. most recent machines will be returned first)
       #
       # @param limit [Integer] Applies a limit to the number of results returned.
@@ -455,7 +193,7 @@ module OctridevClerk
             'query' => QueryValue.new(query, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true)
           },
-          return_type: ::OctridevClerk::Methods::Machines::SchemaSchema11ae8042,
+          return_type: ::OctridevClerk::MachineList,
           decoder: :json,
           operation_id: 'list_machines',
           request_options: request_options,
@@ -498,7 +236,7 @@ module OctridevClerk
             'scoped_machines' => scoped_machines,
             'default_token_ttl' => default_token_ttl
           },
-          return_type: ::OctridevClerk::Methods::Machines::SchemaSchema6ad3d7e4,
+          return_type: ::OctridevClerk::MachineCreated,
           decoder: :json,
           operation_id: 'create_machine',
           request_options: request_options,
@@ -526,8 +264,188 @@ module OctridevClerk
           errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
+
+      # Updates an existing machine. Only the provided fields will be updated.
+      #
+      # @param machine_id [String] The ID of the machine to update
+      # @param name [String] The name of the machine
+      # @param default_token_ttl [Integer] The default time-to-live (TTL) in seconds
+      #   for tokens created by this machine. Must be at least 1 second.
+      def self.update_machine(
+        config:,
+        machine_id:,
+        name: NOT_GIVEN,
+        default_token_ttl: NOT_GIVEN,
+        request_options: nil
+      )
+        Validation.if_given(name) { Validation.validate_length('name', name, min: 1, max: 255) }
+
+        Validation.if_given(default_token_ttl) do
+          Validation.validate_range('default_token_ttl', default_token_ttl, min: 1, max: 315_360_000)
+        end
+
+        SdkClient.request(
+          'PATCH',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id)
+          ].join,
+          config: config,
+          body: {
+            'name' => name,
+            'default_token_ttl' => default_token_ttl
+          },
+          return_type: ::OctridevClerk::Machine,
+          decoder: :json,
+          operation_id: 'update_machine',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      # Deletes a machine. Use its `machine_id` to identify the machine you want to remove. The response confirms deletion with the machine ID and a `deleted` value.
+      #
+      # Deletes a machine.
+      #
+      # @param machine_id [String] The ID of the machine to delete
+      def self.delete_machine(
+        config:,
+        machine_id:,
+        request_options: nil
+      )
+        SdkClient.request(
+          'DELETE',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::MachineDeleted,
+          decoder: :json,
+          operation_id: 'delete_machine',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      # Retrieves the secret key for a machine. Use the `machine_id` to identify which machine's key you need.
+      #
+      # Returns the secret key for a machine.
+      #
+      # @param machine_id [String] The ID of the machine to retrieve the secret key
+      #   for
+      singleton_class.define_method(:get_machine_secret_key) do |config:, machine_id:, request_options: nil|
+        SdkClient.request(
+          'GET',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id),
+            '/secret_key'
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::MachineSecretKey,
+          decoder: :json,
+          operation_id: 'get_machine_secret_key',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      # Rotates the machine's secret key. When the secret key is rotated, make sure to update it in your machine/application. The previous secret key will remain valid for the duration specified by the previous_token_ttl parameter.
+      #
+      # @param machine_id [String] The ID of the machine to rotate the secret key
+      #   for
+      # @param previous_token_ttl [Integer] The time in seconds that the previous
+      #   secret key will remain valid after rotation. This ensures a graceful
+      #   transition period for updating applications with the new secret key. Set to
+      #   0 to immediately expire the previous key. Maximum value is 8 hours (28800
+      #   seconds).
+      def self.rotate_machine_secret_key(
+        config:,
+        machine_id:,
+        previous_token_ttl:,
+        request_options: nil
+      )
+        Validation.validate_range('previous_token_ttl', previous_token_ttl, min: 0, max: 28_800)
+
+        SdkClient.request(
+          'POST',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id),
+            '/secret_key/rotate'
+          ].join,
+          config: config,
+          body: {
+            'previous_token_ttl' => previous_token_ttl
+          },
+          return_type: ::OctridevClerk::MachineSecretKey,
+          decoder: :json,
+          operation_id: 'rotate_machine_secret_key',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      # Creates a new machine scope, allowing the specified machine to access another machine. Maximum of 150 scopes per machine.
+      #
+      # @param machine_id [String] The ID of the machine that will have access to
+      #   another machine
+      # @param to_machine_id [String] The ID of the machine that will be scoped to
+      #   the current machine
+      def self.create_machine_scope(
+        config:,
+        machine_id:,
+        to_machine_id:,
+        request_options: nil
+      )
+        SdkClient.request(
+          'POST',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id),
+            '/scopes'
+          ].join,
+          config: config,
+          body: {
+            'to_machine_id' => to_machine_id
+          },
+          return_type: ::OctridevClerk::MachineScope,
+          decoder: :json,
+          operation_id: 'create_machine_scope',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      # Deletes a machine scope, removing access from one machine to another.
+      #
+      # @param machine_id [String] The ID of the machine that has access to another
+      #   machine
+      # @param other_machine_id [String] The ID of the machine that is being
+      #   accessed
+      def self.delete_machine_scope(
+        config:,
+        machine_id:,
+        other_machine_id:,
+        request_options: nil
+      )
+        SdkClient.request(
+          'DELETE',
+          [
+            '/machines/',
+            SdkClient.encode_path_segment(machine_id),
+            '/scopes/',
+            SdkClient.encode_path_segment(other_machine_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::MachineScopeDeleted,
+          decoder: :json,
+          operation_id: 'delete_machine_scope',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
     end
   end
 end
-
-require_relative 'machines_part_2'

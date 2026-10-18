@@ -6,6 +6,388 @@
 # users domain models (part 3)
 module OctridevClerk
   # Internal model hydration metadata.
+  class SdkInternalUserMetadata
+    FIELDS = {
+      id: 'id',
+      object: 'object',
+      external_id: 'external_id',
+      primary_email_address_id: 'primary_email_address_id',
+      primary_phone_number_id: 'primary_phone_number_id',
+      primary_web3_wallet_id: 'primary_web3_wallet_id',
+      username: 'username',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      locale: 'locale',
+      timezone: 'timezone',
+      profile_image_url: 'profile_image_url',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      unsafe_metadata: 'unsafe_metadata',
+      email_addresses: 'email_addresses',
+      phone_numbers: 'phone_numbers',
+      web3_wallets: 'web3_wallets',
+      passkeys: 'passkeys',
+      password_enabled: 'password_enabled',
+      two_factor_enabled: 'two_factor_enabled',
+      totp_enabled: 'totp_enabled',
+      backup_code_enabled: 'backup_code_enabled',
+      mfa_enabled_at: 'mfa_enabled_at',
+      mfa_disabled_at: 'mfa_disabled_at',
+      password_last_updated_at: 'password_last_updated_at',
+      external_accounts: 'external_accounts',
+      saml_accounts: 'saml_accounts',
+      enterprise_accounts: 'enterprise_accounts',
+      organization_memberships: 'organization_memberships',
+      last_sign_in_at: 'last_sign_in_at',
+      banned: 'banned',
+      locked: 'locked',
+      deprovisioned: 'deprovisioned',
+      lockout_expires_in_seconds: 'lockout_expires_in_seconds',
+      verification_attempts_remaining: 'verification_attempts_remaining',
+      updated_at: 'updated_at',
+      created_at: 'created_at',
+      delete_self_enabled: 'delete_self_enabled',
+      create_organization_enabled: 'create_organization_enabled',
+      create_organizations_limit: 'create_organizations_limit',
+      last_active_at: 'last_active_at',
+      legal_accepted_at: 'legal_accepted_at',
+      bypass_client_trust: 'bypass_client_trust',
+      directories: 'directories',
+      directory: 'directory',
+      scim: 'scim'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      object
+      external_id
+      primary_email_address_id
+      primary_phone_number_id
+      primary_web3_wallet_id
+      username
+      first_name
+      last_name
+      has_image
+      public_metadata
+      email_addresses
+      phone_numbers
+      web3_wallets
+      passkeys
+      password_enabled
+      two_factor_enabled
+      totp_enabled
+      backup_code_enabled
+      mfa_enabled_at
+      mfa_disabled_at
+      external_accounts
+      saml_accounts
+      enterprise_accounts
+      last_sign_in_at
+      banned
+      locked
+      lockout_expires_in_seconds
+      verification_attempts_remaining
+      updated_at
+      created_at
+      delete_self_enabled
+      create_organization_enabled
+      last_active_at
+      legal_accepted_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::UserObject.from_value(value)
+      end,
+      email_addresses: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EmailAddress.from_hash(item) }
+      end,
+      phone_numbers: lambda do |value|
+        value&.map { |item| ::OctridevClerk::PhoneNumber.from_hash(item) }
+      end,
+      web3_wallets: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Web3Wallet.from_hash(item) }
+      end,
+      passkeys: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Passkey.from_hash(item) }
+      end,
+      external_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::ExternalAccountWithVerification.from_hash(item) }
+      end,
+      saml_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SAMLAccount.from_hash(item) }
+      end,
+      enterprise_accounts: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EnterpriseAccount.from_hash(item) }
+      end,
+      organization_memberships: lambda do |value|
+        value&.map { |item| ::OctridevClerk::OrganizationMembership.from_hash(item) }
+      end,
+      directories: lambda do |value|
+        value&.map { |item| ::OctridevClerk::SCIMUserMetadata.from_hash(item) }
+      end,
+      directory: lambda do |value|
+        ::OctridevClerk::SCIMUserMetadata.from_hash(value)
+      end,
+      scim: lambda do |value|
+        ::OctridevClerk::SCIMUserMetadata.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      external_id
+      primary_email_address_id
+      primary_phone_number_id
+      primary_web3_wallet_id
+      username
+      first_name
+      last_name
+      mfa_enabled_at
+      mfa_disabled_at
+      last_sign_in_at
+      lockout_expires_in_seconds
+      verification_attempts_remaining
+      last_active_at
+      legal_accepted_at
+    ].freeze
+  end
+
+  # API model for User.
+  # Typed representation of the `User` API schema.
+  class User
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalUserMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalUserMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalUserMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [UserObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `external_id` wire field.
+    attr_reader :external_id
+    # @return [String] Required `string` value serialized in the `primary_email_address_id` wire field.
+    attr_reader :primary_email_address_id
+    # @return [String] Required `string` value serialized in the `primary_phone_number_id` wire field.
+    attr_reader :primary_phone_number_id
+    # @return [String] Required `string` value serialized in the `primary_web3_wallet_id` wire field.
+    attr_reader :primary_web3_wallet_id
+    # @return [String] Required `string` value serialized in the `username` wire field.
+    attr_reader :username
+    # @return [String] Required `string` value serialized in the `first_name` wire field.
+    attr_reader :first_name
+    # @return [String] Required `string` value serialized in the `last_name` wire field.
+    attr_reader :last_name
+    # @return [String] Optional `string` value serialized in the `locale` wire field.
+    attr_reader :locale
+    # @return [String] Optional `string` value serialized in the `timezone` wire field.
+    attr_reader :timezone
+    # @return [String] Optional `string` value serialized in the `profile_image_url` wire field.
+    attr_reader :profile_image_url
+    # @return [String] Optional `string` value serialized in the `image_url` wire field.
+    attr_reader :image_url
+    # @return [Boolean] Required `boolean` value serialized in the `has_image` wire field.
+    attr_reader :has_image
+    # @return [Hash] Required object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
+    attr_reader :private_metadata
+    # @return [Hash] Optional object value serialized in the `unsafe_metadata` wire field.
+    attr_reader :unsafe_metadata
+    # @return [Array_of_EmailAddress] Required array value serialized in the `email_addresses` wire field.
+    attr_reader :email_addresses
+    # @return [Array_of_PhoneNumber] Required array value serialized in the `phone_numbers` wire field.
+    attr_reader :phone_numbers
+    # @return [Array_of_Web3Wallet] Required array value serialized in the `web3_wallets` wire field.
+    attr_reader :web3_wallets
+    # @return [Array_of_Passkey] Required array value serialized in the `passkeys` wire field.
+    attr_reader :passkeys
+    # @return [Boolean] Required `boolean` value serialized in the `password_enabled` wire field.
+    attr_reader :password_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `two_factor_enabled` wire field.
+    attr_reader :two_factor_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `totp_enabled` wire field.
+    attr_reader :totp_enabled
+    # @return [Boolean] Required `boolean` value serialized in the `backup_code_enabled` wire field.
+    attr_reader :backup_code_enabled
+    # @return [Integer] Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+    attr_reader :mfa_enabled_at
+    # @return [Integer] Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+    attr_reader :mfa_disabled_at
+    # @return [Integer] Unix timestamp of when the user's password was last updated.
+    attr_reader :password_last_updated_at
+    # @return [Array_of_ExternalAccountWithVerification] Required array value serialized in the `external_accounts` wire field.
+    attr_reader :external_accounts
+    # @return [Array_of_SAMLAccount] Required array value serialized in the `saml_accounts` wire field.
+    attr_reader :saml_accounts
+    # @return [Array_of_EnterpriseAccount] Required array value serialized in the `enterprise_accounts` wire field.
+    attr_reader :enterprise_accounts
+    # @return [Array_of_OrganizationMembership] Optional array value serialized in the `organization_memberships` wire field.
+    attr_reader :organization_memberships
+    # @return [Integer] Unix timestamp of last sign-in.
+    attr_reader :last_sign_in_at
+    # @return [Boolean] Flag to denote whether user is banned or not.
+    attr_reader :banned
+    # @return [Boolean] Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
+    attr_reader :locked
+    # @return [Boolean] Flag to denote whether user has been deprovisioned and is restricted from signing in.
+    attr_reader :deprovisioned
+    # @return [Integer] The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+    attr_reader :lockout_expires_in_seconds
+    # @return [Integer] The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+    attr_reader :verification_attempts_remaining
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Boolean] If enabled, user can delete themselves via FAPI.
+    attr_reader :delete_self_enabled
+    # @return [Boolean] If enabled, user can create organizations via FAPI.
+    attr_reader :create_organization_enabled
+    # @return [Integer] The maximum number of organizations the user can create. 0 means unlimited.
+    attr_reader :create_organizations_limit
+    # @return [Integer] Unix timestamp of the latest session activity, with day precision.
+    attr_reader :last_active_at
+    # @return [Integer] Unix timestamp of when the user accepted the legal requirements.
+    attr_reader :legal_accepted_at
+    # @return [Boolean] When set to `true`, the user will bypass Device Trust checks during sign-in.
+    attr_reader :bypass_client_trust
+    # @return [Array_of_SCIMUserMetadata] All loaded directory links. Omitted when links were not loaded; an empty array means the user has no directory links.
+    attr_reader :directories
+    # @return [SCIMUserMetadata] The most recently updated directory link. Use directories for all links.
+    attr_reader :directory
+    # @return [SCIMUserMetadata] Alias of directory. Use directories for all links.
+    attr_reader :scim
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalUserMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the UserObject SDK namespace.
+  module UserObject
+    USER = 'user'
+    VALUES = ['user'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalVerificationGoogleOneTapMetadata
+    FIELDS = {
+      object: 'object',
+      status: 'status',
+      strategy: 'strategy',
+      expire_at: 'expire_at',
+      attempts: 'attempts',
+      verified_at_client: 'verified_at_client',
+      error: 'error'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      status
+      strategy
+      expire_at
+      attempts
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapObject.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapStatus.from_value(value)
+      end,
+      strategy: lambda do |value|
+        ::OctridevClerk::VerificationGoogleOneTapStrategy.from_value(value)
+      end,
+      error: lambda do |value|
+        ::OctridevClerk::ClerkError.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      expire_at
+      attempts
+    ].freeze
+  end
+
+  # API model for VerificationGoogleOneTap.
+  # Typed representation of the `VerificationGoogleOneTap` API schema.
+  class VerificationGoogleOneTap
+    include ExternalAccountWithVerificationVerification
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerificationGoogleOneTapMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerificationGoogleOneTapMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerificationGoogleOneTapMetadata::DECODERS
+
+    # @return [VerificationGoogleOneTapObject] Optional enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [VerificationGoogleOneTapStatus] Required enumerated value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [VerificationGoogleOneTapStrategy] Required enumerated value serialized in the `strategy` wire field.
+    attr_reader :strategy
+    # @return [Integer] Required `integer` value serialized in the `expire_at` wire field.
+    attr_reader :expire_at
+    # @return [Integer] Required `integer` value serialized in the `attempts` wire field.
+    attr_reader :attempts
+    # @return [String] Optional `string` value serialized in the `verified_at_client` wire field.
+    attr_reader :verified_at_client
+    # @return [ClerkError] Optional object value serialized in the `error` wire field.
+    attr_reader :error
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerificationGoogleOneTapMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapObject SDK namespace.
+  module VerificationGoogleOneTapObject
+    VERIFICATION_GOOGLE_ONE_TAP = 'verification_google_one_tap'
+    VALUES = ['verification_google_one_tap'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('VerificationGoogleOneTapObject', 'enum', "Unknown VerificationGoogleOneTapObject: #{value}")
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapStatus SDK namespace.
+  module VerificationGoogleOneTapStatus
+    UNVERIFIED = 'unverified'
+    VERIFIED = 'verified'
+    VALUES = %w[unverified verified].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the VerificationGoogleOneTapStrategy SDK namespace.
+  module VerificationGoogleOneTapStrategy
+    GOOGLE_ONE_TAP = 'google_one_tap'
+    VALUES = ['google_one_tap'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
   class SdkInternalVerificationOauthMetadata
     FIELDS = {
       object: 'object',
@@ -304,123 +686,6 @@ module OctridevClerk
       return value if VALUES.include?(value)
 
       raise SdkValidationError.new('VerificationWeb3Object', 'enum', "Unknown VerificationWeb3Object: #{value}")
-    end
-  end
-
-  # Defines the VerificationWeb3Status SDK namespace.
-  module VerificationWeb3Status
-    UNVERIFIED = 'unverified'
-    VERIFIED = 'verified'
-    FAILED = 'failed'
-    EXPIRED = 'expired'
-    VALUES = %w[unverified verified failed expired].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Defines the VerificationWeb3Strategy SDK namespace.
-  module VerificationWeb3Strategy
-    WEB3_METAMASK_SIGNATURE = 'web3_metamask_signature'
-    WEB3_BASE_SIGNATURE = 'web3_base_signature'
-    WEB3_COINBASE_WALLET_SIGNATURE = 'web3_coinbase_wallet_signature'
-    WEB3_OKX_WALLET_SIGNATURE = 'web3_okx_wallet_signature'
-    WEB3_SOLANA_SIGNATURE = 'web3_solana_signature'
-    VALUES = %w[
-      web3_metamask_signature web3_base_signature web3_coinbase_wallet_signature
-      web3_okx_wallet_signature web3_solana_signature
-    ].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalWeb3WalletMetadata
-    FIELDS = {
-      id: 'id',
-      object: 'object',
-      web3_wallet: 'web3_wallet',
-      verification: 'verification',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      web3_wallet
-      verification
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::Web3WalletObject.from_value(value)
-      end,
-      verification: lambda do |value|
-        ::OctridevClerk::Web3WalletVerification.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      verification
-    ].freeze
-  end
-
-  # API model for Web3Wallet.
-  # Typed representation of the `Web3Wallet` API schema.
-  class Web3Wallet
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalWeb3WalletMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalWeb3WalletMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalWeb3WalletMetadata::DECODERS
-
-    # @return [String] Optional `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [Web3WalletObject] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [String] Required `string` value serialized in the `web3_wallet` wire field.
-    attr_reader :web3_wallet
-    # @return [Web3WalletVerification] Required object value serialized in the `verification` wire field.
-    attr_reader :verification
-    # @return [Integer] Unix timestamp of creation
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of creation
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalWeb3WalletMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the Web3WalletObject SDK namespace.
-  module Web3WalletObject
-    WEB3_WALLET = 'web3_wallet'
-    VALUES = ['web3_wallet'].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Defines the Web3WalletVerification SDK namespace.
-  module Web3WalletVerification
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'verification_web3' => VerificationWeb3, 'verification_admin' => VerificationAdmin }
-      type = mapping[hash['object']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['object'].is_a?(::String)
-
-      raise SdkValidationError.new('Web3WalletVerification', 'variant', "Unknown Web3WalletVerification discriminator: #{hash['object'].inspect}")
     end
   end
 end

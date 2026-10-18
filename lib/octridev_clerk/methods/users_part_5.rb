@@ -365,7 +365,7 @@ module OctridevClerk
             '/trusted_devices'
           ].join,
           config: config,
-          return_type: ::OctridevClerk::Methods::Users::SchemaSchema36c20f95,
+          return_type: ::OctridevClerk::TrustedDeviceList,
           decoder: :json,
           operation_id: 'list_user_trusted_devices',
           request_options: request_options,
@@ -419,7 +419,7 @@ module OctridevClerk
             '/biometric_credentials'
           ].join,
           config: config,
-          return_type: ::OctridevClerk::Methods::Users::SchemaSchema,
+          return_type: ::OctridevClerk::BiometricCredentialList,
           decoder: :json,
           operation_id: 'list_user_biometric_credentials',
           request_options: request_options,

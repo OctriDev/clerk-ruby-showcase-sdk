@@ -66,81 +66,6 @@ module OctridevClerk
         end
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalSchemaSchemaDd079084Metadata
-        FIELDS = {
-          object: 'object',
-          id: 'id',
-          email_address: 'email_address',
-          public_metadata: 'public_metadata',
-          revoked: 'revoked',
-          status: 'status',
-          url: 'url',
-          expires_at: 'expires_at',
-          created_at: 'created_at',
-          updated_at: 'updated_at'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          email_address
-          public_metadata
-          status
-          created_at
-          updated_at
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::InvitationObject.from_value(value)
-          end,
-          revoked: lambda do |value|
-            ::OctridevClerk::SchemaSchemaVariant1Revoked.from_value(value)
-          end,
-          status: lambda do |value|
-            ::OctridevClerk::SchemaSchemaVariant1Status.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchemaDd079084.
-      class SchemaSchemaDd079084
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchemaDd079084Metadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchemaDd079084Metadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchemaDd079084Metadata::DECODERS
-
-        attr_reader :revoked, :status
-        # @return [InvitationObject] Required enumerated value serialized in the `object` wire field.
-        attr_reader :object
-        # @return [String] Required `string` value serialized in the `id` wire field.
-        attr_reader :id
-        # @return [String] Required `email`-formatted value serialized in the `email_address` wire field.
-        attr_reader :email_address
-        # @return [Hash] Required object value serialized in the `public_metadata` wire field.
-        attr_reader :public_metadata
-        # @return [String] Optional `string` value serialized in the `url` wire field.
-        attr_reader :url
-        # @return [Integer] Unix timestamp of expiration.
-        attr_reader :expires_at
-        # @return [Integer] Unix timestamp of creation.
-        attr_reader :created_at
-        # @return [Integer] Unix timestamp of last update.
-        attr_reader :updated_at
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
       # Defines the ListInvitationsParameter SDK namespace.
       module ListInvitationsParameter
         PENDING = 'pending'
@@ -345,7 +270,7 @@ module OctridevClerk
             '/revoke'
           ].join,
           config: config,
-          return_type: ::OctridevClerk::Methods::Invitations::SchemaSchemaDd079084,
+          return_type: ::OctridevClerk::InvitationRevoked,
           decoder: :json,
           operation_id: 'revoke_invitation',
           request_options: request_options,

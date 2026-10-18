@@ -52,51 +52,6 @@ module OctridevClerk
       end
 
       # Internal model hydration metadata.
-      class SdkInternalSchemaSchema382061ccMetadata
-        FIELDS = {
-          object: 'object',
-          id: 'id',
-          restricted_to_allowlist: 'restricted_to_allowlist',
-          from_email_address: 'from_email_address',
-          progressive_sign_up: 'progressive_sign_up',
-          enhanced_email_deliverability: 'enhanced_email_deliverability'
-        }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::SchemaSchemaObjectE5de16a2.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for SchemaSchema382061cc.
-      class SchemaSchema382061cc
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalSchemaSchema382061ccMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalSchemaSchema382061ccMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalSchemaSchema382061ccMetadata::DECODERS
-
-        attr_reader :id, :restricted_to_allowlist, :from_email_address, :progressive_sign_up
-        # @return [SchemaSchemaObjectE5de16a2] String representing the object's type. Objects of the same type share the same value.
-        attr_reader :object
-        # @return [Boolean] Deprecated. This setting is retired and no longer affects email delivery; all email is sent through the instance's configured email sending domain. The field is preserved for API compatibility only and will be removed in a future version.
-        attr_reader :enhanced_email_deliverability
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
       class SdkInternalUpdateProductionInstanceDomainMetadata
         FIELDS = {
           home_url: 'home_url',
@@ -203,7 +158,7 @@ module OctridevClerk
             'progressive_sign_up' => progressive_sign_up,
             'test_mode' => test_mode
           },
-          return_type: ::OctridevClerk::Methods::BetaFeatures::SchemaSchema382061cc,
+          return_type: ::OctridevClerk::InstanceSettings,
           decoder: :json,
           operation_id: 'update_instance_auth_config',
           request_options: request_options,

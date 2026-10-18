@@ -255,12 +255,169 @@ module OctridevClerk
     end
   end
 
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryGroupRoleMappingDeletedMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      deleted: 'deleted'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      deleted
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappingDeletedObject.from_value(value)
+      end,
+      deleted: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappingDeletedDeleted.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for DirectoryGroupRoleMappingDeleted.
+  # Typed representation of the `DirectoryGroupRoleMappingDeleted` API schema.
+  class DirectoryGroupRoleMappingDeleted
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::DECODERS
+
+    # @return [DirectoryGroupRoleMappingDeletedObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] The ID of the deleted directory group role mapping.
+    attr_reader :id
+    # @return [DirectoryGroupRoleMappingDeletedDeleted] Whether the directory group role mapping was successfully deleted.
+    attr_reader :deleted
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the DirectoryGroupRoleMappingDeletedDeleted SDK namespace.
+  module DirectoryGroupRoleMappingDeletedDeleted
+    TRUE = true
+    VALUES = [true].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the DirectoryGroupRoleMappingDeletedObject SDK namespace.
+  module DirectoryGroupRoleMappingDeletedObject
+    DIRECTORY_GROUP_ROLE_MAPPING = 'directory_group_role_mapping'
+    VALUES = ['directory_group_role_mapping'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryGroupRoleMappingListMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappings.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for DirectoryGroupRoleMappingList.
+  # Typed representation of the `DirectoryGroupRoleMappingList` API schema.
+  class DirectoryGroupRoleMappingList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryGroupRoleMappingListMetadata::DECODERS
+
+    # @return [DirectoryGroupRoleMappings] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of directory group role mappings in the directory.
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
   # Defines the DirectoryGroupRoleMappings SDK value decoder.
   module DirectoryGroupRoleMappings
     def self.from_hash(value)
       return nil if value.nil?
 
       value&.map { |item| ::OctridevClerk::DirectoryGroupRoleMapping.from_hash(item) }
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryListMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        ::OctridevClerk::Directories.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for DirectoryList.
+  # Typed representation of the `DirectoryList` API schema.
+  class DirectoryList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryListMetadata::DECODERS
+
+    # @return [Directories] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of directories.
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
     end
   end
 end
