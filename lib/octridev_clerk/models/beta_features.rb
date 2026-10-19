@@ -5,66 +5,65 @@
 
 # beta_features domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalInstanceSettingsMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    restricted_to_allowlist: "restricted_to_allowlist",
-    from_email_address: "from_email_address",
-    progressive_sign_up: "progressive_sign_up",
-    enhanced_email_deliverability: "enhanced_email_deliverability",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::InstanceSettingsObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for InstanceSettings.
-# Typed representation of the `InstanceSettings` API schema.
-class InstanceSettings
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalInstanceSettingsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalInstanceSettingsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalInstanceSettingsMetadata::DECODERS
-
-  # @return [InstanceSettingsObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Optional `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [Boolean] Optional `boolean` value serialized in the `restricted_to_allowlist` wire field.
-  attr_reader :restricted_to_allowlist
-  # @return [String] Optional `string` value serialized in the `from_email_address` wire field.
-  attr_reader :from_email_address
-  # @return [Boolean] Optional `boolean` value serialized in the `progressive_sign_up` wire field.
-  attr_reader :progressive_sign_up
-  # @return [Boolean] Deprecated. This setting is retired and no longer affects email delivery; all email is sent through the instance's configured email sending domain. The field is preserved for API compatibility only and will be removed in a future version.
-  attr_reader :enhanced_email_deliverability
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalInstanceSettingsMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      restricted_to_allowlist: 'restricted_to_allowlist',
+      from_email_address: 'from_email_address',
+      progressive_sign_up: 'progressive_sign_up',
+      enhanced_email_deliverability: 'enhanced_email_deliverability'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::InstanceSettingsObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for InstanceSettings.
+  # Typed representation of the `InstanceSettings` API schema.
+  class InstanceSettings
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalInstanceSettingsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalInstanceSettingsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalInstanceSettingsMetadata::DECODERS
+
+    # @return [InstanceSettingsObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Optional `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [Boolean] Optional `boolean` value serialized in the `restricted_to_allowlist` wire field.
+    attr_reader :restricted_to_allowlist
+    # @return [String] Optional `string` value serialized in the `from_email_address` wire field.
+    attr_reader :from_email_address
+    # @return [Boolean] Optional `boolean` value serialized in the `progressive_sign_up` wire field.
+    attr_reader :progressive_sign_up
+    # @return [Boolean] Deprecated. This setting is retired and no longer affects email delivery; all email is sent through the instance's configured email sending domain. The field is preserved for API compatibility only and will be removed in a future version.
+    attr_reader :enhanced_email_deliverability
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the InstanceSettingsObject SDK namespace.
+  module InstanceSettingsObject
+    INSTANCE_SETTINGS = 'instance_settings'
+    VALUES = ['instance_settings'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the InstanceSettingsObject SDK namespace.
-module InstanceSettingsObject
-  INSTANCE_SETTINGS = 'instance_settings'
-  VALUES = ['instance_settings'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

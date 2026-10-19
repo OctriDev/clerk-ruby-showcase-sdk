@@ -5,184 +5,183 @@
 
 # enterprise_connections domain models (part 2)
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalEnterpriseConnectionTestRunMetadata
-  FIELDS = {
-    id: "id",
-    status: "status",
-    connection_type: "connection_type",
-    parsed_user_info: "parsed_user_info",
-    logs: "logs",
-    saml: "saml",
-    oauth: "oauth",
-    created_at: "created_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    status
-    connection_type
-    created_at
-  ].freeze
-  DECODERS = {
-    status: lambda do |value|
-      ::OctridevClerk::EnterpriseConnectionTestRunStatus.from_value(value)
-    end,
-    connection_type: lambda do |value|
-      ::OctridevClerk::EnterpriseConnectionTestRunConnectionType.from_value(value)
-    end,
-    parsed_user_info: lambda do |value|
-      ::OctridevClerk::EnterpriseConnectionTestRunParsedUserInfo.from_hash(value)
-    end,
-    logs: lambda do |value|
-      value&.map { |item| ::OctridevClerk::EnterpriseConnectionTestRunLogsItem.from_hash(item) }
-    end,
-    saml: lambda do |value|
-      ::OctridevClerk::EnterpriseConnectionTestRunSaml.from_hash(value)
-    end,
-    oauth: lambda do |value|
-      ::OctridevClerk::EnterpriseConnectionTestRunOauth.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for EnterpriseConnectionTestRun.
-# Typed representation of the `EnterpriseConnectionTestRun` API schema.
-class EnterpriseConnectionTestRun
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalEnterpriseConnectionTestRunMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalEnterpriseConnectionTestRunMetadata::DECODERS
-
-  # @return [String] The test run ID
-  attr_reader :id
-  # @return [EnterpriseConnectionTestRunStatus] The status of the test run
-  attr_reader :status
-  # @return [EnterpriseConnectionTestRunConnectionType] The type of enterprise connection the test run was performed against
-  attr_reader :connection_type
-  # @return [EnterpriseConnectionTestRunParsedUserInfo] The user information parsed from the IdP response
-  attr_reader :parsed_user_info
-  # @return [Array_of_EnterpriseConnectionTestRunLogsItem] Log entries captured during the test run
-  attr_reader :logs
-  # @return [EnterpriseConnectionTestRunSaml] SAML-specific metadata, present for SAML connections
-  attr_reader :saml
-  # @return [EnterpriseConnectionTestRunOauth] OAuth-specific metadata, present for OIDC connections
-  attr_reader :oauth
-  # @return [Integer] Unix timestamp in milliseconds when the test run was created
-  attr_reader :created_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalEnterpriseConnectionTestRunMetadata
+    FIELDS = {
+      id: 'id',
+      status: 'status',
+      connection_type: 'connection_type',
+      parsed_user_info: 'parsed_user_info',
+      logs: 'logs',
+      saml: 'saml',
+      oauth: 'oauth',
+      created_at: 'created_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      status
+      connection_type
+      created_at
+    ].freeze
+    DECODERS = {
+      status: lambda do |value|
+        ::OctridevClerk::EnterpriseConnectionTestRunStatus.from_value(value)
+      end,
+      connection_type: lambda do |value|
+        ::OctridevClerk::EnterpriseConnectionTestRunConnectionType.from_value(value)
+      end,
+      parsed_user_info: lambda do |value|
+        ::OctridevClerk::EnterpriseConnectionTestRunParsedUserInfo.from_hash(value)
+      end,
+      logs: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EnterpriseConnectionTestRunLogsItem.from_hash(item) }
+      end,
+      saml: lambda do |value|
+        ::OctridevClerk::EnterpriseConnectionTestRunSaml.from_hash(value)
+      end,
+      oauth: lambda do |value|
+        ::OctridevClerk::EnterpriseConnectionTestRunOauth.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for EnterpriseConnectionTestRun.
+  # Typed representation of the `EnterpriseConnectionTestRun` API schema.
+  class EnterpriseConnectionTestRun
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalEnterpriseConnectionTestRunMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalEnterpriseConnectionTestRunMetadata::DECODERS
+
+    # @return [String] The test run ID
+    attr_reader :id
+    # @return [EnterpriseConnectionTestRunStatus] The status of the test run
+    attr_reader :status
+    # @return [EnterpriseConnectionTestRunConnectionType] The type of enterprise connection the test run was performed against
+    attr_reader :connection_type
+    # @return [EnterpriseConnectionTestRunParsedUserInfo] The user information parsed from the IdP response
+    attr_reader :parsed_user_info
+    # @return [Array_of_EnterpriseConnectionTestRunLogsItem] Log entries captured during the test run
+    attr_reader :logs
+    # @return [EnterpriseConnectionTestRunSaml] SAML-specific metadata, present for SAML connections
+    attr_reader :saml
+    # @return [EnterpriseConnectionTestRunOauth] OAuth-specific metadata, present for OIDC connections
+    attr_reader :oauth
+    # @return [Integer] Unix timestamp in milliseconds when the test run was created
+    attr_reader :created_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the EnterpriseConnectionTestRunConnectionType SDK namespace.
-module EnterpriseConnectionTestRunConnectionType
-  SAML = 'saml'
-  OAUTH = 'oauth'
-  VALUES = ['saml', 'oauth'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the EnterpriseConnectionTestRunStatus SDK namespace.
-module EnterpriseConnectionTestRunStatus
-  PENDING = 'pending'
-  SUCCESS = 'success'
-  FAILED = 'failed'
-  VALUES = ['pending', 'success', 'failed'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalEnterpriseConnectionTestRunResponseMetadata
-  FIELDS = {
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    url
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for EnterpriseConnectionTestRunResponse.
-# Typed representation of the `EnterpriseConnectionTestRunResponse` API schema.
-class EnterpriseConnectionTestRunResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::DECODERS
-
-  # @return [String] A short-lived URL that can be used to initiate the test run flow
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the EnterpriseConnectionTestRunConnectionType SDK namespace.
+  module EnterpriseConnectionTestRunConnectionType
+    SAML = 'saml'
+    OAUTH = 'oauth'
+    VALUES = %w[saml oauth].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the EnterpriseConnectionTestRunStatus SDK namespace.
+  module EnterpriseConnectionTestRunStatus
+    PENDING = 'pending'
+    SUCCESS = 'success'
+    FAILED = 'failed'
+    VALUES = %w[pending success failed].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalEnterpriseConnectionTestRunsMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::EnterpriseConnectionTestRun.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for EnterpriseConnectionTestRuns.
-# Typed representation of the `EnterpriseConnectionTestRuns` API schema.
-class EnterpriseConnectionTestRuns
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalEnterpriseConnectionTestRunsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalEnterpriseConnectionTestRunsMetadata::DECODERS
-
-  # @return [Array_of_EnterpriseConnectionTestRun] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of test runs
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalEnterpriseConnectionTestRunResponseMetadata
+    FIELDS = {
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      url
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for EnterpriseConnectionTestRunResponse.
+  # Typed representation of the `EnterpriseConnectionTestRunResponse` API schema.
+  class EnterpriseConnectionTestRunResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalEnterpriseConnectionTestRunResponseMetadata::DECODERS
+
+    # @return [String] A short-lived URL that can be used to initiate the test run flow
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalEnterpriseConnectionTestRunsMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::EnterpriseConnectionTestRun.from_hash(item) }
+      end
+    }.freeze
   end
-end
+
+  # API model for EnterpriseConnectionTestRuns.
+  # Typed representation of the `EnterpriseConnectionTestRuns` API schema.
+  class EnterpriseConnectionTestRuns
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalEnterpriseConnectionTestRunsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalEnterpriseConnectionTestRunsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalEnterpriseConnectionTestRunsMetadata::DECODERS
+
+    # @return [Array_of_EnterpriseConnectionTestRun] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of test runs
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end
