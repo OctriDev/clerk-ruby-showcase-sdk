@@ -5,68 +5,68 @@
 
 # redirect_ur_ls domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalRedirectURLMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    url: "url",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    url
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::RedirectURLObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RedirectURL.
-# Typed representation of the `RedirectURL` API schema.
-class RedirectURL
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRedirectURLMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRedirectURLMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRedirectURLMetadata::DECODERS
-
-  # @return [RedirectURLObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalRedirectURLMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      url: 'url',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      url
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::RedirectURLObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for RedirectURL.
+  # Typed representation of the `RedirectURL` API schema.
+  class RedirectURL
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRedirectURLMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRedirectURLMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRedirectURLMetadata::DECODERS
+
+    # @return [RedirectURLObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the RedirectURLObject SDK namespace.
+  module RedirectURLObject
+    REDIRECT_URL = 'redirect_url'
+    VALUES = ['redirect_url'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the RedirectURLObject SDK namespace.
-module RedirectURLObject
-  REDIRECT_URL = 'redirect_url'
-  VALUES = ['redirect_url'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

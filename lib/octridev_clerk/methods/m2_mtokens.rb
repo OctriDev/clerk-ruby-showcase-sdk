@@ -12,17 +12,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateM2MTokenMetadata
         FIELDS = {
-          token_format: "token_format",
-          seconds_until_expiration: "seconds_until_expiration",
-          claims: "claims",
-          min_remaining_ttl_seconds: "min_remaining_ttl_seconds",
+          token_format: 'token_format',
+          seconds_until_expiration: 'seconds_until_expiration',
+          claims: 'claims',
+          min_remaining_ttl_seconds: 'min_remaining_ttl_seconds'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           token_format: lambda do |value|
             ::OctridevClerk::Methods::M2MTokens::CreateM2MTokenTokenFormat.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -54,19 +53,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateM2MTokenResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          token: "token",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          subject: 'subject',
+          claims: 'claims',
+          scopes: 'scopes',
+          token: 'token',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -84,7 +83,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::M2MTokens::CreateM2MTokenResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           revocation_reason
@@ -128,18 +127,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalGetM2MTokensResponseM2mTokensItemMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          subject: 'subject',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -156,7 +155,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::M2MTokens::GetM2MTokensResponseM2mTokensItemObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           revocation_reason
@@ -199,8 +198,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalGetM2MTokensResponseMetadata
         FIELDS = {
-          m2m_tokens: "m2m_tokens",
-          total_count: "total_count",
+          m2m_tokens: 'm2m_tokens',
+          total_count: 'total_count'
         }.freeze
         REQUIRED_FIELDS = %i[
           m2m_tokens
@@ -209,7 +208,7 @@ module OctridevClerk
         DECODERS = {
           m2m_tokens: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::M2MTokens::GetM2MTokensResponseM2mTokensItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -239,12 +238,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeM2MTokenMetadata
         FIELDS = {
-          revocation_reason: "revocation_reason",
+          revocation_reason: 'revocation_reason'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RevokeM2MToken.
@@ -273,18 +270,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeM2MTokenResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          subject: 'subject',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -301,7 +298,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::M2MTokens::RevokeM2MTokenResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           revocation_reason
@@ -344,13 +341,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyM2MTokenMetadata
         FIELDS = {
-          token: "token",
+          token: 'token'
         }.freeze
         REQUIRED_FIELDS = %i[
           token
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for VerifyM2MToken.
@@ -379,18 +375,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyM2MTokenResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          subject: 'subject',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -407,7 +403,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::M2MTokens::VerifyM2MTokenResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           revocation_reason
@@ -478,7 +474,7 @@ module OctridevClerk
       module CreateM2MTokenTokenFormat
         OPAQUE = 'opaque'
         JWT = 'jwt'
-        VALUES = ['opaque', 'jwt'].freeze
+        VALUES = %w[opaque jwt].freeze
         def self.from_value(value)
           value
         end
@@ -513,7 +509,6 @@ module OctridevClerk
         min_remaining_ttl_seconds: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(seconds_until_expiration) do
           Validation.validate_range('seconds_until_expiration', seconds_until_expiration, exclusive_min: 0)
         end
@@ -524,18 +519,18 @@ module OctridevClerk
 
         SdkClient.request(
           'POST',
-          "/m2m_tokens",
+          '/m2m_tokens',
           config: config,
           body: {
             'token_format' => token_format,
             'seconds_until_expiration' => seconds_until_expiration,
             'claims' => claims,
-            'min_remaining_ttl_seconds' => min_remaining_ttl_seconds,
+            'min_remaining_ttl_seconds' => min_remaining_ttl_seconds
           },
           return_type: ::OctridevClerk::Methods::M2MTokens::CreateM2MTokenResponse,
           decoder: :json,
           operation_id: 'create_m2_mtoken',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end

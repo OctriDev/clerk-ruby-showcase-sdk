@@ -12,13 +12,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSSOBypassAllowlistUserMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateSSOBypassAllowlistUser.
@@ -54,19 +53,18 @@ module OctridevClerk
         enterprise_connection_id: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
-          "/sso_bypass_allowlist_users",
+          '/sso_bypass_allowlist_users',
           config: config,
           query: {
-            'enterprise_connection_id' => QueryValue.new(enterprise_connection_id, style: 'form', explode: true),
+            'enterprise_connection_id' => QueryValue.new(enterprise_connection_id, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::SSOBypassAllowlistUsers,
           decoder: :json,
           operation_id: 'list_sso_bypass_allowlist_users',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -78,19 +76,18 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/sso_bypass_allowlist_users",
+          '/sso_bypass_allowlist_users',
           config: config,
           body: {
-            'user_id' => user_id,
+            'user_id' => user_id
           },
           return_type: ::OctridevClerk::SSOBypassAllowlistUser,
           decoder: :json,
           operation_id: 'create_sso_bypass_allowlist_user',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -102,11 +99,10 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/sso_bypass_allowlist_users/",
+            '/sso_bypass_allowlist_users/',
             SdkClient.encode_path_segment(user_id)
           ].join,
           config: config,
@@ -114,7 +110,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_sso_bypass_allowlist_user',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

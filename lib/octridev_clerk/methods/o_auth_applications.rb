@@ -12,23 +12,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOAuthApplicationMetadata
         FIELDS = {
-          name: "name",
-          redirect_uris: "redirect_uris",
-          callback_url: "callback_url",
-          scopes: "scopes",
-          consent_screen_enabled: "consent_screen_enabled",
-          pkce_required: "pkce_required",
-          audience_uri: "audience_uri",
-          token_exchange_enabled: "token_exchange_enabled",
-          adopt_audience_resource: "adopt_audience_resource",
-          device_authorization_grant_enabled: "device_authorization_grant_enabled",
-          public: "public",
+          name: 'name',
+          redirect_uris: 'redirect_uris',
+          callback_url: 'callback_url',
+          scopes: 'scopes',
+          consent_screen_enabled: 'consent_screen_enabled',
+          pkce_required: 'pkce_required',
+          audience_uri: 'audience_uri',
+          token_exchange_enabled: 'token_exchange_enabled',
+          adopt_audience_resource: 'adopt_audience_resource',
+          device_authorization_grant_enabled: 'device_authorization_grant_enabled',
+          public: 'public'
         }.freeze
         REQUIRED_FIELDS = %i[
           name
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateOAuthApplication.
@@ -78,22 +77,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOAuthApplicationMetadata
         FIELDS = {
-          name: "name",
-          redirect_uris: "redirect_uris",
-          callback_url: "callback_url",
-          scopes: "scopes",
-          consent_screen_enabled: "consent_screen_enabled",
-          pkce_required: "pkce_required",
-          audience_uri: "audience_uri",
-          token_exchange_enabled: "token_exchange_enabled",
-          adopt_audience_resource: "adopt_audience_resource",
-          device_authorization_grant_enabled: "device_authorization_grant_enabled",
-          public: "public",
+          name: 'name',
+          redirect_uris: 'redirect_uris',
+          callback_url: 'callback_url',
+          scopes: 'scopes',
+          consent_screen_enabled: 'consent_screen_enabled',
+          pkce_required: 'pkce_required',
+          audience_uri: 'audience_uri',
+          token_exchange_enabled: 'token_exchange_enabled',
+          adopt_audience_resource: 'adopt_audience_resource',
+          device_authorization_grant_enabled: 'device_authorization_grant_enabled',
+          public: 'public'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateOAuthApplication.
@@ -143,14 +140,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUploadOAuthApplicationLogoMetadata
         FIELDS = {
-          uploader_user_id: "uploader_user_id",
-          file: "file",
+          uploader_user_id: 'uploader_user_id',
+          file: 'file'
         }.freeze
         REQUIRED_FIELDS = %i[
           file
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UploadOAuthApplicationLogo.
@@ -181,13 +177,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeOAuthApplicationTokenMetadata
         FIELDS = {
-          token: "token",
+          token: 'token'
         }.freeze
         REQUIRED_FIELDS = %i[
           token
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RevokeOAuthApplicationToken.
@@ -241,26 +236,25 @@ module OctridevClerk
         name_query: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/oauth_applications",
+          '/oauth_applications',
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
-            'name_query' => QueryValue.new(name_query, style: 'form', explode: true),
+            'name_query' => QueryValue.new(name_query, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::OAuthApplications,
           decoder: :json,
           operation_id: 'list_oauth_applications',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -310,14 +304,13 @@ module OctridevClerk
         public: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(callback_url) { Validation.validate_length('callback_url', callback_url, max: 1024) }
 
         Validation.if_given(scopes) { Validation.validate_length('scopes', scopes, max: 1024) }
 
         SdkClient.request(
           'POST',
-          "/oauth_applications",
+          '/oauth_applications',
           config: config,
           body: {
             'name' => name,
@@ -330,29 +323,24 @@ module OctridevClerk
             'token_exchange_enabled' => token_exchange_enabled,
             'adopt_audience_resource' => adopt_audience_resource,
             'device_authorization_grant_enabled' => device_authorization_grant_enabled,
-            'public' => public,
+            'public' => public
           },
           return_type: ::OctridevClerk::OAuthApplicationWithSecret,
           decoder: :json,
           operation_id: 'create_oauth_application',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
       # Fetches the OAuth application whose ID matches the provided `id` in the path.
       #
       # @param oauth_application_id [String] The ID of the OAuth application
-      singleton_class.define_method(:get_oauth_application) do |
-        config:,
-        oauth_application_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_oauth_application) do |config:, oauth_application_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/oauth_applications/",
+            '/oauth_applications/',
             SdkClient.encode_path_segment(oauth_application_id)
           ].join,
           config: config,
@@ -360,7 +348,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_oauth_application',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -420,7 +408,6 @@ module OctridevClerk
         public: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(callback_url) { Validation.validate_length('callback_url', callback_url, max: 1024) }
 
         Validation.if_given(scopes) { Validation.validate_length('scopes', scopes, max: 1024) }
@@ -428,7 +415,7 @@ module OctridevClerk
         SdkClient.request(
           'PATCH',
           [
-            "/oauth_applications/",
+            '/oauth_applications/',
             SdkClient.encode_path_segment(oauth_application_id)
           ].join,
           config: config,
@@ -443,13 +430,13 @@ module OctridevClerk
             'token_exchange_enabled' => token_exchange_enabled,
             'adopt_audience_resource' => adopt_audience_resource,
             'device_authorization_grant_enabled' => device_authorization_grant_enabled,
-            'public' => public,
+            'public' => public
           },
           return_type: ::OctridevClerk::OAuthApplication,
           decoder: :json,
           operation_id: 'update_oauth_application',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -462,11 +449,10 @@ module OctridevClerk
         oauth_application_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/oauth_applications/",
+            '/oauth_applications/',
             SdkClient.encode_path_segment(oauth_application_id)
           ].join,
           config: config,
@@ -474,7 +460,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_oauth_application',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -493,25 +479,24 @@ module OctridevClerk
         uploader_user_id: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/oauth_applications/",
+            '/oauth_applications/',
             SdkClient.encode_path_segment(oauth_application_id),
-            "/logo"
+            '/logo'
           ].join,
           config: config,
           body: {
             'file' => SdkClient.upload(file, 'file'),
-            'uploader_user_id' => uploader_user_id,
+            'uploader_user_id' => uploader_user_id
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevClerk::OAuthApplication,
           decoder: :json,
           operation_id: 'upload_oauth_application_logo',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -524,20 +509,19 @@ module OctridevClerk
         oauth_application_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/oauth_applications/",
+            '/oauth_applications/',
             SdkClient.encode_path_segment(oauth_application_id),
-            "/rotate_secret"
+            '/rotate_secret'
           ].join,
           config: config,
           return_type: ::OctridevClerk::OAuthApplicationWithSecret,
           decoder: :json,
           operation_id: 'rotate_oauth_application_secret',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

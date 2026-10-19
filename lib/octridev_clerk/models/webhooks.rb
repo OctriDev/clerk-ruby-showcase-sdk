@@ -5,40 +5,39 @@
 
 # webhooks domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalSvixURLMetadata
-  FIELDS = {
-    svix_url: "svix_url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    svix_url
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for SvixURL.
-# Typed representation of the `SvixURL` API schema.
-class SvixURL
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSvixURLMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSvixURLMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSvixURLMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `svix_url` wire field.
-  attr_reader :svix_url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSvixURLMetadata
+    FIELDS = {
+      svix_url: 'svix_url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      svix_url
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for SvixURL.
+  # Typed representation of the `SvixURL` API schema.
+  class SvixURL
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSvixURLMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSvixURLMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSvixURLMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [String] Required `string` value serialized in the `svix_url` wire field.
+    attr_reader :svix_url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end
