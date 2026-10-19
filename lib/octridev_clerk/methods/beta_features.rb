@@ -12,13 +12,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceAuthConfigMetadata
         FIELDS = {
-          restricted_to_allowlist: 'restricted_to_allowlist',
-          from_email_address: 'from_email_address',
-          progressive_sign_up: 'progressive_sign_up',
-          test_mode: 'test_mode'
+          restricted_to_allowlist: "restricted_to_allowlist",
+          from_email_address: "from_email_address",
+          progressive_sign_up: "progressive_sign_up",
+          test_mode: "test_mode",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceAuthConfig.
@@ -54,11 +56,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateProductionInstanceDomainMetadata
         FIELDS = {
-          home_url: 'home_url',
-          is_secondary: 'is_secondary'
+          home_url: "home_url",
+          is_secondary: "is_secondary",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateProductionInstanceDomain.
@@ -90,11 +94,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalChangeProductionInstanceDomainMetadata
         FIELDS = {
-          home_url: 'home_url',
-          is_secondary: 'is_secondary'
+          home_url: "home_url",
+          is_secondary: "is_secondary",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for ChangeProductionInstanceDomain.
@@ -148,21 +154,22 @@ module OctridevClerk
         test_mode: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/beta_features/instance_settings',
+          "/beta_features/instance_settings",
           config: config,
           body: {
             'restricted_to_allowlist' => restricted_to_allowlist,
             'from_email_address' => from_email_address,
             'progressive_sign_up' => progressive_sign_up,
-            'test_mode' => test_mode
+            'test_mode' => test_mode,
           },
           return_type: ::OctridevClerk::InstanceSettings,
           decoder: :json,
           operation_id: 'update_instance_auth_config',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -179,18 +186,19 @@ module OctridevClerk
         is_secondary: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PUT',
-          '/beta_features/domain',
+          "/beta_features/domain",
           config: config,
           body: {
             'home_url' => home_url,
-            'is_secondary' => is_secondary
+            'is_secondary' => is_secondary,
           },
           decoder: :empty,
           operation_id: 'update_production_instance_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -208,18 +216,19 @@ module OctridevClerk
         is_secondary: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/instance/change_domain',
+          "/instance/change_domain",
           config: config,
           body: {
             'home_url' => home_url,
-            'is_secondary' => is_secondary
+            'is_secondary' => is_secondary,
           },
           decoder: :empty,
           operation_id: 'change_production_instance_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

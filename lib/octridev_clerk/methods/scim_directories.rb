@@ -12,16 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSCIMDirectoryGroupRoleMappingsItemMetadata
         FIELDS = {
-          scim_group_id: 'scim_group_id',
-          scim_group_display_name: 'scim_group_display_name',
-          role_id: 'role_id',
-          precedence: 'precedence'
+          scim_group_id: "scim_group_id",
+          scim_group_display_name: "scim_group_display_name",
+          role_id: "role_id",
+          precedence: "precedence",
         }.freeze
         REQUIRED_FIELDS = %i[
           scim_group_id
           role_id
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSCIMDirectoryGroupRoleMappingsItem.
@@ -57,10 +58,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSCIMDirectoryMetadata
         FIELDS = {
-          enterprise_connection_id: 'enterprise_connection_id',
-          name: 'name',
-          provider: 'provider',
-          group_role_mappings: 'group_role_mappings'
+          enterprise_connection_id: "enterprise_connection_id",
+          name: "name",
+          provider: "provider",
+          group_role_mappings: "group_role_mappings",
         }.freeze
         REQUIRED_FIELDS = %i[
           enterprise_connection_id
@@ -69,7 +70,7 @@ module OctridevClerk
         DECODERS = {
           group_role_mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::ScimDirectories::CreateSCIMDirectoryGroupRoleMappingsItem.from_hash(item) }
-          end
+          end,
         }.freeze
       end
 
@@ -106,14 +107,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateSCIMDirectoryMetadata
         FIELDS = {
-          name: 'name',
-          enabled: 'enabled',
-          provider: 'provider',
-          attribute_mapping: 'attribute_mapping',
-          group_role_mapping_enabled: 'group_role_mapping_enabled'
+          name: "name",
+          enabled: "enabled",
+          provider: "provider",
+          attribute_mapping: "attribute_mapping",
+          group_role_mapping_enabled: "group_role_mapping_enabled",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateSCIMDirectory.
@@ -151,15 +154,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSCIMGroupRoleMappingMetadata
         FIELDS = {
-          scim_group_id: 'scim_group_id',
-          role_id: 'role_id',
-          precedence: 'precedence'
+          scim_group_id: "scim_group_id",
+          role_id: "role_id",
+          precedence: "precedence",
         }.freeze
         REQUIRED_FIELDS = %i[
           scim_group_id
           role_id
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSCIMGroupRoleMapping.
@@ -193,14 +197,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceSCIMGroupRoleMappingsMappingsItemMetadata
         FIELDS = {
-          scim_group_id: 'scim_group_id',
-          role_id: 'role_id'
+          scim_group_id: "scim_group_id",
+          role_id: "role_id",
         }.freeze
         REQUIRED_FIELDS = %i[
           scim_group_id
           role_id
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for ReplaceSCIMGroupRoleMappingsMappingsItem.
@@ -232,7 +237,7 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceSCIMGroupRoleMappingsMetadata
         FIELDS = {
-          mappings: 'mappings'
+          mappings: "mappings",
         }.freeze
         REQUIRED_FIELDS = %i[
           mappings
@@ -240,7 +245,7 @@ module OctridevClerk
         DECODERS = {
           mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::ScimDirectories::ReplaceSCIMGroupRoleMappingsMappingsItem.from_hash(item) }
-          end
+          end,
         }.freeze
       end
 
@@ -281,23 +286,24 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/scim_directories',
+          "/scim_directories",
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::SCIMDirectoryList,
           decoder: :json,
           operation_id: 'list_scim_directories',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -319,21 +325,22 @@ module OctridevClerk
         group_role_mappings: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/scim_directories',
+          "/scim_directories",
           config: config,
           body: {
             'enterprise_connection_id' => enterprise_connection_id,
             'provider' => provider,
             'name' => name,
-            'group_role_mappings' => group_role_mappings
+            'group_role_mappings' => group_role_mappings,
           },
           return_type: ::OctridevClerk::SCIMDirectory,
           decoder: :json,
           operation_id: 'create_scim_directory',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -342,11 +349,16 @@ module OctridevClerk
       # Returns the details of a directory.
       #
       # @param scim_directory_id [String] The ID of the directory to retrieve
-      singleton_class.define_method(:get_scim_directory) do |config:, scim_directory_id:, request_options: nil|
+      singleton_class.define_method(:get_scim_directory) do |
+        config:,
+        scim_directory_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id)
           ].join,
           config: config,
@@ -354,7 +366,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_scim_directory',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -381,10 +393,11 @@ module OctridevClerk
         group_role_mapping_enabled: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id)
           ].join,
           config: config,
@@ -393,13 +406,13 @@ module OctridevClerk
             'enabled' => enabled,
             'provider' => provider,
             'attribute_mapping' => attribute_mapping,
-            'group_role_mapping_enabled' => group_role_mapping_enabled
+            'group_role_mapping_enabled' => group_role_mapping_enabled,
           },
           return_type: ::OctridevClerk::SCIMDirectory,
           decoder: :json,
           operation_id: 'update_scim_directory',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -411,10 +424,11 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id)
           ].join,
           config: config,
@@ -422,7 +436,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_scim_directory',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -435,19 +449,20 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id),
-            '/rotate_api_key'
+            "/rotate_api_key"
           ].join,
           config: config,
           return_type: ::OctridevClerk::SCIMDirectory,
           decoder: :json,
           operation_id: 'rotate_scim_directory_api_key',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -459,19 +474,20 @@ module OctridevClerk
         scim_directory_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id),
-            '/group_role_mappings'
+            "/group_role_mappings"
           ].join,
           config: config,
           return_type: ::OctridevClerk::SCIMGroupRoleMappingList,
           decoder: :json,
           operation_id: 'list_scim_group_role_mappings',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -492,26 +508,27 @@ module OctridevClerk
         precedence: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(precedence) { Validation.validate_range('precedence', precedence, min: 1) }
 
         SdkClient.request(
           'POST',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id),
-            '/group_role_mappings'
+            "/group_role_mappings"
           ].join,
           config: config,
           body: {
             'scim_group_id' => scim_group_id,
             'role_id' => role_id,
-            'precedence' => precedence
+            'precedence' => precedence,
           },
           return_type: ::OctridevClerk::SCIMGroupRoleMapping,
           decoder: :json,
           operation_id: 'create_scim_group_role_mapping',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -526,22 +543,23 @@ module OctridevClerk
         mappings:,
         request_options: nil
       )
+
         SdkClient.request(
           'PUT',
           [
-            '/scim_directories/',
+            "/scim_directories/",
             SdkClient.encode_path_segment(scim_directory_id),
-            '/group_role_mappings'
+            "/group_role_mappings"
           ].join,
           config: config,
           body: {
-            'mappings' => mappings
+            'mappings' => mappings,
           },
           return_type: ::OctridevClerk::SCIMGroupRoleMappingList,
           decoder: :json,
           operation_id: 'replace_scim_group_role_mappings',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -46,18 +46,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionMetadata
         FIELDS = {
-          name: 'name',
-          domains: 'domains',
-          active: 'active',
-          sync_user_attributes: 'sync_user_attributes',
-          disable_additional_identifications: 'disable_additional_identifications',
-          allow_organization_account_linking: 'allow_organization_account_linking',
-          organization_id: 'organization_id',
-          saml: 'saml',
-          oidc: 'oidc',
-          custom_attributes: 'custom_attributes'
+          name: "name",
+          domains: "domains",
+          active: "active",
+          sync_user_attributes: "sync_user_attributes",
+          disable_additional_identifications: "disable_additional_identifications",
+          allow_organization_account_linking: "allow_organization_account_linking",
+          organization_id: "organization_id",
+          saml: "saml",
+          oidc: "oidc",
+          custom_attributes: "custom_attributes",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           saml: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSaml.from_hash(value)
@@ -67,7 +68,7 @@ module OctridevClerk
           end,
           custom_attributes: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionCustomAttributesItem.from_hash(item) }
-          end
+          end,
         }.freeze
       end
 
@@ -118,7 +119,7 @@ module OctridevClerk
         PENDING = 'pending'
         SUCCESS = 'success'
         FAILED = 'failed'
-        VALUES = %w[pending success failed].freeze
+        VALUES = ['pending', 'success', 'failed'].freeze
         def self.from_value(value)
           value
         end
@@ -129,7 +130,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
+        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
         def self.from_value(value)
           value
         end
@@ -140,7 +141,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
+        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
         def self.from_value(value)
           value
         end
@@ -155,9 +156,9 @@ module OctridevClerk
         OIDC_CUSTOM = 'oidc_custom'
         OIDC_GITHUB_ENTERPRISE = 'oidc_github_enterprise'
         OIDC_GITLAB = 'oidc_gitlab'
-        VALUES = %w[
-          saml_custom saml_okta saml_google saml_microsoft oidc_custom
-          oidc_github_enterprise oidc_gitlab
+        VALUES = [
+          'saml_custom', 'saml_okta', 'saml_google', 'saml_microsoft', 'oidc_custom',
+          'oidc_github_enterprise', 'oidc_gitlab'
         ].freeze
         def self.from_value(value)
           value
@@ -184,25 +185,26 @@ module OctridevClerk
         active: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/enterprise_connections',
+          "/enterprise_connections",
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
             'organization_id' => QueryValue.new(organization_id, style: 'form', explode: true),
-            'active' => QueryValue.new(active, style: 'form', explode: true)
+            'active' => QueryValue.new(active, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::EnterpriseConnections,
           decoder: :json,
           operation_id: 'list_enterprise_connections',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -245,11 +247,12 @@ module OctridevClerk
         custom_attributes: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_items('domains', domains, min: 1)
 
         SdkClient.request(
           'POST',
-          '/enterprise_connections',
+          "/enterprise_connections",
           config: config,
           body: {
             'name' => name,
@@ -260,24 +263,29 @@ module OctridevClerk
             'active' => active,
             'saml' => saml,
             'oidc' => oidc,
-            'custom_attributes' => custom_attributes
+            'custom_attributes' => custom_attributes,
           },
           return_type: ::OctridevClerk::EnterpriseConnection,
           decoder: :json,
           operation_id: 'create_enterprise_connection',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Fetches the enterprise connection whose ID matches the provided `enterprise_connection_id` in the path.
       #
       # @param enterprise_connection_id [String] The ID of the enterprise connection
-      singleton_class.define_method(:get_enterprise_connection) do |config:, enterprise_connection_id:, request_options: nil|
+      singleton_class.define_method(:get_enterprise_connection) do |
+        config:,
+        enterprise_connection_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/enterprise_connections/',
+            "/enterprise_connections/",
             SdkClient.encode_path_segment(enterprise_connection_id)
           ].join,
           config: config,
@@ -285,7 +293,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_enterprise_connection',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -336,10 +344,11 @@ module OctridevClerk
         custom_attributes: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
           [
-            '/enterprise_connections/',
+            "/enterprise_connections/",
             SdkClient.encode_path_segment(enterprise_connection_id)
           ].join,
           config: config,
@@ -353,13 +362,13 @@ module OctridevClerk
             'organization_id' => organization_id,
             'saml' => saml,
             'oidc' => oidc,
-            'custom_attributes' => custom_attributes
+            'custom_attributes' => custom_attributes,
           },
           return_type: ::OctridevClerk::EnterpriseConnection,
           decoder: :json,
           operation_id: 'update_enterprise_connection',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -372,10 +381,11 @@ module OctridevClerk
         enterprise_connection_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/enterprise_connections/',
+            "/enterprise_connections/",
             SdkClient.encode_path_segment(enterprise_connection_id)
           ].join,
           config: config,
@@ -383,7 +393,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_enterprise_connection',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -405,6 +415,7 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -412,21 +423,21 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/enterprise_connections/',
+            "/enterprise_connections/",
             SdkClient.encode_path_segment(enterprise_connection_id),
-            '/test_runs'
+            "/test_runs"
           ].join,
           config: config,
           query: {
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::EnterpriseConnectionTestRuns,
           decoder: :json,
           operation_id: 'list_enterprise_connection_test_runs',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -438,19 +449,20 @@ module OctridevClerk
         enterprise_connection_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/enterprise_connections/',
+            "/enterprise_connections/",
             SdkClient.encode_path_segment(enterprise_connection_id),
-            '/test_runs'
+            "/test_runs"
           ].join,
           config: config,
           return_type: ::OctridevClerk::EnterpriseConnectionTestRunResponse,
           decoder: :json,
           operation_id: 'create_enterprise_connection_test_run',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

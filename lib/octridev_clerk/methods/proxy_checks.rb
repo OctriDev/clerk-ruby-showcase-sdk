@@ -12,11 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyDomainProxyMetadata
         FIELDS = {
-          domain_id: 'domain_id',
-          proxy_url: 'proxy_url'
+          domain_id: "domain_id",
+          proxy_url: "proxy_url",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for VerifyDomainProxy.
@@ -56,19 +58,20 @@ module OctridevClerk
         proxy_url: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/proxy_checks',
+          "/proxy_checks",
           config: config,
           body: {
             'domain_id' => domain_id,
-            'proxy_url' => proxy_url
+            'proxy_url' => proxy_url,
           },
           return_type: ::OctridevClerk::ProxyCheck,
           decoder: :json,
           operation_id: 'verify_domain_proxy',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

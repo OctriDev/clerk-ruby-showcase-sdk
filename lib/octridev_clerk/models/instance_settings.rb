@@ -5,473 +5,473 @@
 
 # instance_settings domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalInstanceMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      environment_type: 'environment_type',
-      allowed_origins: 'allowed_origins',
-      allowed_subdomains: 'allowed_subdomains',
-      subdomain_allowlist_enabled: 'subdomain_allowlist_enabled',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      environment_type
-      allowed_origins
-      allowed_subdomains
-      subdomain_allowlist_enabled
-      workspace_id
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::InstanceObject.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      allowed_origins
-      workspace_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalInstanceMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    environment_type: "environment_type",
+    allowed_origins: "allowed_origins",
+    allowed_subdomains: "allowed_subdomains",
+    subdomain_allowlist_enabled: "subdomain_allowlist_enabled",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    environment_type
+    allowed_origins
+    allowed_subdomains
+    subdomain_allowlist_enabled
+    workspace_id
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::InstanceObject.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    allowed_origins
+    workspace_id
+  ].freeze
+end
+
+# API model for Instance.
+# Typed representation of the `Instance` API schema.
+class Instance
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInstanceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInstanceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInstanceMetadata::DECODERS
+
+  # @return [InstanceObject] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `environment_type` wire field.
+  attr_reader :environment_type
+  # @return [Array_of_String] Required array value serialized in the `allowed_origins` wire field.
+  attr_reader :allowed_origins
+  # @return [Array_of_String] Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist is enabled. Production instances only; always empty on a development instance.
+  attr_reader :allowed_subdomains
+  # @return [Boolean] Whether requests from subdomains of the instance's own domains are restricted to `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production instances only; always false on a development instance.
+  attr_reader :subdomain_allowlist_enabled
+  # @return [String] The ID of the Clerk workspace that owns the instance's application. It is null when the application has no owner.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for Instance.
-  # Typed representation of the `Instance` API schema.
-  class Instance
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInstanceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInstanceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInstanceMetadata::DECODERS
-
-    # @return [InstanceObject] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `environment_type` wire field.
-    attr_reader :environment_type
-    # @return [Array_of_String] Required array value serialized in the `allowed_origins` wire field.
-    attr_reader :allowed_origins
-    # @return [Array_of_String] Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist is enabled. Production instances only; always empty on a development instance.
-    attr_reader :allowed_subdomains
-    # @return [Boolean] Whether requests from subdomains of the instance's own domains are restricted to `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production instances only; always false on a development instance.
-    attr_reader :subdomain_allowlist_enabled
-    # @return [String] The ID of the Clerk workspace that owns the instance's application. It is null when the application has no owner.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalInstanceMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalInstanceMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the InstanceObject SDK namespace.
-  module InstanceObject
-    INSTANCE = 'instance'
-    VALUES = ['instance'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the InstanceObject SDK namespace.
+module InstanceObject
+  INSTANCE = 'instance'
+  VALUES = ['instance'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalInstanceCommunicationMetadata
+  FIELDS = {
+    object: "object",
+    blocked_country_codes: "blocked_country_codes",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    blocked_country_codes
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::InstanceCommunicationObject.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for InstanceCommunication.
+# Per-instance SMS communication settings, including the SMS country blocklist.
+class InstanceCommunication
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInstanceCommunicationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInstanceCommunicationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInstanceCommunicationMetadata::DECODERS
+
+  # @return [InstanceCommunicationObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [Array_of_String] ISO 3166-1 alpha-2 country codes that are blocked for SMS delivery on this instance. Codes that aren't recognized are silently dropped.
+  attr_reader :blocked_country_codes
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalInstanceCommunicationMetadata
-    FIELDS = {
-      object: 'object',
-      blocked_country_codes: 'blocked_country_codes'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      blocked_country_codes
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::InstanceCommunicationObject.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for InstanceCommunication.
-  # Per-instance SMS communication settings, including the SMS country blocklist.
-  class InstanceCommunication
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInstanceCommunicationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInstanceCommunicationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInstanceCommunicationMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [InstanceCommunicationObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [Array_of_String] ISO 3166-1 alpha-2 country codes that are blocked for SMS delivery on this instance. Codes that aren't recognized are silently dropped.
-    attr_reader :blocked_country_codes
+# Defines the InstanceCommunicationObject SDK namespace.
+module InstanceCommunicationObject
+  INSTANCE_COMMUNICATION = 'instance_communication'
+  VALUES = ['instance_communication'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalInstanceProtectMetadata
+  FIELDS = {
+    object: "object",
+    rules_enabled: "rules_enabled",
+    specter_enabled: "specter_enabled",
+    checks_bypassed: "checks_bypassed",
+    checks_verified: "checks_verified",
+    checks_exempt: "checks_exempt",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    rules_enabled
+    specter_enabled
+    checks_bypassed
+    checks_verified
+    checks_exempt
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::InstanceProtectObject.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for InstanceProtect.
+# Typed representation of the `InstanceProtect` API schema.
+class InstanceProtect
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInstanceProtectMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInstanceProtectMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInstanceProtectMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [InstanceProtectObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [Boolean] Whether Protect rules are enforced on this instance. False does not mean the instance is outside Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never block.
+  attr_reader :rules_enabled
+  # @return [Boolean] Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
+  attr_reader :specter_enabled
+  # @return [Boolean] Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already meets the requirements.
+  attr_reader :checks_bypassed
+  # @return [Boolean] Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated on checks being verified, bypassed or exempt.
+  attr_reader :checks_verified
+  # @return [Boolean] Whether the instance was created into Protect and so was never subject to the prerequisite checks at all.
+  attr_reader :checks_exempt
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the InstanceCommunicationObject SDK namespace.
-  module InstanceCommunicationObject
-    INSTANCE_COMMUNICATION = 'instance_communication'
-    VALUES = ['instance_communication'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalInstanceProtectMetadata
-    FIELDS = {
-      object: 'object',
-      rules_enabled: 'rules_enabled',
-      specter_enabled: 'specter_enabled',
-      checks_bypassed: 'checks_bypassed',
-      checks_verified: 'checks_verified',
-      checks_exempt: 'checks_exempt'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      rules_enabled
-      specter_enabled
-      checks_bypassed
-      checks_verified
-      checks_exempt
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::InstanceProtectObject.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the InstanceProtectObject SDK namespace.
+module InstanceProtectObject
+  INSTANCE_PROTECT = 'instance_protect'
+  VALUES = ['instance_protect'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalInstanceRestrictionsMetadata
+  FIELDS = {
+    object: "object",
+    allowlist: "allowlist",
+    blocklist: "blocklist",
+    allowlist_blocklist_disabled_on_sign_in: "allowlist_blocklist_disabled_on_sign_in",
+    block_email_subaddresses: "block_email_subaddresses",
+    block_disposable_email_domains: "block_disposable_email_domains",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    allowlist
+    blocklist
+    allowlist_blocklist_disabled_on_sign_in
+    block_email_subaddresses
+    block_disposable_email_domains
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::InstanceRestrictionsObject.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for InstanceRestrictions.
+# Typed representation of the `InstanceRestrictions` API schema.
+class InstanceRestrictions
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInstanceRestrictionsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInstanceRestrictionsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInstanceRestrictionsMetadata::DECODERS
+
+  # @return [InstanceRestrictionsObject] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [Boolean] Required `boolean` value serialized in the `allowlist` wire field.
+  attr_reader :allowlist
+  # @return [Boolean] Required `boolean` value serialized in the `blocklist` wire field.
+  attr_reader :blocklist
+  # @return [Boolean] Required `boolean` value serialized in the `allowlist_blocklist_disabled_on_sign_in` wire field.
+  attr_reader :allowlist_blocklist_disabled_on_sign_in
+  # @return [Boolean] Required `boolean` value serialized in the `block_email_subaddresses` wire field.
+  attr_reader :block_email_subaddresses
+  # @return [Boolean] Required `boolean` value serialized in the `block_disposable_email_domains` wire field.
+  attr_reader :block_disposable_email_domains
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for InstanceProtect.
-  # Typed representation of the `InstanceProtect` API schema.
-  class InstanceProtect
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInstanceProtectMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInstanceProtectMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInstanceProtectMetadata::DECODERS
-
-    # @return [InstanceProtectObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [Boolean] Whether Protect rules are enforced on this instance. False does not mean the instance is outside Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never block.
-    attr_reader :rules_enabled
-    # @return [Boolean] Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
-    attr_reader :specter_enabled
-    # @return [Boolean] Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already meets the requirements.
-    attr_reader :checks_bypassed
-    # @return [Boolean] Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated on checks being verified, bypassed or exempt.
-    attr_reader :checks_verified
-    # @return [Boolean] Whether the instance was created into Protect and so was never subject to the prerequisite checks at all.
-    attr_reader :checks_exempt
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the InstanceProtectObject SDK namespace.
-  module InstanceProtectObject
-    INSTANCE_PROTECT = 'instance_protect'
-    VALUES = ['instance_protect'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the InstanceRestrictionsObject SDK namespace.
+module InstanceRestrictionsObject
+  INSTANCE_RESTRICTIONS = 'instance_restrictions'
+  VALUES = ['instance_restrictions'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalOAuthApplicationSettingsMetadata
+  FIELDS = {
+    object: "object",
+    dynamic_oauth_client_registration: "dynamic_oauth_client_registration",
+    dynamic_client_allowed_scopes: "dynamic_client_allowed_scopes",
+    default_scopes: "default_scopes",
+    oauth_jwt_access_tokens: "oauth_jwt_access_tokens",
+    aud_claim_enabled: "aud_claim_enabled",
+    aud_claim_refresh_backfill_enabled: "aud_claim_refresh_backfill_enabled",
+    pkce_required: "pkce_required",
+    client_id_metadata_documents_advertised: "client_id_metadata_documents_advertised",
+    client_id_metadata_documents_only_allow_pre_registered_clients: "client_id_metadata_documents_only_allow_pre_registered_clients",
+    client_id_metadata_documents_block_implicitly_allowed_clients: "client_id_metadata_documents_block_implicitly_allowed_clients",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    dynamic_oauth_client_registration
+    default_scopes
+    oauth_jwt_access_tokens
+    aud_claim_enabled
+    aud_claim_refresh_backfill_enabled
+    pkce_required
+    client_id_metadata_documents_advertised
+    client_id_metadata_documents_only_allow_pre_registered_clients
+    client_id_metadata_documents_block_implicitly_allowed_clients
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::OAuthApplicationSettingsObject.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    default_scopes
+  ].freeze
+end
+
+# API model for OAuthApplicationSettings.
+# Typed representation of the `OAuthApplicationSettings` API schema.
+class OAuthApplicationSettings
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalOAuthApplicationSettingsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalOAuthApplicationSettingsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalOAuthApplicationSettingsMetadata::DECODERS
+
+  # @return [OAuthApplicationSettingsObject] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [Boolean] Whether dynamic OAuth client registration is enabled for the instance (RFC 7591).
+  attr_reader :dynamic_oauth_client_registration
+  # @return [Array_of_String] Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is required for expansion.
+  attr_reader :dynamic_client_allowed_scopes
+  # @return [Array_of_String] Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`. Contains built-in keys and custom catalog keys. Null means Clerk-provided defaults. `advertised` does not affect eligibility. An empty input array is stored and returned as null.
+  attr_reader :default_scopes
+  # @return [Boolean] Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access tokens).
+  attr_reader :oauth_jwt_access_tokens
+  # @return [Boolean] Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+  attr_reader :aud_claim_enabled
+  # @return [Boolean] Whether refresh grants without a resource can adopt the requested resource when audience claims are enabled.
+  attr_reader :aud_claim_refresh_backfill_enabled
+  # @return [Boolean] Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+  attr_reader :pkce_required
+  # @return [Boolean] Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization server metadata.
+  attr_reader :client_id_metadata_documents_advertised
+  # @return [Boolean] When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered clients remain admitted; deleting a client makes it unknown again.
+  attr_reader :client_id_metadata_documents_only_allow_pre_registered_clients
+  # @return [Boolean] When true, recorded implicitly allowed CIMD clients are rejected on future client lookups. Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+  attr_reader :client_id_metadata_documents_block_implicitly_allowed_clients
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalInstanceRestrictionsMetadata
-    FIELDS = {
-      object: 'object',
-      allowlist: 'allowlist',
-      blocklist: 'blocklist',
-      allowlist_blocklist_disabled_on_sign_in: 'allowlist_blocklist_disabled_on_sign_in',
-      block_email_subaddresses: 'block_email_subaddresses',
-      block_disposable_email_domains: 'block_disposable_email_domains'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      allowlist
-      blocklist
-      allowlist_blocklist_disabled_on_sign_in
-      block_email_subaddresses
-      block_disposable_email_domains
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::InstanceRestrictionsObject.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOAuthApplicationSettingsMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for InstanceRestrictions.
-  # Typed representation of the `InstanceRestrictions` API schema.
-  class InstanceRestrictions
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInstanceRestrictionsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInstanceRestrictionsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInstanceRestrictionsMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [InstanceRestrictionsObject] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [Boolean] Required `boolean` value serialized in the `allowlist` wire field.
-    attr_reader :allowlist
-    # @return [Boolean] Required `boolean` value serialized in the `blocklist` wire field.
-    attr_reader :blocklist
-    # @return [Boolean] Required `boolean` value serialized in the `allowlist_blocklist_disabled_on_sign_in` wire field.
-    attr_reader :allowlist_blocklist_disabled_on_sign_in
-    # @return [Boolean] Required `boolean` value serialized in the `block_email_subaddresses` wire field.
-    attr_reader :block_email_subaddresses
-    # @return [Boolean] Required `boolean` value serialized in the `block_disposable_email_domains` wire field.
-    attr_reader :block_disposable_email_domains
+# Defines the OAuthApplicationSettingsObject SDK namespace.
+module OAuthApplicationSettingsObject
+  OAUTH_APPLICATION_SETTINGS = 'oauth_application_settings'
+  VALUES = ['oauth_application_settings'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalOrganizationSettingsMetadata
+  FIELDS = {
+    object: "object",
+    enabled: "enabled",
+    max_allowed_memberships: "max_allowed_memberships",
+    max_allowed_roles: "max_allowed_roles",
+    max_role_sets_allowed: "max_role_sets_allowed",
+    max_allowed_domains: "max_allowed_domains",
+    max_allowed_permissions: "max_allowed_permissions",
+    creator_role: "creator_role",
+    admin_delete_enabled: "admin_delete_enabled",
+    domains_enabled: "domains_enabled",
+    slug_disabled: "slug_disabled",
+    domains_enrollment_modes: "domains_enrollment_modes",
+    domains_default_role: "domains_default_role",
+    initial_role_set_key: "initial_role_set_key",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    enabled
+    max_allowed_memberships
+    max_allowed_roles
+    max_allowed_domains
+    creator_role
+    admin_delete_enabled
+    domains_enabled
+    domains_enrollment_modes
+    domains_default_role
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::OrganizationSettingsObject.from_value(value)
+    end,
+    domains_enrollment_modes: lambda do |value|
+      value&.map { |item| ::OctridevClerk::OrganizationSettingsDomainsEnrollmentModesItem.from_value(item) }
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for OrganizationSettings.
+# Typed representation of the `OrganizationSettings` API schema.
+class OrganizationSettings
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalOrganizationSettingsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalOrganizationSettingsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalOrganizationSettingsMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [OrganizationSettingsObject] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+  attr_reader :enabled
+  # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
+  attr_reader :max_allowed_memberships
+  # @return [Integer] Required `integer` value serialized in the `max_allowed_roles` wire field.
+  attr_reader :max_allowed_roles
+  # @return [Integer] Optional `integer` value serialized in the `max_role_sets_allowed` wire field.
+  attr_reader :max_role_sets_allowed
+  # @return [Integer] Required `integer` value serialized in the `max_allowed_domains` wire field.
+  attr_reader :max_allowed_domains
+  # @return [Integer] max_allowed_permissions is now a no-op, as permissions are now unlimited
+  attr_reader :max_allowed_permissions
+  # @return [String] The role key that a user will be assigned after creating an organization.
+  attr_reader :creator_role
+  # @return [Boolean] The default for whether an admin can delete an organization with the Frontend API.
+  attr_reader :admin_delete_enabled
+  # @return [Boolean] Required `boolean` value serialized in the `domains_enabled` wire field.
+  attr_reader :domains_enabled
+  # @return [Boolean] Optional `boolean` value serialized in the `slug_disabled` wire field.
+  attr_reader :slug_disabled
+  # @return [Array_of_OrganizationSettingsDomainsEnrollmentModesItem] Required array value serialized in the `domains_enrollment_modes` wire field.
+  attr_reader :domains_enrollment_modes
+  # @return [String] The role key that it will be used in order to create an organization invitation or suggestion.
+  attr_reader :domains_default_role
+  # @return [String] The role set key that it will be used to create new organizations.
+  attr_reader :initial_role_set_key
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the InstanceRestrictionsObject SDK namespace.
-  module InstanceRestrictionsObject
-    INSTANCE_RESTRICTIONS = 'instance_restrictions'
-    VALUES = ['instance_restrictions'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalOAuthApplicationSettingsMetadata
-    FIELDS = {
-      object: 'object',
-      dynamic_oauth_client_registration: 'dynamic_oauth_client_registration',
-      dynamic_client_allowed_scopes: 'dynamic_client_allowed_scopes',
-      default_scopes: 'default_scopes',
-      oauth_jwt_access_tokens: 'oauth_jwt_access_tokens',
-      aud_claim_enabled: 'aud_claim_enabled',
-      aud_claim_refresh_backfill_enabled: 'aud_claim_refresh_backfill_enabled',
-      pkce_required: 'pkce_required',
-      client_id_metadata_documents_advertised: 'client_id_metadata_documents_advertised',
-      client_id_metadata_documents_only_allow_pre_registered_clients: 'client_id_metadata_documents_only_allow_pre_registered_clients',
-      client_id_metadata_documents_block_implicitly_allowed_clients: 'client_id_metadata_documents_block_implicitly_allowed_clients'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      dynamic_oauth_client_registration
-      default_scopes
-      oauth_jwt_access_tokens
-      aud_claim_enabled
-      aud_claim_refresh_backfill_enabled
-      pkce_required
-      client_id_metadata_documents_advertised
-      client_id_metadata_documents_only_allow_pre_registered_clients
-      client_id_metadata_documents_block_implicitly_allowed_clients
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::OAuthApplicationSettingsObject.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      default_scopes
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for OAuthApplicationSettings.
-  # Typed representation of the `OAuthApplicationSettings` API schema.
-  class OAuthApplicationSettings
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalOAuthApplicationSettingsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalOAuthApplicationSettingsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalOAuthApplicationSettingsMetadata::DECODERS
-
-    # @return [OAuthApplicationSettingsObject] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [Boolean] Whether dynamic OAuth client registration is enabled for the instance (RFC 7591).
-    attr_reader :dynamic_oauth_client_registration
-    # @return [Array_of_String] Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is required for expansion.
-    attr_reader :dynamic_client_allowed_scopes
-    # @return [Array_of_String] Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`. Contains built-in keys and custom catalog keys. Null means Clerk-provided defaults. `advertised` does not affect eligibility. An empty input array is stored and returned as null.
-    attr_reader :default_scopes
-    # @return [Boolean] Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access tokens).
-    attr_reader :oauth_jwt_access_tokens
-    # @return [Boolean] Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
-    attr_reader :aud_claim_enabled
-    # @return [Boolean] Whether refresh grants without a resource can adopt the requested resource when audience claims are enabled.
-    attr_reader :aud_claim_refresh_backfill_enabled
-    # @return [Boolean] Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
-    attr_reader :pkce_required
-    # @return [Boolean] Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization server metadata.
-    attr_reader :client_id_metadata_documents_advertised
-    # @return [Boolean] When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered clients remain admitted; deleting a client makes it unknown again.
-    attr_reader :client_id_metadata_documents_only_allow_pre_registered_clients
-    # @return [Boolean] When true, recorded implicitly allowed CIMD clients are rejected on future client lookups. Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
-    attr_reader :client_id_metadata_documents_block_implicitly_allowed_clients
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOAuthApplicationSettingsMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# Defines the OrganizationSettingsDomainsEnrollmentModesItem SDK namespace.
+module OrganizationSettingsDomainsEnrollmentModesItem
+  MANUAL_INVITATION = 'manual_invitation'
+  AUTOMATIC_INVITATION = 'automatic_invitation'
+  AUTOMATIC_SUGGESTION = 'automatic_suggestion'
+  VALUES = ['manual_invitation', 'automatic_invitation', 'automatic_suggestion'].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Defines the OAuthApplicationSettingsObject SDK namespace.
-  module OAuthApplicationSettingsObject
-    OAUTH_APPLICATION_SETTINGS = 'oauth_application_settings'
-    VALUES = ['oauth_application_settings'].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the OrganizationSettingsObject SDK namespace.
+module OrganizationSettingsObject
+  ORGANIZATION_SETTINGS = 'organization_settings'
+  VALUES = ['organization_settings'].freeze
+  def self.from_value(value)
+    value
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalOrganizationSettingsMetadata
-    FIELDS = {
-      object: 'object',
-      enabled: 'enabled',
-      max_allowed_memberships: 'max_allowed_memberships',
-      max_allowed_roles: 'max_allowed_roles',
-      max_role_sets_allowed: 'max_role_sets_allowed',
-      max_allowed_domains: 'max_allowed_domains',
-      max_allowed_permissions: 'max_allowed_permissions',
-      creator_role: 'creator_role',
-      admin_delete_enabled: 'admin_delete_enabled',
-      domains_enabled: 'domains_enabled',
-      slug_disabled: 'slug_disabled',
-      domains_enrollment_modes: 'domains_enrollment_modes',
-      domains_default_role: 'domains_default_role',
-      initial_role_set_key: 'initial_role_set_key'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      enabled
-      max_allowed_memberships
-      max_allowed_roles
-      max_allowed_domains
-      creator_role
-      admin_delete_enabled
-      domains_enabled
-      domains_enrollment_modes
-      domains_default_role
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::OrganizationSettingsObject.from_value(value)
-      end,
-      domains_enrollment_modes: lambda do |value|
-        value&.map { |item| ::OctridevClerk::OrganizationSettingsDomainsEnrollmentModesItem.from_value(item) }
-      end
-    }.freeze
-  end
-
-  # API model for OrganizationSettings.
-  # Typed representation of the `OrganizationSettings` API schema.
-  class OrganizationSettings
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalOrganizationSettingsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalOrganizationSettingsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalOrganizationSettingsMetadata::DECODERS
-
-    # @return [OrganizationSettingsObject] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-    attr_reader :enabled
-    # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
-    attr_reader :max_allowed_memberships
-    # @return [Integer] Required `integer` value serialized in the `max_allowed_roles` wire field.
-    attr_reader :max_allowed_roles
-    # @return [Integer] Optional `integer` value serialized in the `max_role_sets_allowed` wire field.
-    attr_reader :max_role_sets_allowed
-    # @return [Integer] Required `integer` value serialized in the `max_allowed_domains` wire field.
-    attr_reader :max_allowed_domains
-    # @return [Integer] max_allowed_permissions is now a no-op, as permissions are now unlimited
-    attr_reader :max_allowed_permissions
-    # @return [String] The role key that a user will be assigned after creating an organization.
-    attr_reader :creator_role
-    # @return [Boolean] The default for whether an admin can delete an organization with the Frontend API.
-    attr_reader :admin_delete_enabled
-    # @return [Boolean] Required `boolean` value serialized in the `domains_enabled` wire field.
-    attr_reader :domains_enabled
-    # @return [Boolean] Optional `boolean` value serialized in the `slug_disabled` wire field.
-    attr_reader :slug_disabled
-    # @return [Array_of_OrganizationSettingsDomainsEnrollmentModesItem] Required array value serialized in the `domains_enrollment_modes` wire field.
-    attr_reader :domains_enrollment_modes
-    # @return [String] The role key that it will be used in order to create an organization invitation or suggestion.
-    attr_reader :domains_default_role
-    # @return [String] The role set key that it will be used to create new organizations.
-    attr_reader :initial_role_set_key
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the OrganizationSettingsDomainsEnrollmentModesItem SDK namespace.
-  module OrganizationSettingsDomainsEnrollmentModesItem
-    MANUAL_INVITATION = 'manual_invitation'
-    AUTOMATIC_INVITATION = 'automatic_invitation'
-    AUTOMATIC_SUGGESTION = 'automatic_suggestion'
-    VALUES = %w[manual_invitation automatic_invitation automatic_suggestion].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Defines the OrganizationSettingsObject SDK namespace.
-  module OrganizationSettingsObject
-    ORGANIZATION_SETTINGS = 'organization_settings'
-    VALUES = ['organization_settings'].freeze
-    def self.from_value(value)
-      value
-    end
-  end
+end
 end

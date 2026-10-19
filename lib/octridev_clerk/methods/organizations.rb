@@ -12,19 +12,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOrganizationMetadata
         FIELDS = {
-          name: 'name',
-          created_by: 'created_by',
-          private_metadata: 'private_metadata',
-          public_metadata: 'public_metadata',
-          slug: 'slug',
-          max_allowed_memberships: 'max_allowed_memberships',
-          created_at: 'created_at',
-          role_set_key: 'role_set_key'
+          name: "name",
+          created_by: "created_by",
+          private_metadata: "private_metadata",
+          public_metadata: "public_metadata",
+          slug: "slug",
+          max_allowed_memberships: "max_allowed_memberships",
+          created_at: "created_at",
+          role_set_key: "role_set_key",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateOrganization.
@@ -68,21 +69,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOrganizationMetadata
         FIELDS = {
-          name: 'name',
-          slug: 'slug',
-          max_allowed_memberships: 'max_allowed_memberships',
-          admin_delete_enabled: 'admin_delete_enabled',
-          self_serve_sso_enabled: 'self_serve_sso_enabled',
-          self_serve_directory_sync_enabled: 'self_serve_directory_sync_enabled',
-          created_at: 'created_at',
-          role_set_key: 'role_set_key',
-          reassignment_mappings: 'reassignment_mappings'
+          name: "name",
+          slug: "slug",
+          max_allowed_memberships: "max_allowed_memberships",
+          admin_delete_enabled: "admin_delete_enabled",
+          self_serve_sso_enabled: "self_serve_sso_enabled",
+          self_serve_directory_sync_enabled: "self_serve_directory_sync_enabled",
+          created_at: "created_at",
+          role_set_key: "role_set_key",
+          reassignment_mappings: "reassignment_mappings",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           reassignment_mappings: lambda do |value|
             ::OctridevClerk::ReassignmentMappings.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -129,11 +131,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalMergeOrganizationMetadataMetadata
         FIELDS = {
-          public_metadata: 'public_metadata',
-          private_metadata: 'private_metadata'
+          public_metadata: "public_metadata",
+          private_metadata: "private_metadata",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for MergeOrganizationMetadata.
@@ -165,11 +169,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceOrganizationMetadataMetadata
         FIELDS = {
-          public_metadata: 'public_metadata',
-          private_metadata: 'private_metadata'
+          public_metadata: "public_metadata",
+          private_metadata: "private_metadata",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for ReplaceOrganizationMetadata.
@@ -201,13 +207,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUploadOrganizationLogoMetadata
         FIELDS = {
-          uploader_user_id: 'uploader_user_id',
-          file: 'file'
+          uploader_user_id: "uploader_user_id",
+          file: "file",
         }.freeze
         REQUIRED_FIELDS = %i[
           file
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UploadOrganizationLogo.
@@ -280,13 +287,14 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/organizations',
+          "/organizations",
           config: config,
           query: {
             'include_members_count' => QueryValue.new(include_members_count, style: 'form', explode: true),
@@ -296,13 +304,13 @@ module OctridevClerk
             'organization_id' => QueryValue.new(organization_id, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::Organizations,
           decoder: :json,
           operation_id: 'list_organizations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -339,13 +347,14 @@ module OctridevClerk
         role_set_key: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(max_allowed_memberships) do
           Validation.validate_range('max_allowed_memberships', max_allowed_memberships, min: 0)
         end
 
         SdkClient.request(
           'POST',
-          '/organizations',
+          "/organizations",
           config: config,
           body: {
             'name' => name,
@@ -355,13 +364,13 @@ module OctridevClerk
             'slug' => slug,
             'max_allowed_memberships' => max_allowed_memberships,
             'created_at' => created_at,
-            'role_set_key' => role_set_key
+            'role_set_key' => role_set_key,
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'create_organization',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -373,23 +382,30 @@ module OctridevClerk
       # @param include_missing_member_with_elevated_permissions [Boolean] Flag to
       #   denote whether or not to include a member with elevated permissions who is
       #   not currently a member of the organization.
-      singleton_class.define_method(:get_organization) do |config:, organization_id:, include_members_count: NOT_GIVEN, include_missing_member_with_elevated_permissions: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_organization) do |
+        config:,
+        organization_id:,
+        include_members_count: NOT_GIVEN,
+        include_missing_member_with_elevated_permissions: NOT_GIVEN,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id)
           ].join,
           config: config,
           query: {
             'include_members_count' => QueryValue.new(include_members_count, style: 'form', explode: true),
-            'include_missing_member_with_elevated_permissions' => QueryValue.new(include_missing_member_with_elevated_permissions, style: 'form', explode: true)
+            'include_missing_member_with_elevated_permissions' => QueryValue.new(include_missing_member_with_elevated_permissions, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'get_organization',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -435,6 +451,7 @@ module OctridevClerk
         reassignment_mappings: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(max_allowed_memberships) do
           Validation.validate_range('max_allowed_memberships', max_allowed_memberships, min: 0)
         end
@@ -442,7 +459,7 @@ module OctridevClerk
         SdkClient.request(
           'PATCH',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id)
           ].join,
           config: config,
@@ -455,13 +472,13 @@ module OctridevClerk
             'self_serve_directory_sync_enabled' => self_serve_directory_sync_enabled,
             'created_at' => created_at,
             'role_set_key' => role_set_key,
-            'reassignment_mappings' => reassignment_mappings
+            'reassignment_mappings' => reassignment_mappings,
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'update_organization',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -473,10 +490,11 @@ module OctridevClerk
         organization_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id)
           ].join,
           config: config,
@@ -484,7 +502,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_organization',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -505,23 +523,24 @@ module OctridevClerk
         private_metadata: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/metadata'
+            "/metadata"
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
-            'private_metadata' => private_metadata
+            'private_metadata' => private_metadata,
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'merge_organization_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

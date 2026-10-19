@@ -5,419 +5,419 @@
 
 # scim_directories domain models
 module OctridevClerk
-  # Defines the SCIMDirectories SDK value decoder.
-  module SCIMDirectories
-    def self.from_hash(value)
-      return nil if value.nil?
+# Defines the SCIMDirectories SDK value decoder.
+module SCIMDirectories
+  def self.from_hash(value)
+    return nil if value.nil?
+    value&.map { |item| ::OctridevClerk::SCIMDirectory.from_hash(item) }
+  end
+end
 
-      value&.map { |item| ::OctridevClerk::SCIMDirectory.from_hash(item) }
-    end
+# Internal model hydration metadata.
+class SdkInternalSCIMDirectoryCustomAttributesItemMetadata
+  FIELDS = {
+    name: "name",
+    key: "key",
+    sso_path: "sso_path",
+    scim_path: "scim_path",
+    directory_path: "directory_path",
+    multi_valued: "multi_valued",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for SCIMDirectoryCustomAttributesItem.
+# Required object value serialized in the `custom_attributes[]` wire field.
+class SCIMDirectoryCustomAttributesItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::DECODERS
+
+  # @return [String] Display name for the custom attribute
+  attr_reader :name
+  # @return [String] Key used to store the attribute in the user's public/private/unsafe metadata
+  attr_reader :key
+  # @return [String] Path to extract the attribute value from SSO claims (SAML assertions or OIDC claims)
+  attr_reader :sso_path
+  # @return [String] GJSON path to extract the attribute value from SCIM user resources
+  attr_reader :scim_path
+  # @return [String] GJSON path to extract the attribute value from directory sync user resources. Same value as `scim_path`.
+  attr_reader :directory_path
+  # @return [Boolean] When true, the attribute supports multiple values; values from the IdP are written to public_metadata as an array. Defaults to false.
+  attr_reader :multi_valued
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSCIMDirectoryCustomAttributesItemMetadata
-    FIELDS = {
-      name: 'name',
-      key: 'key',
-      sso_path: 'sso_path',
-      scim_path: 'scim_path',
-      directory_path: 'directory_path',
-      multi_valued: 'multi_valued'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for SCIMDirectoryCustomAttributesItem.
-  # Required object value serialized in the `custom_attributes[]` wire field.
-  class SCIMDirectoryCustomAttributesItem
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMDirectoryCustomAttributesItemMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [String] Display name for the custom attribute
-    attr_reader :name
-    # @return [String] Key used to store the attribute in the user's public/private/unsafe metadata
-    attr_reader :key
-    # @return [String] Path to extract the attribute value from SSO claims (SAML assertions or OIDC claims)
-    attr_reader :sso_path
-    # @return [String] GJSON path to extract the attribute value from SCIM user resources
-    attr_reader :scim_path
-    # @return [String] GJSON path to extract the attribute value from directory sync user resources. Same value as `scim_path`.
-    attr_reader :directory_path
-    # @return [Boolean] When true, the attribute supports multiple values; values from the IdP are written to public_metadata as an array. Defaults to false.
-    attr_reader :multi_valued
+# Internal model hydration metadata.
+class SdkInternalSCIMDirectoryMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    name: "name",
+    enterprise_connection_id: "enterprise_connection_id",
+    endpoint_url: "endpoint_url",
+    provider: "provider",
+    enabled: "enabled",
+    group_role_mapping_enabled: "group_role_mapping_enabled",
+    attribute_mapping: "attribute_mapping",
+    custom_attributes: "custom_attributes",
+    api_key: "api_key",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    name
+    endpoint_url
+    provider
+    enabled
+    group_role_mapping_enabled
+    attribute_mapping
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::SCIMDirectoryObject.from_value(value)
+    end,
+    custom_attributes: lambda do |value|
+      value&.map { |item| ::OctridevClerk::SCIMDirectoryCustomAttributesItem.from_hash(item) }
+    end,
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for SCIMDirectory.
+# A directory configuration for provisioning users via SCIM protocol.
+class SCIMDirectory
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMDirectoryMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMDirectoryMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMDirectoryMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [SCIMDirectoryObject] String representing the object's type. Always "scim_directory".
+  attr_reader :object
+  # @return [String] Unique identifier for the directory.
+  attr_reader :id
+  # @return [String] A human-friendly name for the directory.
+  attr_reader :name
+  # @return [String] The ID of the associated enterprise connection.
+  attr_reader :enterprise_connection_id
+  # @return [String] The SCIM endpoint URL for this directory.
+  attr_reader :endpoint_url
+  # @return [String] The identity provider for this directory.
+  attr_reader :provider
+  # @return [Boolean] Whether the directory is enabled.
+  attr_reader :enabled
+  # @return [Boolean] Whether group-to-role mapping is enabled for this directory.
+  attr_reader :group_role_mapping_enabled
+  # @return [Hash] Mapping of user attributes to the SCIM attribute paths they are extracted from.
+  attr_reader :attribute_mapping
+  # @return [Array_of_SCIMDirectoryCustomAttributesItem] Custom attributes to map from the IdP to the user's profile via SCIM provisioning. Requires the custom attributes feature to be enabled for the instance.
+  attr_reader :custom_attributes
+  # @return [String] The API key for authenticating SCIM requests. Only returned when the directory is created or the key is rotated.
+  attr_reader :api_key
+  # @return [Integer] Unix timestamp when the directory was created.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp when the directory was last updated.
+  attr_reader :updated_at
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSCIMDirectoryMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      name: 'name',
-      enterprise_connection_id: 'enterprise_connection_id',
-      endpoint_url: 'endpoint_url',
-      provider: 'provider',
-      enabled: 'enabled',
-      group_role_mapping_enabled: 'group_role_mapping_enabled',
-      attribute_mapping: 'attribute_mapping',
-      custom_attributes: 'custom_attributes',
-      api_key: 'api_key',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      name
-      endpoint_url
-      provider
-      enabled
-      group_role_mapping_enabled
-      attribute_mapping
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::SCIMDirectoryObject.from_value(value)
-      end,
-      custom_attributes: lambda do |value|
-        value&.map { |item| ::OctridevClerk::SCIMDirectoryCustomAttributesItem.from_hash(item) }
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for SCIMDirectory.
-  # A directory configuration for provisioning users via SCIM protocol.
-  class SCIMDirectory
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMDirectoryMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMDirectoryMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMDirectoryMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [SCIMDirectoryObject] String representing the object's type. Always "scim_directory".
-    attr_reader :object
-    # @return [String] Unique identifier for the directory.
-    attr_reader :id
-    # @return [String] A human-friendly name for the directory.
-    attr_reader :name
-    # @return [String] The ID of the associated enterprise connection.
-    attr_reader :enterprise_connection_id
-    # @return [String] The SCIM endpoint URL for this directory.
-    attr_reader :endpoint_url
-    # @return [String] The identity provider for this directory.
-    attr_reader :provider
-    # @return [Boolean] Whether the directory is enabled.
-    attr_reader :enabled
-    # @return [Boolean] Whether group-to-role mapping is enabled for this directory.
-    attr_reader :group_role_mapping_enabled
-    # @return [Hash] Mapping of user attributes to the SCIM attribute paths they are extracted from.
-    attr_reader :attribute_mapping
-    # @return [Array_of_SCIMDirectoryCustomAttributesItem] Custom attributes to map from the IdP to the user's profile via SCIM provisioning. Requires the custom attributes feature to be enabled for the instance.
-    attr_reader :custom_attributes
-    # @return [String] The API key for authenticating SCIM requests. Only returned when the directory is created or the key is rotated.
-    attr_reader :api_key
-    # @return [Integer] Unix timestamp when the directory was created.
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp when the directory was last updated.
-    attr_reader :updated_at
+# Defines the SCIMDirectoryObject SDK namespace.
+module SCIMDirectoryObject
+  SCIM_DIRECTORY = 'scim_directory'
+  VALUES = ['scim_directory'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalSCIMDirectoryListMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      ::OctridevClerk::SCIMDirectories.from_hash(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for SCIMDirectoryList.
+# Typed representation of the `SCIMDirectoryList` API schema.
+class SCIMDirectoryList
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMDirectoryListMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMDirectoryListMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMDirectoryListMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [SCIMDirectories] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of directories.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the SCIMDirectoryObject SDK namespace.
-  module SCIMDirectoryObject
-    SCIM_DIRECTORY = 'scim_directory'
-    VALUES = ['scim_directory'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSCIMDirectoryListMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        ::OctridevClerk::SCIMDirectories.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalSCIMGroupRoleMappingMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    scim_directory_id: "scim_directory_id",
+    directory_id: "directory_id",
+    scim_group_id: "scim_group_id",
+    directory_group_id: "directory_group_id",
+    scim_group_display_name: "scim_group_display_name",
+    directory_group_display_name: "directory_group_display_name",
+    role: "role",
+    precedence: "precedence",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    scim_directory_id
+    directory_id
+    scim_group_id
+    directory_group_id
+    scim_group_display_name
+    directory_group_display_name
+    precedence
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::SCIMGroupRoleMappingObject.from_value(value)
+    end,
+    role: lambda do |value|
+      ::OctridevClerk::Role.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for SCIMGroupRoleMapping.
+# A mapping from a SCIM group to an organization role. Members of the group are assigned the role; the lowest-precedence match wins when a user belongs to multiple mapped groups.
+class SCIMGroupRoleMapping
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMGroupRoleMappingMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMGroupRoleMappingMetadata::DECODERS
+
+  # @return [SCIMGroupRoleMappingObject] String representing the object's type. Always "scim_group_role_mapping".
+  attr_reader :object
+  # @return [String] Unique identifier for the SCIM group role mapping.
+  attr_reader :id
+  # @return [String] The ID of the directory this mapping belongs to.
+  attr_reader :scim_directory_id
+  # @return [String] The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
+  attr_reader :directory_id
+  # @return [String] The SCIM group ID from the identity provider.
+  attr_reader :scim_group_id
+  # @return [String] The group ID from the identity provider. Same value as `scim_group_id`.
+  attr_reader :directory_group_id
+  # @return [String] The display name of the SCIM group, as reported by the identity provider.
+  attr_reader :scim_group_display_name
+  # @return [String] The display name of the group, as reported by the identity provider. Same value as `scim_group_display_name`.
+  attr_reader :directory_group_display_name
+  # @return [Role] Optional object value serialized in the `role` wire field.
+  attr_reader :role
+  # @return [Integer] Mapping precedence, starting at 1. Lower values take priority when a user belongs to multiple mapped groups.
+  attr_reader :precedence
+  # @return [Integer] Unix timestamp (milliseconds) of when the mapping was created.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp (milliseconds) of when the mapping was last updated.
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for SCIMDirectoryList.
-  # Typed representation of the `SCIMDirectoryList` API schema.
-  class SCIMDirectoryList
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMDirectoryListMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMDirectoryListMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMDirectoryListMetadata::DECODERS
-
-    # @return [SCIMDirectories] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Integer] Total number of directories.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSCIMGroupRoleMappingMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      scim_directory_id: 'scim_directory_id',
-      directory_id: 'directory_id',
-      scim_group_id: 'scim_group_id',
-      directory_group_id: 'directory_group_id',
-      scim_group_display_name: 'scim_group_display_name',
-      directory_group_display_name: 'directory_group_display_name',
-      role: 'role',
-      precedence: 'precedence',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      scim_directory_id
-      directory_id
-      scim_group_id
-      directory_group_id
-      scim_group_display_name
-      directory_group_display_name
-      precedence
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::SCIMGroupRoleMappingObject.from_value(value)
-      end,
-      role: lambda do |value|
-        ::OctridevClerk::Role.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the SCIMGroupRoleMappingObject SDK namespace.
+module SCIMGroupRoleMappingObject
+  SCIM_GROUP_ROLE_MAPPING = 'scim_group_role_mapping'
+  VALUES = ['scim_group_role_mapping'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalSCIMGroupRoleMappingDeletedMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    deleted: "deleted",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    deleted
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::SCIMGroupRoleMappingDeletedObject.from_value(value)
+    end,
+    deleted: lambda do |value|
+      ::OctridevClerk::SCIMGroupRoleMappingDeletedDeleted.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for SCIMGroupRoleMappingDeleted.
+# Typed representation of the `SCIMGroupRoleMappingDeleted` API schema.
+class SCIMGroupRoleMappingDeleted
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::DECODERS
+
+  # @return [SCIMGroupRoleMappingDeletedObject] String representing the object's type.
+  attr_reader :object
+  # @return [String] The ID of the deleted SCIM group role mapping.
+  attr_reader :id
+  # @return [SCIMGroupRoleMappingDeletedDeleted] Whether the SCIM group role mapping was successfully deleted.
+  attr_reader :deleted
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for SCIMGroupRoleMapping.
-  # A mapping from a SCIM group to an organization role. Members of the group are assigned the role; the lowest-precedence match wins when a user belongs to multiple mapped groups.
-  class SCIMGroupRoleMapping
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMGroupRoleMappingMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMGroupRoleMappingMetadata::DECODERS
-
-    # @return [SCIMGroupRoleMappingObject] String representing the object's type. Always "scim_group_role_mapping".
-    attr_reader :object
-    # @return [String] Unique identifier for the SCIM group role mapping.
-    attr_reader :id
-    # @return [String] The ID of the directory this mapping belongs to.
-    attr_reader :scim_directory_id
-    # @return [String] The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
-    attr_reader :directory_id
-    # @return [String] The SCIM group ID from the identity provider.
-    attr_reader :scim_group_id
-    # @return [String] The group ID from the identity provider. Same value as `scim_group_id`.
-    attr_reader :directory_group_id
-    # @return [String] The display name of the SCIM group, as reported by the identity provider.
-    attr_reader :scim_group_display_name
-    # @return [String] The display name of the group, as reported by the identity provider. Same value as `scim_group_display_name`.
-    attr_reader :directory_group_display_name
-    # @return [Role] Optional object value serialized in the `role` wire field.
-    attr_reader :role
-    # @return [Integer] Mapping precedence, starting at 1. Lower values take priority when a user belongs to multiple mapped groups.
-    attr_reader :precedence
-    # @return [Integer] Unix timestamp (milliseconds) of when the mapping was created.
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp (milliseconds) of when the mapping was last updated.
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the SCIMGroupRoleMappingObject SDK namespace.
-  module SCIMGroupRoleMappingObject
-    SCIM_GROUP_ROLE_MAPPING = 'scim_group_role_mapping'
-    VALUES = ['scim_group_role_mapping'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the SCIMGroupRoleMappingDeletedDeleted SDK namespace.
+module SCIMGroupRoleMappingDeletedDeleted
+  TRUE = true
+  VALUES = [true].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the SCIMGroupRoleMappingDeletedObject SDK namespace.
+module SCIMGroupRoleMappingDeletedObject
+  SCIM_GROUP_ROLE_MAPPING = 'scim_group_role_mapping'
+  VALUES = ['scim_group_role_mapping'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalSCIMGroupRoleMappingListMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      ::OctridevClerk::SCIMGroupRoleMappings.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for SCIMGroupRoleMappingList.
+# Typed representation of the `SCIMGroupRoleMappingList` API schema.
+class SCIMGroupRoleMappingList
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalSCIMGroupRoleMappingListMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingListMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalSCIMGroupRoleMappingListMetadata::DECODERS
+
+  # @return [SCIMGroupRoleMappings] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of SCIM group role mappings in the directory.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalSCIMGroupRoleMappingDeletedMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      deleted: 'deleted'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      deleted
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::SCIMGroupRoleMappingDeletedObject.from_value(value)
-      end,
-      deleted: lambda do |value|
-        ::OctridevClerk::SCIMGroupRoleMappingDeletedDeleted.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for SCIMGroupRoleMappingDeleted.
-  # Typed representation of the `SCIMGroupRoleMappingDeleted` API schema.
-  class SCIMGroupRoleMappingDeleted
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMGroupRoleMappingDeletedMetadata::DECODERS
-
-    # @return [SCIMGroupRoleMappingDeletedObject] String representing the object's type.
-    attr_reader :object
-    # @return [String] The ID of the deleted SCIM group role mapping.
-    attr_reader :id
-    # @return [SCIMGroupRoleMappingDeletedDeleted] Whether the SCIM group role mapping was successfully deleted.
-    attr_reader :deleted
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the SCIMGroupRoleMappingDeletedDeleted SDK namespace.
-  module SCIMGroupRoleMappingDeletedDeleted
-    TRUE = true
-    VALUES = [true].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the SCIMGroupRoleMappings SDK value decoder.
+module SCIMGroupRoleMappings
+  def self.from_hash(value)
+    return nil if value.nil?
+    value&.map { |item| ::OctridevClerk::SCIMGroupRoleMapping.from_hash(item) }
   end
-
-  # Defines the SCIMGroupRoleMappingDeletedObject SDK namespace.
-  module SCIMGroupRoleMappingDeletedObject
-    SCIM_GROUP_ROLE_MAPPING = 'scim_group_role_mapping'
-    VALUES = ['scim_group_role_mapping'].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalSCIMGroupRoleMappingListMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        ::OctridevClerk::SCIMGroupRoleMappings.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for SCIMGroupRoleMappingList.
-  # Typed representation of the `SCIMGroupRoleMappingList` API schema.
-  class SCIMGroupRoleMappingList
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalSCIMGroupRoleMappingListMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalSCIMGroupRoleMappingListMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalSCIMGroupRoleMappingListMetadata::DECODERS
-
-    # @return [SCIMGroupRoleMappings] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Integer] Total number of SCIM group role mappings in the directory.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the SCIMGroupRoleMappings SDK value decoder.
-  module SCIMGroupRoleMappings
-    def self.from_hash(value)
-      return nil if value.nil?
-
-      value&.map { |item| ::OctridevClerk::SCIMGroupRoleMapping.from_hash(item) }
-    end
-  end
+end
 end

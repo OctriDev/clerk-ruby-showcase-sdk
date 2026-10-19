@@ -26,23 +26,24 @@ module OctridevClerk
         private_metadata: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PUT',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/metadata'
+            "/metadata"
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
-            'private_metadata' => private_metadata
+            'private_metadata' => private_metadata,
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'replace_organization_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -61,24 +62,25 @@ module OctridevClerk
         uploader_user_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PUT',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/logo'
+            "/logo"
           ].join,
           config: config,
           body: {
             'file' => SdkClient.upload(file, 'file'),
-            'uploader_user_id' => uploader_user_id
+            'uploader_user_id' => uploader_user_id,
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevClerk::OrganizationWithLogo,
           decoder: :json,
           operation_id: 'upload_organization_logo',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -93,19 +95,20 @@ module OctridevClerk
         organization_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/logo'
+            "/logo"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'delete_organization_logo',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -113,20 +116,25 @@ module OctridevClerk
       #
       # @param organization_id [String] The ID of the organization whose
       #   subscription to retrieve
-      singleton_class.define_method(:get_organization_billing_subscription) do |config:, organization_id:, request_options: nil|
+      singleton_class.define_method(:get_organization_billing_subscription) do |
+        config:,
+        organization_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/billing/subscription'
+            "/billing/subscription"
           ].join,
           config: config,
           return_type: ::OctridevClerk::CommerceSubscription,
           decoder: :json,
           operation_id: 'get_organization_billing_subscription',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -134,20 +142,25 @@ module OctridevClerk
       #
       # @param organization_id [String] The ID of the organization whose credit
       #   balance to retrieve
-      singleton_class.define_method(:get_organization_billing_credit_balance) do |config:, organization_id:, request_options: nil|
+      singleton_class.define_method(:get_organization_billing_credit_balance) do |
+        config:,
+        organization_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/billing/credits'
+            "/billing/credits"
           ].join,
           config: config,
           return_type: ::OctridevClerk::CommerceCreditBalanceResponse,
           decoder: :json,
           operation_id: 'get_organization_billing_credit_balance',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -175,12 +188,13 @@ module OctridevClerk
         note: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/billing/credits'
+            "/billing/credits"
           ].join,
           config: config,
           body: {
@@ -188,13 +202,13 @@ module OctridevClerk
             'action' => action,
             'idempotency_key' => idempotency_key,
             'currency' => currency,
-            'note' => note
+            'note' => note,
           },
           return_type: ::OctridevClerk::CommerceCreditLedgerResponse,
           decoder: :json,
           operation_id: 'adjust_organization_billing_credit_balance',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

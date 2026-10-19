@@ -12,16 +12,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpsertTemplateMetadata
         FIELDS = {
-          name: 'name',
-          subject: 'subject',
-          markup: 'markup',
-          body: 'body',
-          delivered_by_clerk: 'delivered_by_clerk',
-          from_email_name: 'from_email_name',
-          reply_to_email_name: 'reply_to_email_name'
+          name: "name",
+          subject: "subject",
+          markup: "markup",
+          body: "body",
+          delivered_by_clerk: "delivered_by_clerk",
+          from_email_name: "from_email_name",
+          reply_to_email_name: "reply_to_email_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpsertTemplate.
@@ -63,13 +65,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalPreviewTemplateMetadata
         FIELDS = {
-          subject: 'subject',
-          body: 'body',
-          from_email_name: 'from_email_name',
-          reply_to_email_name: 'reply_to_email_name'
+          subject: "subject",
+          body: "body",
+          from_email_name: "from_email_name",
+          reply_to_email_name: "reply_to_email_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for PreviewTemplate.
@@ -105,10 +109,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalToggleTemplateDeliveryMetadata
         FIELDS = {
-          delivered_by_clerk: 'delivered_by_clerk'
+          delivered_by_clerk: "delivered_by_clerk",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for ToggleTemplateDelivery.
@@ -139,7 +145,7 @@ module OctridevClerk
       module GetTemplateListParameter
         EMAIL = 'email'
         SMS = 'sms'
-        VALUES = %w[email sms].freeze
+        VALUES = ['email', 'sms'].freeze
         def self.from_value(value)
           value
         end
@@ -149,7 +155,7 @@ module OctridevClerk
       module UpsertTemplateParameter
         EMAIL = 'email'
         SMS = 'sms'
-        VALUES = %w[email sms].freeze
+        VALUES = ['email', 'sms'].freeze
         def self.from_value(value)
           value
         end
@@ -159,7 +165,7 @@ module OctridevClerk
       module RevertTemplateParameter
         EMAIL = 'email'
         SMS = 'sms'
-        VALUES = %w[email sms].freeze
+        VALUES = ['email', 'sms'].freeze
         def self.from_value(value)
           value
         end
@@ -169,7 +175,7 @@ module OctridevClerk
       module GetTemplateParameter
         EMAIL = 'email'
         SMS = 'sms'
-        VALUES = %w[email sms].freeze
+        VALUES = ['email', 'sms'].freeze
         def self.from_value(value)
           value
         end
@@ -179,7 +185,7 @@ module OctridevClerk
       module ToggleTemplateDeliveryParameter
         EMAIL = 'email'
         SMS = 'sms'
-        VALUES = %w[email sms].freeze
+        VALUES = ['email', 'sms'].freeze
         def self.from_value(value)
           value
         end
@@ -198,7 +204,15 @@ module OctridevClerk
       #   with `limit`.
       #
       # @deprecated This operation is deprecated and may be removed in a future release.
-      singleton_class.define_method(:get_template_list) do |config:, template_type:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_template_list) do |
+        config:,
+        template_type:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -206,20 +220,20 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type)
           ].join,
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::Template],
           decoder: :json,
           operation_id: 'get_template_list',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -233,13 +247,19 @@ module OctridevClerk
       #   to retrieve
       #
       # @deprecated This operation is deprecated and may be removed in a future release.
-      singleton_class.define_method(:get_template) do |config:, template_type:, slug:, request_options: nil|
+      singleton_class.define_method(:get_template) do |
+        config:,
+        template_type:,
+        slug:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type),
-            '/',
+            "/",
             SdkClient.encode_path_segment(slug)
           ].join,
           config: config,
@@ -247,7 +267,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -287,12 +307,13 @@ module OctridevClerk
         reply_to_email_name: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PUT',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type),
-            '/',
+            "/",
             SdkClient.encode_path_segment(slug)
           ].join,
           config: config,
@@ -303,13 +324,13 @@ module OctridevClerk
             'body' => body,
             'delivered_by_clerk' => delivered_by_clerk,
             'from_email_name' => from_email_name,
-            'reply_to_email_name' => reply_to_email_name
+            'reply_to_email_name' => reply_to_email_name,
           },
           return_type: ::OctridevClerk::Template,
           decoder: :json,
           operation_id: 'upsert_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '423' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '423' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -328,21 +349,22 @@ module OctridevClerk
         slug:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type),
-            '/',
+            "/",
             SdkClient.encode_path_segment(slug),
-            '/revert'
+            "/revert"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Template,
           decoder: :json,
           operation_id: 'revert_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -375,26 +397,27 @@ module OctridevClerk
         reply_to_email_name: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type),
-            '/',
+            "/",
             SdkClient.encode_path_segment(slug),
-            '/preview'
+            "/preview"
           ].join,
           config: config,
           body: {
             'subject' => subject,
             'body' => body,
             'from_email_name' => from_email_name,
-            'reply_to_email_name' => reply_to_email_name
+            'reply_to_email_name' => reply_to_email_name,
           },
           decoder: :json,
           operation_id: 'preview_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -414,24 +437,25 @@ module OctridevClerk
         delivered_by_clerk: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/templates/',
+            "/templates/",
             SdkClient.encode_path_segment(template_type),
-            '/',
+            "/",
             SdkClient.encode_path_segment(slug),
-            '/toggle_delivery'
+            "/toggle_delivery"
           ].join,
           config: config,
           body: {
-            'delivered_by_clerk' => delivered_by_clerk
+            'delivered_by_clerk' => delivered_by_clerk,
           },
           return_type: ::OctridevClerk::Template,
           decoder: :json,
           operation_id: 'toggle_template_delivery',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '423' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '423' => ::OctridevClerk::ClerkErrors, '429' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

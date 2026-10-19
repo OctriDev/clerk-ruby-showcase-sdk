@@ -12,13 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateInvitationMetadata
         FIELDS = {
-          email_address: 'email_address',
-          public_metadata: 'public_metadata',
-          redirect_url: 'redirect_url',
-          notify: 'notify',
-          ignore_existing: 'ignore_existing',
-          expires_in_days: 'expires_in_days',
-          template_slug: 'template_slug'
+          email_address: "email_address",
+          public_metadata: "public_metadata",
+          redirect_url: "redirect_url",
+          notify: "notify",
+          ignore_existing: "ignore_existing",
+          expires_in_days: "expires_in_days",
+          template_slug: "template_slug",
         }.freeze
         REQUIRED_FIELDS = %i[
           email_address
@@ -26,7 +26,7 @@ module OctridevClerk
         DECODERS = {
           template_slug: lambda do |value|
             ::OctridevClerk::Methods::Invitations::CreateInvitationTemplateSlug.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -72,7 +72,7 @@ module OctridevClerk
         ACCEPTED = 'accepted'
         REVOKED = 'revoked'
         EXPIRED = 'expired'
-        VALUES = %w[pending accepted revoked expired].freeze
+        VALUES = ['pending', 'accepted', 'revoked', 'expired'].freeze
         def self.from_value(value)
           value
         end
@@ -82,7 +82,7 @@ module OctridevClerk
       module CreateBulkInvitationsItemTemplateSlug
         INVITATION = 'invitation'
         WAITLIST_INVITATION = 'waitlist_invitation'
-        VALUES = %w[invitation waitlist_invitation].freeze
+        VALUES = ['invitation', 'waitlist_invitation'].freeze
         def self.from_value(value)
           value
         end
@@ -92,7 +92,7 @@ module OctridevClerk
       module CreateInvitationTemplateSlug
         INVITATION = 'invitation'
         WAITLIST_INVITATION = 'waitlist_invitation'
-        VALUES = %w[invitation waitlist_invitation].freeze
+        VALUES = ['invitation', 'waitlist_invitation'].freeze
         def self.from_value(value)
           value
         end
@@ -130,13 +130,14 @@ module OctridevClerk
         template_slug: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_days) do
           Validation.validate_range('expires_in_days', expires_in_days, min: 1, max: 365)
         end
 
         SdkClient.request(
           'POST',
-          '/invitations',
+          "/invitations",
           config: config,
           body: {
             'email_address' => email_address,
@@ -145,13 +146,13 @@ module OctridevClerk
             'notify' => notify,
             'ignore_existing' => ignore_existing,
             'expires_in_days' => expires_in_days,
-            'template_slug' => template_slug
+            'template_slug' => template_slug,
           },
           return_type: ::OctridevClerk::Invitation,
           decoder: :json,
           operation_id: 'create_invitation',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -185,13 +186,14 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/invitations',
+          "/invitations",
           config: config,
           query: {
             'status' => QueryValue.new(status, style: 'form', explode: true),
@@ -199,12 +201,12 @@ module OctridevClerk
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::Invitation],
           decoder: :json,
           operation_id: 'list_invitations',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -216,18 +218,19 @@ module OctridevClerk
         body: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(body) { Validation.validate_items('body', body, min: 1, max: 10) }
 
         SdkClient.request(
           'POST',
-          '/invitations/bulk',
+          "/invitations/bulk",
           config: config,
           body: body,
           return_type: [::OctridevClerk::Invitation],
           decoder: :json,
           operation_id: 'create_bulk_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -239,10 +242,11 @@ module OctridevClerk
         invitation_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/invitations/',
+            "/invitations/",
             SdkClient.encode_path_segment(invitation_id)
           ].join,
           config: config,
@@ -250,7 +254,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_invitation',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -262,19 +266,20 @@ module OctridevClerk
         invitation_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/invitations/',
+            "/invitations/",
             SdkClient.encode_path_segment(invitation_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::InvitationRevoked,
           decoder: :json,
           operation_id: 'revoke_invitation',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

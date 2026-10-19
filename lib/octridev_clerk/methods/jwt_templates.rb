@@ -12,19 +12,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateJWTTemplateMetadata
         FIELDS = {
-          name: 'name',
-          claims: 'claims',
-          lifetime: 'lifetime',
-          allowed_clock_skew: 'allowed_clock_skew',
-          custom_signing_key: 'custom_signing_key',
-          signing_algorithm: 'signing_algorithm',
-          signing_key: 'signing_key'
+          name: "name",
+          claims: "claims",
+          lifetime: "lifetime",
+          allowed_clock_skew: "allowed_clock_skew",
+          custom_signing_key: "custom_signing_key",
+          signing_algorithm: "signing_algorithm",
+          signing_key: "signing_key",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           claims
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateJWTTemplate.
@@ -66,19 +67,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateJWTTemplateMetadata
         FIELDS = {
-          name: 'name',
-          claims: 'claims',
-          lifetime: 'lifetime',
-          allowed_clock_skew: 'allowed_clock_skew',
-          custom_signing_key: 'custom_signing_key',
-          signing_algorithm: 'signing_algorithm',
-          signing_key: 'signing_key'
+          name: "name",
+          claims: "claims",
+          lifetime: "lifetime",
+          allowed_clock_skew: "allowed_clock_skew",
+          custom_signing_key: "custom_signing_key",
+          signing_algorithm: "signing_algorithm",
+          signing_key: "signing_key",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           claims
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateJWTTemplate.
@@ -133,23 +135,24 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/jwt_templates',
+          "/jwt_templates",
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::JWTTemplate],
           decoder: :json,
           operation_id: 'list_jwt_templates',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -178,7 +181,8 @@ module OctridevClerk
         signing_key: NOT_GIVEN,
         request_options: nil
       )
-        Validation.if_given(lifetime) { Validation.validate_range('lifetime', lifetime, min: 30, max: 315_360_000) }
+
+        Validation.if_given(lifetime) { Validation.validate_range('lifetime', lifetime, min: 30, max: 315360000) }
 
         Validation.if_given(allowed_clock_skew) do
           Validation.validate_range('allowed_clock_skew', allowed_clock_skew, min: 0, max: 300)
@@ -186,7 +190,7 @@ module OctridevClerk
 
         SdkClient.request(
           'POST',
-          '/jwt_templates',
+          "/jwt_templates",
           config: config,
           body: {
             'name' => name,
@@ -195,13 +199,13 @@ module OctridevClerk
             'allowed_clock_skew' => allowed_clock_skew,
             'custom_signing_key' => custom_signing_key,
             'signing_algorithm' => signing_algorithm,
-            'signing_key' => signing_key
+            'signing_key' => signing_key,
           },
           return_type: ::OctridevClerk::JWTTemplate,
           decoder: :json,
           operation_id: 'create_jwt_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -210,11 +214,16 @@ module OctridevClerk
       # Retrieve the details of a given JWT template
       #
       # @param template_id [String] JWT Template ID
-      singleton_class.define_method(:get_jwt_template) do |config:, template_id:, request_options: nil|
+      singleton_class.define_method(:get_jwt_template) do |
+        config:,
+        template_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/jwt_templates/',
+            "/jwt_templates/",
             SdkClient.encode_path_segment(template_id)
           ].join,
           config: config,
@@ -222,7 +231,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_jwt_template',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -253,7 +262,8 @@ module OctridevClerk
         signing_key: NOT_GIVEN,
         request_options: nil
       )
-        Validation.if_given(lifetime) { Validation.validate_range('lifetime', lifetime, min: 30, max: 315_360_000) }
+
+        Validation.if_given(lifetime) { Validation.validate_range('lifetime', lifetime, min: 30, max: 315360000) }
 
         Validation.if_given(allowed_clock_skew) do
           Validation.validate_range('allowed_clock_skew', allowed_clock_skew, min: 0, max: 300)
@@ -262,7 +272,7 @@ module OctridevClerk
         SdkClient.request(
           'PATCH',
           [
-            '/jwt_templates/',
+            "/jwt_templates/",
             SdkClient.encode_path_segment(template_id)
           ].join,
           config: config,
@@ -273,13 +283,13 @@ module OctridevClerk
             'allowed_clock_skew' => allowed_clock_skew,
             'custom_signing_key' => custom_signing_key,
             'signing_algorithm' => signing_algorithm,
-            'signing_key' => signing_key
+            'signing_key' => signing_key,
           },
           return_type: ::OctridevClerk::JWTTemplate,
           decoder: :json,
           operation_id: 'update_jwt_template',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -291,10 +301,11 @@ module OctridevClerk
         template_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/jwt_templates/',
+            "/jwt_templates/",
             SdkClient.encode_path_segment(template_id)
           ].join,
           config: config,
@@ -302,7 +313,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_jwt_template',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -12,11 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateAgentTaskOnBehalfOfMetadata
         FIELDS = {
-          user_id: 'user_id',
-          identifier: 'identifier'
+          user_id: "user_id",
+          identifier: "identifier",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateAgentTaskOnBehalfOf.
@@ -49,12 +51,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateAgentTaskMetadata
         FIELDS = {
-          on_behalf_of: 'on_behalf_of',
-          permissions: 'permissions',
-          agent_name: 'agent_name',
-          task_description: 'task_description',
-          redirect_url: 'redirect_url',
-          session_max_duration_in_seconds: 'session_max_duration_in_seconds'
+          on_behalf_of: "on_behalf_of",
+          permissions: "permissions",
+          agent_name: "agent_name",
+          task_description: "task_description",
+          redirect_url: "redirect_url",
+          session_max_duration_in_seconds: "session_max_duration_in_seconds",
         }.freeze
         REQUIRED_FIELDS = %i[
           on_behalf_of
@@ -69,7 +71,7 @@ module OctridevClerk
           end,
           permissions: lambda do |value|
             ::OctridevClerk::Methods::AgentTasks::CreateAgentTaskPermissions.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -147,11 +149,12 @@ module OctridevClerk
         session_max_duration_in_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_uri('redirect_url', redirect_url)
 
         SdkClient.request(
           'POST',
-          '/agents/tasks',
+          "/agents/tasks",
           config: config,
           body: {
             'on_behalf_of' => on_behalf_of,
@@ -159,13 +162,13 @@ module OctridevClerk
             'agent_name' => agent_name,
             'task_description' => task_description,
             'redirect_url' => redirect_url,
-            'session_max_duration_in_seconds' => session_max_duration_in_seconds
+            'session_max_duration_in_seconds' => session_max_duration_in_seconds,
           },
           return_type: ::OctridevClerk::AgentTask,
           decoder: :json,
           operation_id: 'create_agent_task',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -179,19 +182,20 @@ module OctridevClerk
         agent_task_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/agents/tasks/',
+            "/agents/tasks/",
             SdkClient.encode_path_segment(agent_task_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::AgentTask,
           decoder: :json,
           operation_id: 'revoke_agent_task',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

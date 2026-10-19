@@ -159,18 +159,18 @@ module OctridevClerk
         locked: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/users',
+          "/users",
           config: config,
           body: __sdk_body_create_user_part1(external_id: external_id, first_name: first_name, last_name: last_name, locale: locale, timezone: timezone, email_address: email_address, email_address_identification_status: email_address_identification_status, phone_number: phone_number, phone_number_identification_status: phone_number_identification_status, web3_wallet: web3_wallet, username: username, password: password, password_digest: password_digest, password_hasher: password_hasher, skip_password_checks: skip_password_checks, skip_password_requirement: skip_password_requirement, skip_restriction_checks: skip_restriction_checks, totp_secret: totp_secret).merge(
-            __sdk_body_create_user_part2(backup_codes: backup_codes, public_metadata: public_metadata, private_metadata: private_metadata, unsafe_metadata: unsafe_metadata, delete_self_enabled: delete_self_enabled, legal_accepted_at: legal_accepted_at, skip_legal_checks: skip_legal_checks, skip_user_requirement: skip_user_requirement, create_organization_enabled: create_organization_enabled, create_organizations_limit: create_organizations_limit, created_at: created_at, bypass_client_trust: bypass_client_trust, banned: banned, locked: locked)
-          ),
+            __sdk_body_create_user_part2(backup_codes: backup_codes, public_metadata: public_metadata, private_metadata: private_metadata, unsafe_metadata: unsafe_metadata, delete_self_enabled: delete_self_enabled, legal_accepted_at: legal_accepted_at, skip_legal_checks: skip_legal_checks, skip_user_requirement: skip_user_requirement, create_organization_enabled: create_organization_enabled, create_organizations_limit: create_organizations_limit, created_at: created_at, bypass_client_trust: bypass_client_trust, banned: banned, locked: locked)),
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'create_user',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -212,7 +212,7 @@ module OctridevClerk
           'skip_password_checks' => skip_password_checks,
           'skip_password_requirement' => skip_password_requirement,
           'skip_restriction_checks' => skip_restriction_checks,
-          'totp_secret' => totp_secret
+          'totp_secret' => totp_secret,
         }
       end
       private_class_method :__sdk_body_create_user_part1
@@ -247,7 +247,7 @@ module OctridevClerk
           'created_at' => created_at,
           'bypass_client_trust' => bypass_client_trust,
           'banned' => banned,
-          'locked' => locked
+          'locked' => locked,
         }
       end
       private_class_method :__sdk_body_create_user_part2
@@ -331,19 +331,44 @@ module OctridevClerk
       #   `provider=oauth_google&provider_user_id=12345` to count users with Google
       #   provider user ID 12345. Accepts up to 100 provider user IDs. Any provider
       #   user IDs not found are ignored.
-      singleton_class.define_method(:get_users_count) do |config:, email_address: NOT_GIVEN, phone_number: NOT_GIVEN, external_id: NOT_GIVEN, username: NOT_GIVEN, web3_wallet: NOT_GIVEN, user_id: NOT_GIVEN, organization_id: NOT_GIVEN, query: NOT_GIVEN, email_address_query: NOT_GIVEN, phone_number_query: NOT_GIVEN, username_query: NOT_GIVEN, name_query: NOT_GIVEN, banned: NOT_GIVEN, last_active_at_before: NOT_GIVEN, last_active_at_after: NOT_GIVEN, last_active_at_since: NOT_GIVEN, created_at_before: NOT_GIVEN, created_at_after: NOT_GIVEN, last_sign_in_at_before: NOT_GIVEN, last_sign_in_at_after: NOT_GIVEN, provider: NOT_GIVEN, provider_user_id: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_users_count) do |
+        config:,
+        email_address: NOT_GIVEN,
+        phone_number: NOT_GIVEN,
+        external_id: NOT_GIVEN,
+        username: NOT_GIVEN,
+        web3_wallet: NOT_GIVEN,
+        user_id: NOT_GIVEN,
+        organization_id: NOT_GIVEN,
+        query: NOT_GIVEN,
+        email_address_query: NOT_GIVEN,
+        phone_number_query: NOT_GIVEN,
+        username_query: NOT_GIVEN,
+        name_query: NOT_GIVEN,
+        banned: NOT_GIVEN,
+        last_active_at_before: NOT_GIVEN,
+        last_active_at_after: NOT_GIVEN,
+        last_active_at_since: NOT_GIVEN,
+        created_at_before: NOT_GIVEN,
+        created_at_after: NOT_GIVEN,
+        last_sign_in_at_before: NOT_GIVEN,
+        last_sign_in_at_after: NOT_GIVEN,
+        provider: NOT_GIVEN,
+        provider_user_id: NOT_GIVEN,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/users/count',
+          "/users/count",
           config: config,
           query: __sdk_query_get_users_count_part1(email_address: email_address, phone_number: phone_number, external_id: external_id, username: username, web3_wallet: web3_wallet, user_id: user_id, organization_id: organization_id, query: query, email_address_query: email_address_query, phone_number_query: phone_number_query, username_query: username_query, name_query: name_query, banned: banned, last_active_at_before: last_active_at_before, last_active_at_after: last_active_at_after, last_active_at_since: last_active_at_since, created_at_before: created_at_before, created_at_after: created_at_after).merge(
-            __sdk_query_get_users_count_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id)
-          ),
+            __sdk_query_get_users_count_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id)),
           return_type: ::OctridevClerk::TotalCount,
           decoder: :json,
           operation_id: 'get_users_count',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -385,7 +410,7 @@ module OctridevClerk
           'last_active_at_after' => QueryValue.new(last_active_at_after, style: 'form', explode: true),
           'last_active_at_since' => QueryValue.new(last_active_at_since, style: 'form', explode: true),
           'created_at_before' => QueryValue.new(created_at_before, style: 'form', explode: true),
-          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true)
+          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true),
         }
       end
       private_class_method :__sdk_query_get_users_count_part1
@@ -400,7 +425,7 @@ module OctridevClerk
           'last_sign_in_at_before' => QueryValue.new(last_sign_in_at_before, style: 'form', explode: true),
           'last_sign_in_at_after' => QueryValue.new(last_sign_in_at_after, style: 'form', explode: true),
           'provider' => QueryValue.new(provider, style: 'form', explode: true),
-          'provider_user_id' => QueryValue.new(provider_user_id, style: 'form', explode: true)
+          'provider_user_id' => QueryValue.new(provider_user_id, style: 'form', explode: true),
         }
       end
       private_class_method :__sdk_query_get_users_count_part2
@@ -410,11 +435,16 @@ module OctridevClerk
       # Retrieve the details of a user
       #
       # @param user_id [String] The ID of the user to retrieve
-      singleton_class.define_method(:get_user) do |config:, user_id:, request_options: nil|
+      singleton_class.define_method(:get_user) do |
+        config:,
+        user_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id)
           ].join,
           config: config,
@@ -422,7 +452,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_user',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end
