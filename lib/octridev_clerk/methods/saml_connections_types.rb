@@ -12,13 +12,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSAMLConnectionAttributeMappingMetadata
         FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
+          user_id: "user_id",
+          email_address: "email_address",
+          first_name: "first_name",
+          last_name: "last_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSAMLConnectionAttributeMapping.
@@ -48,8 +50,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSAMLConnectionLoginHintMetadata
         FIELDS = {
-          mode: 'mode',
-          source: 'source'
+          mode: "mode",
+          source: "source",
         }.freeze
         REQUIRED_FIELDS = %i[
           mode
@@ -57,7 +59,7 @@ module OctridevClerk
         DECODERS = {
           mode: lambda do |value|
             ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionLoginHintMode.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -91,20 +93,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSAMLConnectionMetadata
         FIELDS = {
-          name: 'name',
-          domain: 'domain',
-          domains: 'domains',
-          provider: 'provider',
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          organization_id: 'organization_id',
-          attribute_mapping: 'attribute_mapping',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint'
+          name: "name",
+          domain: "domain",
+          domains: "domains",
+          provider: "provider",
+          idp_entity_id: "idp_entity_id",
+          idp_sso_url: "idp_sso_url",
+          idp_certificate: "idp_certificate",
+          idp_certificates: "idp_certificates",
+          idp_metadata_url: "idp_metadata_url",
+          idp_metadata: "idp_metadata",
+          organization_id: "organization_id",
+          attribute_mapping: "attribute_mapping",
+          force_authn: "force_authn",
+          login_hint: "login_hint",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
@@ -119,7 +121,7 @@ module OctridevClerk
           end,
           login_hint: lambda do |value|
             ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionLoginHint.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -176,13 +178,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateSAMLConnectionAttributeMappingMetadata
         FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
+          user_id: "user_id",
+          email_address: "email_address",
+          first_name: "first_name",
+          last_name: "last_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateSAMLConnectionAttributeMapping.
@@ -212,8 +216,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateSAMLConnectionLoginHintMetadata
         FIELDS = {
-          mode: 'mode',
-          source: 'source'
+          mode: "mode",
+          source: "source",
         }.freeze
         REQUIRED_FIELDS = %i[
           mode
@@ -221,7 +225,7 @@ module OctridevClerk
         DECODERS = {
           mode: lambda do |value|
             ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionLoginHintMode.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -255,35 +259,36 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateSAMLConnectionMetadata
         FIELDS = {
-          name: 'name',
-          domain: 'domain',
-          domains: 'domains',
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          organization_id: 'organization_id',
-          attribute_mapping: 'attribute_mapping',
-          active: 'active',
-          sync_user_attributes: 'sync_user_attributes',
-          allow_subdomains: 'allow_subdomains',
-          allow_idp_initiated: 'allow_idp_initiated',
-          disable_additional_identifications: 'disable_additional_identifications',
-          allow_organization_account_linking: 'allow_organization_account_linking',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint',
-          consent_verified_domains_deletion: 'consent_verified_domains_deletion'
+          name: "name",
+          domain: "domain",
+          domains: "domains",
+          idp_entity_id: "idp_entity_id",
+          idp_sso_url: "idp_sso_url",
+          idp_certificate: "idp_certificate",
+          idp_certificates: "idp_certificates",
+          idp_metadata_url: "idp_metadata_url",
+          idp_metadata: "idp_metadata",
+          organization_id: "organization_id",
+          attribute_mapping: "attribute_mapping",
+          active: "active",
+          sync_user_attributes: "sync_user_attributes",
+          allow_subdomains: "allow_subdomains",
+          allow_idp_initiated: "allow_idp_initiated",
+          disable_additional_identifications: "disable_additional_identifications",
+          allow_organization_account_linking: "allow_organization_account_linking",
+          force_authn: "force_authn",
+          login_hint: "login_hint",
+          consent_verified_domains_deletion: "consent_verified_domains_deletion",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           attribute_mapping: lambda do |value|
             ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionAttributeMapping.from_hash(value)
           end,
           login_hint: lambda do |value|
             ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionLoginHint.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -354,7 +359,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
+        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
         def self.from_value(value)
           value
         end
@@ -365,7 +370,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
+        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
         def self.from_value(value)
           value
         end
@@ -377,7 +382,7 @@ module OctridevClerk
         SAML_OKTA = 'saml_okta'
         SAML_GOOGLE = 'saml_google'
         SAML_MICROSOFT = 'saml_microsoft'
-        VALUES = %w[saml_custom saml_okta saml_google saml_microsoft].freeze
+        VALUES = ['saml_custom', 'saml_okta', 'saml_google', 'saml_microsoft'].freeze
         def self.from_value(value)
           value
         end

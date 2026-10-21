@@ -21,7 +21,16 @@ module OctridevClerk
       # @param offset [Integer] Skip the first `offset` results when paginating.
       #   Needs to be an integer greater or equal to zero. To be used in conjunction
       #   with `limit`.
-      singleton_class.define_method(:get_oauth_access_token) do |config:, user_id:, provider:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_oauth_access_token) do |
+        config:,
+        user_id:,
+        provider:,
+        paginated: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -29,22 +38,22 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/oauth_access_tokens/',
+            "/oauth_access_tokens/",
             SdkClient.encode_path_segment(provider)
           ].join,
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OAuthAccessToken,
           decoder: :json,
           operation_id: 'get_oauth_access_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

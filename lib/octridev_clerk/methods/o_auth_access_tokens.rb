@@ -12,11 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyOAuthAccessTokenMetadata
         FIELDS = {
-          access_token: 'access_token',
-          secret: 'secret'
+          access_token: "access_token",
+          secret: "secret",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for VerifyOAuthAccessToken.
@@ -56,18 +58,19 @@ module OctridevClerk
         secret: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/oauth_applications/access_tokens/verify',
+          "/oauth_applications/access_tokens/verify",
           config: config,
           body: {
             'access_token' => access_token,
-            'secret' => secret
+            'secret' => secret,
           },
           return_type: ::OctridevClerk::VerifyOAuthAccessTokenResponse,
           decoder: :json,
           operation_id: 'verify_oauth_access_token',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

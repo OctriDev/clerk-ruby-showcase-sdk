@@ -12,13 +12,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionSamlAttributeMappingMetadata
         FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
+          user_id: "user_id",
+          email_address: "email_address",
+          first_name: "first_name",
+          last_name: "last_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateEnterpriseConnectionSamlAttributeMapping.
@@ -48,8 +50,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionSamlLoginHintMetadata
         FIELDS = {
-          mode: 'mode',
-          source: 'source'
+          mode: "mode",
+          source: "source",
         }.freeze
         REQUIRED_FIELDS = %i[
           mode
@@ -57,7 +59,7 @@ module OctridevClerk
         DECODERS = {
           mode: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlLoginHintMode.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -91,26 +93,27 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionSamlMetadata
         FIELDS = {
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          attribute_mapping: 'attribute_mapping',
-          allow_subdomains: 'allow_subdomains',
-          allow_idp_initiated: 'allow_idp_initiated',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint'
+          idp_entity_id: "idp_entity_id",
+          idp_sso_url: "idp_sso_url",
+          idp_certificate: "idp_certificate",
+          idp_certificates: "idp_certificates",
+          idp_metadata_url: "idp_metadata_url",
+          idp_metadata: "idp_metadata",
+          attribute_mapping: "attribute_mapping",
+          allow_subdomains: "allow_subdomains",
+          allow_idp_initiated: "allow_idp_initiated",
+          force_authn: "force_authn",
+          login_hint: "login_hint",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           attribute_mapping: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlAttributeMapping.from_hash(value)
           end,
           login_hint: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlLoginHint.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -157,16 +160,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionOidcMetadata
         FIELDS = {
-          client_id: 'client_id',
-          client_secret: 'client_secret',
-          discovery_url: 'discovery_url',
-          auth_url: 'auth_url',
-          token_url: 'token_url',
-          user_info_url: 'user_info_url',
-          requires_pkce: 'requires_pkce'
+          client_id: "client_id",
+          client_secret: "client_secret",
+          discovery_url: "discovery_url",
+          auth_url: "auth_url",
+          token_url: "token_url",
+          user_info_url: "user_info_url",
+          requires_pkce: "requires_pkce",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateEnterpriseConnectionOidc.
@@ -209,18 +214,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionCustomAttributesItemMetadata
         FIELDS = {
-          name: 'name',
-          key: 'key',
-          sso_path: 'sso_path',
-          scim_path: 'scim_path',
-          directory_path: 'directory_path',
-          multi_valued: 'multi_valued'
+          name: "name",
+          key: "key",
+          sso_path: "sso_path",
+          scim_path: "scim_path",
+          directory_path: "directory_path",
+          multi_valued: "multi_valued",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           key
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateEnterpriseConnectionCustomAttributesItem.
@@ -260,15 +266,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateEnterpriseConnectionMetadata
         FIELDS = {
-          name: 'name',
-          provider: 'provider',
-          domains: 'domains',
-          organization_id: 'organization_id',
-          allow_organization_account_linking: 'allow_organization_account_linking',
-          active: 'active',
-          saml: 'saml',
-          oidc: 'oidc',
-          custom_attributes: 'custom_attributes'
+          name: "name",
+          provider: "provider",
+          domains: "domains",
+          organization_id: "organization_id",
+          allow_organization_account_linking: "allow_organization_account_linking",
+          active: "active",
+          saml: "saml",
+          oidc: "oidc",
+          custom_attributes: "custom_attributes",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
@@ -287,7 +293,7 @@ module OctridevClerk
           end,
           custom_attributes: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionCustomAttributesItem.from_hash(item) }
-          end
+          end,
         }.freeze
       end
 
@@ -334,13 +340,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionSamlAttributeMappingMetadata
         FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
+          user_id: "user_id",
+          email_address: "email_address",
+          first_name: "first_name",
+          last_name: "last_name",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateEnterpriseConnectionSamlAttributeMapping.
@@ -370,8 +378,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionSamlLoginHintMetadata
         FIELDS = {
-          mode: 'mode',
-          source: 'source'
+          mode: "mode",
+          source: "source",
         }.freeze
         REQUIRED_FIELDS = %i[
           mode
@@ -379,7 +387,7 @@ module OctridevClerk
         DECODERS = {
           mode: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlLoginHintMode.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -413,27 +421,28 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionSamlMetadata
         FIELDS = {
-          name: 'name',
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          attribute_mapping: 'attribute_mapping',
-          allow_subdomains: 'allow_subdomains',
-          allow_idp_initiated: 'allow_idp_initiated',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint'
+          name: "name",
+          idp_entity_id: "idp_entity_id",
+          idp_sso_url: "idp_sso_url",
+          idp_certificate: "idp_certificate",
+          idp_certificates: "idp_certificates",
+          idp_metadata_url: "idp_metadata_url",
+          idp_metadata: "idp_metadata",
+          attribute_mapping: "attribute_mapping",
+          allow_subdomains: "allow_subdomains",
+          allow_idp_initiated: "allow_idp_initiated",
+          force_authn: "force_authn",
+          login_hint: "login_hint",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           attribute_mapping: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlAttributeMapping.from_hash(value)
           end,
           login_hint: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlLoginHint.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -482,16 +491,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionOidcMetadata
         FIELDS = {
-          client_id: 'client_id',
-          client_secret: 'client_secret',
-          discovery_url: 'discovery_url',
-          auth_url: 'auth_url',
-          token_url: 'token_url',
-          user_info_url: 'user_info_url',
-          requires_pkce: 'requires_pkce'
+          client_id: "client_id",
+          client_secret: "client_secret",
+          discovery_url: "discovery_url",
+          auth_url: "auth_url",
+          token_url: "token_url",
+          user_info_url: "user_info_url",
+          requires_pkce: "requires_pkce",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateEnterpriseConnectionOidc.
@@ -534,18 +545,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionCustomAttributesItemMetadata
         FIELDS = {
-          name: 'name',
-          key: 'key',
-          sso_path: 'sso_path',
-          scim_path: 'scim_path',
-          directory_path: 'directory_path',
-          multi_valued: 'multi_valued'
+          name: "name",
+          key: "key",
+          sso_path: "sso_path",
+          scim_path: "scim_path",
+          directory_path: "directory_path",
+          multi_valued: "multi_valued",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           key
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
     end
   end

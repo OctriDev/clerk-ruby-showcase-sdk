@@ -14,11 +14,16 @@ module OctridevClerk
       # Retrieve the details of a user
       #
       # @param user_id [String] The ID of the user to retrieve
-      singleton_class.define_method(:get_user) do |config:, user_id:, request_options: nil|
+      singleton_class.define_method(:get_user) do |
+        config:,
+        user_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id)
           ].join,
           config: config,
@@ -26,7 +31,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_user',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

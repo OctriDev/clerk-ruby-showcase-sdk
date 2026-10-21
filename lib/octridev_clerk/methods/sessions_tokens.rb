@@ -22,26 +22,27 @@ module OctridevClerk
         expires_in_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_seconds) do
-          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315_360_000)
+          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315360000)
         end
 
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/tokens'
+            "/tokens"
           ].join,
           config: config,
           body: {
-            'expires_in_seconds' => expires_in_seconds
+            'expires_in_seconds' => expires_in_seconds,
           },
           return_type: ::OctridevClerk::Methods::Sessions::CreateSessionTokenResponse,
           decoder: :json,
           operation_id: 'create_session_token',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -61,27 +62,28 @@ module OctridevClerk
         expires_in_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_seconds) do
-          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315_360_000)
+          Validation.validate_range('expires_in_seconds', expires_in_seconds, min: 30, max: 315360000)
         end
 
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/tokens/',
+            "/tokens/",
             SdkClient.encode_path_segment(template_name)
           ].join,
           config: config,
           body: {
-            'expires_in_seconds' => expires_in_seconds
+            'expires_in_seconds' => expires_in_seconds,
           },
           return_type: ::OctridevClerk::Methods::Sessions::CreateSessionTokenFromTemplateResponse,
           decoder: :json,
           operation_id: 'create_session_token_from_template',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

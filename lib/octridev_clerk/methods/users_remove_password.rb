@@ -20,22 +20,23 @@ module OctridevClerk
         sign_out_of_other_sessions: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/remove_password'
+            "/remove_password"
           ].join,
           config: config,
           body: {
-            'sign_out_of_other_sessions' => sign_out_of_other_sessions
+            'sign_out_of_other_sessions' => sign_out_of_other_sessions,
           },
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'remove_user_password',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

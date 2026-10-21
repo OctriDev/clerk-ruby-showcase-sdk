@@ -19,22 +19,23 @@ module OctridevClerk
         code:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/verify_totp'
+            "/verify_totp"
           ].join,
           config: config,
           body: {
-            'code' => code
+            'code' => code,
           },
           return_type: ::OctridevClerk::Methods::Users::VerifyTOTPResponse,
           decoder: :json,
           operation_id: 'verify_totp',
           request_options: request_options,
-          errors: { '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -5,239 +5,240 @@
 
 # organization_domains domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalOrganizationDomainMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      organization_id: 'organization_id',
-      name: 'name',
-      enrollment_mode: 'enrollment_mode',
-      affiliation_email_address: 'affiliation_email_address',
-      affiliation_verification: 'affiliation_verification',
-      ownership_verification: 'ownership_verification',
-      verification: 'verification',
-      total_pending_invitations: 'total_pending_invitations',
-      total_pending_suggestions: 'total_pending_suggestions',
-      public_organization_data: 'public_organization_data',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      organization_id
-      name
-      enrollment_mode
-      affiliation_email_address
-      affiliation_verification
-      ownership_verification
-      verification
-      total_pending_invitations
-      total_pending_suggestions
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::OrganizationDomainObject.from_value(value)
-      end,
-      enrollment_mode: lambda do |value|
-        ::OctridevClerk::OrganizationDomainEnrollmentMode.from_value(value)
-      end,
-      affiliation_verification: lambda do |value|
-        ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
-      end,
-      ownership_verification: lambda do |value|
-        ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
-      end,
-      verification: lambda do |value|
-        ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
-      end,
-      public_organization_data: lambda do |value|
-        ::OctridevClerk::OrganizationInvitationPublicOrganizationData.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      affiliation_email_address
-      affiliation_verification
-      ownership_verification
-      verification
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalOrganizationDomainMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    organization_id: "organization_id",
+    name: "name",
+    enrollment_mode: "enrollment_mode",
+    affiliation_email_address: "affiliation_email_address",
+    affiliation_verification: "affiliation_verification",
+    ownership_verification: "ownership_verification",
+    verification: "verification",
+    total_pending_invitations: "total_pending_invitations",
+    total_pending_suggestions: "total_pending_suggestions",
+    public_organization_data: "public_organization_data",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    organization_id
+    name
+    enrollment_mode
+    affiliation_email_address
+    affiliation_verification
+    ownership_verification
+    verification
+    total_pending_invitations
+    total_pending_suggestions
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::OrganizationDomainObject.from_value(value)
+    end,
+    enrollment_mode: lambda do |value|
+      ::OctridevClerk::OrganizationDomainEnrollmentMode.from_value(value)
+    end,
+    affiliation_verification: lambda do |value|
+      ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
+    end,
+    ownership_verification: lambda do |value|
+      ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
+    end,
+    verification: lambda do |value|
+      ::OctridevClerk::OrganizationDomainVerification.from_hash(value)
+    end,
+    public_organization_data: lambda do |value|
+      ::OctridevClerk::OrganizationInvitationPublicOrganizationData.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    affiliation_email_address
+    affiliation_verification
+    ownership_verification
+    verification
+  ].freeze
+end
+
+# API model for OrganizationDomain.
+# An organization domain
+class OrganizationDomain
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalOrganizationDomainMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalOrganizationDomainMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalOrganizationDomainMetadata::DECODERS
+
+  # @return [OrganizationDomainObject] String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+  attr_reader :object
+  # @return [String] Unique identifier for the organization domain
+  attr_reader :id
+  # @return [String] Unique identifier for the organization
+  attr_reader :organization_id
+  # @return [String] Name of the organization domain
+  attr_reader :name
+  # @return [OrganizationDomainEnrollmentMode] Mode of enrollment for the domain
+  attr_reader :enrollment_mode
+  # @return [String] Affiliation email address for the domain, if available.
+  attr_reader :affiliation_email_address
+  # @return [OrganizationDomainVerification] Verification details for the user-facing affiliation between the domain and the organization (e.g. affiliation_email_code).
+  attr_reader :affiliation_verification
+  # @return [OrganizationDomainVerification] Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard override). Null until ownership has been attempted.
+  attr_reader :ownership_verification
+  # @return [OrganizationDomainVerification] Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API version; will be removed in the next API version. Prefer `affiliation_verification`.
+  attr_reader :verification
+  # @return [Integer] Total number of pending invitations associated with this domain
+  attr_reader :total_pending_invitations
+  # @return [Integer] Total number of pending suggestions associated with this domain
+  attr_reader :total_pending_suggestions
+  # @return [OrganizationInvitationPublicOrganizationData] Public organization data associated with this domain
+  attr_reader :public_organization_data
+  # @return [Integer] Unix timestamp when the domain was created
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of the last update to the domain
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for OrganizationDomain.
-  # An organization domain
-  class OrganizationDomain
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalOrganizationDomainMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalOrganizationDomainMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalOrganizationDomainMetadata::DECODERS
-
-    # @return [OrganizationDomainObject] String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
-    attr_reader :object
-    # @return [String] Unique identifier for the organization domain
-    attr_reader :id
-    # @return [String] Unique identifier for the organization
-    attr_reader :organization_id
-    # @return [String] Name of the organization domain
-    attr_reader :name
-    # @return [OrganizationDomainEnrollmentMode] Mode of enrollment for the domain
-    attr_reader :enrollment_mode
-    # @return [String] Affiliation email address for the domain, if available.
-    attr_reader :affiliation_email_address
-    # @return [OrganizationDomainVerification] Verification details for the user-facing affiliation between the domain and the organization (e.g. affiliation_email_code).
-    attr_reader :affiliation_verification
-    # @return [OrganizationDomainVerification] Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard override). Null until ownership has been attempted.
-    attr_reader :ownership_verification
-    # @return [OrganizationDomainVerification] Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API version; will be removed in the next API version. Prefer `affiliation_verification`.
-    attr_reader :verification
-    # @return [Integer] Total number of pending invitations associated with this domain
-    attr_reader :total_pending_invitations
-    # @return [Integer] Total number of pending suggestions associated with this domain
-    attr_reader :total_pending_suggestions
-    # @return [OrganizationInvitationPublicOrganizationData] Public organization data associated with this domain
-    attr_reader :public_organization_data
-    # @return [Integer] Unix timestamp when the domain was created
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of the last update to the domain
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationDomainMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationDomainMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the OrganizationDomainEnrollmentMode SDK namespace.
-  module OrganizationDomainEnrollmentMode
-    MANUAL_INVITATION = 'manual_invitation'
-    AUTOMATIC_INVITATION = 'automatic_invitation'
-    AUTOMATIC_SUGGESTION = 'automatic_suggestion'
-    ENTERPRISE_SSO = 'enterprise_sso'
-    VALUES = %w[
-      manual_invitation automatic_invitation automatic_suggestion enterprise_sso
-    ].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the OrganizationDomainEnrollmentMode SDK namespace.
+module OrganizationDomainEnrollmentMode
+  MANUAL_INVITATION = 'manual_invitation'
+  AUTOMATIC_INVITATION = 'automatic_invitation'
+  AUTOMATIC_SUGGESTION = 'automatic_suggestion'
+  ENTERPRISE_SSO = 'enterprise_sso'
+  VALUES = [
+    'manual_invitation', 'automatic_invitation', 'automatic_suggestion', 'enterprise_sso'
+  ].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the OrganizationDomainObject SDK namespace.
+module OrganizationDomainObject
+  ORGANIZATION_DOMAIN = 'organization_domain'
+  VALUES = ['organization_domain'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalOrganizationDomainsMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::OrganizationDomain.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for OrganizationDomains.
+# Typed representation of the `OrganizationDomains` API schema.
+class OrganizationDomains
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalOrganizationDomainsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalOrganizationDomainsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalOrganizationDomainsMetadata::DECODERS
+
+  # @return [Array_of_OrganizationDomain] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of organization domains
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the OrganizationDomainObject SDK namespace.
-  module OrganizationDomainObject
-    ORGANIZATION_DOMAIN = 'organization_domain'
-    VALUES = ['organization_domain'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalOrganizationDomainsMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::OrganizationDomain.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalOrganizationDomainVerificationMetadata
+  FIELDS = {
+    status: "status",
+    strategy: "strategy",
+    attempts: "attempts",
+    expire_at: "expire_at",
+    verified_at: "verified_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    status
+    strategy
+    attempts
+    expire_at
+    verified_at
+  ].freeze
+  DECODERS = {
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    attempts
+    expire_at
+    verified_at
+  ].freeze
+end
+
+# API model for OrganizationDomainVerification.
+# The verification object from an organization domain
+class OrganizationDomainVerification
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalOrganizationDomainVerificationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalOrganizationDomainVerificationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalOrganizationDomainVerificationMetadata::DECODERS
+
+  # @return [String] Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
+  attr_reader :status
+  # @return [String] Name of the strategy used to verify the domain
+  attr_reader :strategy
+  # @return [Integer] How many attempts have been made to verify the domain
+  attr_reader :attempts
+  # @return [Integer] Unix timestamp of when the verification will expire
+  attr_reader :expire_at
+  # @return [Integer] Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on `affiliation_verification`.
+  attr_reader :verified_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for OrganizationDomains.
-  # Typed representation of the `OrganizationDomains` API schema.
-  class OrganizationDomains
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalOrganizationDomainsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalOrganizationDomainsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalOrganizationDomainsMetadata::DECODERS
-
-    # @return [Array_of_OrganizationDomain] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Integer] Total number of organization domains
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationDomainVerificationMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalOrganizationDomainVerificationMetadata
-    FIELDS = {
-      status: 'status',
-      strategy: 'strategy',
-      attempts: 'attempts',
-      expire_at: 'expire_at',
-      verified_at: 'verified_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      status
-      strategy
-      attempts
-      expire_at
-      verified_at
-    ].freeze
-    DECODERS = {}.freeze
-    NULLABLE_FIELDS = %i[
-      attempts
-      expire_at
-      verified_at
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # API model for OrganizationDomainVerification.
-  # The verification object from an organization domain
-  class OrganizationDomainVerification
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalOrganizationDomainVerificationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalOrganizationDomainVerificationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalOrganizationDomainVerificationMetadata::DECODERS
-
-    # @return [String] Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
-    attr_reader :status
-    # @return [String] Name of the strategy used to verify the domain
-    attr_reader :strategy
-    # @return [Integer] How many attempts have been made to verify the domain
-    attr_reader :attempts
-    # @return [Integer] Unix timestamp of when the verification will expire
-    attr_reader :expire_at
-    # @return [Integer] Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on `affiliation_verification`.
-    attr_reader :verified_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalOrganizationDomainVerificationMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

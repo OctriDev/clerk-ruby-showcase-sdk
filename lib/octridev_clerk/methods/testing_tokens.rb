@@ -16,14 +16,15 @@ module OctridevClerk
         config:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/testing_tokens',
+          "/testing_tokens",
           config: config,
           return_type: ::OctridevClerk::TestingToken,
           decoder: :json,
           operation_id: 'create_testing_token',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

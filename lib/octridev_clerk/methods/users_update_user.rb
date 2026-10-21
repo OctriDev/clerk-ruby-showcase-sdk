@@ -105,21 +105,21 @@ module OctridevClerk
         bypass_client_trust: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id)
           ].join,
           config: config,
           body: __sdk_body_update_user_part1(external_id: external_id, first_name: first_name, last_name: last_name, locale: locale, timezone: timezone, primary_email_address_id: primary_email_address_id, notify_primary_email_address_changed: notify_primary_email_address_changed, primary_phone_number_id: primary_phone_number_id, primary_web3_wallet_id: primary_web3_wallet_id, username: username, profile_image_id: profile_image_id, password: password, password_digest: password_digest, password_hasher: password_hasher, skip_password_checks: skip_password_checks, sign_out_of_other_sessions: sign_out_of_other_sessions, totp_secret: totp_secret, backup_codes: backup_codes).merge(
-            __sdk_body_update_user_part2(delete_self_enabled: delete_self_enabled, create_organization_enabled: create_organization_enabled, legal_accepted_at: legal_accepted_at, skip_legal_checks: skip_legal_checks, create_organizations_limit: create_organizations_limit, created_at: created_at, bypass_client_trust: bypass_client_trust)
-          ),
+            __sdk_body_update_user_part2(delete_self_enabled: delete_self_enabled, create_organization_enabled: create_organization_enabled, legal_accepted_at: legal_accepted_at, skip_legal_checks: skip_legal_checks, create_organizations_limit: create_organizations_limit, created_at: created_at, bypass_client_trust: bypass_client_trust)),
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'update_user',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -161,7 +161,7 @@ module OctridevClerk
           'skip_password_checks' => skip_password_checks,
           'sign_out_of_other_sessions' => sign_out_of_other_sessions,
           'totp_secret' => totp_secret,
-          'backup_codes' => backup_codes
+          'backup_codes' => backup_codes,
         }
       end
       private_class_method :__sdk_body_update_user_part1
@@ -182,7 +182,7 @@ module OctridevClerk
           'skip_legal_checks' => skip_legal_checks,
           'create_organizations_limit' => create_organizations_limit,
           'created_at' => created_at,
-          'bypass_client_trust' => bypass_client_trust
+          'bypass_client_trust' => bypass_client_trust,
         }
       end
       private_class_method :__sdk_body_update_user_part2

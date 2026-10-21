@@ -12,13 +12,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionMetadata
         FIELDS = {
-          user_id: 'user_id',
-          active_organization_id: 'active_organization_id'
+          user_id: "user_id",
+          active_organization_id: "active_organization_id",
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSession.
@@ -50,12 +51,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRefreshSessionMetadata
         FIELDS = {
-          expired_token: 'expired_token',
-          refresh_token: 'refresh_token',
-          request_origin: 'request_origin',
-          request_headers: 'request_headers',
-          format: 'format',
-          request_originating_ip: 'request_originating_ip'
+          expired_token: "expired_token",
+          refresh_token: "refresh_token",
+          request_origin: "request_origin",
+          request_headers: "request_headers",
+          format: "format",
+          request_originating_ip: "request_originating_ip",
         }.freeze
         REQUIRED_FIELDS = %i[
           expired_token
@@ -65,7 +66,7 @@ module OctridevClerk
         DECODERS = {
           format: lambda do |value|
             ::OctridevClerk::Methods::Sessions::RefreshSessionFormat.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -106,10 +107,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenMetadata
         FIELDS = {
-          expires_in_seconds: 'expires_in_seconds'
+          expires_in_seconds: "expires_in_seconds",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSessionToken.
@@ -139,14 +142,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenResponseMetadata
         FIELDS = {
-          object: 'object',
-          jwt: 'jwt'
+          object: "object",
+          jwt: "jwt",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::Sessions::CreateSessionTokenResponseObject.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -176,10 +180,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenFromTemplateMetadata
         FIELDS = {
-          expires_in_seconds: 'expires_in_seconds'
+          expires_in_seconds: "expires_in_seconds",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateSessionTokenFromTemplate.
@@ -209,14 +215,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateSessionTokenFromTemplateResponseMetadata
         FIELDS = {
-          object: 'object',
-          jwt: 'jwt'
+          object: "object",
+          jwt: "jwt",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::Sessions::CreateSessionTokenFromTemplateResponseObject.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -261,8 +268,8 @@ module OctridevClerk
         REMOVED = 'removed'
         REPLACED = 'replaced'
         REVOKED = 'revoked'
-        VALUES = %w[
-          abandoned active ended expired removed replaced revoked
+        VALUES = [
+          'abandoned', 'active', 'ended', 'expired', 'removed', 'replaced', 'revoked'
         ].freeze
         def self.from_value(value)
           value
@@ -282,7 +289,7 @@ module OctridevClerk
       module RefreshSessionFormat
         TOKEN = 'token'
         COOKIE = 'cookie'
-        VALUES = %w[token cookie].freeze
+        VALUES = ['token', 'cookie'].freeze
         def self.from_value(value)
           value
         end

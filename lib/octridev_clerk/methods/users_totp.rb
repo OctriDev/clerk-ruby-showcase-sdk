@@ -19,19 +19,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/totp'
+            "/totp"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Users::DeleteTOTPResponse,
           decoder: :json,
           operation_id: 'delete_totp',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

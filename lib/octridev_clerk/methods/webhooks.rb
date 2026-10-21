@@ -14,15 +14,16 @@ module OctridevClerk
         config:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/webhooks/svix',
+          "/webhooks/svix",
           config: config,
           return_type: ::OctridevClerk::SvixURL,
           decoder: :json,
           operation_id: 'create_svix_app',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -31,14 +32,15 @@ module OctridevClerk
         config:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
-          '/webhooks/svix',
+          "/webhooks/svix",
           config: config,
           decoder: :empty,
           operation_id: 'delete_svix_app',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -47,15 +49,16 @@ module OctridevClerk
         config:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/webhooks/svix_url',
+          "/webhooks/svix_url",
           config: config,
           return_type: ::OctridevClerk::SvixURL,
           decoder: :json,
           operation_id: 'generate_svix_auth_url',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

@@ -29,6 +29,7 @@ module OctridevClerk
         min_remaining_ttl_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(seconds_until_expiration) do
           Validation.validate_range('seconds_until_expiration', seconds_until_expiration, exclusive_min: 0)
         end
@@ -39,25 +40,34 @@ module OctridevClerk
 
         SdkClient.request(
           'POST',
-          '/m2m_tokens',
+          "/m2m_tokens",
           config: config,
           body: {
             'token_format' => token_format,
             'seconds_until_expiration' => seconds_until_expiration,
             'claims' => claims,
-            'min_remaining_ttl_seconds' => min_remaining_ttl_seconds
+            'min_remaining_ttl_seconds' => min_remaining_ttl_seconds,
           },
           return_type: ::OctridevClerk::Methods::M2MTokens::CreateM2MTokenResponse,
           decoder: :json,
           operation_id: 'create_m2_mtoken',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
       # Lists stored opaque-format M2M tokens for a specific machine; stateless JWT-format tokens are not included. Use `revoked` and `expired` to filter the results, and `limit` and `offset` to control pagination. Authenticate with a Machine Secret Key to retrieve tokens for its machine, or a Clerk Secret Key to retrieve tokens for any machine in the instance.
       #
       # Fetches M2M tokens for a specific machine. Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M tokens are stateless and are not stored. This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key. - When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated machine can be retrieved. - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the…
-      singleton_class.define_method(:get_m2_mtokens) do |config:, subject:, revoked: NOT_GIVEN, expired: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
+      singleton_class.define_method(:get_m2_mtokens) do |
+        config:,
+        subject:,
+        revoked: NOT_GIVEN,
+        expired: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        request_options: nil
+      |
+
         Validation.validate_pattern('subject', subject, '^mch_\\w{27}$')
 
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 100) }
@@ -66,19 +76,19 @@ module OctridevClerk
 
         SdkClient.request(
           'GET',
-          '/m2m_tokens',
+          "/m2m_tokens",
           config: config,
           query: {
             'subject' => QueryValue.new(subject, style: 'form', explode: true),
             'revoked' => QueryValue.new(revoked, style: 'form', explode: true),
             'expired' => QueryValue.new(expired, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::Methods::M2MTokens::GetM2MTokensResponse,
           decoder: :json,
           operation_id: 'get_m2_mtokens',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -91,23 +101,24 @@ module OctridevClerk
         revocation_reason: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_pattern('m2m_token_id', m2m_token_id, '^mt_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'POST',
           [
-            '/m2m_tokens/',
+            "/m2m_tokens/",
             SdkClient.encode_path_segment(m2m_token_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           body: {
-            'revocation_reason' => revocation_reason
+            'revocation_reason' => revocation_reason,
           },
           return_type: ::OctridevClerk::Methods::M2MTokens::RevokeM2MTokenResponse,
           decoder: :json,
           operation_id: 'revoke_m2_mtoken',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -119,17 +130,18 @@ module OctridevClerk
         token:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/m2m_tokens/verify',
+          "/m2m_tokens/verify",
           config: config,
           body: {
-            'token' => token
+            'token' => token,
           },
           return_type: ::OctridevClerk::Methods::M2MTokens::VerifyM2MTokenResponse,
           decoder: :json,
           operation_id: 'verify_m2_mtoken',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

@@ -19,10 +19,11 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id)
           ].join,
           config: config,
@@ -30,7 +31,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_user',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

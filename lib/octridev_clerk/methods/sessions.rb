@@ -31,13 +31,14 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/sessions',
+          "/sessions",
           config: config,
           query: {
             'client_id' => QueryValue.new(client_id, style: 'form', explode: true),
@@ -45,13 +46,13 @@ module OctridevClerk
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: [::OctridevClerk::Session],
           decoder: :json,
           operation_id: 'list_sessions',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -66,19 +67,20 @@ module OctridevClerk
         active_organization_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/sessions',
+          "/sessions",
           config: config,
           body: {
             'user_id' => user_id,
-            'active_organization_id' => active_organization_id
+            'active_organization_id' => active_organization_id,
           },
           return_type: ::OctridevClerk::Session,
           decoder: :json,
           operation_id: 'create_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -87,11 +89,16 @@ module OctridevClerk
       # Retrieve the details of a session
       #
       # @param session_id [String] The ID of the session
-      singleton_class.define_method(:get_session) do |config:, session_id:, request_options: nil|
+      singleton_class.define_method(:get_session) do |
+        config:,
+        session_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id)
           ].join,
           config: config,
@@ -99,7 +106,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

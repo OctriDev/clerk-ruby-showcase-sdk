@@ -20,12 +20,13 @@ module OctridevClerk
         web3_wallet_identification_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/web3_wallets/',
+            "/web3_wallets/",
             SdkClient.encode_path_segment(web3_wallet_identification_id)
           ].join,
           config: config,
@@ -33,7 +34,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_users_web3_wallet',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

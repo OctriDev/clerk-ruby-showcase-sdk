@@ -12,40 +12,50 @@ module OctridevClerk
       # Retrieves the billing subscription for the specified user. This includes subscription details, active plans, billing information, and payment status. The subscription contains subscription items which represent the individual plans the user is subscribed to.
       #
       # @param user_id [String] The ID of the user whose subscription to retrieve
-      singleton_class.define_method(:get_user_billing_subscription) do |config:, user_id:, request_options: nil|
+      singleton_class.define_method(:get_user_billing_subscription) do |
+        config:,
+        user_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/billing/subscription'
+            "/billing/subscription"
           ].join,
           config: config,
           return_type: ::OctridevClerk::CommerceSubscription,
           decoder: :json,
           operation_id: 'get_user_billing_subscription',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
       # Retrieves the current credit balance for the specified user. Credits can be applied during checkout to reduce the charge or automatically applied to upcoming recurring charges
       #
       # @param user_id [String] The ID of the user whose credit balance to retrieve
-      singleton_class.define_method(:get_user_billing_credit_balance) do |config:, user_id:, request_options: nil|
+      singleton_class.define_method(:get_user_billing_credit_balance) do |
+        config:,
+        user_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/billing/credits'
+            "/billing/credits"
           ].join,
           config: config,
           return_type: ::OctridevClerk::CommerceCreditBalanceResponse,
           decoder: :json,
           operation_id: 'get_user_billing_credit_balance',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -72,12 +82,13 @@ module OctridevClerk
         note: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/billing/credits'
+            "/billing/credits"
           ].join,
           config: config,
           body: {
@@ -85,13 +96,13 @@ module OctridevClerk
             'action' => action,
             'idempotency_key' => idempotency_key,
             'currency' => currency,
-            'note' => note
+            'note' => note,
           },
           return_type: ::OctridevClerk::CommerceCreditLedgerResponse,
           decoder: :json,
           operation_id: 'adjust_user_billing_credit_balance',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

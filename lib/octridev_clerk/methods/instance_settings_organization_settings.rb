@@ -10,16 +10,20 @@ module OctridevClerk
     # Defines the InstanceSettings SDK namespace.
     module InstanceSettings
       # Retrieves the organization settings of the instance
-      singleton_class.define_method(:get_instance_organization_settings) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance_organization_settings) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance/organization_settings',
+          "/instance/organization_settings",
           config: config,
           return_type: ::OctridevClerk::OrganizationSettings,
           decoder: :json,
           operation_id: 'get_instance_organization_settings',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -46,9 +50,10 @@ module OctridevClerk
         domains_default_role_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/instance/organization_settings',
+          "/instance/organization_settings",
           config: config,
           body: {
             'enabled' => enabled,
@@ -58,13 +63,13 @@ module OctridevClerk
             'slug_disabled' => slug_disabled,
             'domains_enrollment_modes' => domains_enrollment_modes,
             'creator_role_id' => creator_role_id,
-            'domains_default_role_id' => domains_default_role_id
+            'domains_default_role_id' => domains_default_role_id,
           },
           return_type: ::OctridevClerk::OrganizationSettings,
           decoder: :json,
           operation_id: 'update_instance_organization_settings',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

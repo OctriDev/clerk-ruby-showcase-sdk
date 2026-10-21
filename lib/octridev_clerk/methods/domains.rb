@@ -12,15 +12,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalAddDomainMetadata
         FIELDS = {
-          name: 'name',
-          is_satellite: 'is_satellite',
-          proxy_url: 'proxy_url'
+          name: "name",
+          is_satellite: "is_satellite",
+          proxy_url: "proxy_url",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           is_satellite
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for AddDomain.
@@ -54,12 +55,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateDomainMetadata
         FIELDS = {
-          name: 'name',
-          proxy_url: 'proxy_url',
-          is_secondary: 'is_secondary'
+          name: "name",
+          proxy_url: "proxy_url",
+          is_secondary: "is_secondary",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateDomain.
@@ -95,14 +98,15 @@ module OctridevClerk
         config:,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
-          '/domains',
+          "/domains",
           config: config,
           return_type: ::OctridevClerk::Domains,
           decoder: :json,
           operation_id: 'list_domains',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -123,20 +127,21 @@ module OctridevClerk
         proxy_url: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/domains',
+          "/domains",
           config: config,
           body: {
             'name' => name,
             'is_satellite' => is_satellite,
-            'proxy_url' => proxy_url
+            'proxy_url' => proxy_url,
           },
           return_type: ::OctridevClerk::Domain,
           decoder: :json,
           operation_id: 'add_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -148,10 +153,11 @@ module OctridevClerk
         domain_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/domains/',
+            "/domains/",
             SdkClient.encode_path_segment(domain_id)
           ].join,
           config: config,
@@ -159,7 +165,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_domain',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -184,23 +190,24 @@ module OctridevClerk
         is_secondary: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
           [
-            '/domains/',
+            "/domains/",
             SdkClient.encode_path_segment(domain_id)
           ].join,
           config: config,
           body: {
             'name' => name,
             'proxy_url' => proxy_url,
-            'is_secondary' => is_secondary
+            'is_secondary' => is_secondary,
           },
           return_type: ::OctridevClerk::Domain,
           decoder: :json,
           operation_id: 'update_domain',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

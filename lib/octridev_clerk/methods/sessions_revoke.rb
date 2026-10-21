@@ -17,19 +17,20 @@ module OctridevClerk
         session_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/sessions/',
+            "/sessions/",
             SdkClient.encode_path_segment(session_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Session,
           decoder: :json,
           operation_id: 'revoke_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

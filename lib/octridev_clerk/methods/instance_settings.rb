@@ -12,15 +12,19 @@ module OctridevClerk
       # Retrieves the current instance configuration, including its environment, allowed origins, and subdomain access settings. Use the returned `allowed_subdomains` and `subdomain_allowlist_enabled` values to understand which subdomains may originate requests.
       #
       # Fetches the current instance
-      singleton_class.define_method(:get_instance) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance',
+          "/instance",
           config: config,
           return_type: ::OctridevClerk::Instance,
           decoder: :json,
           operation_id: 'get_instance',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -78,9 +82,10 @@ module OctridevClerk
         preferred_sign_in_strategy_when_password_required: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'PATCH',
-          '/instance',
+          "/instance",
           config: config,
           body: {
             'test_mode' => test_mode,
@@ -93,12 +98,12 @@ module OctridevClerk
             'subdomain_allowlist_enabled' => subdomain_allowlist_enabled,
             'cookieless_dev' => cookieless_dev,
             'url_based_session_syncing' => url_based_session_syncing,
-            'preferred_sign_in_strategy_when_password_required' => preferred_sign_in_strategy_when_password_required
+            'preferred_sign_in_strategy_when_password_required' => preferred_sign_in_strategy_when_password_required,
           },
           decoder: :empty,
           operation_id: 'update_instance',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

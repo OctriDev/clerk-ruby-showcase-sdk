@@ -12,23 +12,24 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceMetadata
         FIELDS = {
-          test_mode: 'test_mode',
-          hibp: 'hibp',
-          support_email: 'support_email',
-          clerk_js_version: 'clerk_js_version',
-          development_origin: 'development_origin',
-          allowed_origins: 'allowed_origins',
-          allowed_subdomains: 'allowed_subdomains',
-          subdomain_allowlist_enabled: 'subdomain_allowlist_enabled',
-          cookieless_dev: 'cookieless_dev',
-          url_based_session_syncing: 'url_based_session_syncing',
-          preferred_sign_in_strategy_when_password_required: 'preferred_sign_in_strategy_when_password_required'
+          test_mode: "test_mode",
+          hibp: "hibp",
+          support_email: "support_email",
+          clerk_js_version: "clerk_js_version",
+          development_origin: "development_origin",
+          allowed_origins: "allowed_origins",
+          allowed_subdomains: "allowed_subdomains",
+          subdomain_allowlist_enabled: "subdomain_allowlist_enabled",
+          cookieless_dev: "cookieless_dev",
+          url_based_session_syncing: "url_based_session_syncing",
+          preferred_sign_in_strategy_when_password_required: "preferred_sign_in_strategy_when_password_required",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           preferred_sign_in_strategy_when_password_required: lambda do |value|
             ::OctridevClerk::Methods::InstanceSettings::UpdateInstancePreferredSignInStrategyWhenPasswordRequired.from_value(value)
-          end
+          end,
         }.freeze
       end
 
@@ -74,14 +75,16 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceRestrictionsMetadata
         FIELDS = {
-          allowlist: 'allowlist',
-          blocklist: 'blocklist',
-          allowlist_blocklist_disabled_on_sign_in: 'allowlist_blocklist_disabled_on_sign_in',
-          block_email_subaddresses: 'block_email_subaddresses',
-          block_disposable_email_domains: 'block_disposable_email_domains'
+          allowlist: "allowlist",
+          blocklist: "blocklist",
+          allowlist_blocklist_disabled_on_sign_in: "allowlist_blocklist_disabled_on_sign_in",
+          block_email_subaddresses: "block_email_subaddresses",
+          block_disposable_email_domains: "block_disposable_email_domains",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceRestrictions.
@@ -111,10 +114,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceProtectMetadata
         FIELDS = {
-          rules_enabled: 'rules_enabled'
+          rules_enabled: "rules_enabled",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceProtect.
@@ -144,10 +149,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceCommunicationMetadata
         FIELDS = {
-          blocked_country_codes: 'blocked_country_codes'
+          blocked_country_codes: "blocked_country_codes",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceCommunication.
@@ -177,19 +184,21 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceOAuthApplicationSettingsMetadata
         FIELDS = {
-          dynamic_oauth_client_registration: 'dynamic_oauth_client_registration',
-          dynamic_client_allowed_scopes: 'dynamic_client_allowed_scopes',
-          default_scopes: 'default_scopes',
-          oauth_jwt_access_tokens: 'oauth_jwt_access_tokens',
-          aud_claim_enabled: 'aud_claim_enabled',
-          aud_claim_refresh_backfill_enabled: 'aud_claim_refresh_backfill_enabled',
-          pkce_required: 'pkce_required',
-          client_id_metadata_documents_advertised: 'client_id_metadata_documents_advertised',
-          client_id_metadata_documents_only_allow_pre_registered_clients: 'client_id_metadata_documents_only_allow_pre_registered_clients',
-          client_id_metadata_documents_block_implicitly_allowed_clients: 'client_id_metadata_documents_block_implicitly_allowed_clients'
+          dynamic_oauth_client_registration: "dynamic_oauth_client_registration",
+          dynamic_client_allowed_scopes: "dynamic_client_allowed_scopes",
+          default_scopes: "default_scopes",
+          oauth_jwt_access_tokens: "oauth_jwt_access_tokens",
+          aud_claim_enabled: "aud_claim_enabled",
+          aud_claim_refresh_backfill_enabled: "aud_claim_refresh_backfill_enabled",
+          pkce_required: "pkce_required",
+          client_id_metadata_documents_advertised: "client_id_metadata_documents_advertised",
+          client_id_metadata_documents_only_allow_pre_registered_clients: "client_id_metadata_documents_only_allow_pre_registered_clients",
+          client_id_metadata_documents_block_implicitly_allowed_clients: "client_id_metadata_documents_block_implicitly_allowed_clients",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceOAuthApplicationSettings.
@@ -237,17 +246,19 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateInstanceOrganizationSettingsMetadata
         FIELDS = {
-          enabled: 'enabled',
-          max_allowed_memberships: 'max_allowed_memberships',
-          admin_delete_enabled: 'admin_delete_enabled',
-          domains_enabled: 'domains_enabled',
-          slug_disabled: 'slug_disabled',
-          domains_enrollment_modes: 'domains_enrollment_modes',
-          creator_role_id: 'creator_role_id',
-          domains_default_role_id: 'domains_default_role_id'
+          enabled: "enabled",
+          max_allowed_memberships: "max_allowed_memberships",
+          admin_delete_enabled: "admin_delete_enabled",
+          domains_enabled: "domains_enabled",
+          slug_disabled: "slug_disabled",
+          domains_enrollment_modes: "domains_enrollment_modes",
+          creator_role_id: "creator_role_id",
+          domains_default_role_id: "domains_default_role_id",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateInstanceOrganizationSettings.

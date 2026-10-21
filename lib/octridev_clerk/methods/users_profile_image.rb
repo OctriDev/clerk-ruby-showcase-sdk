@@ -20,23 +20,24 @@ module OctridevClerk
         file: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/profile_image'
+            "/profile_image"
           ].join,
           config: config,
           body: {
-            'file' => SdkClient.upload(file, 'file')
+            'file' => SdkClient.upload(file, 'file'),
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'set_user_profile_image',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -50,19 +51,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/profile_image'
+            "/profile_image"
           ].join,
           config: config,
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'delete_user_profile_image',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

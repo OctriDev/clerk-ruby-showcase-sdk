@@ -15,17 +15,18 @@ module OctridevClerk
         secret:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/api_keys/verify',
+          "/api_keys/verify",
           config: config,
           body: {
-            'secret' => secret
+            'secret' => secret,
           },
           return_type: ::OctridevClerk::Methods::ApiKeys::VerifyApiKeyResponse,
           decoder: :json,
           operation_id: 'verify_api_key',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
     end

@@ -21,12 +21,13 @@ module OctridevClerk
         external_account_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/external_accounts/',
+            "/external_accounts/",
             SdkClient.encode_path_segment(external_account_id)
           ].join,
           config: config,
@@ -34,7 +35,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_external_account',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

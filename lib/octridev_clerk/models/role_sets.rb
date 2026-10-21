@@ -5,343 +5,343 @@
 
 # role_sets domain models
 module OctridevClerk
-  # Internal model hydration metadata.
-  class SdkInternalRoleSetMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      name: 'name',
-      key: 'key',
-      description: 'description',
-      roles: 'roles',
-      default_role: 'default_role',
-      creator_role: 'creator_role',
-      type: 'type',
-      role_set_migration: 'role_set_migration',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      name
-      key
-      description
-      roles
-      type
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::RoleSetObject.from_value(value)
-      end,
-      roles: lambda do |value|
-        value&.map { |item| ::OctridevClerk::RoleSetItem.from_hash(item) }
-      end,
-      default_role: lambda do |value|
-        ::OctridevClerk::RoleSetItem.from_hash(value)
-      end,
-      creator_role: lambda do |value|
-        ::OctridevClerk::RoleSetItem.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevClerk::RoleSetType.from_value(value)
-      end,
-      role_set_migration: lambda do |value|
-        ::OctridevClerk::RoleSetMigration.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      description
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalRoleSetMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    name: "name",
+    key: "key",
+    description: "description",
+    roles: "roles",
+    default_role: "default_role",
+    creator_role: "creator_role",
+    type: "type",
+    role_set_migration: "role_set_migration",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    name
+    key
+    description
+    roles
+    type
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::RoleSetObject.from_value(value)
+    end,
+    roles: lambda do |value|
+      value&.map { |item| ::OctridevClerk::RoleSetItem.from_hash(item) }
+    end,
+    default_role: lambda do |value|
+      ::OctridevClerk::RoleSetItem.from_hash(value)
+    end,
+    creator_role: lambda do |value|
+      ::OctridevClerk::RoleSetItem.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevClerk::RoleSetType.from_value(value)
+    end,
+    role_set_migration: lambda do |value|
+      ::OctridevClerk::RoleSetMigration.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    description
+  ].freeze
+end
+
+# API model for RoleSet.
+# A role set defines a collection of roles that can be assigned to organization members
+class RoleSet
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRoleSetMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRoleSetMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRoleSetMetadata::DECODERS
+
+  # @return [RoleSetObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] The unique identifier of the role set
+  attr_reader :id
+  # @return [String] The name of the role set
+  attr_reader :name
+  # @return [String] A unique key for the role set (e.g., "role_set:default")
+  attr_reader :key
+  # @return [String] Optional description of the role set
+  attr_reader :description
+  # @return [Array_of_RoleSetItem] The list of roles in this role set
+  attr_reader :roles
+  # @return [RoleSetItem] The default role assigned to new organization members
+  attr_reader :default_role
+  # @return [RoleSetItem] The role assigned to the creator of an organization
+  attr_reader :creator_role
+  # @return [RoleSetType] The type of the role set ("initial" or "custom")
+  attr_reader :type
+  # @return [RoleSetMigration] Active migration information, only present when status is "enqueued" or "in_progress"
+  attr_reader :role_set_migration
+  # @return [Integer] Unix timestamp of role set creation
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last role set update
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for RoleSet.
-  # A role set defines a collection of roles that can be assigned to organization members
-  class RoleSet
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRoleSetMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRoleSetMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRoleSetMetadata::DECODERS
-
-    # @return [RoleSetObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] The unique identifier of the role set
-    attr_reader :id
-    # @return [String] The name of the role set
-    attr_reader :name
-    # @return [String] A unique key for the role set (e.g., "role_set:default")
-    attr_reader :key
-    # @return [String] Optional description of the role set
-    attr_reader :description
-    # @return [Array_of_RoleSetItem] The list of roles in this role set
-    attr_reader :roles
-    # @return [RoleSetItem] The default role assigned to new organization members
-    attr_reader :default_role
-    # @return [RoleSetItem] The role assigned to the creator of an organization
-    attr_reader :creator_role
-    # @return [RoleSetType] The type of the role set ("initial" or "custom")
-    attr_reader :type
-    # @return [RoleSetMigration] Active migration information, only present when status is "enqueued" or "in_progress"
-    attr_reader :role_set_migration
-    # @return [Integer] Unix timestamp of role set creation
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of last role set update
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRoleSetMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRoleSetMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the RoleSetObject SDK namespace.
-  module RoleSetObject
-    ROLE_SET = 'role_set'
-    VALUES = ['role_set'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the RoleSetObject SDK namespace.
+module RoleSetObject
+  ROLE_SET = 'role_set'
+  VALUES = ['role_set'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the RoleSetType SDK namespace.
+module RoleSetType
+  INITIAL = 'initial'
+  CUSTOM = 'custom'
+  VALUES = ['initial', 'custom'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalRoleSetItemMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    name: "name",
+    key: "key",
+    description: "description",
+    members_count: "members_count",
+    has_members: "has_members",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    name
+    key
+    description
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::RoleSetItemObject.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    description
+  ].freeze
+end
+
+# API model for RoleSetItem.
+# A role within a role set
+class RoleSetItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRoleSetItemMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRoleSetItemMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRoleSetItemMetadata::DECODERS
+
+  # @return [RoleSetItemObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] The unique identifier of the role
+  attr_reader :id
+  # @return [String] The name of the role
+  attr_reader :name
+  # @return [String] The key of the role (e.g., "org:admin", "org:member")
+  attr_reader :key
+  # @return [String] Optional description of the role
+  attr_reader :description
+  # @return [Integer] The number of members assigned to this role within the role set
+  attr_reader :members_count
+  # @return [Boolean] Whether this role has any members assigned within the role set
+  attr_reader :has_members
+  # @return [Integer] Unix timestamp of role creation
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last role update
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the RoleSetType SDK namespace.
-  module RoleSetType
-    INITIAL = 'initial'
-    CUSTOM = 'custom'
-    VALUES = %w[initial custom].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRoleSetItemMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalRoleSetItemMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      name: 'name',
-      key: 'key',
-      description: 'description',
-      members_count: 'members_count',
-      has_members: 'has_members',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      name
-      key
-      description
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::RoleSetItemObject.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      description
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the RoleSetItemObject SDK namespace.
+module RoleSetItemObject
+  ROLE_SET_ITEM = 'role_set_item'
+  VALUES = ['role_set_item'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalRoleSetMigrationMetadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    organization_id: "organization_id",
+    instance_id: "instance_id",
+    source_role_set_id: "source_role_set_id",
+    dest_role_set_id: "dest_role_set_id",
+    trigger_type: "trigger_type",
+    status: "status",
+    migrated_members: "migrated_members",
+    mappings: "mappings",
+    started_at: "started_at",
+    completed_at: "completed_at",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    instance_id
+    source_role_set_id
+    trigger_type
+    status
+    migrated_members
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::RoleSetMigrationObject.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for RoleSetMigration.
+# Information about an ongoing role set migration
+class RoleSetMigration
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRoleSetMigrationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRoleSetMigrationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRoleSetMigrationMetadata::DECODERS
+
+  # @return [RoleSetMigrationObject] Required enumerated value serialized in the `object` wire field.
+  attr_reader :object
+  # @return [String] The unique identifier of the migration
+  attr_reader :id
+  # @return [String] The organization ID if the migration is scoped to a specific organization
+  attr_reader :organization_id
+  # @return [String] The instance ID this migration belongs to
+  attr_reader :instance_id
+  # @return [String] The ID of the source role set being migrated from
+  attr_reader :source_role_set_id
+  # @return [String] The ID of the destination role set being migrated to
+  attr_reader :dest_role_set_id
+  # @return [String] What triggered this migration (e.g., "role_set_deletion", "role_removal")
+  attr_reader :trigger_type
+  # @return [String] Current status of the migration (e.g., "enqueued", "in_progress", "completed")
+  attr_reader :status
+  # @return [Integer] Number of members that have been migrated so far
+  attr_reader :migrated_members
+  # @return [Hash] Role key mappings from source to destination roles
+  attr_reader :mappings
+  # @return [Integer] Unix timestamp when the migration started
+  attr_reader :started_at
+  # @return [Integer] Unix timestamp when the migration completed
+  attr_reader :completed_at
+  # @return [Integer] Unix timestamp of migration creation
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp of last migration update
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for RoleSetItem.
-  # A role within a role set
-  class RoleSetItem
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRoleSetItemMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRoleSetItemMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRoleSetItemMetadata::DECODERS
-
-    # @return [RoleSetItemObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] The unique identifier of the role
-    attr_reader :id
-    # @return [String] The name of the role
-    attr_reader :name
-    # @return [String] The key of the role (e.g., "org:admin", "org:member")
-    attr_reader :key
-    # @return [String] Optional description of the role
-    attr_reader :description
-    # @return [Integer] The number of members assigned to this role within the role set
-    attr_reader :members_count
-    # @return [Boolean] Whether this role has any members assigned within the role set
-    attr_reader :has_members
-    # @return [Integer] Unix timestamp of role creation
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of last role update
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRoleSetItemMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the RoleSetItemObject SDK namespace.
-  module RoleSetItemObject
-    ROLE_SET_ITEM = 'role_set_item'
-    VALUES = ['role_set_item'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the RoleSetMigrationObject SDK namespace.
+module RoleSetMigrationObject
+  ROLE_SET_MIGRATION = 'role_set_migration'
+  VALUES = ['role_set_migration'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalRoleSetsMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::RoleSet.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for RoleSets.
+# Typed representation of the `RoleSets` API schema.
+class RoleSets
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRoleSetsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRoleSetsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRoleSetsMetadata::DECODERS
+
+  # @return [Array_of_RoleSet] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Integer] Total number of role sets
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalRoleSetMigrationMetadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      organization_id: 'organization_id',
-      instance_id: 'instance_id',
-      source_role_set_id: 'source_role_set_id',
-      dest_role_set_id: 'dest_role_set_id',
-      trigger_type: 'trigger_type',
-      status: 'status',
-      migrated_members: 'migrated_members',
-      mappings: 'mappings',
-      started_at: 'started_at',
-      completed_at: 'completed_at',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      instance_id
-      source_role_set_id
-      trigger_type
-      status
-      migrated_members
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::RoleSetMigrationObject.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for RoleSetMigration.
-  # Information about an ongoing role set migration
-  class RoleSetMigration
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRoleSetMigrationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRoleSetMigrationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRoleSetMigrationMetadata::DECODERS
-
-    # @return [RoleSetMigrationObject] Required enumerated value serialized in the `object` wire field.
-    attr_reader :object
-    # @return [String] The unique identifier of the migration
-    attr_reader :id
-    # @return [String] The organization ID if the migration is scoped to a specific organization
-    attr_reader :organization_id
-    # @return [String] The instance ID this migration belongs to
-    attr_reader :instance_id
-    # @return [String] The ID of the source role set being migrated from
-    attr_reader :source_role_set_id
-    # @return [String] The ID of the destination role set being migrated to
-    attr_reader :dest_role_set_id
-    # @return [String] What triggered this migration (e.g., "role_set_deletion", "role_removal")
-    attr_reader :trigger_type
-    # @return [String] Current status of the migration (e.g., "enqueued", "in_progress", "completed")
-    attr_reader :status
-    # @return [Integer] Number of members that have been migrated so far
-    attr_reader :migrated_members
-    # @return [Hash] Role key mappings from source to destination roles
-    attr_reader :mappings
-    # @return [Integer] Unix timestamp when the migration started
-    attr_reader :started_at
-    # @return [Integer] Unix timestamp when the migration completed
-    attr_reader :completed_at
-    # @return [Integer] Unix timestamp of migration creation
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp of last migration update
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # Defines the RoleSetMigrationObject SDK namespace.
-  module RoleSetMigrationObject
-    ROLE_SET_MIGRATION = 'role_set_migration'
-    VALUES = ['role_set_migration'].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalRoleSetsMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::RoleSet.from_hash(item) }
-      end
-    }.freeze
-  end
-
-  # API model for RoleSets.
-  # Typed representation of the `RoleSets` API schema.
-  class RoleSets
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRoleSetsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRoleSetsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRoleSetsMetadata::DECODERS
-
-    # @return [Array_of_RoleSet] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Integer] Total number of role sets
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

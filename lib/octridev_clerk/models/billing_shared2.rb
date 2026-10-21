@@ -5,546 +5,548 @@
 
 # billing domain models
 module OctridevClerk
-  # API model for CommerceSubscriptionItem2.
-  # Typed representation of the `CommerceSubscriptionItem2` API schema.
-  class CommerceSubscriptionItem2
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalCommerceSubscriptionItem2Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalCommerceSubscriptionItem2Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalCommerceSubscriptionItem2Metadata::DECODERS
+# API model for CommerceSubscriptionItem2.
+# Typed representation of the `CommerceSubscriptionItem2` API schema.
+class CommerceSubscriptionItem2
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalCommerceSubscriptionItem2Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalCommerceSubscriptionItem2Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalCommerceSubscriptionItem2Metadata::DECODERS
 
-    # @return [CommerceSubscriptionItem2Object] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [String] Unique identifier for the subscription item.
-    attr_reader :id
-    # @return [String] Unique identifier for the Clerk instance.
-    attr_reader :instance_id
-    # @return [CommerceSubscriptionItem2Status] Current status of the subscription item.
-    attr_reader :status
-    # @return [CommerceSubscriptionCreditResponse] Credit information (only available in PaymentAttempt events).
-    attr_reader :credit
-    # @return [String] Unique identifier for the associated plan.
-    attr_reader :plan_id
-    # @return [String] Unique identifier for the associated price
-    attr_reader :price_id
-    # @return [CommercePlan2] The associated commerce plan.
-    attr_reader :plan
-    # @return [CommerceSubscriptionItem2PlanPeriod] The billing period for this subscription.
-    attr_reader :plan_period
-    # @return [String] Unique identifier for the payment source.
-    attr_reader :payment_source_id
-    # @return [CommercePaymentSourceResponse] The payment source associated with this subscription.
-    attr_reader :payment_source
-    # @return [CommerceMoneyResponse] Total amount paid over the lifetime of this subscription.
-    attr_reader :lifetime_paid
-    # @return [CommerceMoneyResponse] Current amount for this subscription.
-    attr_reader :amount
-    # @return [CommerceSubscriptionItemNextPaymentResponse] Information about the next invoice.
-    attr_reader :next_invoice
-    # @return [CommerceSubscriptionItemNextPaymentResponse] Information about the next payment.
-    attr_reader :next_payment
-    # @return [String] Unique identifier for the payer.
-    attr_reader :payer_id
-    # @return [CommercePayerResponse2] The payer associated with this subscription.
-    attr_reader :payer
-    # @return [Boolean] Whether this subscription is currently on a free trial.
-    attr_reader :is_free_trial
-    # @return [Integer] Unix timestamp (in milliseconds) when the current period started.
-    attr_reader :period_start
-    # @return [Integer] Unix timestamp (in milliseconds) when the current period ends.
-    attr_reader :period_end
-    # @return [String] Date used for proration calculations.
-    attr_reader :proration_date
-    # @return [Integer] Unix timestamp (in milliseconds) when the subscription was canceled.
-    attr_reader :canceled_at
-    # @return [Integer] Unix timestamp (in milliseconds) when the subscription became past due.
-    attr_reader :past_due_at
-    # @return [Integer] Unix timestamp (in milliseconds) when the subscription ended.
-    attr_reader :ended_at
-    # @return [Integer] Unix timestamp (in milliseconds) when the subscription was created.
-    attr_reader :created_at
-    # @return [Integer] Unix timestamp (in milliseconds) when the subscription was last updated.
-    attr_reader :updated_at
+  # @return [CommerceSubscriptionItem2Object] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [String] Unique identifier for the subscription item.
+  attr_reader :id
+  # @return [String] Unique identifier for the Clerk instance.
+  attr_reader :instance_id
+  # @return [CommerceSubscriptionItem2Status] Current status of the subscription item.
+  attr_reader :status
+  # @return [CommerceSubscriptionCreditResponse] Credit information (only available in PaymentAttempt events).
+  attr_reader :credit
+  # @return [String] Unique identifier for the associated plan.
+  attr_reader :plan_id
+  # @return [String] Unique identifier for the associated price
+  attr_reader :price_id
+  # @return [CommercePlan2] The associated commerce plan.
+  attr_reader :plan
+  # @return [CommerceSubscriptionItem2PlanPeriod] The billing period for this subscription.
+  attr_reader :plan_period
+  # @return [String] Unique identifier for the payment source.
+  attr_reader :payment_source_id
+  # @return [CommercePaymentSourceResponse] The payment source associated with this subscription.
+  attr_reader :payment_source
+  # @return [CommerceMoneyResponse] Total amount paid over the lifetime of this subscription.
+  attr_reader :lifetime_paid
+  # @return [CommerceMoneyResponse] Current amount for this subscription.
+  attr_reader :amount
+  # @return [CommerceSubscriptionItemNextPaymentResponse] Information about the next invoice.
+  attr_reader :next_invoice
+  # @return [CommerceSubscriptionItemNextPaymentResponse] Information about the next payment.
+  attr_reader :next_payment
+  # @return [String] Unique identifier for the payer.
+  attr_reader :payer_id
+  # @return [CommercePayerResponse2] The payer associated with this subscription.
+  attr_reader :payer
+  # @return [Boolean] Whether this subscription is currently on a free trial.
+  attr_reader :is_free_trial
+  # @return [Integer] Unix timestamp (in milliseconds) when the current period started.
+  attr_reader :period_start
+  # @return [Integer] Unix timestamp (in milliseconds) when the current period ends.
+  attr_reader :period_end
+  # @return [String] Date used for proration calculations.
+  attr_reader :proration_date
+  # @return [Integer] Unix timestamp (in milliseconds) when the subscription was canceled.
+  attr_reader :canceled_at
+  # @return [Integer] Unix timestamp (in milliseconds) when the subscription became past due.
+  attr_reader :past_due_at
+  # @return [Integer] Unix timestamp (in milliseconds) when the subscription ended.
+  attr_reader :ended_at
+  # @return [Integer] Unix timestamp (in milliseconds) when the subscription was created.
+  attr_reader :created_at
+  # @return [Integer] Unix timestamp (in milliseconds) when the subscription was last updated.
+  attr_reader :updated_at
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceSubscriptionItem2Metadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the CommerceSubscriptionItem2Object SDK namespace.
-  module CommerceSubscriptionItem2Object
-    COMMERCE_SUBSCRIPTION_ITEM = 'commerce_subscription_item'
-    VALUES = ['commerce_subscription_item'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceSubscriptionItem2Metadata::NULLABLE_FIELDS)
   end
 
-  # Defines the CommerceSubscriptionItem2PlanPeriod SDK namespace.
-  module CommerceSubscriptionItem2PlanPeriod
-    MONTH = 'month'
-    ANNUAL = 'annual'
-    VALUES = %w[month annual].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the CommerceSubscriptionItem2Object SDK namespace.
+module CommerceSubscriptionItem2Object
+  COMMERCE_SUBSCRIPTION_ITEM = 'commerce_subscription_item'
+  VALUES = ['commerce_subscription_item'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the CommerceSubscriptionItem2PlanPeriod SDK namespace.
+module CommerceSubscriptionItem2PlanPeriod
+  MONTH = 'month'
+  ANNUAL = 'annual'
+  VALUES = ['month', 'annual'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the CommerceSubscriptionItem2Status SDK namespace.
+module CommerceSubscriptionItem2Status
+  ACTIVE = 'active'
+  ENDED = 'ended'
+  PAST_DUE = 'past_due'
+  UPCOMING = 'upcoming'
+  INCOMPLETE = 'incomplete'
+  ABANDONED = 'abandoned'
+  VALUES = ['active', 'ended', 'past_due', 'upcoming', 'incomplete', 'abandoned'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalCreateBillingPriceRequestMetadata
+  FIELDS = {
+    plan_id: "plan_id",
+    currency: "currency",
+    amount: "amount",
+    annual_monthly_amount: "annual_monthly_amount",
+    description: "description",
+    supported_billing_periods: "supported_billing_periods",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    plan_id
+    amount
+  ].freeze
+  DECODERS = {
+    supported_billing_periods: lambda do |value|
+      ::OctridevClerk::CreateBillingPriceRequestSupportedBillingPeriods.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    amount
+  ].freeze
+end
+
+# API model for CreateBillingPriceRequest.
+# Typed representation of the `CreateBillingPriceRequest` API schema.
+class CreateBillingPriceRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalCreateBillingPriceRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalCreateBillingPriceRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalCreateBillingPriceRequestMetadata::DECODERS
+
+  # @return [String] The ID of the plan this price belongs to.
+  attr_reader :plan_id
+  # @return [String] The currency code (e.g., "USD"). Defaults to USD.
+  attr_reader :currency
+  # @return [Integer] The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1 (100 cents).
+  attr_reader :amount
+  # @return [Integer] The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive amounts must be at least $1 (100 cents).
+  attr_reader :annual_monthly_amount
+  # @return [String] An optional description for this custom price.
+  attr_reader :description
+  # @return [CreateBillingPriceRequestSupportedBillingPeriods] Which billing periods this price supports. Inferred from amounts if omitted.
+  attr_reader :supported_billing_periods
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the CommerceSubscriptionItem2Status SDK namespace.
-  module CommerceSubscriptionItem2Status
-    ACTIVE = 'active'
-    ENDED = 'ended'
-    PAST_DUE = 'past_due'
-    UPCOMING = 'upcoming'
-    INCOMPLETE = 'incomplete'
-    ABANDONED = 'abandoned'
-    VALUES = %w[active ended past_due upcoming incomplete abandoned].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCreateBillingPriceRequestMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalCreateBillingPriceRequestMetadata
-    FIELDS = {
-      plan_id: 'plan_id',
-      currency: 'currency',
-      amount: 'amount',
-      annual_monthly_amount: 'annual_monthly_amount',
-      description: 'description',
-      supported_billing_periods: 'supported_billing_periods'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      plan_id
-      amount
-    ].freeze
-    DECODERS = {
-      supported_billing_periods: lambda do |value|
-        ::OctridevClerk::CreateBillingPriceRequestSupportedBillingPeriods.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      amount
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the CreateBillingPriceRequestSupportedBillingPeriods SDK namespace.
+module CreateBillingPriceRequestSupportedBillingPeriods
+  MONTH = 'month'
+  ANNUAL = 'annual'
+  BOTH = 'both'
+  VALUES = ['month', 'annual', 'both'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalExtendFreeTrialRequestMetadata
+  FIELDS = {
+    extend_to: "extend_to",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    extend_to
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for ExtendFreeTrialRequest.
+# Typed representation of the `ExtendFreeTrialRequest` API schema.
+class ExtendFreeTrialRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalExtendFreeTrialRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalExtendFreeTrialRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalExtendFreeTrialRequestMetadata::DECODERS
+
+  # @return [String] RFC3339 timestamp to extend the free trial to. Must be in the future and not more than 365 days from now.
+  attr_reader :extend_to
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for CreateBillingPriceRequest.
-  # Typed representation of the `CreateBillingPriceRequest` API schema.
-  class CreateBillingPriceRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalCreateBillingPriceRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalCreateBillingPriceRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalCreateBillingPriceRequestMetadata::DECODERS
-
-    # @return [String] The ID of the plan this price belongs to.
-    attr_reader :plan_id
-    # @return [String] The currency code (e.g., "USD"). Defaults to USD.
-    attr_reader :currency
-    # @return [Integer] The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1 (100 cents).
-    attr_reader :amount
-    # @return [Integer] The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive amounts must be at least $1 (100 cents).
-    attr_reader :annual_monthly_amount
-    # @return [String] An optional description for this custom price.
-    attr_reader :description
-    # @return [CreateBillingPriceRequestSupportedBillingPeriods] Which billing periods this price supports. Inferred from amounts if omitted.
-    attr_reader :supported_billing_periods
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCreateBillingPriceRequestMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the CreateBillingPriceRequestSupportedBillingPeriods SDK namespace.
-  module CreateBillingPriceRequestSupportedBillingPeriods
-    MONTH = 'month'
-    ANNUAL = 'annual'
-    BOTH = 'both'
-    VALUES = %w[month annual both].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalFeatureResponse2Metadata
+  FIELDS = {
+    object: "object",
+    id: "id",
+    name: "name",
+    description: "description",
+    slug: "slug",
+    avatar_url: "avatar_url",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    object
+    id
+    name
+    description
+    slug
+    avatar_url
+  ].freeze
+  DECODERS = {
+    object: lambda do |value|
+      ::OctridevClerk::FeatureResponse2Object.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for FeatureResponse2.
+# Typed representation of the `FeatureResponse2` API schema.
+class FeatureResponse2
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalFeatureResponse2Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalFeatureResponse2Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalFeatureResponse2Metadata::DECODERS
+
+  # @return [FeatureResponse2Object] String representing the object's type. Objects of the same type share the same value.
+  attr_reader :object
+  # @return [String] Unique identifier for the feature.
+  attr_reader :id
+  # @return [String] The name of the feature.
+  attr_reader :name
+  # @return [String] The description of the feature.
+  attr_reader :description
+  # @return [String] The URL-friendly slug for the feature.
+  attr_reader :slug
+  # @return [String] The URL of the feature's avatar image.
+  attr_reader :avatar_url
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalExtendFreeTrialRequestMetadata
-    FIELDS = {
-      extend_to: 'extend_to'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      extend_to
-    ].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for ExtendFreeTrialRequest.
-  # Typed representation of the `ExtendFreeTrialRequest` API schema.
-  class ExtendFreeTrialRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalExtendFreeTrialRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalExtendFreeTrialRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalExtendFreeTrialRequestMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [String] RFC3339 timestamp to extend the free trial to. Must be in the future and not more than 365 days from now.
-    attr_reader :extend_to
+# Defines the FeatureResponse2Object SDK namespace.
+module FeatureResponse2Object
+  FEATURE = 'feature'
+  VALUES = ['feature'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalPaginatedBillingPaymentAttemptResponseMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::BillingPaymentAttempt.from_hash(item) }
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for PaginatedBillingPaymentAttemptResponse.
+# Typed representation of the `PaginatedBillingPaymentAttemptResponse` API schema.
+class PaginatedBillingPaymentAttemptResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [Array_of_BillingPaymentAttempt] Array of billing payment attempts.
+  attr_reader :data
+  # @return [Integer] Total number of billing payment attempts.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalFeatureResponse2Metadata
-    FIELDS = {
-      object: 'object',
-      id: 'id',
-      name: 'name',
-      description: 'description',
-      slug: 'slug',
-      avatar_url: 'avatar_url'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      object
-      id
-      name
-      description
-      slug
-      avatar_url
-    ].freeze
-    DECODERS = {
-      object: lambda do |value|
-        ::OctridevClerk::FeatureResponse2Object.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for FeatureResponse2.
-  # Typed representation of the `FeatureResponse2` API schema.
-  class FeatureResponse2
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalFeatureResponse2Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalFeatureResponse2Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalFeatureResponse2Metadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [FeatureResponse2Object] String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    # @return [String] Unique identifier for the feature.
-    attr_reader :id
-    # @return [String] The name of the feature.
-    attr_reader :name
-    # @return [String] The description of the feature.
-    attr_reader :description
-    # @return [String] The URL-friendly slug for the feature.
-    attr_reader :slug
-    # @return [String] The URL of the feature's avatar image.
-    attr_reader :avatar_url
+# Internal model hydration metadata.
+class SdkInternalPaginatedBillingPriceResponseMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::BillingPriceResponse.from_hash(item) }
+    end,
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for PaginatedBillingPriceResponse.
+# Typed representation of the `PaginatedBillingPriceResponse` API schema.
+class PaginatedBillingPriceResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPaginatedBillingPriceResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPaginatedBillingPriceResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPaginatedBillingPriceResponseMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [Array_of_BillingPriceResponse] Array of prices.
+  attr_reader :data
+  # @return [Integer] Total number of prices.
+  attr_reader :total_count
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the FeatureResponse2Object SDK namespace.
-  module FeatureResponse2Object
-    FEATURE = 'feature'
-    VALUES = ['feature'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalPaginatedBillingPaymentAttemptResponseMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::BillingPaymentAttempt.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalPaginatedBillingStatementResponseMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::BillingStatement.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for PaginatedBillingStatementResponse.
+# Typed representation of the `PaginatedBillingStatementResponse` API schema.
+class PaginatedBillingStatementResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPaginatedBillingStatementResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPaginatedBillingStatementResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPaginatedBillingStatementResponseMetadata::DECODERS
+
+  # @return [Array_of_BillingStatement] Array of billing statements.
+  attr_reader :data
+  # @return [Integer] Total number of billing statements.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for PaginatedBillingPaymentAttemptResponse.
-  # Typed representation of the `PaginatedBillingPaymentAttemptResponse` API schema.
-  class PaginatedBillingPaymentAttemptResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPaginatedBillingPaymentAttemptResponseMetadata::DECODERS
-
-    # @return [Array_of_BillingPaymentAttempt] Array of billing payment attempts.
-    attr_reader :data
-    # @return [Integer] Total number of billing payment attempts.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalPaginatedBillingPriceResponseMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::BillingPriceResponse.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalPaginatedCommercePlanResponseMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::CommercePlan.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for PaginatedCommercePlanResponse.
+# Typed representation of the `PaginatedCommercePlanResponse` API schema.
+class PaginatedCommercePlanResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPaginatedCommercePlanResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPaginatedCommercePlanResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPaginatedCommercePlanResponseMetadata::DECODERS
+
+  # @return [Array_of_CommercePlan] Array of plans.
+  attr_reader :data
+  # @return [Integer] Total number of plans.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for PaginatedBillingPriceResponse.
-  # Typed representation of the `PaginatedBillingPriceResponse` API schema.
-  class PaginatedBillingPriceResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPaginatedBillingPriceResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPaginatedBillingPriceResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPaginatedBillingPriceResponseMetadata::DECODERS
-
-    # @return [Array_of_BillingPriceResponse] Array of prices.
-    attr_reader :data
-    # @return [Integer] Total number of prices.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalPaginatedBillingStatementResponseMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::BillingStatement.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata
+  FIELDS = {
+    data: "data",
+    total_count: "total_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    total_count
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevClerk::CommerceSubscriptionItem.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for PaginatedCommerceSubscriptionItemResponse.
+# Typed representation of the `PaginatedCommerceSubscriptionItemResponse` API schema.
+class PaginatedCommerceSubscriptionItemResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::DECODERS
+
+  # @return [Array_of_CommerceSubscriptionItem] Array of subscription items.
+  attr_reader :data
+  # @return [Integer] Total number of subscription items.
+  attr_reader :total_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for PaginatedBillingStatementResponse.
-  # Typed representation of the `PaginatedBillingStatementResponse` API schema.
-  class PaginatedBillingStatementResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPaginatedBillingStatementResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPaginatedBillingStatementResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPaginatedBillingStatementResponseMetadata::DECODERS
-
-    # @return [Array_of_BillingStatement] Array of billing statements.
-    attr_reader :data
-    # @return [Integer] Total number of billing statements.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalPaginatedCommercePlanResponseMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::CommercePlan.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalPriceTransitionRequestMetadata
+  FIELDS = {
+    from_price_id: "from_price_id",
+    to_price_id: "to_price_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    from_price_id
+    to_price_id
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for PriceTransitionRequest.
+# Typed representation of the `PriceTransitionRequest` API schema.
+class PriceTransitionRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalPriceTransitionRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalPriceTransitionRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalPriceTransitionRequestMetadata::DECODERS
+
+  # @return [String] The current price ID of the subscription item.
+  attr_reader :from_price_id
+  # @return [String] The target price ID to transition to.
+  attr_reader :to_price_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for PaginatedCommercePlanResponse.
-  # Typed representation of the `PaginatedCommercePlanResponse` API schema.
-  class PaginatedCommercePlanResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPaginatedCommercePlanResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPaginatedCommercePlanResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPaginatedCommercePlanResponseMetadata::DECODERS
-
-    # @return [Array_of_CommercePlan] Array of plans.
-    attr_reader :data
-    # @return [Integer] Total number of plans.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata
-    FIELDS = {
-      data: 'data',
-      total_count: 'total_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      total_count
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevClerk::CommerceSubscriptionItem.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # API model for PaginatedCommerceSubscriptionItemResponse.
-  # Typed representation of the `PaginatedCommerceSubscriptionItemResponse` API schema.
-  class PaginatedCommerceSubscriptionItemResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPaginatedCommerceSubscriptionItemResponseMetadata::DECODERS
-
-    # @return [Array_of_CommerceSubscriptionItem] Array of subscription items.
-    attr_reader :data
-    # @return [Integer] Total number of subscription items.
-    attr_reader :total_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalPriceTransitionRequestMetadata
-    FIELDS = {
-      from_price_id: 'from_price_id',
-      to_price_id: 'to_price_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      from_price_id
-      to_price_id
-    ].freeze
-    DECODERS = {}.freeze
-  end
-
-  # API model for PriceTransitionRequest.
-  # Typed representation of the `PriceTransitionRequest` API schema.
-  class PriceTransitionRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalPriceTransitionRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalPriceTransitionRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalPriceTransitionRequestMetadata::DECODERS
-
-    # @return [String] The current price ID of the subscription item.
-    attr_reader :from_price_id
-    # @return [String] The target price ID to transition to.
-    attr_reader :to_price_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

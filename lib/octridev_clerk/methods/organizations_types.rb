@@ -12,19 +12,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOrganizationMetadata
         FIELDS = {
-          name: 'name',
-          created_by: 'created_by',
-          private_metadata: 'private_metadata',
-          public_metadata: 'public_metadata',
-          slug: 'slug',
-          max_allowed_memberships: 'max_allowed_memberships',
-          created_at: 'created_at',
-          role_set_key: 'role_set_key'
+          name: "name",
+          created_by: "created_by",
+          private_metadata: "private_metadata",
+          public_metadata: "public_metadata",
+          slug: "slug",
+          max_allowed_memberships: "max_allowed_memberships",
+          created_at: "created_at",
+          role_set_key: "role_set_key",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateOrganization.
@@ -68,21 +69,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOrganizationMetadata
         FIELDS = {
-          name: 'name',
-          slug: 'slug',
-          max_allowed_memberships: 'max_allowed_memberships',
-          admin_delete_enabled: 'admin_delete_enabled',
-          self_serve_sso_enabled: 'self_serve_sso_enabled',
-          self_serve_directory_sync_enabled: 'self_serve_directory_sync_enabled',
-          created_at: 'created_at',
-          role_set_key: 'role_set_key',
-          reassignment_mappings: 'reassignment_mappings'
+          name: "name",
+          slug: "slug",
+          max_allowed_memberships: "max_allowed_memberships",
+          admin_delete_enabled: "admin_delete_enabled",
+          self_serve_sso_enabled: "self_serve_sso_enabled",
+          self_serve_directory_sync_enabled: "self_serve_directory_sync_enabled",
+          created_at: "created_at",
+          role_set_key: "role_set_key",
+          reassignment_mappings: "reassignment_mappings",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
         DECODERS = {
           reassignment_mappings: lambda do |value|
             ::OctridevClerk::ReassignmentMappings.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -129,11 +131,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalMergeOrganizationMetadataMetadata
         FIELDS = {
-          public_metadata: 'public_metadata',
-          private_metadata: 'private_metadata'
+          public_metadata: "public_metadata",
+          private_metadata: "private_metadata",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for MergeOrganizationMetadata.
@@ -165,11 +169,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceOrganizationMetadataMetadata
         FIELDS = {
-          public_metadata: 'public_metadata',
-          private_metadata: 'private_metadata'
+          public_metadata: "public_metadata",
+          private_metadata: "private_metadata",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for ReplaceOrganizationMetadata.
@@ -201,13 +207,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUploadOrganizationLogoMetadata
         FIELDS = {
-          uploader_user_id: 'uploader_user_id',
-          file: 'file'
+          uploader_user_id: "uploader_user_id",
+          file: "file",
         }.freeze
         REQUIRED_FIELDS = %i[
           file
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UploadOrganizationLogo.

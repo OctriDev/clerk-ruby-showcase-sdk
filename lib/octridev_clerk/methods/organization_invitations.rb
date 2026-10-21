@@ -12,20 +12,21 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOrganizationInvitationMetadata
         FIELDS = {
-          email_address: 'email_address',
-          inviter_user_id: 'inviter_user_id',
-          role: 'role',
-          public_metadata: 'public_metadata',
-          private_metadata: 'private_metadata',
-          redirect_url: 'redirect_url',
-          expires_in_days: 'expires_in_days',
-          notify: 'notify'
+          email_address: "email_address",
+          inviter_user_id: "inviter_user_id",
+          role: "role",
+          public_metadata: "public_metadata",
+          private_metadata: "private_metadata",
+          redirect_url: "redirect_url",
+          expires_in_days: "expires_in_days",
+          notify: "notify",
         }.freeze
         REQUIRED_FIELDS = %i[
           email_address
           role
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateOrganizationInvitation.
@@ -69,10 +70,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeOrganizationInvitationMetadata
         FIELDS = {
-          requesting_user_id: 'requesting_user_id'
+          requesting_user_id: "requesting_user_id",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for RevokeOrganizationInvitation.
@@ -105,7 +108,7 @@ module OctridevClerk
         ACCEPTED = 'accepted'
         REVOKED = 'revoked'
         EXPIRED = 'expired'
-        VALUES = %w[pending accepted revoked expired].freeze
+        VALUES = ['pending', 'accepted', 'revoked', 'expired'].freeze
         def self.from_value(value)
           value
         end
@@ -117,7 +120,7 @@ module OctridevClerk
         ACCEPTED = 'accepted'
         REVOKED = 'revoked'
         EXPIRED = 'expired'
-        VALUES = %w[pending accepted revoked expired].freeze
+        VALUES = ['pending', 'accepted', 'revoked', 'expired'].freeze
         def self.from_value(value)
           value
         end
@@ -150,26 +153,27 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          '/organization_invitations',
+          "/organization_invitations",
           config: config,
           query: {
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'query' => QueryValue.new(query, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OrganizationInvitationsWithPublicOrganizationData,
           decoder: :json,
           operation_id: 'list_instance_organization_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -211,6 +215,7 @@ module OctridevClerk
         notify: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(expires_in_days) do
           Validation.validate_range('expires_in_days', expires_in_days, min: 1, max: 365)
         end
@@ -218,9 +223,9 @@ module OctridevClerk
         SdkClient.request(
           'POST',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations'
+            "/invitations"
           ].join,
           config: config,
           body: {
@@ -231,13 +236,13 @@ module OctridevClerk
             'private_metadata' => private_metadata,
             'redirect_url' => redirect_url,
             'expires_in_days' => expires_in_days,
-            'notify' => notify
+            'notify' => notify,
           },
           return_type: ::OctridevClerk::OrganizationInvitation,
           decoder: :json,
           operation_id: 'create_organization_invitation',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -270,6 +275,7 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -277,9 +283,9 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations'
+            "/invitations"
           ].join,
           config: config,
           query: {
@@ -287,13 +293,13 @@ module OctridevClerk
             'email_address' => QueryValue.new(email_address, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OrganizationInvitations,
           decoder: :json,
           operation_id: 'list_organization_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -308,14 +314,15 @@ module OctridevClerk
         body:,
         request_options: nil
       )
+
         Validation.validate_items('body', body, min: 1, max: 10)
 
         SdkClient.request(
           'POST',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations/bulk'
+            "/invitations/bulk"
           ].join,
           config: config,
           body: body,
@@ -323,7 +330,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'create_organization_invitation_bulk',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -344,6 +351,7 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -351,20 +359,20 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations/pending'
+            "/invitations/pending"
           ].join,
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true)
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
           },
           return_type: ::OctridevClerk::OrganizationInvitations,
           decoder: :json,
           operation_id: 'list_pending_organization_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -372,13 +380,19 @@ module OctridevClerk
       #
       # @param organization_id [String] The organization ID.
       # @param invitation_id [String] The organization invitation ID.
-      singleton_class.define_method(:get_organization_invitation) do |config:, organization_id:, invitation_id:, request_options: nil|
+      singleton_class.define_method(:get_organization_invitation) do |
+        config:,
+        organization_id:,
+        invitation_id:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations/',
+            "/invitations/",
             SdkClient.encode_path_segment(invitation_id)
           ].join,
           config: config,
@@ -386,7 +400,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_organization_invitation',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -403,24 +417,25 @@ module OctridevClerk
         requesting_user_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/organizations/',
+            "/organizations/",
             SdkClient.encode_path_segment(organization_id),
-            '/invitations/',
+            "/invitations/",
             SdkClient.encode_path_segment(invitation_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           body: {
-            'requesting_user_id' => requesting_user_id
+            'requesting_user_id' => requesting_user_id,
           },
           return_type: ::OctridevClerk::OrganizationInvitation,
           decoder: :json,
           operation_id: 'revoke_organization_invitation',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

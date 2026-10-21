@@ -10,15 +10,19 @@ module OctridevClerk
     # Defines the InstanceSettings SDK namespace.
     module InstanceSettings
       # Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
-      singleton_class.define_method(:get_instance_communication) do |config:, request_options: nil|
+      singleton_class.define_method(:get_instance_communication) do |
+        config:,
+        request_options: nil
+      |
+
         SdkClient.request(
           'GET',
-          '/instance/communication',
+          "/instance/communication",
           config: config,
           return_type: ::OctridevClerk::InstanceCommunication,
           decoder: :json,
           operation_id: 'get_instance_communication',
-          request_options: request_options
+          request_options: request_options,
         ).data
       end
 
@@ -32,22 +36,23 @@ module OctridevClerk
         blocked_country_codes: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(blocked_country_codes) do
           Validation.validate_items('blocked_country_codes', blocked_country_codes, max: 250)
         end
 
         SdkClient.request(
           'PATCH',
-          '/instance/communication',
+          "/instance/communication",
           config: config,
           body: {
-            'blocked_country_codes' => blocked_country_codes
+            'blocked_country_codes' => blocked_country_codes,
           },
           return_type: ::OctridevClerk::InstanceCommunication,
           decoder: :json,
           operation_id: 'update_instance_communication',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

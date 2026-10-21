@@ -12,12 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateActorTokenActorMetadata
         FIELDS = {
-          sub: 'sub'
+          sub: "sub",
         }.freeze
         REQUIRED_FIELDS = %i[
           sub
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateActorTokenActor.
@@ -50,10 +51,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateActorTokenMetadata
         FIELDS = {
-          user_id: 'user_id',
-          actor: 'actor',
-          expires_in_seconds: 'expires_in_seconds',
-          session_max_duration_in_seconds: 'session_max_duration_in_seconds'
+          user_id: "user_id",
+          actor: "actor",
+          expires_in_seconds: "expires_in_seconds",
+          session_max_duration_in_seconds: "session_max_duration_in_seconds",
         }.freeze
         REQUIRED_FIELDS = %i[
           user_id
@@ -62,7 +63,7 @@ module OctridevClerk
         DECODERS = {
           actor: lambda do |value|
             ::OctridevClerk::Methods::ActorTokens::CreateActorTokenActor.from_hash(value)
-          end
+          end,
         }.freeze
       end
 
@@ -116,21 +117,22 @@ module OctridevClerk
         session_max_duration_in_seconds: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/actor_tokens',
+          "/actor_tokens",
           config: config,
           body: {
             'user_id' => user_id,
             'actor' => actor,
             'expires_in_seconds' => expires_in_seconds,
-            'session_max_duration_in_seconds' => session_max_duration_in_seconds
+            'session_max_duration_in_seconds' => session_max_duration_in_seconds,
           },
           return_type: ::OctridevClerk::ActorToken,
           decoder: :json,
           operation_id: 'create_actor_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
         ).data
       end
 
@@ -144,19 +146,20 @@ module OctridevClerk
         actor_token_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/actor_tokens/',
+            "/actor_tokens/",
             SdkClient.encode_path_segment(actor_token_id),
-            '/revoke'
+            "/revoke"
           ].join,
           config: config,
           return_type: ::OctridevClerk::ActorToken,
           decoder: :json,
           operation_id: 'revoke_actor_token',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end

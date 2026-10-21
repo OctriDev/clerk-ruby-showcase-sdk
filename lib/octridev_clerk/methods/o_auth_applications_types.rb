@@ -12,22 +12,23 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateOAuthApplicationMetadata
         FIELDS = {
-          name: 'name',
-          redirect_uris: 'redirect_uris',
-          callback_url: 'callback_url',
-          scopes: 'scopes',
-          consent_screen_enabled: 'consent_screen_enabled',
-          pkce_required: 'pkce_required',
-          audience_uri: 'audience_uri',
-          token_exchange_enabled: 'token_exchange_enabled',
-          adopt_audience_resource: 'adopt_audience_resource',
-          device_authorization_grant_enabled: 'device_authorization_grant_enabled',
-          public: 'public'
+          name: "name",
+          redirect_uris: "redirect_uris",
+          callback_url: "callback_url",
+          scopes: "scopes",
+          consent_screen_enabled: "consent_screen_enabled",
+          pkce_required: "pkce_required",
+          audience_uri: "audience_uri",
+          token_exchange_enabled: "token_exchange_enabled",
+          adopt_audience_resource: "adopt_audience_resource",
+          device_authorization_grant_enabled: "device_authorization_grant_enabled",
+          public: "public",
         }.freeze
         REQUIRED_FIELDS = %i[
           name
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for CreateOAuthApplication.
@@ -77,20 +78,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateOAuthApplicationMetadata
         FIELDS = {
-          name: 'name',
-          redirect_uris: 'redirect_uris',
-          callback_url: 'callback_url',
-          scopes: 'scopes',
-          consent_screen_enabled: 'consent_screen_enabled',
-          pkce_required: 'pkce_required',
-          audience_uri: 'audience_uri',
-          token_exchange_enabled: 'token_exchange_enabled',
-          adopt_audience_resource: 'adopt_audience_resource',
-          device_authorization_grant_enabled: 'device_authorization_grant_enabled',
-          public: 'public'
+          name: "name",
+          redirect_uris: "redirect_uris",
+          callback_url: "callback_url",
+          scopes: "scopes",
+          consent_screen_enabled: "consent_screen_enabled",
+          pkce_required: "pkce_required",
+          audience_uri: "audience_uri",
+          token_exchange_enabled: "token_exchange_enabled",
+          adopt_audience_resource: "adopt_audience_resource",
+          device_authorization_grant_enabled: "device_authorization_grant_enabled",
+          public: "public",
         }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
+        REQUIRED_FIELDS = %i[
+        ].freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UpdateOAuthApplication.
@@ -140,13 +143,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUploadOAuthApplicationLogoMetadata
         FIELDS = {
-          uploader_user_id: 'uploader_user_id',
-          file: 'file'
+          uploader_user_id: "uploader_user_id",
+          file: "file",
         }.freeze
         REQUIRED_FIELDS = %i[
           file
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for UploadOAuthApplicationLogo.
@@ -177,12 +181,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeOAuthApplicationTokenMetadata
         FIELDS = {
-          token: 'token'
+          token: "token",
         }.freeze
         REQUIRED_FIELDS = %i[
           token
         ].freeze
-        DECODERS = {}.freeze
+        DECODERS = {
+        }.freeze
       end
 
       # API model for RevokeOAuthApplicationToken.

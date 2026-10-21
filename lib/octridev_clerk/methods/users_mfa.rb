@@ -18,19 +18,20 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/users/',
+            "/users/",
             SdkClient.encode_path_segment(user_id),
-            '/mfa'
+            "/mfa"
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::Users::DisableMFAResponse,
           decoder: :json,
           operation_id: 'disable_mfa',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
+          errors: { '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
         ).data
       end
     end
