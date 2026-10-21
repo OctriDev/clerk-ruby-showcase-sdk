@@ -14,19 +14,13 @@ module OctridevClerk
       # @param session_id [String] The ID of the session the reverification belongs
       #   to
       # @param reverification_id [String] The ID of the reverification
-      singleton_class.define_method(:get_reverification) do |
-        config:,
-        session_id:,
-        reverification_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_reverification) do |config:, session_id:, reverification_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/sessions/",
+            '/sessions/',
             SdkClient.encode_path_segment(session_id),
-            "/reverifications/",
+            '/reverifications/',
             SdkClient.encode_path_segment(reverification_id)
           ].join,
           config: config,
@@ -34,7 +28,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_reverification',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

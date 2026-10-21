@@ -28,7 +28,6 @@ module OctridevClerk
         status: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -36,21 +35,21 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/organization_invitations"
+            '/organization_invitations'
           ].join,
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'status' => QueryValue.new(status, style: 'form', explode: true),
+            'status' => QueryValue.new(status, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::OrganizationInvitationsWithPublicOrganizationData,
           decoder: :json,
           operation_id: 'users_get_organization_invitations',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

@@ -24,25 +24,24 @@ module OctridevClerk
         uploader_user_id: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/logo"
+            '/logo'
           ].join,
           config: config,
           body: {
             'file' => SdkClient.upload(file, 'file'),
-            'uploader_user_id' => uploader_user_id,
+            'uploader_user_id' => uploader_user_id
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevClerk::OrganizationWithLogo,
           decoder: :json,
           operation_id: 'upload_organization_logo',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '413' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -57,20 +56,19 @@ module OctridevClerk
         organization_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/logo"
+            '/logo'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'delete_organization_logo',
           request_options: request_options,
-          errors: { '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

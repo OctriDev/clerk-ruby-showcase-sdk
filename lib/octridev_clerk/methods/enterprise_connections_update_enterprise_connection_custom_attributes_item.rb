@@ -46,19 +46,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateEnterpriseConnectionMetadata
         FIELDS = {
-          name: "name",
-          domains: "domains",
-          active: "active",
-          sync_user_attributes: "sync_user_attributes",
-          disable_additional_identifications: "disable_additional_identifications",
-          allow_organization_account_linking: "allow_organization_account_linking",
-          organization_id: "organization_id",
-          saml: "saml",
-          oidc: "oidc",
-          custom_attributes: "custom_attributes",
+          name: 'name',
+          domains: 'domains',
+          active: 'active',
+          sync_user_attributes: 'sync_user_attributes',
+          disable_additional_identifications: 'disable_additional_identifications',
+          allow_organization_account_linking: 'allow_organization_account_linking',
+          organization_id: 'organization_id',
+          saml: 'saml',
+          oidc: 'oidc',
+          custom_attributes: 'custom_attributes'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           saml: lambda do |value|
             ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSaml.from_hash(value)
@@ -68,7 +67,7 @@ module OctridevClerk
           end,
           custom_attributes: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionCustomAttributesItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -119,7 +118,7 @@ module OctridevClerk
         PENDING = 'pending'
         SUCCESS = 'success'
         FAILED = 'failed'
-        VALUES = ['pending', 'success', 'failed'].freeze
+        VALUES = %w[pending success failed].freeze
         def self.from_value(value)
           value
         end
@@ -130,7 +129,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
+        VALUES = %w[email_address custom_attribute off].freeze
         def self.from_value(value)
           value
         end
@@ -141,7 +140,7 @@ module OctridevClerk
         EMAIL_ADDRESS = 'email_address'
         CUSTOM_ATTRIBUTE = 'custom_attribute'
         OFF = 'off'
-        VALUES = ['email_address', 'custom_attribute', 'off'].freeze
+        VALUES = %w[email_address custom_attribute off].freeze
         def self.from_value(value)
           value
         end
@@ -156,9 +155,9 @@ module OctridevClerk
         OIDC_CUSTOM = 'oidc_custom'
         OIDC_GITHUB_ENTERPRISE = 'oidc_github_enterprise'
         OIDC_GITLAB = 'oidc_gitlab'
-        VALUES = [
-          'saml_custom', 'saml_okta', 'saml_google', 'saml_microsoft', 'oidc_custom',
-          'oidc_github_enterprise', 'oidc_gitlab'
+        VALUES = %w[
+          saml_custom saml_okta saml_google saml_microsoft oidc_custom
+          oidc_github_enterprise oidc_gitlab
         ].freeze
         def self.from_value(value)
           value

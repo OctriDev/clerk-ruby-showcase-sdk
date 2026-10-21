@@ -19,20 +19,19 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/unban"
+            '/unban'
           ].join,
           config: config,
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'unban_user',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -46,21 +45,20 @@ module OctridevClerk
         user_ids:,
         request_options: nil
       )
-
         Validation.validate_items('user_ids', user_ids, min: 1, max: 50)
 
         SdkClient.request(
           'POST',
-          "/users/unban",
+          '/users/unban',
           config: config,
           body: {
-            'user_ids' => user_ids,
+            'user_ids' => user_ids
           },
           return_type: [::OctridevClerk::User],
           decoder: :json,
           operation_id: 'unban_users_bulk',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

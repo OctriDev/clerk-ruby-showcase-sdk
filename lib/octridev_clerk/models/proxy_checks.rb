@@ -5,83 +5,83 @@
 
 # proxy_checks domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalProxyCheckMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    domain_id: "domain_id",
-    last_run_at: "last_run_at",
-    proxy_url: "proxy_url",
-    successful: "successful",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    domain_id
-    last_run_at
-    proxy_url
-    successful
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::ProxyCheckObject.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    last_run_at
-  ].freeze
-end
-
-# API model for ProxyCheck.
-# Typed representation of the `ProxyCheck` API schema.
-class ProxyCheck
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalProxyCheckMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalProxyCheckMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalProxyCheckMetadata::DECODERS
-
-  # @return [ProxyCheckObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `domain_id` wire field.
-  attr_reader :domain_id
-  # @return [Integer] Unix timestamp of last run.
-  attr_reader :last_run_at
-  # @return [String] Required `string` value serialized in the `proxy_url` wire field.
-  attr_reader :proxy_url
-  # @return [Boolean] Required `boolean` value serialized in the `successful` wire field.
-  attr_reader :successful
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalProxyCheckMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      domain_id: 'domain_id',
+      last_run_at: 'last_run_at',
+      proxy_url: 'proxy_url',
+      successful: 'successful',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      domain_id
+      last_run_at
+      proxy_url
+      successful
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::ProxyCheckObject.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      last_run_at
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalProxyCheckMetadata::NULLABLE_FIELDS)
+  # API model for ProxyCheck.
+  # Typed representation of the `ProxyCheck` API schema.
+  class ProxyCheck
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalProxyCheckMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalProxyCheckMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalProxyCheckMetadata::DECODERS
+
+    # @return [ProxyCheckObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `domain_id` wire field.
+    attr_reader :domain_id
+    # @return [Integer] Unix timestamp of last run.
+    attr_reader :last_run_at
+    # @return [String] Required `string` value serialized in the `proxy_url` wire field.
+    attr_reader :proxy_url
+    # @return [Boolean] Required `boolean` value serialized in the `successful` wire field.
+    attr_reader :successful
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalProxyCheckMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the ProxyCheckObject SDK namespace.
+  module ProxyCheckObject
+    PROXY_CHECK = 'proxy_check'
+    VALUES = ['proxy_check'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the ProxyCheckObject SDK namespace.
-module ProxyCheckObject
-  PROXY_CHECK = 'proxy_check'
-  VALUES = ['proxy_check'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

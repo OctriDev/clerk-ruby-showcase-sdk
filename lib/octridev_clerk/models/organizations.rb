@@ -5,152 +5,152 @@
 
 # organizations domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalOrganizationsMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::Organization.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for Organizations.
-# Typed representation of the `Organizations` API schema.
-class Organizations
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationsMetadata::DECODERS
-
-  # @return [Array_of_Organization] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of organizations
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationsMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Organization.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for Organizations.
+  # Typed representation of the `Organizations` API schema.
+  class Organizations
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationsMetadata::DECODERS
+
+    # @return [Array_of_Organization] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of organizations
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalOrganizationWithLogoMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    slug: "slug",
-    image_url: "image_url",
-    has_image: "has_image",
-    members_count: "members_count",
-    missing_member_with_elevated_permissions: "missing_member_with_elevated_permissions",
-    pending_invitations_count: "pending_invitations_count",
-    max_allowed_memberships: "max_allowed_memberships",
-    admin_delete_enabled: "admin_delete_enabled",
-    self_serve_sso_enabled: "self_serve_sso_enabled",
-    self_serve_directory_sync_enabled: "self_serve_directory_sync_enabled",
-    public_metadata: "public_metadata",
-    private_metadata: "private_metadata",
-    created_by: "created_by",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    last_active_at: "last_active_at",
-    role_set_key: "role_set_key",
-    logo_url: "logo_url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    slug
-    image_url
-    has_image
-    max_allowed_memberships
-    admin_delete_enabled
-    public_metadata
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::OrganizationObject.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for OrganizationWithLogo.
-# Typed representation of the `OrganizationWithLogo` API schema.
-class OrganizationWithLogo
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOrganizationWithLogoMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOrganizationWithLogoMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOrganizationWithLogoMetadata::DECODERS
-
-  attr_reader :image_url, :has_image, :logo_url
-  # @return [OrganizationObject] Required enumerated value serialized in the `object` wire field.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [String] Required `string` value serialized in the `slug` wire field.
-  attr_reader :slug
-  # @return [Integer] Optional `integer` value serialized in the `members_count` wire field.
-  attr_reader :members_count
-  # @return [Boolean] Optional `boolean` value serialized in the `missing_member_with_elevated_permissions` wire field.
-  attr_reader :missing_member_with_elevated_permissions
-  # @return [Integer] Optional `integer` value serialized in the `pending_invitations_count` wire field.
-  attr_reader :pending_invitations_count
-  # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
-  attr_reader :max_allowed_memberships
-  # @return [Boolean] Required `boolean` value serialized in the `admin_delete_enabled` wire field.
-  attr_reader :admin_delete_enabled
-  # @return [Boolean] Whether this organization can configure self-serve enterprise SSO.
-  attr_reader :self_serve_sso_enabled
-  # @return [Boolean] Whether this organization can configure self-serve Directory Sync (SCIM).
-  attr_reader :self_serve_directory_sync_enabled
-  # @return [Hash] Required object value serialized in the `public_metadata` wire field.
-  attr_reader :public_metadata
-  # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
-  attr_reader :private_metadata
-  # @return [String] Optional `string` value serialized in the `created_by` wire field.
-  attr_reader :created_by
-  # @return [Integer] Unix timestamp of creation.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of last update.
-  attr_reader :updated_at
-  # @return [Integer] Unix timestamp of last activity.
-  attr_reader :last_active_at
-  # @return [String] The key of the role set assigned to this organization.
-  attr_reader :role_set_key
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalOrganizationWithLogoMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      slug: 'slug',
+      image_url: 'image_url',
+      has_image: 'has_image',
+      members_count: 'members_count',
+      missing_member_with_elevated_permissions: 'missing_member_with_elevated_permissions',
+      pending_invitations_count: 'pending_invitations_count',
+      max_allowed_memberships: 'max_allowed_memberships',
+      admin_delete_enabled: 'admin_delete_enabled',
+      self_serve_sso_enabled: 'self_serve_sso_enabled',
+      self_serve_directory_sync_enabled: 'self_serve_directory_sync_enabled',
+      public_metadata: 'public_metadata',
+      private_metadata: 'private_metadata',
+      created_by: 'created_by',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      last_active_at: 'last_active_at',
+      role_set_key: 'role_set_key',
+      logo_url: 'logo_url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      slug
+      image_url
+      has_image
+      max_allowed_memberships
+      admin_delete_enabled
+      public_metadata
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::OrganizationObject.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for OrganizationWithLogo.
+  # Typed representation of the `OrganizationWithLogo` API schema.
+  class OrganizationWithLogo
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOrganizationWithLogoMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOrganizationWithLogoMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOrganizationWithLogoMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    attr_reader :image_url, :has_image, :logo_url
+    # @return [OrganizationObject] Required enumerated value serialized in the `object` wire field.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] Required `string` value serialized in the `slug` wire field.
+    attr_reader :slug
+    # @return [Integer] Optional `integer` value serialized in the `members_count` wire field.
+    attr_reader :members_count
+    # @return [Boolean] Optional `boolean` value serialized in the `missing_member_with_elevated_permissions` wire field.
+    attr_reader :missing_member_with_elevated_permissions
+    # @return [Integer] Optional `integer` value serialized in the `pending_invitations_count` wire field.
+    attr_reader :pending_invitations_count
+    # @return [Integer] Required `integer` value serialized in the `max_allowed_memberships` wire field.
+    attr_reader :max_allowed_memberships
+    # @return [Boolean] Required `boolean` value serialized in the `admin_delete_enabled` wire field.
+    attr_reader :admin_delete_enabled
+    # @return [Boolean] Whether this organization can configure self-serve enterprise SSO.
+    attr_reader :self_serve_sso_enabled
+    # @return [Boolean] Whether this organization can configure self-serve Directory Sync (SCIM).
+    attr_reader :self_serve_directory_sync_enabled
+    # @return [Hash] Required object value serialized in the `public_metadata` wire field.
+    attr_reader :public_metadata
+    # @return [Hash] Optional object value serialized in the `private_metadata` wire field.
+    attr_reader :private_metadata
+    # @return [String] Optional `string` value serialized in the `created_by` wire field.
+    attr_reader :created_by
+    # @return [Integer] Unix timestamp of creation.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of last update.
+    attr_reader :updated_at
+    # @return [Integer] Unix timestamp of last activity.
+    attr_reader :last_active_at
+    # @return [String] The key of the role set assigned to this organization.
+    attr_reader :role_set_key
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

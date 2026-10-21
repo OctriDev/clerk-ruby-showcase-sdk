@@ -10,19 +10,15 @@ module OctridevClerk
     # Defines the InstanceSettings SDK namespace.
     module InstanceSettings
       # Retrieves the Protect settings for the instance, including rule enforcement and prerequisite check status. Use `rules_enabled` to distinguish active enforcement from shadow evaluation, where rules are scored and recorded without blocking traffic.
-      singleton_class.define_method(:get_instance_protect) do |
-        config:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_instance_protect) do |config:, request_options: nil|
         SdkClient.request(
           'GET',
-          "/instance/protect",
+          '/instance/protect',
           config: config,
           return_type: ::OctridevClerk::InstanceProtect,
           decoder: :json,
           operation_id: 'get_instance_protect',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -37,19 +33,18 @@ module OctridevClerk
         rules_enabled: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
-          "/instance/protect",
+          '/instance/protect',
           config: config,
           body: {
-            'rules_enabled' => rules_enabled,
+            'rules_enabled' => rules_enabled
           },
           return_type: ::OctridevClerk::InstanceProtect,
           decoder: :json,
           operation_id: 'update_instance_protect',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

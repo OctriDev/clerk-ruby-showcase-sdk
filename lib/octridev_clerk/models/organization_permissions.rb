@@ -5,47 +5,47 @@
 
 # organization_permissions domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalPermissionsMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevClerk::Permission.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for Permissions.
-# Typed representation of the `Permissions` API schema.
-class Permissions
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalPermissionsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalPermissionsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalPermissionsMetadata::DECODERS
-
-  # @return [Array_of_Permission] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of permissions
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalPermissionsMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevClerk::Permission.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for Permissions.
+  # Typed representation of the `Permissions` API schema.
+  class Permissions
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalPermissionsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalPermissionsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalPermissionsMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Array_of_Permission] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of permissions
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

@@ -19,20 +19,19 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/unlock"
+            '/unlock'
           ].join,
           config: config,
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'unlock_user',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

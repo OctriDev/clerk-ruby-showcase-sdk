@@ -12,13 +12,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyClientMetadata
         FIELDS = {
-          token: "token",
+          token: 'token'
         }.freeze
         REQUIRED_FIELDS = %i[
           token
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for VerifyClient.
@@ -63,25 +62,24 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/clients",
+          '/clients',
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: [::OctridevClerk::Client],
           decoder: :json,
           operation_id: 'list_clients',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '410' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '410' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -95,19 +93,18 @@ module OctridevClerk
         token:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/clients/verify",
+          '/clients/verify',
           config: config,
           body: {
-            'token' => token,
+            'token' => token
           },
           return_type: ::OctridevClerk::Client,
           decoder: :json,
           operation_id: 'verify_client',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -116,16 +113,11 @@ module OctridevClerk
       # Returns the details of a client.
       #
       # @param client_id [String] Client ID.
-      singleton_class.define_method(:get_client) do |
-        config:,
-        client_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_client) do |config:, client_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/clients/",
+            '/clients/',
             SdkClient.encode_path_segment(client_id)
           ].join,
           config: config,
@@ -133,7 +125,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_client',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

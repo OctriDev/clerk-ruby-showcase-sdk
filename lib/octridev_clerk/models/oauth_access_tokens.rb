@@ -5,222 +5,221 @@
 
 # oauth_access_tokens domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata
-  FIELDS = {
-    iss: "iss",
-    sub: "sub",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    sub
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for VerifyOAuthAccessTokenResponseVariant0ActAct.
-class VerifyOAuthAccessTokenResponseVariant0ActAct
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::DECODERS
-
-  attr_reader :iss, :sub
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata
+    FIELDS = {
+      iss: 'iss',
+      sub: 'sub'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      sub
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for VerifyOAuthAccessTokenResponseVariant0ActAct.
+  class VerifyOAuthAccessTokenResponseVariant0ActAct
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActActMetadata::DECODERS
+
+    attr_reader :iss, :sub
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata
-  FIELDS = {
-    iss: "iss",
-    sub: "sub",
-    act: "act",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    sub
-  ].freeze
-  DECODERS = {
-    act: lambda do |value|
-      ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0ActAct.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for VerifyOAuthAccessTokenResponseVariant0Act.
-# The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1). Omitted for other access tokens.
-class VerifyOAuthAccessTokenResponseVariant0Act
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::DECODERS
-
-  attr_reader :iss, :sub, :act
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata
+    FIELDS = {
+      iss: 'iss',
+      sub: 'sub',
+      act: 'act'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      sub
+    ].freeze
+    DECODERS = {
+      act: lambda do |value|
+        ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0ActAct.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for VerifyOAuthAccessTokenResponseVariant0Act.
+  # The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1). Omitted for other access tokens.
+  class VerifyOAuthAccessTokenResponseVariant0Act
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0ActMetadata::DECODERS
+
+    attr_reader :iss, :sub, :act
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    client_id: "client_id",
-    subject: "subject",
-    scopes: "scopes",
-    aud: "aud",
-    act: "act",
-    revoked: "revoked",
-    revocation_reason: "revocation_reason",
-    expired: "expired",
-    expiration: "expiration",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    client_id
-    subject
-    scopes
-    revoked
-    revocation_reason
-    expired
-    expiration
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0Object.from_value(value)
-    end,
-    act: lambda do |value|
-      ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0Act.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    revocation_reason
-    expiration
-  ].freeze
-end
-
-# API model for VerifyOAuthAccessTokenResponseVariant0.
-class VerifyOAuthAccessTokenResponseVariant0
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::DECODERS
-
-  attr_reader :object, :id, :client_id, :subject, :scopes, :revoked, :revocation_reason, :expired,
-              :expiration, :created_at, :updated_at
-  # @return [Array_of_String] The audiences of the access token. Omitted when no audience is set.
-  attr_reader :aud
-  # @return [VerifyOAuthAccessTokenResponseVariant0Act] The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1). Omitted for other access tokens.
-  attr_reader :act
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      client_id: 'client_id',
+      subject: 'subject',
+      scopes: 'scopes',
+      aud: 'aud',
+      act: 'act',
+      revoked: 'revoked',
+      revocation_reason: 'revocation_reason',
+      expired: 'expired',
+      expiration: 'expiration',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      client_id
+      subject
+      scopes
+      revoked
+      revocation_reason
+      expired
+      expiration
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0Object.from_value(value)
+      end,
+      act: lambda do |value|
+        ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant0Act.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      revocation_reason
+      expiration
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::NULLABLE_FIELDS)
+  # API model for VerifyOAuthAccessTokenResponseVariant0.
+  class VerifyOAuthAccessTokenResponseVariant0
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::DECODERS
+
+    attr_reader :object, :id, :client_id, :subject, :scopes, :revoked, :revocation_reason, :expired,
+                :expiration, :created_at, :updated_at
+    # @return [Array_of_String] The audiences of the access token. Omitted when no audience is set.
+    attr_reader :aud
+    # @return [VerifyOAuthAccessTokenResponseVariant0Act] The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1). Omitted for other access tokens.
+    attr_reader :act
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalVerifyOAuthAccessTokenResponseVariant0Metadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata
-  FIELDS = {
-    active: "active",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    active
-  ].freeze
-  DECODERS = {
-    active: lambda do |value|
-      ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant1Active.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for VerifyOAuthAccessTokenResponseVariant1.
-class VerifyOAuthAccessTokenResponseVariant1
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::DECODERS
-
-  # @return [VerifyOAuthAccessTokenResponseVariant1Active] Indicates that a JWT access token is not active (expired)
-  attr_reader :active
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata
+    FIELDS = {
+      active: 'active'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      active
+    ].freeze
+    DECODERS = {
+      active: lambda do |value|
+        ::OctridevClerk::VerifyOAuthAccessTokenResponseVariant1Active.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for VerifyOAuthAccessTokenResponseVariant1.
+  class VerifyOAuthAccessTokenResponseVariant1
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalVerifyOAuthAccessTokenResponseVariant1Metadata::DECODERS
+
+    # @return [VerifyOAuthAccessTokenResponseVariant1Active] Indicates that a JWT access token is not active (expired)
+    attr_reader :active
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the VerifyOAuthAccessTokenResponse SDK namespace.
+  module VerifyOAuthAccessTokenResponse
+    def self.from_hash(hash)
+      shape_mapping = {
+        'object' => VerifyOAuthAccessTokenResponseVariant0,
+        'active' => VerifyOAuthAccessTokenResponseVariant1
+      }
+      type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
+      decoded = type&.from_hash(hash)
+      decoded unless type.nil?
+    end
   end
-end
 
-# Defines the VerifyOAuthAccessTokenResponse SDK namespace.
-module VerifyOAuthAccessTokenResponse
-  def self.from_hash(hash)
-    shape_mapping = {
-      "object" => VerifyOAuthAccessTokenResponseVariant0,
-      "active" => VerifyOAuthAccessTokenResponseVariant1,
-    }
-    type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
-    decoded = type&.from_hash(hash)
-    return decoded unless type.nil?
+  # Defines the VerifyOAuthAccessTokenResponseVariant0Object SDK namespace.
+  module VerifyOAuthAccessTokenResponseVariant0Object
+    CLERK_IDP_OAUTH_ACCESS_TOKEN = 'clerk_idp_oauth_access_token'
+    VALUES = ['clerk_idp_oauth_access_token'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the VerifyOAuthAccessTokenResponseVariant0Object SDK namespace.
-module VerifyOAuthAccessTokenResponseVariant0Object
-  CLERK_IDP_OAUTH_ACCESS_TOKEN = 'clerk_idp_oauth_access_token'
-  VALUES = ['clerk_idp_oauth_access_token'].freeze
-  def self.from_value(value)
-    value
+  # Defines the VerifyOAuthAccessTokenResponseVariant1Active SDK namespace.
+  module VerifyOAuthAccessTokenResponseVariant1Active
+    FALSE = false
+    VALUES = [false].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the VerifyOAuthAccessTokenResponseVariant1Active SDK namespace.
-module VerifyOAuthAccessTokenResponseVariant1Active
-  FALSE = false
-  VALUES = [false].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

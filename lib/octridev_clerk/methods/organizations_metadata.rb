@@ -26,24 +26,23 @@ module OctridevClerk
         private_metadata: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/metadata"
+            '/metadata'
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
-            'private_metadata' => private_metadata,
+            'private_metadata' => private_metadata
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'merge_organization_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -64,24 +63,23 @@ module OctridevClerk
         private_metadata: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/organizations/",
+            '/organizations/',
             SdkClient.encode_path_segment(organization_id),
-            "/metadata"
+            '/metadata'
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
-            'private_metadata' => private_metadata,
+            'private_metadata' => private_metadata
           },
           return_type: ::OctridevClerk::Organization,
           decoder: :json,
           operation_id: 'replace_organization_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

@@ -16,24 +16,23 @@ module OctridevClerk
         revocation_reason: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'POST',
           [
-            "/api_keys/",
+            '/api_keys/',
             SdkClient.encode_path_segment(api_key_id),
-            "/revoke"
+            '/revoke'
           ].join,
           config: config,
           body: {
-            'revocation_reason' => revocation_reason,
+            'revocation_reason' => revocation_reason
           },
           return_type: ::OctridevClerk::Methods::ApiKeys::RevokeApiKeyResponse,
           decoder: :json,
           operation_id: 'revoke_api_key',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end

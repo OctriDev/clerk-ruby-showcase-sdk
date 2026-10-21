@@ -27,7 +27,6 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -35,21 +34,21 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            "/enterprise_connections/",
+            '/enterprise_connections/',
             SdkClient.encode_path_segment(enterprise_connection_id),
-            "/test_runs"
+            '/test_runs'
           ].join,
           config: config,
           query: {
             'status' => QueryValue.new(status, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::EnterpriseConnectionTestRuns,
           decoder: :json,
           operation_id: 'list_enterprise_connection_test_runs',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -61,20 +60,19 @@ module OctridevClerk
         enterprise_connection_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/enterprise_connections/",
+            '/enterprise_connections/',
             SdkClient.encode_path_segment(enterprise_connection_id),
-            "/test_runs"
+            '/test_runs'
           ].join,
           config: config,
           return_type: ::OctridevClerk::EnterpriseConnectionTestRunResponse,
           decoder: :json,
           operation_id: 'create_enterprise_connection_test_run',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end
