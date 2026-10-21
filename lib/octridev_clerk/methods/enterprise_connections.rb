@@ -9,558 +9,241 @@ module OctridevClerk
   module Methods
     # Defines the EnterpriseConnections SDK namespace.
     module EnterpriseConnections
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionSamlAttributeMappingMetadata
-        FIELDS = {
-          user_id: "user_id",
-          email_address: "email_address",
-          first_name: "first_name",
-          last_name: "last_name",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+      # Returns the list of enterprise connections for the instance. Results can be paginated using the optional `limit` and `offset` query parameters.
+      #
+      # @param limit [Integer] Applies a limit to the number of results returned.
+      #   Can be used for paginating the results together with `offset`.
+      # @param offset [Integer] Skip the first `offset` results when paginating.
+      #   Needs to be an integer greater or equal to zero. To be used in conjunction
+      #   with `limit`.
+      # @param organization_id [String] Filter enterprise connections by
+      #   organization ID
+      # @param active [Boolean] Filter by active status. If true, only active
+      #   connections are returned. If false, only inactive connections are returned.
+      #   If omitted, all connections are returned.
+      def self.list_enterprise_connections(
+        config:,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        organization_id: NOT_GIVEN,
+        active: NOT_GIVEN,
+        request_options: nil
+      )
+
+        Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
+
+        Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
+
+        SdkClient.request(
+          'GET',
+          "/enterprise_connections",
+          config: config,
+          query: {
+            'limit' => QueryValue.new(limit, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'organization_id' => QueryValue.new(organization_id, style: 'form', explode: true),
+            'active' => QueryValue.new(active, style: 'form', explode: true),
+          },
+          return_type: ::OctridevClerk::EnterpriseConnections,
+          decoder: :json,
+          operation_id: 'list_enterprise_connections',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
       end
 
-      # API model for CreateEnterpriseConnectionSamlAttributeMapping.
-      # Attribute mapping for SAML attributes
-      class CreateEnterpriseConnectionSamlAttributeMapping
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionSamlAttributeMappingMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionSamlAttributeMappingMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionSamlAttributeMappingMetadata::DECODERS
+      # Creates a new enterprise connection for an identity provider and associates it with one or more domains. Supply `name`, `provider`, and at least one valid fully qualified domain name in `domains`; choose `saml` or `oidc` settings to configure the connection for the selected provider. When `active` is true, provide IdP metadata in `saml` for SAML connections.
+      #
+      # Create a new enterprise connection.
+      #
+      # @param name [String] The display name of the connection
+      # @param provider [CreateEnterpriseConnectionProvider] The identity provider
+      #   (e.g. saml_custom, oidc_custom, oidc_github_enterprise, oidc_gitlab)
+      # @param domains [Array_of_String] Domains associated with the enterprise
+      #   connection (required; at least one). Values are normalized to lowercase.
+      #   Each domain must be a valid fully qualified domain name.
+      # @param organization_id [String] Organization ID when the connection is
+      #   linked to an organization
+      # @param allow_organization_account_linking [Boolean] Whether this connection
+      #   supports account linking via organization membership
+      # @param active [Boolean] Whether the enterprise connection is active. When
+      #   true, IdP metadata must be provided via the `saml` object.
+      # @param saml [CreateEnterpriseConnectionSaml] SAML connection-specific
+      #   properties. Only applied when the enterprise connection uses SAML (e.g.
+      #   provider is saml_custom). Use this to set IdP configuration, attribute
+      #   mapping, and other SAML-specific settings at creation time.
+      # @param oidc [CreateEnterpriseConnectionOidc] OIDC connection-specific
+      #   properties. Only applied when the enterprise connection uses OIDC (e.g.
+      #   provider is oidc_custom, oidc_github_enterprise, or oidc_gitlab).
+      # @param custom_attributes [Array_of_Hash] Custom attributes to map from the
+      #   IdP to the user's profile via SSO or SCIM provisioning. Requires the custom
+      #   attributes feature to be enabled for the instance.
+      def self.create_enterprise_connection(
+        config:,
+        name:,
+        provider:,
+        domains:,
+        organization_id: NOT_GIVEN,
+        allow_organization_account_linking: NOT_GIVEN,
+        active: NOT_GIVEN,
+        saml: NOT_GIVEN,
+        oidc: NOT_GIVEN,
+        custom_attributes: NOT_GIVEN,
+        request_options: nil
+      )
 
-        attr_reader :user_id, :email_address, :first_name, :last_name
+        Validation.validate_items('domains', domains, min: 1)
 
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
+        SdkClient.request(
+          'POST',
+          "/enterprise_connections",
+          config: config,
+          body: {
+            'name' => name,
+            'provider' => provider,
+            'domains' => domains,
+            'organization_id' => organization_id,
+            'allow_organization_account_linking' => allow_organization_account_linking,
+            'active' => active,
+            'saml' => saml,
+            'oidc' => oidc,
+            'custom_attributes' => custom_attributes,
+          },
+          return_type: ::OctridevClerk::EnterpriseConnection,
+          decoder: :json,
+          operation_id: 'create_enterprise_connection',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionSamlLoginHintMetadata
-        FIELDS = {
-          mode: "mode",
-          source: "source",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          mode
-        ].freeze
-        DECODERS = {
-          mode: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlLoginHintMode.from_value(value)
-          end,
-        }.freeze
+      # Fetches the enterprise connection whose ID matches the provided `enterprise_connection_id` in the path.
+      #
+      # @param enterprise_connection_id [String] The ID of the enterprise connection
+      singleton_class.define_method(:get_enterprise_connection) do |
+        config:,
+        enterprise_connection_id:,
+        request_options: nil
+      |
+
+        SdkClient.request(
+          'GET',
+          [
+            "/enterprise_connections/",
+            SdkClient.encode_path_segment(enterprise_connection_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::EnterpriseConnection,
+          decoder: :json,
+          operation_id: 'get_enterprise_connection',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
       end
 
-      # API model for CreateEnterpriseConnectionSamlLoginHint.
-      # Configuration for the login_hint sent to the IdP on SSO sign-in
-      class CreateEnterpriseConnectionSamlLoginHint
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionSamlLoginHintMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionSamlLoginHintMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionSamlLoginHintMetadata::DECODERS
+      # Updates the enterprise connection whose ID matches the provided `enterprise_connection_id` in the path. When enabling the connection (setting `active` to true), any existing verified organization domains that match the connection's domains (e.g. used for enrollment modes like automatic invitation) may be deleted so the connection can be enabled.
+      #
+      # @param enterprise_connection_id [String] The ID of the enterprise connection
+      #   to update
+      # @param name [String] The display name of the enterprise connection
+      # @param domains [Array_of_String] Domains associated with the enterprise
+      #   connection. Values are normalized to lowercase. Empty array means ignored
+      #   (no change); non-empty array means set domains to the given list (replaces
+      #   existing).
+      # @param active [Boolean] Whether the enterprise connection is active. When
+      #   set to true (enabling), any existing verified organization domains for the
+      #   same domain(s) will be removed so the connection can be enabled.
+      # @param sync_user_attributes [Boolean] Whether to sync user attributes on
+      #   sign-in
+      # @param disable_additional_identifications [Boolean] Whether to disable
+      #   additional identifications
+      # @param allow_organization_account_linking [Boolean] Whether this connection
+      #   supports account linking via organization membership
+      # @param organization_id [String] Organization ID to link to this enterprise
+      #   connection. Only linking is supported; sending this field sets or changes
+      #   the linked organization. There is no way to unlink an organization once
+      #   linked.
+      # @param saml [UpdateEnterpriseConnectionSaml] SAML connection-specific
+      #   properties. Only applied when the enterprise connection uses SAML. Use this
+      #   to update IdP configuration, attribute mapping, and other SAML-specific
+      #   settings.
+      # @param oidc [UpdateEnterpriseConnectionOidc] OIDC connection-specific
+      #   properties. Only applied when the enterprise connection uses OIDC (e.g.
+      #   oidc_custom, oidc_github_enterprise, or oidc_gitlab).
+      # @param custom_attributes [Array_of_Hash] Custom attributes to map from the
+      #   IdP to the user's profile via SSO or SCIM provisioning. Requires the custom
+      #   attributes feature to be enabled for the instance.
+      def self.update_enterprise_connection(
+        config:,
+        enterprise_connection_id:,
+        name: NOT_GIVEN,
+        domains: NOT_GIVEN,
+        active: NOT_GIVEN,
+        sync_user_attributes: NOT_GIVEN,
+        disable_additional_identifications: NOT_GIVEN,
+        allow_organization_account_linking: NOT_GIVEN,
+        organization_id: NOT_GIVEN,
+        saml: NOT_GIVEN,
+        oidc: NOT_GIVEN,
+        custom_attributes: NOT_GIVEN,
+        request_options: nil
+      )
 
-        # @return [CreateEnterpriseConnectionSamlLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
-        attr_reader :mode
-        # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
-        attr_reader :source
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
+        SdkClient.request(
+          'PATCH',
+          [
+            "/enterprise_connections/",
+            SdkClient.encode_path_segment(enterprise_connection_id)
+          ].join,
+          config: config,
+          body: {
+            'name' => name,
+            'domains' => domains,
+            'active' => active,
+            'sync_user_attributes' => sync_user_attributes,
+            'disable_additional_identifications' => disable_additional_identifications,
+            'allow_organization_account_linking' => allow_organization_account_linking,
+            'organization_id' => organization_id,
+            'saml' => saml,
+            'oidc' => oidc,
+            'custom_attributes' => custom_attributes,
+          },
+          return_type: ::OctridevClerk::EnterpriseConnection,
+          decoder: :json,
+          operation_id: 'update_enterprise_connection',
+          request_options: request_options,
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+        ).data
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionSamlMetadata
-        FIELDS = {
-          idp_entity_id: "idp_entity_id",
-          idp_sso_url: "idp_sso_url",
-          idp_certificate: "idp_certificate",
-          idp_certificates: "idp_certificates",
-          idp_metadata_url: "idp_metadata_url",
-          idp_metadata: "idp_metadata",
-          attribute_mapping: "attribute_mapping",
-          allow_subdomains: "allow_subdomains",
-          allow_idp_initiated: "allow_idp_initiated",
-          force_authn: "force_authn",
-          login_hint: "login_hint",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-          attribute_mapping: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlAttributeMapping.from_hash(value)
-          end,
-          login_hint: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSamlLoginHint.from_hash(value)
-          end,
-        }.freeze
-      end
+      # Deletes the enterprise connection whose ID matches the provided `enterprise_connection_id` in the path.
+      #
+      # @param enterprise_connection_id [String] The ID of the enterprise connection
+      #   to delete
+      def self.delete_enterprise_connection(
+        config:,
+        enterprise_connection_id:,
+        request_options: nil
+      )
 
-      # API model for CreateEnterpriseConnectionSaml.
-      # SAML connection-specific properties. Only applied when the enterprise connection uses SAML (e.g. provider is saml_custom). Use this to set IdP configuration, attribute mapping, and other SAML-specific settings at creation time.
-      class CreateEnterpriseConnectionSaml
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionSamlMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionSamlMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionSamlMetadata::DECODERS
-
-        attr_reader :allow_subdomains, :allow_idp_initiated, :force_authn
-        # @return [String] IdP entity ID
-        attr_reader :idp_entity_id
-        # @return [String] IdP SSO URL
-        attr_reader :idp_sso_url
-        # @return [String] Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated PEM certificates; replaces the connection's whole certificate set
-        attr_reader :idp_certificate
-        # @return [Array_of_String] The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64. Replaces the connection's whole certificate set and takes precedence over idp_certificate
-        attr_reader :idp_certificates
-        # @return [String] URL to IdP metadata
-        attr_reader :idp_metadata_url
-        # @return [String] Raw IdP metadata XML
-        attr_reader :idp_metadata
-        # @return [CreateEnterpriseConnectionSamlAttributeMapping] Attribute mapping for SAML attributes
-        attr_reader :attribute_mapping
-        # @return [CreateEnterpriseConnectionSamlLoginHint] Configuration for the login_hint sent to the IdP on SSO sign-in
-        attr_reader :login_hint
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionOidcMetadata
-        FIELDS = {
-          client_id: "client_id",
-          client_secret: "client_secret",
-          discovery_url: "discovery_url",
-          auth_url: "auth_url",
-          token_url: "token_url",
-          user_info_url: "user_info_url",
-          requires_pkce: "requires_pkce",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for CreateEnterpriseConnectionOidc.
-      # OIDC connection-specific properties. Only applied when the enterprise connection uses OIDC (e.g. provider is oidc_custom, oidc_github_enterprise, or oidc_gitlab).
-      class CreateEnterpriseConnectionOidc
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionOidcMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionOidcMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionOidcMetadata::DECODERS
-
-        # @return [String] OIDC client ID
-        attr_reader :client_id
-        # @return [String] OIDC client secret
-        attr_reader :client_secret
-        # @return [String] OIDC discovery URL
-        attr_reader :discovery_url
-        # @return [String] OIDC authorization URL
-        attr_reader :auth_url
-        # @return [String] OIDC token URL
-        attr_reader :token_url
-        # @return [String] OIDC userinfo URL
-        attr_reader :user_info_url
-        # @return [Boolean] Whether PKCE is required (must be true for public clients with no client secret)
-        attr_reader :requires_pkce
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionCustomAttributesItemMetadata
-        FIELDS = {
-          name: "name",
-          key: "key",
-          sso_path: "sso_path",
-          scim_path: "scim_path",
-          directory_path: "directory_path",
-          multi_valued: "multi_valued",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          name
-          key
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for CreateEnterpriseConnectionCustomAttributesItem.
-      class CreateEnterpriseConnectionCustomAttributesItem
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionCustomAttributesItemMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionCustomAttributesItemMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionCustomAttributesItemMetadata::DECODERS
-
-        # @return [String] Display name for the custom attribute
-        attr_reader :name
-        # @return [String] Key used to store the attribute in the user's metadata
-        attr_reader :key
-        # @return [String] Path to extract the attribute value from SSO claims
-        attr_reader :sso_path
-        # @return [String] GJSON path to extract the attribute value from SCIM user resources
-        attr_reader :scim_path
-        # @return [String] The new name for `scim_path`. Send either one, or both with the same value; sending both with different values is rejected.
-        attr_reader :directory_path
-        # @return [Boolean] When true, the attribute supports multiple values; values from the IdP are written to public_metadata as an array. Defaults to false.
-        attr_reader :multi_valued
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalCreateEnterpriseConnectionMetadata
-        FIELDS = {
-          name: "name",
-          provider: "provider",
-          domains: "domains",
-          organization_id: "organization_id",
-          allow_organization_account_linking: "allow_organization_account_linking",
-          active: "active",
-          saml: "saml",
-          oidc: "oidc",
-          custom_attributes: "custom_attributes",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          name
-          provider
-          domains
-        ].freeze
-        DECODERS = {
-          provider: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionProvider.from_value(value)
-          end,
-          saml: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionSaml.from_hash(value)
-          end,
-          oidc: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionOidc.from_hash(value)
-          end,
-          custom_attributes: lambda do |value|
-            value&.map { |item| ::OctridevClerk::Methods::EnterpriseConnections::CreateEnterpriseConnectionCustomAttributesItem.from_hash(item) }
-          end,
-        }.freeze
-      end
-
-      # API model for CreateEnterpriseConnection.
-      class CreateEnterpriseConnection
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateEnterpriseConnectionMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateEnterpriseConnectionMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateEnterpriseConnectionMetadata::DECODERS
-
-        # @return [String] The display name of the connection
-        attr_reader :name
-        # @return [CreateEnterpriseConnectionProvider] The identity provider (e.g. saml_custom, oidc_custom, oidc_github_enterprise, oidc_gitlab)
-        attr_reader :provider
-        # @return [Array_of_String] Domains associated with the enterprise connection (required; at least one). Values are normalized to lowercase. Each domain must be a valid fully qualified domain name.
-        attr_reader :domains
-        # @return [String] Organization ID when the connection is linked to an organization
-        attr_reader :organization_id
-        # @return [Boolean] Whether this connection supports account linking via organization membership
-        attr_reader :allow_organization_account_linking
-        # @return [Boolean] Whether the enterprise connection is active. When true, IdP metadata must be provided via the `saml` object.
-        attr_reader :active
-        # @return [CreateEnterpriseConnectionSaml] SAML connection-specific properties. Only applied when the enterprise connection uses SAML (e.g. provider is saml_custom). Use this to set IdP configuration, attribute mapping, and other SAML-specific settings at creation time.
-        attr_reader :saml
-        # @return [CreateEnterpriseConnectionOidc] OIDC connection-specific properties. Only applied when the enterprise connection uses OIDC (e.g. provider is oidc_custom, oidc_github_enterprise, or oidc_gitlab).
-        attr_reader :oidc
-        # @return [Array_of_CreateEnterpriseConnectionCustomAttributesItem] Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning. Requires the custom attributes feature to be enabled for the instance.
-        attr_reader :custom_attributes
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateEnterpriseConnectionSamlAttributeMappingMetadata
-        FIELDS = {
-          user_id: "user_id",
-          email_address: "email_address",
-          first_name: "first_name",
-          last_name: "last_name",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for UpdateEnterpriseConnectionSamlAttributeMapping.
-      # Attribute mapping for SAML attributes
-      class UpdateEnterpriseConnectionSamlAttributeMapping
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateEnterpriseConnectionSamlAttributeMappingMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateEnterpriseConnectionSamlAttributeMappingMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateEnterpriseConnectionSamlAttributeMappingMetadata::DECODERS
-
-        attr_reader :user_id, :email_address, :first_name, :last_name
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateEnterpriseConnectionSamlLoginHintMetadata
-        FIELDS = {
-          mode: "mode",
-          source: "source",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          mode
-        ].freeze
-        DECODERS = {
-          mode: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlLoginHintMode.from_value(value)
-          end,
-        }.freeze
-      end
-
-      # API model for UpdateEnterpriseConnectionSamlLoginHint.
-      # Configuration for the login_hint sent to the IdP on SSO sign-in
-      class UpdateEnterpriseConnectionSamlLoginHint
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateEnterpriseConnectionSamlLoginHintMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateEnterpriseConnectionSamlLoginHintMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateEnterpriseConnectionSamlLoginHintMetadata::DECODERS
-
-        # @return [UpdateEnterpriseConnectionSamlLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
-        attr_reader :mode
-        # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
-        attr_reader :source
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateEnterpriseConnectionSamlMetadata
-        FIELDS = {
-          name: "name",
-          idp_entity_id: "idp_entity_id",
-          idp_sso_url: "idp_sso_url",
-          idp_certificate: "idp_certificate",
-          idp_certificates: "idp_certificates",
-          idp_metadata_url: "idp_metadata_url",
-          idp_metadata: "idp_metadata",
-          attribute_mapping: "attribute_mapping",
-          allow_subdomains: "allow_subdomains",
-          allow_idp_initiated: "allow_idp_initiated",
-          force_authn: "force_authn",
-          login_hint: "login_hint",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-          attribute_mapping: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlAttributeMapping.from_hash(value)
-          end,
-          login_hint: lambda do |value|
-            ::OctridevClerk::Methods::EnterpriseConnections::UpdateEnterpriseConnectionSamlLoginHint.from_hash(value)
-          end,
-        }.freeze
-      end
-
-      # API model for UpdateEnterpriseConnectionSaml.
-      # SAML connection-specific properties. Only applied when the enterprise connection uses SAML. Use this to update IdP configuration, attribute mapping, and other SAML-specific settings.
-      class UpdateEnterpriseConnectionSaml
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateEnterpriseConnectionSamlMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateEnterpriseConnectionSamlMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateEnterpriseConnectionSamlMetadata::DECODERS
-
-        attr_reader :allow_subdomains, :allow_idp_initiated, :force_authn
-        # @return [String] Display name of the SAML connection
-        attr_reader :name
-        # @return [String] IdP entity ID
-        attr_reader :idp_entity_id
-        # @return [String] IdP SSO URL
-        attr_reader :idp_sso_url
-        # @return [String] Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated PEM certificates; replaces the connection's whole certificate set
-        attr_reader :idp_certificate
-        # @return [Array_of_String] The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64. Replaces the connection's whole certificate set and takes precedence over idp_certificate
-        attr_reader :idp_certificates
-        # @return [String] URL to IdP metadata
-        attr_reader :idp_metadata_url
-        # @return [String] Raw IdP metadata XML
-        attr_reader :idp_metadata
-        # @return [UpdateEnterpriseConnectionSamlAttributeMapping] Attribute mapping for SAML attributes
-        attr_reader :attribute_mapping
-        # @return [UpdateEnterpriseConnectionSamlLoginHint] Configuration for the login_hint sent to the IdP on SSO sign-in
-        attr_reader :login_hint
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateEnterpriseConnectionOidcMetadata
-        FIELDS = {
-          client_id: "client_id",
-          client_secret: "client_secret",
-          discovery_url: "discovery_url",
-          auth_url: "auth_url",
-          token_url: "token_url",
-          user_info_url: "user_info_url",
-          requires_pkce: "requires_pkce",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for UpdateEnterpriseConnectionOidc.
-      # OIDC connection-specific properties. Only applied when the enterprise connection uses OIDC (e.g. oidc_custom, oidc_github_enterprise, or oidc_gitlab).
-      class UpdateEnterpriseConnectionOidc
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateEnterpriseConnectionOidcMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateEnterpriseConnectionOidcMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateEnterpriseConnectionOidcMetadata::DECODERS
-
-        # @return [String] OIDC client ID
-        attr_reader :client_id
-        # @return [String] OIDC client secret
-        attr_reader :client_secret
-        # @return [String] OIDC discovery URL
-        attr_reader :discovery_url
-        # @return [String] OIDC authorization URL
-        attr_reader :auth_url
-        # @return [String] OIDC token URL
-        attr_reader :token_url
-        # @return [String] OIDC userinfo URL
-        attr_reader :user_info_url
-        # @return [Boolean] Whether PKCE is required (must be true for public clients with no client secret)
-        attr_reader :requires_pkce
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateEnterpriseConnectionCustomAttributesItemMetadata
-        FIELDS = {
-          name: "name",
-          key: "key",
-          sso_path: "sso_path",
-          scim_path: "scim_path",
-          directory_path: "directory_path",
-          multi_valued: "multi_valued",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          name
-          key
-        ].freeze
-        DECODERS = {
-        }.freeze
+        SdkClient.request(
+          'DELETE',
+          [
+            "/enterprise_connections/",
+            SdkClient.encode_path_segment(enterprise_connection_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::DeletedObject,
+          decoder: :json,
+          operation_id: 'delete_enterprise_connection',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+        ).data
       end
     end
   end
 end
 
-require_relative 'enterprise_connections_part_2'
+require_relative 'enterprise_connections_types'
+require_relative 'enterprise_connections_update_enterprise_connection_custom_attributes_item'
+require_relative 'enterprise_connections_test_runs'

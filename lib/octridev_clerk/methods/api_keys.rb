@@ -9,554 +9,193 @@ module OctridevClerk
   module Methods
     # Defines the ApiKeys SDK namespace.
     module ApiKeys
-      # Internal model hydration metadata.
-      class SdkInternalCreateApiKeyMetadata
-        FIELDS = {
-          type: "type",
-          name: "name",
-          description: "description",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          created_by: "created_by",
-          seconds_until_expiration: "seconds_until_expiration",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          name
-          subject
-        ].freeze
-        DECODERS = {
-        }.freeze
+      # Creates an API key for the specified subject. Supply `name` and `subject`, and provide optional claims, scopes, creator, and expiration settings as needed. The response includes the key secret, so handle it as a credential.
+      def self.create_api_key(
+        config:,
+        name:,
+        subject:,
+        type: NOT_GIVEN,
+        description: NOT_GIVEN,
+        claims: NOT_GIVEN,
+        scopes: NOT_GIVEN,
+        created_by: NOT_GIVEN,
+        seconds_until_expiration: NOT_GIVEN,
+        request_options: nil
+      )
+
+        Validation.validate_length('name', name, min: 3)
+        Validation.validate_pattern('name', name, '^(\\S(.*\\S)?)?$')
+
+        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
+
+        Validation.if_given(type) { Validation.validate_length('type', type, min: 3, max: 25) }
+
+        Validation.if_given(description) { Validation.validate_length('description', description, max: 255) }
+
+        Validation.if_given(created_by) do
+          Validation.validate_pattern('created_by', created_by, '^user_\\w{27}$')
+        end
+
+        Validation.if_given(seconds_until_expiration) do
+          Validation.validate_range('seconds_until_expiration', seconds_until_expiration, exclusive_min: 0)
+        end
+
+        SdkClient.request(
+          'POST',
+          "/api_keys",
+          config: config,
+          body: {
+            'name' => name,
+            'subject' => subject,
+            'type' => type,
+            'description' => description,
+            'claims' => claims,
+            'scopes' => scopes,
+            'created_by' => created_by,
+            'seconds_until_expiration' => seconds_until_expiration,
+          },
+          return_type: ::OctridevClerk::Methods::ApiKeys::CreateApiKeyResponse,
+          decoder: :json,
+          operation_id: 'create_api_key',
+          request_options: request_options,
+        ).data
       end
 
-      # API model for CreateApiKey.
-      class CreateApiKey
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateApiKeyMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateApiKeyMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateApiKeyMetadata::DECODERS
+      # Lists API keys associated with a specified subject. Use `include_invalid` to control whether invalid keys are included, and use `query` to filter the results. Use `limit` and `offset` to paginate the results.
+      def self.list_api_keys(
+        config:,
+        subject:,
+        type: NOT_GIVEN,
+        include_invalid: NOT_GIVEN,
+        limit: NOT_GIVEN,
+        offset: NOT_GIVEN,
+        query: NOT_GIVEN,
+        request_options: nil
+      )
 
-        attr_reader :type, :name, :description, :subject, :claims, :scopes, :created_by,
-                    :seconds_until_expiration
+        Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
 
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
+        Validation.if_given(type) { Validation.validate_length('type', type, min: 3) }
 
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
+        Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 100) }
 
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
+        Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
+
+        SdkClient.request(
+          'GET',
+          "/api_keys",
+          config: config,
+          query: {
+            'subject' => QueryValue.new(subject, style: 'form', explode: true),
+            'type' => QueryValue.new(type, style: 'form', explode: true),
+            'include_invalid' => QueryValue.new(include_invalid, style: 'form', explode: true),
+            'limit' => QueryValue.new(limit, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'query' => QueryValue.new(query, style: 'form', explode: true),
+          },
+          return_type: ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponse,
+          decoder: :json,
+          operation_id: 'list_api_keys',
+          request_options: request_options,
+        ).data
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalCreateApiKeyResponseMetadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          secret: "secret",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          type
-          subject
-          name
-          claims
-          scopes
-          secret
-          revoked
-          revocation_reason
-          expired
-          expiration
-          created_by
-          last_used_at
-          created_at
-          updated_at
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::CreateApiKeyResponseObject.from_value(value)
-          end,
-        }.freeze
-        NULLABLE_FIELDS = %i[
-          claims
-          revocation_reason
-          expiration
-          created_by
-          last_used_at
-        ].freeze
+      # Retrieves an API key by its identifier. Supply the key ID in the path using either the `ak_` or `api_key_` prefix followed by 32 hexadecimal characters. The response contains the key's configuration and status.
+      singleton_class.define_method(:get_api_key) do |
+        config:,
+        api_key_id:,
+        request_options: nil
+      |
+
+        Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
+
+        SdkClient.request(
+          'GET',
+          [
+            "/api_keys/",
+            SdkClient.encode_path_segment(api_key_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::Methods::ApiKeys::GetApiKeyResponse,
+          decoder: :json,
+          operation_id: 'get_api_key',
+          request_options: request_options,
+        ).data
       end
 
-      # API model for CreateApiKeyResponse.
-      class CreateApiKeyResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateApiKeyResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateApiKeyResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateApiKeyResponseMetadata::DECODERS
+      # Updates configurable properties of an API key. Include only the fields you want to change, such as `scopes`, `description`, `subject`, or `seconds_until_expiration`. The response contains the updated API key object.
+      def self.update_api_key(
+        config:,
+        api_key_id:,
+        claims: NOT_GIVEN,
+        scopes: NOT_GIVEN,
+        description: NOT_GIVEN,
+        subject: NOT_GIVEN,
+        seconds_until_expiration: NOT_GIVEN,
+        request_options: nil
+      )
 
-        attr_reader :object, :id, :type, :subject, :name, :description, :claims, :scopes, :secret,
-                    :revoked, :revocation_reason, :expired, :created_by
-        # @return [Float] The timestamp for when the API key will expire, in milliseconds
-        attr_reader :expiration
-        # @return [Float] The timestamp for when the API key was last used, in milliseconds
-        attr_reader :last_used_at
-        # @return [Float] The timestamp for when the API key was created, in milliseconds
-        attr_reader :created_at
-        # @return [Float] The timestamp for when the API key was last updated, in milliseconds
-        attr_reader :updated_at
+        Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
+        Validation.if_given(description) { Validation.validate_length('description', description, max: 255) }
+
+        Validation.if_given(subject) do
+          Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
         end
 
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCreateApiKeyResponseMetadata::NULLABLE_FIELDS)
+        Validation.if_given(seconds_until_expiration) do
+          Validation.validate_range('seconds_until_expiration', seconds_until_expiration, exclusive_min: 0)
         end
 
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
+        SdkClient.request(
+          'PATCH',
+          [
+            "/api_keys/",
+            SdkClient.encode_path_segment(api_key_id)
+          ].join,
+          config: config,
+          body: {
+            'claims' => claims,
+            'scopes' => scopes,
+            'description' => description,
+            'subject' => subject,
+            'seconds_until_expiration' => seconds_until_expiration,
+          },
+          return_type: ::OctridevClerk::Methods::ApiKeys::UpdateApiKeyResponse,
+          decoder: :json,
+          operation_id: 'update_api_key',
+          request_options: request_options,
+        ).data
       end
 
-      # Internal model hydration metadata.
-      class SdkInternalListApiKeysResponseDataItemMetadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          type
-          subject
-          name
-          claims
-          scopes
-          revoked
-          revocation_reason
-          expired
-          expiration
-          created_by
-          last_used_at
-          created_at
-          updated_at
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponseDataItemObject.from_value(value)
-          end,
-        }.freeze
-        NULLABLE_FIELDS = %i[
-          claims
-          revocation_reason
-          expiration
-          created_by
-          last_used_at
-        ].freeze
-      end
+      # Deletes an API key identified by its ID. Supply the identifier using the `ak_` or `api_key_` prefix followed by 32 hexadecimal characters. The response confirms that the key was deleted.
+      def self.delete_api_key(
+        config:,
+        api_key_id:,
+        request_options: nil
+      )
 
-      # API model for ListApiKeysResponseDataItem.
-      class ListApiKeysResponseDataItem
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalListApiKeysResponseDataItemMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalListApiKeysResponseDataItemMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalListApiKeysResponseDataItemMetadata::DECODERS
+        Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
-        attr_reader :object, :id, :type, :subject, :name, :description, :claims, :scopes, :revoked,
-                    :revocation_reason, :expired, :created_by
-        # @return [Float] The timestamp for when the API key will expire, in milliseconds
-        attr_reader :expiration
-        # @return [Float] The timestamp for when the API key was last used, in milliseconds
-        attr_reader :last_used_at
-        # @return [Float] The timestamp for when the API key was created, in milliseconds
-        attr_reader :created_at
-        # @return [Float] The timestamp for when the API key was last updated, in milliseconds
-        attr_reader :updated_at
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalListApiKeysResponseDataItemMetadata::NULLABLE_FIELDS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalListApiKeysResponseMetadata
-        FIELDS = {
-          data: "data",
-          total_count: "total_count",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          data
-          total_count
-        ].freeze
-        DECODERS = {
-          data: lambda do |value|
-            value&.map { |item| ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponseDataItem.from_hash(item) }
-          end,
-        }.freeze
-      end
-
-      # API model for ListApiKeysResponse.
-      class ListApiKeysResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalListApiKeysResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalListApiKeysResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalListApiKeysResponseMetadata::DECODERS
-
-        attr_reader :data, :total_count
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalGetApiKeyResponseMetadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          type
-          subject
-          name
-          claims
-          scopes
-          revoked
-          revocation_reason
-          expired
-          expiration
-          created_by
-          last_used_at
-          created_at
-          updated_at
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::GetApiKeyResponseObject.from_value(value)
-          end,
-        }.freeze
-        NULLABLE_FIELDS = %i[
-          claims
-          revocation_reason
-          expiration
-          created_by
-          last_used_at
-        ].freeze
-      end
-
-      # API model for GetApiKeyResponse.
-      class GetApiKeyResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalGetApiKeyResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalGetApiKeyResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalGetApiKeyResponseMetadata::DECODERS
-
-        attr_reader :object, :id, :type, :subject, :name, :description, :claims, :scopes, :revoked,
-                    :revocation_reason, :expired, :created_by
-        # @return [Float] The timestamp for when the API key will expire, in milliseconds
-        attr_reader :expiration
-        # @return [Float] The timestamp for when the API key was last used, in milliseconds
-        attr_reader :last_used_at
-        # @return [Float] The timestamp for when the API key was created, in milliseconds
-        attr_reader :created_at
-        # @return [Float] The timestamp for when the API key was last updated, in milliseconds
-        attr_reader :updated_at
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalGetApiKeyResponseMetadata::NULLABLE_FIELDS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateApiKeyMetadata
-        FIELDS = {
-          claims: "claims",
-          scopes: "scopes",
-          description: "description",
-          subject: "subject",
-          seconds_until_expiration: "seconds_until_expiration",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for UpdateApiKey.
-      class UpdateApiKey
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateApiKeyMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateApiKeyMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateApiKeyMetadata::DECODERS
-
-        attr_reader :claims, :scopes, :description, :subject, :seconds_until_expiration
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateApiKeyResponseMetadata
-        FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          object
-          id
-          type
-          subject
-          name
-          claims
-          scopes
-          revoked
-          revocation_reason
-          expired
-          expiration
-          created_by
-          last_used_at
-          created_at
-          updated_at
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::UpdateApiKeyResponseObject.from_value(value)
-          end,
-        }.freeze
-        NULLABLE_FIELDS = %i[
-          claims
-          revocation_reason
-          expiration
-          created_by
-          last_used_at
-        ].freeze
-      end
-
-      # API model for UpdateApiKeyResponse.
-      class UpdateApiKeyResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateApiKeyResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateApiKeyResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateApiKeyResponseMetadata::DECODERS
-
-        attr_reader :object, :id, :type, :subject, :name, :description, :claims, :scopes, :revoked,
-                    :revocation_reason, :expired, :created_by
-        # @return [Float] The timestamp for when the API key will expire, in milliseconds
-        attr_reader :expiration
-        # @return [Float] The timestamp for when the API key was last used, in milliseconds
-        attr_reader :last_used_at
-        # @return [Float] The timestamp for when the API key was created, in milliseconds
-        attr_reader :created_at
-        # @return [Float] The timestamp for when the API key was last updated, in milliseconds
-        attr_reader :updated_at
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalUpdateApiKeyResponseMetadata::NULLABLE_FIELDS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalDeleteApiKeyResponseMetadata
-        FIELDS = {
-          id: "id",
-          object: "object",
-          deleted: "deleted",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          id
-          object
-          deleted
-        ].freeze
-        DECODERS = {
-          object: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::DeleteApiKeyResponseObject.from_value(value)
-          end,
-          deleted: lambda do |value|
-            ::OctridevClerk::Methods::ApiKeys::DeleteApiKeyResponseDeleted.from_value(value)
-          end,
-        }.freeze
-      end
-
-      # API model for DeleteApiKeyResponse.
-      class DeleteApiKeyResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalDeleteApiKeyResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalDeleteApiKeyResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalDeleteApiKeyResponseMetadata::DECODERS
-
-        attr_reader :id, :object, :deleted
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalGetApiKeySecretResponseMetadata
-        FIELDS = {
-          secret: "secret",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          secret
-        ].freeze
-        DECODERS = {
-        }.freeze
-      end
-
-      # API model for GetApiKeySecretResponse.
-      class GetApiKeySecretResponse
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalGetApiKeySecretResponseMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalGetApiKeySecretResponseMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalGetApiKeySecretResponseMetadata::DECODERS
-
-        attr_reader :secret
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalRevokeApiKeyMetadata
-        FIELDS = {
-          revocation_reason: "revocation_reason",
-        }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        SdkClient.request(
+          'DELETE',
+          [
+            "/api_keys/",
+            SdkClient.encode_path_segment(api_key_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::Methods::ApiKeys::DeleteApiKeyResponse,
+          decoder: :json,
+          operation_id: 'delete_api_key',
+          request_options: request_options,
+        ).data
       end
     end
   end
 end
 
-require_relative 'api_keys_part_2'
+require_relative 'api_keys_types'
+require_relative 'api_keys_revoke_api_key'
+require_relative 'api_keys_secret'
+require_relative 'api_keys_revoke'
+require_relative 'api_keys_verify'
