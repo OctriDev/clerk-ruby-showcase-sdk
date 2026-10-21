@@ -12,41 +12,40 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateUserMetadata
         FIELDS = {
-          external_id: "external_id",
-          first_name: "first_name",
-          last_name: "last_name",
-          locale: "locale",
-          timezone: "timezone",
-          email_address: "email_address",
-          email_address_identification_status: "email_address_identification_status",
-          phone_number: "phone_number",
-          phone_number_identification_status: "phone_number_identification_status",
-          web3_wallet: "web3_wallet",
-          username: "username",
-          password: "password",
-          password_digest: "password_digest",
-          password_hasher: "password_hasher",
-          skip_password_checks: "skip_password_checks",
-          skip_password_requirement: "skip_password_requirement",
-          skip_restriction_checks: "skip_restriction_checks",
-          totp_secret: "totp_secret",
-          backup_codes: "backup_codes",
-          public_metadata: "public_metadata",
-          private_metadata: "private_metadata",
-          unsafe_metadata: "unsafe_metadata",
-          delete_self_enabled: "delete_self_enabled",
-          legal_accepted_at: "legal_accepted_at",
-          skip_legal_checks: "skip_legal_checks",
-          skip_user_requirement: "skip_user_requirement",
-          create_organization_enabled: "create_organization_enabled",
-          create_organizations_limit: "create_organizations_limit",
-          created_at: "created_at",
-          bypass_client_trust: "bypass_client_trust",
-          banned: "banned",
-          locked: "locked",
+          external_id: 'external_id',
+          first_name: 'first_name',
+          last_name: 'last_name',
+          locale: 'locale',
+          timezone: 'timezone',
+          email_address: 'email_address',
+          email_address_identification_status: 'email_address_identification_status',
+          phone_number: 'phone_number',
+          phone_number_identification_status: 'phone_number_identification_status',
+          web3_wallet: 'web3_wallet',
+          username: 'username',
+          password: 'password',
+          password_digest: 'password_digest',
+          password_hasher: 'password_hasher',
+          skip_password_checks: 'skip_password_checks',
+          skip_password_requirement: 'skip_password_requirement',
+          skip_restriction_checks: 'skip_restriction_checks',
+          totp_secret: 'totp_secret',
+          backup_codes: 'backup_codes',
+          public_metadata: 'public_metadata',
+          private_metadata: 'private_metadata',
+          unsafe_metadata: 'unsafe_metadata',
+          delete_self_enabled: 'delete_self_enabled',
+          legal_accepted_at: 'legal_accepted_at',
+          skip_legal_checks: 'skip_legal_checks',
+          skip_user_requirement: 'skip_user_requirement',
+          create_organization_enabled: 'create_organization_enabled',
+          create_organizations_limit: 'create_organizations_limit',
+          created_at: 'created_at',
+          bypass_client_trust: 'bypass_client_trust',
+          banned: 'banned',
+          locked: 'locked'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           email_address_identification_status: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::Users::CreateUserEmailAddressIdentificationStatusItem.from_value(item) }
@@ -56,7 +55,7 @@ module OctridevClerk
           end,
           password_hasher: lambda do |value|
             ::OctridevClerk::PasswordHasher.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -149,38 +148,37 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateUserMetadata
         FIELDS = {
-          external_id: "external_id",
-          first_name: "first_name",
-          last_name: "last_name",
-          locale: "locale",
-          timezone: "timezone",
-          primary_email_address_id: "primary_email_address_id",
-          notify_primary_email_address_changed: "notify_primary_email_address_changed",
-          primary_phone_number_id: "primary_phone_number_id",
-          primary_web3_wallet_id: "primary_web3_wallet_id",
-          username: "username",
-          profile_image_id: "profile_image_id",
-          password: "password",
-          password_digest: "password_digest",
-          password_hasher: "password_hasher",
-          skip_password_checks: "skip_password_checks",
-          sign_out_of_other_sessions: "sign_out_of_other_sessions",
-          totp_secret: "totp_secret",
-          backup_codes: "backup_codes",
-          delete_self_enabled: "delete_self_enabled",
-          create_organization_enabled: "create_organization_enabled",
-          legal_accepted_at: "legal_accepted_at",
-          skip_legal_checks: "skip_legal_checks",
-          create_organizations_limit: "create_organizations_limit",
-          created_at: "created_at",
-          bypass_client_trust: "bypass_client_trust",
+          external_id: 'external_id',
+          first_name: 'first_name',
+          last_name: 'last_name',
+          locale: 'locale',
+          timezone: 'timezone',
+          primary_email_address_id: 'primary_email_address_id',
+          notify_primary_email_address_changed: 'notify_primary_email_address_changed',
+          primary_phone_number_id: 'primary_phone_number_id',
+          primary_web3_wallet_id: 'primary_web3_wallet_id',
+          username: 'username',
+          profile_image_id: 'profile_image_id',
+          password: 'password',
+          password_digest: 'password_digest',
+          password_hasher: 'password_hasher',
+          skip_password_checks: 'skip_password_checks',
+          sign_out_of_other_sessions: 'sign_out_of_other_sessions',
+          totp_secret: 'totp_secret',
+          backup_codes: 'backup_codes',
+          delete_self_enabled: 'delete_self_enabled',
+          create_organization_enabled: 'create_organization_enabled',
+          legal_accepted_at: 'legal_accepted_at',
+          skip_legal_checks: 'skip_legal_checks',
+          create_organizations_limit: 'create_organizations_limit',
+          created_at: 'created_at',
+          bypass_client_trust: 'bypass_client_trust'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           password_hasher: lambda do |value|
             ::OctridevClerk::PasswordHasher.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -259,13 +257,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalBanUsersBulkMetadata
         FIELDS = {
-          user_ids: "user_ids",
+          user_ids: 'user_ids'
         }.freeze
         REQUIRED_FIELDS = %i[
           user_ids
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for BanUsersBulk.
@@ -295,13 +292,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUnbanUsersBulkMetadata
         FIELDS = {
-          user_ids: "user_ids",
+          user_ids: 'user_ids'
         }.freeze
         REQUIRED_FIELDS = %i[
           user_ids
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UnbanUsersBulk.
@@ -331,12 +327,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSetUserProfileImageMetadata
         FIELDS = {
-          file: "file",
+          file: 'file'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for SetUserProfileImage.
@@ -365,14 +359,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateUserMetadataMetadata
         FIELDS = {
-          public_metadata: "public_metadata",
-          private_metadata: "private_metadata",
-          unsafe_metadata: "unsafe_metadata",
+          public_metadata: 'public_metadata',
+          private_metadata: 'private_metadata',
+          unsafe_metadata: 'unsafe_metadata'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateUserMetadata.
@@ -406,14 +398,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceUserMetadataMetadata
         FIELDS = {
-          public_metadata: "public_metadata",
-          private_metadata: "private_metadata",
-          unsafe_metadata: "unsafe_metadata",
+          public_metadata: 'public_metadata',
+          private_metadata: 'private_metadata',
+          unsafe_metadata: 'unsafe_metadata'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for ReplaceUserMetadata.
@@ -447,12 +437,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRemoveUserPasswordMetadata
         FIELDS = {
-          sign_out_of_other_sessions: "sign_out_of_other_sessions",
+          sign_out_of_other_sessions: 'sign_out_of_other_sessions'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RemoveUserPassword.
@@ -482,13 +470,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyPasswordMetadata
         FIELDS = {
-          password: "password",
+          password: 'password'
         }.freeze
         REQUIRED_FIELDS = %i[
           password
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for VerifyPassword.
@@ -518,12 +505,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyPasswordResponseMetadata
         FIELDS = {
-          verified: "verified",
+          verified: 'verified'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for VerifyPasswordResponse.
@@ -552,13 +537,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyTOTPMetadata
         FIELDS = {
-          code: "code",
+          code: 'code'
         }.freeze
         REQUIRED_FIELDS = %i[
           code
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
     end
   end

@@ -12,18 +12,17 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingsItemMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          directory_group_display_name: "directory_group_display_name",
-          scim_group_display_name: "scim_group_display_name",
-          role_id: "role_id",
-          precedence: "precedence",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          directory_group_display_name: 'directory_group_display_name',
+          scim_group_display_name: 'scim_group_display_name',
+          role_id: 'role_id',
+          precedence: 'precedence'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateDirectoryGroupRoleMappingsItem.
@@ -63,10 +62,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryMetadata
         FIELDS = {
-          enterprise_connection_id: "enterprise_connection_id",
-          name: "name",
-          provider: "provider",
-          group_role_mappings: "group_role_mappings",
+          enterprise_connection_id: 'enterprise_connection_id',
+          name: 'name',
+          provider: 'provider',
+          group_role_mappings: 'group_role_mappings'
         }.freeze
         REQUIRED_FIELDS = %i[
           enterprise_connection_id
@@ -75,7 +74,7 @@ module OctridevClerk
         DECODERS = {
           group_role_mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::Directories::CreateDirectoryGroupRoleMappingsItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -112,16 +111,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateDirectoryMetadata
         FIELDS = {
-          name: "name",
-          enabled: "enabled",
-          provider: "provider",
-          attribute_mapping: "attribute_mapping",
-          group_role_mapping_enabled: "group_role_mapping_enabled",
+          name: 'name',
+          enabled: 'enabled',
+          provider: 'provider',
+          attribute_mapping: 'attribute_mapping',
+          group_role_mapping_enabled: 'group_role_mapping_enabled'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateDirectory.
@@ -159,16 +156,15 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateDirectoryGroupRoleMappingMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          role_id: "role_id",
-          precedence: "precedence",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          role_id: 'role_id',
+          precedence: 'precedence'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateDirectoryGroupRoleMapping.
@@ -204,15 +200,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceDirectoryGroupRoleMappingsMappingsItemMetadata
         FIELDS = {
-          directory_group_id: "directory_group_id",
-          scim_group_id: "scim_group_id",
-          role_id: "role_id",
+          directory_group_id: 'directory_group_id',
+          scim_group_id: 'scim_group_id',
+          role_id: 'role_id'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_id
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for ReplaceDirectoryGroupRoleMappingsMappingsItem.
@@ -246,7 +241,7 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceDirectoryGroupRoleMappingsMetadata
         FIELDS = {
-          mappings: "mappings",
+          mappings: 'mappings'
         }.freeze
         REQUIRED_FIELDS = %i[
           mappings
@@ -254,7 +249,7 @@ module OctridevClerk
         DECODERS = {
           mappings: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::Directories::ReplaceDirectoryGroupRoleMappingsMappingsItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 

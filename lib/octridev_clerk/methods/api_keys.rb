@@ -22,7 +22,6 @@ module OctridevClerk
         seconds_until_expiration: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_length('name', name, min: 3)
         Validation.validate_pattern('name', name, '^(\\S(.*\\S)?)?$')
 
@@ -42,7 +41,7 @@ module OctridevClerk
 
         SdkClient.request(
           'POST',
-          "/api_keys",
+          '/api_keys',
           config: config,
           body: {
             'name' => name,
@@ -52,12 +51,12 @@ module OctridevClerk
             'claims' => claims,
             'scopes' => scopes,
             'created_by' => created_by,
-            'seconds_until_expiration' => seconds_until_expiration,
+            'seconds_until_expiration' => seconds_until_expiration
           },
           return_type: ::OctridevClerk::Methods::ApiKeys::CreateApiKeyResponse,
           decoder: :json,
           operation_id: 'create_api_key',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -72,7 +71,6 @@ module OctridevClerk
         query: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('subject', subject, '^(user|org|mch|scim)_\\w{27}$')
 
         Validation.if_given(type) { Validation.validate_length('type', type, min: 3) }
@@ -83,7 +81,7 @@ module OctridevClerk
 
         SdkClient.request(
           'GET',
-          "/api_keys",
+          '/api_keys',
           config: config,
           query: {
             'subject' => QueryValue.new(subject, style: 'form', explode: true),
@@ -91,35 +89,30 @@ module OctridevClerk
             'include_invalid' => QueryValue.new(include_invalid, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'offset' => QueryValue.new(offset, style: 'form', explode: true),
-            'query' => QueryValue.new(query, style: 'form', explode: true),
+            'query' => QueryValue.new(query, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponse,
           decoder: :json,
           operation_id: 'list_api_keys',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
       # Retrieves an API key by its identifier. Supply the key ID in the path using either the `ak_` or `api_key_` prefix followed by 32 hexadecimal characters. The response contains the key's configuration and status.
-      singleton_class.define_method(:get_api_key) do |
-        config:,
-        api_key_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_api_key) do |config:, api_key_id:, request_options: nil|
         Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'GET',
           [
-            "/api_keys/",
+            '/api_keys/',
             SdkClient.encode_path_segment(api_key_id)
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::ApiKeys::GetApiKeyResponse,
           decoder: :json,
           operation_id: 'get_api_key',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -134,7 +127,6 @@ module OctridevClerk
         seconds_until_expiration: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
         Validation.if_given(description) { Validation.validate_length('description', description, max: 255) }
@@ -150,7 +142,7 @@ module OctridevClerk
         SdkClient.request(
           'PATCH',
           [
-            "/api_keys/",
+            '/api_keys/',
             SdkClient.encode_path_segment(api_key_id)
           ].join,
           config: config,
@@ -159,12 +151,12 @@ module OctridevClerk
             'scopes' => scopes,
             'description' => description,
             'subject' => subject,
-            'seconds_until_expiration' => seconds_until_expiration,
+            'seconds_until_expiration' => seconds_until_expiration
           },
           return_type: ::OctridevClerk::Methods::ApiKeys::UpdateApiKeyResponse,
           decoder: :json,
           operation_id: 'update_api_key',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -174,20 +166,19 @@ module OctridevClerk
         api_key_id:,
         request_options: nil
       )
-
         Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'DELETE',
           [
-            "/api_keys/",
+            '/api_keys/',
             SdkClient.encode_path_segment(api_key_id)
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::ApiKeys::DeleteApiKeyResponse,
           decoder: :json,
           operation_id: 'delete_api_key',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end

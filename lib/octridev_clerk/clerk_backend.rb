@@ -192,16 +192,7 @@ module OctridevClerk
     end
 
     # The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state. It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
-    define_method(:get_public_interstitial) do |
-      frontend_api: NOT_GIVEN,
-      frontend_api2: NOT_GIVEN,
-      publishable_key: NOT_GIVEN,
-      proxy_url: NOT_GIVEN,
-      domain: NOT_GIVEN,
-      sign_in_url: NOT_GIVEN,
-      use_domain_for_script: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_public_interstitial) do |frontend_api: NOT_GIVEN, frontend_api2: NOT_GIVEN, publishable_key: NOT_GIVEN, proxy_url: NOT_GIVEN, domain: NOT_GIVEN, sign_in_url: NOT_GIVEN, use_domain_for_script: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Miscellaneous.get_public_interstitial(
         config: @config,
         frontend_api: frontend_api,
@@ -214,7 +205,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the JwksNamespace SDK type.
@@ -229,7 +219,6 @@ module OctridevClerk
     def get(request_options: nil)
       ::OctridevClerk::Methods::Jwks.get_jwks(config: @config, request_options: request_options)
     end
-
   end
 
   # Defines the ClientsNamespace SDK type.
@@ -275,7 +264,6 @@ module OctridevClerk
     )
       ::OctridevClerk::Methods::Clients.get_client(config: @config, client_id: client_id, request_options: request_options)
     end
-
   end
 
   # Defines the EmailAddressesNamespace SDK type.
@@ -309,10 +297,7 @@ module OctridevClerk
     # Retrieves an email address and its verification and association details. Use `email_address_id` to identify the address to inspect.
     #
     # Returns the details of an email address.
-    define_method(:get_email_address) do |
-      email_address_id:,
-      request_options: nil
-    |
+    define_method(:get_email_address) do |email_address_id:, request_options: nil|
       ::OctridevClerk::Methods::EmailAddresses.get_email_address(
         config: @config,
         email_address_id: email_address_id,
@@ -399,7 +384,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the PhoneNumbersNamespace SDK type.
@@ -521,7 +505,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SessionsNamespace SDK type.
@@ -605,11 +588,7 @@ module OctridevClerk
     end
 
     # Retrieve a reverification scoped to a session. A resource server can use this to validate a reverification id it received from its client: confirm it is real, scoped to the expected session, completed, and how fresh each factor is. Single-use / replay detection is the caller's responsibility (the id is stable, so the caller dedups consumed ids).
-    define_method(:get_reverification) do |
-      session_id:,
-      reverification_id:,
-      request_options: nil
-    |
+    define_method(:get_reverification) do |session_id:, reverification_id:, request_options: nil|
       ::OctridevClerk::Methods::Sessions.get_reverification(
         config: @config,
         session_id: session_id,
@@ -663,7 +642,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the EmailSmsTemplatesNamespace SDK type.
@@ -675,13 +653,7 @@ module OctridevClerk
     # Returns a list of all templates. The templates are returned sorted by position.
     #
     # @deprecated This operation is deprecated and may be removed in a future release.
-    define_method(:get_template_list) do |
-      template_type:,
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_template_list) do |template_type:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::EmailSmsTemplates.get_template_list(
         config: @config,
         template_type: template_type,
@@ -697,11 +669,7 @@ module OctridevClerk
     # Returns the details of a template
     #
     # @deprecated This operation is deprecated and may be removed in a future release.
-    define_method(:get_template) do |
-      template_type:,
-      slug:,
-      request_options: nil
-    |
+    define_method(:get_template) do |template_type:, slug:, request_options: nil|
       ::OctridevClerk::Methods::EmailSmsTemplates.get_template(
         config: @config,
         template_type: template_type,
@@ -801,7 +769,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the UsersNamespace SDK type.
@@ -947,31 +914,7 @@ module OctridevClerk
     end
 
     # Returns a total count of all users that match the given filtering criteria.
-    define_method(:get_count) do |
-      email_address: NOT_GIVEN,
-      phone_number: NOT_GIVEN,
-      external_id: NOT_GIVEN,
-      username: NOT_GIVEN,
-      web3_wallet: NOT_GIVEN,
-      user_id: NOT_GIVEN,
-      organization_id: NOT_GIVEN,
-      query: NOT_GIVEN,
-      email_address_query: NOT_GIVEN,
-      phone_number_query: NOT_GIVEN,
-      username_query: NOT_GIVEN,
-      name_query: NOT_GIVEN,
-      banned: NOT_GIVEN,
-      last_active_at_before: NOT_GIVEN,
-      last_active_at_after: NOT_GIVEN,
-      last_active_at_since: NOT_GIVEN,
-      created_at_before: NOT_GIVEN,
-      created_at_after: NOT_GIVEN,
-      last_sign_in_at_before: NOT_GIVEN,
-      last_sign_in_at_after: NOT_GIVEN,
-      provider: NOT_GIVEN,
-      provider_user_id: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_count) do |email_address: NOT_GIVEN, phone_number: NOT_GIVEN, external_id: NOT_GIVEN, username: NOT_GIVEN, web3_wallet: NOT_GIVEN, user_id: NOT_GIVEN, organization_id: NOT_GIVEN, query: NOT_GIVEN, email_address_query: NOT_GIVEN, phone_number_query: NOT_GIVEN, username_query: NOT_GIVEN, name_query: NOT_GIVEN, banned: NOT_GIVEN, last_active_at_before: NOT_GIVEN, last_active_at_after: NOT_GIVEN, last_active_at_since: NOT_GIVEN, created_at_before: NOT_GIVEN, created_at_after: NOT_GIVEN, last_sign_in_at_before: NOT_GIVEN, last_sign_in_at_after: NOT_GIVEN, provider: NOT_GIVEN, provider_user_id: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Users.get_users_count(
         config: @config,
         email_address: email_address,
@@ -1203,10 +1146,7 @@ module OctridevClerk
     end
 
     # Retrieves the billing subscription for the specified user. This includes subscription details, active plans, billing information, and payment status. The subscription contains subscription items which represent the individual plans the user is subscribed to.
-    define_method(:get_billing_subscription) do |
-      user_id:,
-      request_options: nil
-    |
+    define_method(:get_billing_subscription) do |user_id:, request_options: nil|
       ::OctridevClerk::Methods::Users.get_user_billing_subscription(
         config: @config,
         user_id: user_id,
@@ -1215,10 +1155,7 @@ module OctridevClerk
     end
 
     # Retrieves the current credit balance for the specified user. Credits can be applied during checkout to reduce the charge or automatically applied to upcoming recurring charges
-    define_method(:get_billing_credit_balance) do |
-      user_id:,
-      request_options: nil
-    |
+    define_method(:get_billing_credit_balance) do |user_id:, request_options: nil|
       ::OctridevClerk::Methods::Users.get_user_billing_credit_balance(
         config: @config,
         user_id: user_id,
@@ -1249,14 +1186,7 @@ module OctridevClerk
     end
 
     # Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider. For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
-    define_method(:get_oauth_access_token) do |
-      user_id:,
-      provider:,
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_oauth_access_token) do |user_id:, provider:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Users.get_oauth_access_token(
         config: @config,
         user_id: user_id,
@@ -1269,12 +1199,7 @@ module OctridevClerk
     end
 
     # Retrieve a paginated list of the user's organization memberships
-    define_method(:get_organization_memberships) do |
-      user_id:,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_organization_memberships) do |user_id:, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Users.users_get_organization_memberships(
         config: @config,
         user_id: user_id,
@@ -1285,13 +1210,7 @@ module OctridevClerk
     end
 
     # Retrieve a paginated list of the user's organization invitations
-    define_method(:get_organization_invitations) do |
-      user_id:,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      status: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_organization_invitations) do |user_id:, limit: NOT_GIVEN, offset: NOT_GIVEN, status: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Users.users_get_organization_invitations(
         config: @config,
         user_id: user_id,
@@ -1499,7 +1418,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the InvitationsNamespace SDK type.
@@ -1591,7 +1509,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationInvitationsNamespace SDK type.
@@ -1733,7 +1650,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the AllowListBlockListNamespace SDK type.
@@ -1819,7 +1735,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaFeaturesNamespace SDK type.
@@ -1877,7 +1792,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ActorTokensNamespace SDK type.
@@ -1917,7 +1831,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the DomainsNamespace SDK type.
@@ -1972,7 +1885,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the InstanceSettingsNamespace SDK type.
@@ -2151,7 +2063,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the WebhooksNamespace SDK type.
@@ -2174,7 +2085,6 @@ module OctridevClerk
     def generate_svix_auth_url(request_options: nil)
       ::OctridevClerk::Methods::V35f83988.generate_svix_auth_url(config: @config, request_options: request_options)
     end
-
   end
 
   # Defines the JwtTemplatesNamespace SDK type.
@@ -2278,7 +2188,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the MachinesNamespace SDK type.
@@ -2370,10 +2279,7 @@ module OctridevClerk
     # Retrieves the secret key for a machine. Use the `machine_id` to identify which machine's key you need.
     #
     # Returns the secret key for a machine.
-    define_method(:get_secret_key) do |
-      machine_id:,
-      request_options: nil
-    |
+    define_method(:get_secret_key) do |machine_id:, request_options: nil|
       ::OctridevClerk::Methods::Machines.get_machine_secret_key(
         config: @config,
         machine_id: machine_id,
@@ -2422,7 +2328,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationsNamespace SDK type.
@@ -2606,10 +2511,7 @@ module OctridevClerk
     end
 
     # Retrieves the billing subscription for the specified organization. This includes subscription details, active plans, billing information, and payment status. The subscription contains subscription items which represent the individual plans the organization is subscribed to.
-    define_method(:get_billing_subscription) do |
-      organization_id:,
-      request_options: nil
-    |
+    define_method(:get_billing_subscription) do |organization_id:, request_options: nil|
       ::OctridevClerk::Methods::Organizations.get_organization_billing_subscription(
         config: @config,
         organization_id: organization_id,
@@ -2618,10 +2520,7 @@ module OctridevClerk
     end
 
     # Retrieves the current credit balance for the specified organization. Credits can be applied during checkout to reduce the charge or automatically applied to upcoming recurring charges.
-    define_method(:get_billing_credit_balance) do |
-      organization_id:,
-      request_options: nil
-    |
+    define_method(:get_billing_credit_balance) do |organization_id:, request_options: nil|
       ::OctridevClerk::Methods::Organizations.get_organization_billing_credit_balance(
         config: @config,
         organization_id: organization_id,
@@ -2650,7 +2549,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationRolesNamespace SDK type.
@@ -2772,7 +2670,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationMembershipsNamespace SDK type.
@@ -2912,7 +2809,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationDomainsNamespace SDK type.
@@ -3034,7 +2930,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ProxyChecksNamespace SDK type.
@@ -3056,7 +2951,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the RedirectUrlsNamespace SDK type.
@@ -3106,7 +3000,6 @@ module OctridevClerk
     )
       ::OctridevClerk::Methods::RedirectUrls.delete_redirect_url(config: @config, id: id, request_options: request_options)
     end
-
   end
 
   # Defines the SignInTokensNamespace SDK type.
@@ -3146,7 +3039,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SignUpsNamespace SDK type.
@@ -3180,7 +3072,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OAuthApplicationsNamespace SDK type.
@@ -3342,7 +3233,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SamlConnectionsNamespace SDK type.
@@ -3494,7 +3384,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the EnterpriseConnectionsNamespace SDK type.
@@ -3636,7 +3525,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SsoBypassNamespace SDK type.
@@ -3680,7 +3568,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the TestingTokensNamespace SDK type.
@@ -3695,7 +3582,6 @@ module OctridevClerk
     def create(request_options: nil)
       ::OctridevClerk::Methods::TestingTokens.create_testing_token(config: @config, request_options: request_options)
     end
-
   end
 
   # Defines the AgentTasksNamespace SDK type.
@@ -3739,7 +3625,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the WaitlistEntriesNamespace SDK type.
@@ -3837,7 +3722,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BillingNamespace SDK type.
@@ -3847,13 +3731,7 @@ module OctridevClerk
     end
 
     # Returns a list of all billing plans for the instance. The plans are returned sorted by creation date, with the newest plans appearing first. This includes both free and paid plans. Pagination is supported.
-    define_method(:get_commerce_plan_list) do |
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      payer_type: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_commerce_plan_list) do |paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, payer_type: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_commerce_plan_list(
         config: @config,
         paginated: paginated,
@@ -3865,13 +3743,7 @@ module OctridevClerk
     end
 
     # Returns a list of all prices for the instance. The prices are returned sorted by amount ascending, then by creation date descending. This includes both default and custom prices. Pagination is supported.
-    define_method(:get_price_list) do |
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      plan_id: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_price_list) do |paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, plan_id: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_billing_price_list(
         config: @config,
         paginated: paginated,
@@ -3905,17 +3777,7 @@ module OctridevClerk
     end
 
     # Returns a list of all subscription items for the instance. The subscription items are returned sorted by creation date, with the newest appearing first. This includes subscriptions for both users and organizations. Pagination is supported.
-    define_method(:get_commerce_subscription_item_list) do |
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      status: NOT_GIVEN,
-      payer_type: NOT_GIVEN,
-      plan_id: NOT_GIVEN,
-      include_free: NOT_GIVEN,
-      query: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_commerce_subscription_item_list) do |paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, status: NOT_GIVEN, payer_type: NOT_GIVEN, plan_id: NOT_GIVEN, include_free: NOT_GIVEN, query: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_commerce_subscription_item_list(
         config: @config,
         paginated: paginated,
@@ -4003,12 +3865,7 @@ module OctridevClerk
     end
 
     # Returns a list of all billing statements for the instance. The statements are returned sorted by creation date, with the newest statements appearing first. Pagination is supported.
-    define_method(:get_statement_list) do |
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_statement_list) do |paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_billing_statement_list(
         config: @config,
         paginated: paginated,
@@ -4021,10 +3878,7 @@ module OctridevClerk
     # Retrieves a billing statement by its unique identifier. Use `statementID` to inspect the statement’s payer, current status, totals, and grouped items.
     #
     # Retrieves the details of a billing statement.
-    define_method(:get_statement) do |
-      statement_id:,
-      request_options: nil
-    |
+    define_method(:get_statement) do |statement_id:, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_billing_statement(
         config: @config,
         statement_id: statement_id,
@@ -4033,13 +3887,7 @@ module OctridevClerk
     end
 
     # Returns a list of all payment attempts for a specific billing statement. The payment attempts are returned sorted by creation date, with the newest payment attempts appearing first. Pagination is supported.
-    define_method(:get_statement_payment_attempts) do |
-      statement_id:,
-      paginated: NOT_GIVEN,
-      limit: NOT_GIVEN,
-      offset: NOT_GIVEN,
-      request_options: nil
-    |
+    define_method(:get_statement_payment_attempts) do |statement_id:, paginated: NOT_GIVEN, limit: NOT_GIVEN, offset: NOT_GIVEN, request_options: nil|
       ::OctridevClerk::Methods::Billing.get_billing_statement_payment_attempts(
         config: @config,
         statement_id: statement_id,
@@ -4049,7 +3897,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the OrganizationPermissionsNamespace SDK type.
@@ -4133,7 +3980,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the RoleSetsNamespace SDK type.
@@ -4271,7 +4117,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ScimDirectoriesNamespace SDK type.
@@ -4433,7 +4278,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the DirectoriesNamespace SDK type.
@@ -4597,7 +4441,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the AdminPortalLinkTokensNamespace SDK type.
@@ -4637,7 +4480,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ApiKeysNamespace SDK type.
@@ -4737,10 +4579,7 @@ module OctridevClerk
     end
 
     # Retrieves the secret for an API key by its identifier. Supply the key ID using the `ak_` or `api_key_` prefix followed by 32 hexadecimal characters. Treat the returned secret as a credential.
-    define_method(:get_secret) do |
-      api_key_id:,
-      request_options: nil
-    |
+    define_method(:get_secret) do |api_key_id:, request_options: nil|
       ::OctridevClerk::Methods::ApiKeys.get_api_key_secret(
         config: @config,
         api_key_id: api_key_id,
@@ -4769,7 +4608,6 @@ module OctridevClerk
     )
       ::OctridevClerk::Methods::ApiKeys.verify_api_key(config: @config, secret: secret, request_options: request_options)
     end
-
   end
 
   # Defines the M2MTokensNamespace SDK type.
@@ -4845,7 +4683,6 @@ module OctridevClerk
     )
       ::OctridevClerk::Methods::M2MTokens.verify_m2_mtoken(config: @config, token: token, request_options: request_options)
     end
-
   end
 
   # Defines the OAuthAccessTokensNamespace SDK type.
@@ -4867,7 +4704,6 @@ module OctridevClerk
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ClerkBackend SDK type.
@@ -4924,7 +4760,7 @@ module OctridevClerk
       admin_portal_link_tokens: AdminPortalLinkTokensNamespace,
       api_keys: ApiKeysNamespace,
       m2_mtokens: M2MTokensNamespace,
-      o_auth_access_tokens: OAuthAccessTokensNamespace,
+      o_auth_access_tokens: OAuthAccessTokensNamespace
     }.freeze
     private_constant :SUB_NAMESPACES
 
@@ -4953,6 +4789,5 @@ module OctridevClerk
       end
       logging
     end
-
   end
 end

@@ -19,23 +19,22 @@ module OctridevClerk
         password:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/verify_password"
+            '/verify_password'
           ].join,
           config: config,
           body: {
-            'password' => password,
+            'password' => password
           },
           return_type: ::OctridevClerk::Methods::Users::VerifyPasswordResponse,
           decoder: :json,
           operation_id: 'verify_password',
           request_options: request_options,
-          errors: { '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

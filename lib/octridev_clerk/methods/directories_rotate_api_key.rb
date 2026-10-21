@@ -17,20 +17,19 @@ module OctridevClerk
         directory_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/directories/",
+            '/directories/',
             SdkClient.encode_path_segment(directory_id),
-            "/rotate_api_key"
+            '/rotate_api_key'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Directory,
           decoder: :json,
           operation_id: 'rotate_directory_api_key',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

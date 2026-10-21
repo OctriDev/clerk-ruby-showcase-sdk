@@ -20,13 +20,12 @@ module OctridevClerk
         passkey_identification_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/passkeys/",
+            '/passkeys/',
             SdkClient.encode_path_segment(passkey_identification_id)
           ].join,
           config: config,
@@ -34,7 +33,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_user_passkey',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

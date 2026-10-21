@@ -5,419 +5,419 @@
 
 # directories domain models
 module OctridevClerk
-# Defines the Directories SDK value decoder.
-module Directories
-  def self.from_hash(value)
-    return nil if value.nil?
-    value&.map { |item| ::OctridevClerk::Directory.from_hash(item) }
-  end
-end
+  # Defines the Directories SDK value decoder.
+  module Directories
+    def self.from_hash(value)
+      return nil if value.nil?
 
-# Internal model hydration metadata.
-class SdkInternalDirectoryCustomAttributesItemMetadata
-  FIELDS = {
-    name: "name",
-    key: "key",
-    sso_path: "sso_path",
-    scim_path: "scim_path",
-    directory_path: "directory_path",
-    multi_valued: "multi_valued",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for DirectoryCustomAttributesItem.
-# Required object value serialized in the `custom_attributes[]` wire field.
-class DirectoryCustomAttributesItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryCustomAttributesItemMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryCustomAttributesItemMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryCustomAttributesItemMetadata::DECODERS
-
-  # @return [String] Display name for the custom attribute
-  attr_reader :name
-  # @return [String] Key used to store the attribute in the user's public/private/unsafe metadata
-  attr_reader :key
-  # @return [String] Path to extract the attribute value from SSO claims (SAML assertions or OIDC claims)
-  attr_reader :sso_path
-  # @return [String] The legacy name for `directory_path`. Carries the same value.
-  attr_reader :scim_path
-  # @return [String] GJSON path to extract the attribute value from directory sync user resources
-  attr_reader :directory_path
-  # @return [Boolean] When true, the attribute supports multiple values; values from the IdP are written to public_metadata as an array. Defaults to false.
-  attr_reader :multi_valued
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      value&.map { |item| ::OctridevClerk::Directory.from_hash(item) }
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryCustomAttributesItemMetadata
+    FIELDS = {
+      name: 'name',
+      key: 'key',
+      sso_path: 'sso_path',
+      scim_path: 'scim_path',
+      directory_path: 'directory_path',
+      multi_valued: 'multi_valued'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for DirectoryCustomAttributesItem.
+  # Required object value serialized in the `custom_attributes[]` wire field.
+  class DirectoryCustomAttributesItem
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryCustomAttributesItemMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryCustomAttributesItemMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryCustomAttributesItemMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalDirectoryMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    name: "name",
-    enterprise_connection_id: "enterprise_connection_id",
-    endpoint_url: "endpoint_url",
-    provider: "provider",
-    enabled: "enabled",
-    group_role_mapping_enabled: "group_role_mapping_enabled",
-    attribute_mapping: "attribute_mapping",
-    custom_attributes: "custom_attributes",
-    api_key: "api_key",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    name
-    endpoint_url
-    provider
-    enabled
-    group_role_mapping_enabled
-    attribute_mapping
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::DirectoryObject.from_value(value)
-    end,
-    custom_attributes: lambda do |value|
-      value&.map { |item| ::OctridevClerk::DirectoryCustomAttributesItem.from_hash(item) }
-    end,
-  }.freeze
-end
+    # @return [String] Display name for the custom attribute
+    attr_reader :name
+    # @return [String] Key used to store the attribute in the user's public/private/unsafe metadata
+    attr_reader :key
+    # @return [String] Path to extract the attribute value from SSO claims (SAML assertions or OIDC claims)
+    attr_reader :sso_path
+    # @return [String] The legacy name for `directory_path`. Carries the same value.
+    attr_reader :scim_path
+    # @return [String] GJSON path to extract the attribute value from directory sync user resources
+    attr_reader :directory_path
+    # @return [Boolean] When true, the attribute supports multiple values; values from the IdP are written to public_metadata as an array. Defaults to false.
+    attr_reader :multi_valued
 
-# API model for Directory.
-# A directory configuration for provisioning users from an identity provider.
-class Directory
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [DirectoryObject] String representing the object's type. Always "directory".
-  attr_reader :object
-  # @return [String] Unique identifier for the directory.
-  attr_reader :id
-  # @return [String] A human-friendly name for the directory.
-  attr_reader :name
-  # @return [String] The ID of the associated enterprise connection.
-  attr_reader :enterprise_connection_id
-  # @return [String] The provisioning endpoint URL for this directory.
-  attr_reader :endpoint_url
-  # @return [String] The identity provider for this directory.
-  attr_reader :provider
-  # @return [Boolean] Whether the directory is enabled.
-  attr_reader :enabled
-  # @return [Boolean] Whether group-to-role mapping is enabled for this directory.
-  attr_reader :group_role_mapping_enabled
-  # @return [Hash] Mapping of user attributes to the directory attribute paths they are extracted from.
-  attr_reader :attribute_mapping
-  # @return [Array_of_DirectoryCustomAttributesItem] Custom attributes to map from the IdP to the user's profile via directory sync. Requires the custom attributes feature to be enabled for the instance.
-  attr_reader :custom_attributes
-  # @return [String] The API key for authenticating provisioning requests. Only returned when the directory is created or the key is rotated.
-  attr_reader :api_key
-  # @return [Integer] Unix timestamp when the directory was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp when the directory was last updated.
-  attr_reader :updated_at
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      name: 'name',
+      enterprise_connection_id: 'enterprise_connection_id',
+      endpoint_url: 'endpoint_url',
+      provider: 'provider',
+      enabled: 'enabled',
+      group_role_mapping_enabled: 'group_role_mapping_enabled',
+      attribute_mapping: 'attribute_mapping',
+      custom_attributes: 'custom_attributes',
+      api_key: 'api_key',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      name
+      endpoint_url
+      provider
+      enabled
+      group_role_mapping_enabled
+      attribute_mapping
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::DirectoryObject.from_value(value)
+      end,
+      custom_attributes: lambda do |value|
+        value&.map { |item| ::OctridevClerk::DirectoryCustomAttributesItem.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for Directory.
+  # A directory configuration for provisioning users from an identity provider.
+  class Directory
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryMetadata::DECODERS
 
-# Defines the DirectoryObject SDK namespace.
-module DirectoryObject
-  DIRECTORY = 'directory'
-  VALUES = ['directory'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [DirectoryObject] String representing the object's type. Always "directory".
+    attr_reader :object
+    # @return [String] Unique identifier for the directory.
+    attr_reader :id
+    # @return [String] A human-friendly name for the directory.
+    attr_reader :name
+    # @return [String] The ID of the associated enterprise connection.
+    attr_reader :enterprise_connection_id
+    # @return [String] The provisioning endpoint URL for this directory.
+    attr_reader :endpoint_url
+    # @return [String] The identity provider for this directory.
+    attr_reader :provider
+    # @return [Boolean] Whether the directory is enabled.
+    attr_reader :enabled
+    # @return [Boolean] Whether group-to-role mapping is enabled for this directory.
+    attr_reader :group_role_mapping_enabled
+    # @return [Hash] Mapping of user attributes to the directory attribute paths they are extracted from.
+    attr_reader :attribute_mapping
+    # @return [Array_of_DirectoryCustomAttributesItem] Custom attributes to map from the IdP to the user's profile via directory sync. Requires the custom attributes feature to be enabled for the instance.
+    attr_reader :custom_attributes
+    # @return [String] The API key for authenticating provisioning requests. Only returned when the directory is created or the key is rotated.
+    attr_reader :api_key
+    # @return [Integer] Unix timestamp when the directory was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp when the directory was last updated.
+    attr_reader :updated_at
 
-# Internal model hydration metadata.
-class SdkInternalDirectoryGroupRoleMappingMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    directory_id: "directory_id",
-    scim_directory_id: "scim_directory_id",
-    directory_group_id: "directory_group_id",
-    scim_group_id: "scim_group_id",
-    directory_group_display_name: "directory_group_display_name",
-    scim_group_display_name: "scim_group_display_name",
-    role: "role",
-    precedence: "precedence",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    directory_id
-    scim_directory_id
-    directory_group_id
-    scim_group_id
-    directory_group_display_name
-    scim_group_display_name
-    precedence
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::DirectoryGroupRoleMappingObject.from_value(value)
-    end,
-    role: lambda do |value|
-      ::OctridevClerk::Role.from_hash(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for DirectoryGroupRoleMapping.
-# A mapping from a directory group to an organization role. Members of the group are assigned the role; the lowest-precedence match wins when a user belongs to multiple mapped groups.
-class DirectoryGroupRoleMapping
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryGroupRoleMappingMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryGroupRoleMappingMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [DirectoryGroupRoleMappingObject] String representing the object's type. Always "directory_group_role_mapping".
-  attr_reader :object
-  # @return [String] Unique identifier for the directory group role mapping.
-  attr_reader :id
-  # @return [String] The ID of the directory this mapping belongs to.
-  attr_reader :directory_id
-  # @return [String] The legacy name for `directory_id`. Carries the same value.
-  attr_reader :scim_directory_id
-  # @return [String] The group ID from the identity provider.
-  attr_reader :directory_group_id
-  # @return [String] The legacy name for `directory_group_id`. Carries the same value.
-  attr_reader :scim_group_id
-  # @return [String] The display name of the group, as reported by the identity provider.
-  attr_reader :directory_group_display_name
-  # @return [String] The legacy name for `directory_group_display_name`. Carries the same value.
-  attr_reader :scim_group_display_name
-  # @return [Role] Optional object value serialized in the `role` wire field.
-  attr_reader :role
-  # @return [Integer] Mapping precedence, starting at 1. Lower values take priority when a user belongs to multiple mapped groups.
-  attr_reader :precedence
-  # @return [Integer] Unix timestamp (milliseconds) of when the mapping was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp (milliseconds) of when the mapping was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the DirectoryObject SDK namespace.
+  module DirectoryObject
+    DIRECTORY = 'directory'
+    VALUES = ['directory'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the DirectoryGroupRoleMappingObject SDK namespace.
-module DirectoryGroupRoleMappingObject
-  DIRECTORY_GROUP_ROLE_MAPPING = 'directory_group_role_mapping'
-  VALUES = ['directory_group_role_mapping'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalDirectoryGroupRoleMappingDeletedMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    deleted: "deleted",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    deleted
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::DirectoryGroupRoleMappingDeletedObject.from_value(value)
-    end,
-    deleted: lambda do |value|
-      ::OctridevClerk::DirectoryGroupRoleMappingDeletedDeleted.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for DirectoryGroupRoleMappingDeleted.
-# Typed representation of the `DirectoryGroupRoleMappingDeleted` API schema.
-class DirectoryGroupRoleMappingDeleted
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::DECODERS
-
-  # @return [DirectoryGroupRoleMappingDeletedObject] String representing the object's type.
-  attr_reader :object
-  # @return [String] The ID of the deleted directory group role mapping.
-  attr_reader :id
-  # @return [DirectoryGroupRoleMappingDeletedDeleted] Whether the directory group role mapping was successfully deleted.
-  attr_reader :deleted
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryGroupRoleMappingMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      directory_id: 'directory_id',
+      scim_directory_id: 'scim_directory_id',
+      directory_group_id: 'directory_group_id',
+      scim_group_id: 'scim_group_id',
+      directory_group_display_name: 'directory_group_display_name',
+      scim_group_display_name: 'scim_group_display_name',
+      role: 'role',
+      precedence: 'precedence',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      directory_id
+      scim_directory_id
+      directory_group_id
+      scim_group_id
+      directory_group_display_name
+      scim_group_display_name
+      precedence
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappingObject.from_value(value)
+      end,
+      role: lambda do |value|
+        ::OctridevClerk::Role.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for DirectoryGroupRoleMapping.
+  # A mapping from a directory group to an organization role. Members of the group are assigned the role; the lowest-precedence match wins when a user belongs to multiple mapped groups.
+  class DirectoryGroupRoleMapping
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryGroupRoleMappingMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryGroupRoleMappingMetadata::DECODERS
+
+    # @return [DirectoryGroupRoleMappingObject] String representing the object's type. Always "directory_group_role_mapping".
+    attr_reader :object
+    # @return [String] Unique identifier for the directory group role mapping.
+    attr_reader :id
+    # @return [String] The ID of the directory this mapping belongs to.
+    attr_reader :directory_id
+    # @return [String] The legacy name for `directory_id`. Carries the same value.
+    attr_reader :scim_directory_id
+    # @return [String] The group ID from the identity provider.
+    attr_reader :directory_group_id
+    # @return [String] The legacy name for `directory_group_id`. Carries the same value.
+    attr_reader :scim_group_id
+    # @return [String] The display name of the group, as reported by the identity provider.
+    attr_reader :directory_group_display_name
+    # @return [String] The legacy name for `directory_group_display_name`. Carries the same value.
+    attr_reader :scim_group_display_name
+    # @return [Role] Optional object value serialized in the `role` wire field.
+    attr_reader :role
+    # @return [Integer] Mapping precedence, starting at 1. Lower values take priority when a user belongs to multiple mapped groups.
+    attr_reader :precedence
+    # @return [Integer] Unix timestamp (milliseconds) of when the mapping was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp (milliseconds) of when the mapping was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the DirectoryGroupRoleMappingDeletedDeleted SDK namespace.
-module DirectoryGroupRoleMappingDeletedDeleted
-  TRUE = true
-  VALUES = [true].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the DirectoryGroupRoleMappingDeletedObject SDK namespace.
-module DirectoryGroupRoleMappingDeletedObject
-  DIRECTORY_GROUP_ROLE_MAPPING = 'directory_group_role_mapping'
-  VALUES = ['directory_group_role_mapping'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalDirectoryGroupRoleMappingListMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      ::OctridevClerk::DirectoryGroupRoleMappings.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for DirectoryGroupRoleMappingList.
-# Typed representation of the `DirectoryGroupRoleMappingList` API schema.
-class DirectoryGroupRoleMappingList
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryGroupRoleMappingListMetadata::DECODERS
-
-  # @return [DirectoryGroupRoleMappings] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of directory group role mappings in the directory.
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the DirectoryGroupRoleMappingObject SDK namespace.
+  module DirectoryGroupRoleMappingObject
+    DIRECTORY_GROUP_ROLE_MAPPING = 'directory_group_role_mapping'
+    VALUES = ['directory_group_role_mapping'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryGroupRoleMappingDeletedMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      deleted: 'deleted'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      deleted
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappingDeletedObject.from_value(value)
+      end,
+      deleted: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappingDeletedDeleted.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for DirectoryGroupRoleMappingDeleted.
+  # Typed representation of the `DirectoryGroupRoleMappingDeleted` API schema.
+  class DirectoryGroupRoleMappingDeleted
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryGroupRoleMappingDeletedMetadata::DECODERS
 
-# Defines the DirectoryGroupRoleMappings SDK value decoder.
-module DirectoryGroupRoleMappings
-  def self.from_hash(value)
-    return nil if value.nil?
-    value&.map { |item| ::OctridevClerk::DirectoryGroupRoleMapping.from_hash(item) }
-  end
-end
+    # @return [DirectoryGroupRoleMappingDeletedObject] String representing the object's type.
+    attr_reader :object
+    # @return [String] The ID of the deleted directory group role mapping.
+    attr_reader :id
+    # @return [DirectoryGroupRoleMappingDeletedDeleted] Whether the directory group role mapping was successfully deleted.
+    attr_reader :deleted
 
-# Internal model hydration metadata.
-class SdkInternalDirectoryListMetadata
-  FIELDS = {
-    data: "data",
-    total_count: "total_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    total_count
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      ::OctridevClerk::Directories.from_hash(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for DirectoryList.
-# Typed representation of the `DirectoryList` API schema.
-class DirectoryList
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectoryListMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectoryListMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectoryListMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [Directories] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Integer] Total number of directories.
-  attr_reader :total_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the DirectoryGroupRoleMappingDeletedDeleted SDK namespace.
+  module DirectoryGroupRoleMappingDeletedDeleted
+    TRUE = true
+    VALUES = [true].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the DirectoryGroupRoleMappingDeletedObject SDK namespace.
+  module DirectoryGroupRoleMappingDeletedObject
+    DIRECTORY_GROUP_ROLE_MAPPING = 'directory_group_role_mapping'
+    VALUES = ['directory_group_role_mapping'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryGroupRoleMappingListMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        ::OctridevClerk::DirectoryGroupRoleMappings.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for DirectoryGroupRoleMappingList.
+  # Typed representation of the `DirectoryGroupRoleMappingList` API schema.
+  class DirectoryGroupRoleMappingList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryGroupRoleMappingListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryGroupRoleMappingListMetadata::DECODERS
+
+    # @return [DirectoryGroupRoleMappings] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of directory group role mappings in the directory.
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the DirectoryGroupRoleMappings SDK value decoder.
+  module DirectoryGroupRoleMappings
+    def self.from_hash(value)
+      return nil if value.nil?
+
+      value&.map { |item| ::OctridevClerk::DirectoryGroupRoleMapping.from_hash(item) }
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalDirectoryListMetadata
+    FIELDS = {
+      data: 'data',
+      total_count: 'total_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      total_count
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        ::OctridevClerk::Directories.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for DirectoryList.
+  # Typed representation of the `DirectoryList` API schema.
+  class DirectoryList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectoryListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectoryListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectoryListMetadata::DECODERS
+
+    # @return [Directories] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Integer] Total number of directories.
+    attr_reader :total_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

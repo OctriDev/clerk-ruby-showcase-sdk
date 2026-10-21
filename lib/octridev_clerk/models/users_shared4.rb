@@ -5,119 +5,120 @@
 
 # users domain models
 module OctridevClerk
-# Defines the VerificationWeb3Status SDK namespace.
-module VerificationWeb3Status
-  UNVERIFIED = 'unverified'
-  VERIFIED = 'verified'
-  FAILED = 'failed'
-  EXPIRED = 'expired'
-  VALUES = ['unverified', 'verified', 'failed', 'expired'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the VerificationWeb3Strategy SDK namespace.
-module VerificationWeb3Strategy
-  WEB3_METAMASK_SIGNATURE = 'web3_metamask_signature'
-  WEB3_BASE_SIGNATURE = 'web3_base_signature'
-  WEB3_COINBASE_WALLET_SIGNATURE = 'web3_coinbase_wallet_signature'
-  WEB3_OKX_WALLET_SIGNATURE = 'web3_okx_wallet_signature'
-  WEB3_SOLANA_SIGNATURE = 'web3_solana_signature'
-  VALUES = [
-    'web3_metamask_signature', 'web3_base_signature', 'web3_coinbase_wallet_signature',
-    'web3_okx_wallet_signature', 'web3_solana_signature'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalWeb3WalletMetadata
-  FIELDS = {
-    id: "id",
-    object: "object",
-    web3_wallet: "web3_wallet",
-    verification: "verification",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    web3_wallet
-    verification
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::Web3WalletObject.from_value(value)
-    end,
-    verification: lambda do |value|
-      ::OctridevClerk::Web3WalletVerification.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    verification
-  ].freeze
-end
-
-# API model for Web3Wallet.
-# Typed representation of the `Web3Wallet` API schema.
-class Web3Wallet
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalWeb3WalletMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalWeb3WalletMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalWeb3WalletMetadata::DECODERS
-
-  # @return [String] Optional `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [Web3WalletObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Required `string` value serialized in the `web3_wallet` wire field.
-  attr_reader :web3_wallet
-  # @return [Web3WalletVerification] Required object value serialized in the `verification` wire field.
-  attr_reader :verification
-  # @return [Integer] Unix timestamp of creation
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp of creation
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the VerificationWeb3Status SDK namespace.
+  module VerificationWeb3Status
+    UNVERIFIED = 'unverified'
+    VERIFIED = 'verified'
+    FAILED = 'failed'
+    EXPIRED = 'expired'
+    VALUES = %w[unverified verified failed expired].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalWeb3WalletMetadata::NULLABLE_FIELDS)
+  # Defines the VerificationWeb3Strategy SDK namespace.
+  module VerificationWeb3Strategy
+    WEB3_METAMASK_SIGNATURE = 'web3_metamask_signature'
+    WEB3_BASE_SIGNATURE = 'web3_base_signature'
+    WEB3_COINBASE_WALLET_SIGNATURE = 'web3_coinbase_wallet_signature'
+    WEB3_OKX_WALLET_SIGNATURE = 'web3_okx_wallet_signature'
+    WEB3_SOLANA_SIGNATURE = 'web3_solana_signature'
+    VALUES = %w[
+      web3_metamask_signature web3_base_signature web3_coinbase_wallet_signature
+      web3_okx_wallet_signature web3_solana_signature
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalWeb3WalletMetadata
+    FIELDS = {
+      id: 'id',
+      object: 'object',
+      web3_wallet: 'web3_wallet',
+      verification: 'verification',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      web3_wallet
+      verification
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::Web3WalletObject.from_value(value)
+      end,
+      verification: lambda do |value|
+        ::OctridevClerk::Web3WalletVerification.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      verification
+    ].freeze
   end
-end
 
-# Defines the Web3WalletObject SDK namespace.
-module Web3WalletObject
-  WEB3_WALLET = 'web3_wallet'
-  VALUES = ['web3_wallet'].freeze
-  def self.from_value(value)
-    value
+  # API model for Web3Wallet.
+  # Typed representation of the `Web3Wallet` API schema.
+  class Web3Wallet
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalWeb3WalletMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalWeb3WalletMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalWeb3WalletMetadata::DECODERS
+
+    # @return [String] Optional `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [Web3WalletObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Required `string` value serialized in the `web3_wallet` wire field.
+    attr_reader :web3_wallet
+    # @return [Web3WalletVerification] Required object value serialized in the `verification` wire field.
+    attr_reader :verification
+    # @return [Integer] Unix timestamp of creation
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp of creation
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalWeb3WalletMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the Web3WalletVerification SDK namespace.
-module Web3WalletVerification
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "verification_web3" => VerificationWeb3, "verification_admin" => VerificationAdmin }
-    type = mapping[hash["object"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["object"].is_a?(::String)
-
-    raise SdkValidationError.new('Web3WalletVerification', 'variant', "Unknown Web3WalletVerification discriminator: #{hash["object"].inspect}")
+  # Defines the Web3WalletObject SDK namespace.
+  module Web3WalletObject
+    WEB3_WALLET = 'web3_wallet'
+    VALUES = ['web3_wallet'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
+
+  # Defines the Web3WalletVerification SDK namespace.
+  module Web3WalletVerification
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'verification_web3' => VerificationWeb3, 'verification_admin' => VerificationAdmin }
+      type = mapping[hash['object']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['object'].is_a?(::String)
+
+      raise SdkValidationError.new('Web3WalletVerification', 'variant', "Unknown Web3WalletVerification discriminator: #{hash['object'].inspect}")
+    end
+  end
 end

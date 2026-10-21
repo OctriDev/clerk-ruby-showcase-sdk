@@ -20,20 +20,19 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/trusted_devices"
+            '/trusted_devices'
           ].join,
           config: config,
           return_type: ::OctridevClerk::TrustedDeviceList,
           decoder: :json,
           operation_id: 'list_user_trusted_devices',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -49,13 +48,12 @@ module OctridevClerk
         trusted_device_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/trusted_devices/",
+            '/trusted_devices/',
             SdkClient.encode_path_segment(trusted_device_id)
           ].join,
           config: config,
@@ -63,7 +61,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'revoke_user_trusted_device',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

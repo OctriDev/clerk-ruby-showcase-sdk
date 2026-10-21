@@ -32,13 +32,12 @@ module OctridevClerk
         request_originating_ip: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/sessions/",
+            '/sessions/',
             SdkClient.encode_path_segment(session_id),
-            "/refresh"
+            '/refresh'
           ].join,
           config: config,
           body: {
@@ -47,13 +46,13 @@ module OctridevClerk
             'request_origin' => request_origin,
             'request_headers' => request_headers,
             'format' => format,
-            'request_originating_ip' => request_originating_ip,
+            'request_originating_ip' => request_originating_ip
           },
           return_type: ::OctridevClerk::SessionRefresh,
           decoder: :json,
           operation_id: 'refresh_session',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

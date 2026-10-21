@@ -18,20 +18,19 @@ module OctridevClerk
         user_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/biometric_credentials"
+            '/biometric_credentials'
           ].join,
           config: config,
           return_type: ::OctridevClerk::BiometricCredentialList,
           decoder: :json,
           operation_id: 'list_user_biometric_credentials',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -47,13 +46,12 @@ module OctridevClerk
         biometric_credential_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/biometric_credentials/",
+            '/biometric_credentials/',
             SdkClient.encode_path_segment(biometric_credential_id)
           ].join,
           config: config,
@@ -61,7 +59,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'revoke_user_biometric_credential',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '500' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

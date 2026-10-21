@@ -88,44 +88,19 @@ module OctridevClerk
       #   `provider=oauth_google&provider_user_id=12345` to count users with Google
       #   provider user ID 12345. Accepts up to 100 provider user IDs. Any provider
       #   user IDs not found are ignored.
-      singleton_class.define_method(:get_users_count) do |
-        config:,
-        email_address: NOT_GIVEN,
-        phone_number: NOT_GIVEN,
-        external_id: NOT_GIVEN,
-        username: NOT_GIVEN,
-        web3_wallet: NOT_GIVEN,
-        user_id: NOT_GIVEN,
-        organization_id: NOT_GIVEN,
-        query: NOT_GIVEN,
-        email_address_query: NOT_GIVEN,
-        phone_number_query: NOT_GIVEN,
-        username_query: NOT_GIVEN,
-        name_query: NOT_GIVEN,
-        banned: NOT_GIVEN,
-        last_active_at_before: NOT_GIVEN,
-        last_active_at_after: NOT_GIVEN,
-        last_active_at_since: NOT_GIVEN,
-        created_at_before: NOT_GIVEN,
-        created_at_after: NOT_GIVEN,
-        last_sign_in_at_before: NOT_GIVEN,
-        last_sign_in_at_after: NOT_GIVEN,
-        provider: NOT_GIVEN,
-        provider_user_id: NOT_GIVEN,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_users_count) do |config:, email_address: NOT_GIVEN, phone_number: NOT_GIVEN, external_id: NOT_GIVEN, username: NOT_GIVEN, web3_wallet: NOT_GIVEN, user_id: NOT_GIVEN, organization_id: NOT_GIVEN, query: NOT_GIVEN, email_address_query: NOT_GIVEN, phone_number_query: NOT_GIVEN, username_query: NOT_GIVEN, name_query: NOT_GIVEN, banned: NOT_GIVEN, last_active_at_before: NOT_GIVEN, last_active_at_after: NOT_GIVEN, last_active_at_since: NOT_GIVEN, created_at_before: NOT_GIVEN, created_at_after: NOT_GIVEN, last_sign_in_at_before: NOT_GIVEN, last_sign_in_at_after: NOT_GIVEN, provider: NOT_GIVEN, provider_user_id: NOT_GIVEN, request_options: nil|
         SdkClient.request(
           'GET',
-          "/users/count",
+          '/users/count',
           config: config,
           query: __sdk_query_get_users_count_part1(email_address: email_address, phone_number: phone_number, external_id: external_id, username: username, web3_wallet: web3_wallet, user_id: user_id, organization_id: organization_id, query: query, email_address_query: email_address_query, phone_number_query: phone_number_query, username_query: username_query, name_query: name_query, banned: banned, last_active_at_before: last_active_at_before, last_active_at_after: last_active_at_after, last_active_at_since: last_active_at_since, created_at_before: created_at_before, created_at_after: created_at_after).merge(
-            __sdk_query_get_users_count_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id)),
+            __sdk_query_get_users_count_part2(last_sign_in_at_before: last_sign_in_at_before, last_sign_in_at_after: last_sign_in_at_after, provider: provider, provider_user_id: provider_user_id)
+          ),
           return_type: ::OctridevClerk::TotalCount,
           decoder: :json,
           operation_id: 'get_users_count',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -167,7 +142,7 @@ module OctridevClerk
           'last_active_at_after' => QueryValue.new(last_active_at_after, style: 'form', explode: true),
           'last_active_at_since' => QueryValue.new(last_active_at_since, style: 'form', explode: true),
           'created_at_before' => QueryValue.new(created_at_before, style: 'form', explode: true),
-          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true),
+          'created_at_after' => QueryValue.new(created_at_after, style: 'form', explode: true)
         }
       end
       private_class_method :__sdk_query_get_users_count_part1
@@ -182,7 +157,7 @@ module OctridevClerk
           'last_sign_in_at_before' => QueryValue.new(last_sign_in_at_before, style: 'form', explode: true),
           'last_sign_in_at_after' => QueryValue.new(last_sign_in_at_after, style: 'form', explode: true),
           'provider' => QueryValue.new(provider, style: 'form', explode: true),
-          'provider_user_id' => QueryValue.new(provider_user_id, style: 'form', explode: true),
+          'provider_user_id' => QueryValue.new(provider_user_id, style: 'form', explode: true)
         }
       end
       private_class_method :__sdk_query_get_users_count_part2

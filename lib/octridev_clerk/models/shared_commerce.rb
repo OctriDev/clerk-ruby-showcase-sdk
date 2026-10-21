@@ -5,666 +5,665 @@
 
 # shared_commerce domain models
 module OctridevClerk
-# Internal model hydration metadata.
-class SdkInternalCommerceCreditBalanceResponseMetadata
-  FIELDS = {
-    object: "object",
-    balance: "balance",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    balance
-  ].freeze
-  DECODERS = {
-    balance: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    balance
-  ].freeze
-end
-
-# API model for CommerceCreditBalanceResponse.
-# Typed representation of the `CommerceCreditBalanceResponse` API schema.
-class CommerceCreditBalanceResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommerceCreditBalanceResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommerceCreditBalanceResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommerceCreditBalanceResponseMetadata::DECODERS
-
-  # @return [String] String representing the object's type. Always "commerce_credit_balance".
-  attr_reader :object
-  # @return [CommerceMoneyResponse] The current credit balance. Null when the payer has never had credits.
-  attr_reader :balance
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommerceCreditBalanceResponseMetadata
+    FIELDS = {
+      object: 'object',
+      balance: 'balance'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      balance
+    ].freeze
+    DECODERS = {
+      balance: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      balance
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceCreditBalanceResponseMetadata::NULLABLE_FIELDS)
+  # API model for CommerceCreditBalanceResponse.
+  # Typed representation of the `CommerceCreditBalanceResponse` API schema.
+  class CommerceCreditBalanceResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommerceCreditBalanceResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommerceCreditBalanceResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommerceCreditBalanceResponseMetadata::DECODERS
+
+    # @return [String] String representing the object's type. Always "commerce_credit_balance".
+    attr_reader :object
+    # @return [CommerceMoneyResponse] The current credit balance. Null when the payer has never had credits.
+    attr_reader :balance
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceCreditBalanceResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommerceCreditLedgerResponseMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    payer_id: "payer_id",
-    amount: "amount",
-    source_type: "source_type",
-    source_id: "source_id",
-    note: "note",
-    created_at: "created_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    payer_id
-    amount
-    source_type
-    source_id
-    created_at
-  ].freeze
-  DECODERS = {
-    amount: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for CommerceCreditLedgerResponse.
-# Typed representation of the `CommerceCreditLedgerResponse` API schema.
-class CommerceCreditLedgerResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommerceCreditLedgerResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommerceCreditLedgerResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommerceCreditLedgerResponseMetadata::DECODERS
-
-  # @return [String] String representing the object's type. Always "commerce_credit_ledger".
-  attr_reader :object
-  # @return [String] Unique identifier for the ledger entry.
-  attr_reader :id
-  # @return [String] The ID of the payer whose balance was adjusted.
-  attr_reader :payer_id
-  # @return [CommerceMoneyResponse] The credit amount with formatting. Positive for increases, negative for decreases.
-  attr_reader :amount
-  # @return [String] The type of source that originated the adjustment (e.g. "grant").
-  attr_reader :source_type
-  # @return [String] The ID of the source that originated the adjustment.
-  attr_reader :source_id
-  # @return [String] An optional note attached to the ledger entry.
-  attr_reader :note
-  # @return [String] Timestamp when the ledger entry was created.
-  attr_reader :created_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommerceCreditLedgerResponseMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      payer_id: 'payer_id',
+      amount: 'amount',
+      source_type: 'source_type',
+      source_id: 'source_id',
+      note: 'note',
+      created_at: 'created_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      payer_id
+      amount
+      source_type
+      source_id
+      created_at
+    ].freeze
+    DECODERS = {
+      amount: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CommerceCreditLedgerResponse.
+  # Typed representation of the `CommerceCreditLedgerResponse` API schema.
+  class CommerceCreditLedgerResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommerceCreditLedgerResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommerceCreditLedgerResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommerceCreditLedgerResponseMetadata::DECODERS
+
+    # @return [String] String representing the object's type. Always "commerce_credit_ledger".
+    attr_reader :object
+    # @return [String] Unique identifier for the ledger entry.
+    attr_reader :id
+    # @return [String] The ID of the payer whose balance was adjusted.
+    attr_reader :payer_id
+    # @return [CommerceMoneyResponse] The credit amount with formatting. Positive for increases, negative for decreases.
+    attr_reader :amount
+    # @return [String] The type of source that originated the adjustment (e.g. "grant").
+    attr_reader :source_type
+    # @return [String] The ID of the source that originated the adjustment.
+    attr_reader :source_id
+    # @return [String] An optional note attached to the ledger entry.
+    attr_reader :note
+    # @return [String] Timestamp when the ledger entry was created.
+    attr_reader :created_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommerceCreditsResponseMetadata
-  FIELDS = {
-    proration: "proration",
-    payer: "payer",
-    total: "total",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    proration
-    payer
-    total
-  ].freeze
-  DECODERS = {
-    proration: lambda do |value|
-      ::OctridevClerk::CommerceProrationCreditDetailResponse.from_hash(value)
-    end,
-    payer: lambda do |value|
-      ::OctridevClerk::CommercePayerCreditResponse.from_hash(value)
-    end,
-    total: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    proration
-    payer
-  ].freeze
-end
-
-# API model for CommerceCreditsResponse.
-# Typed representation of the `CommerceCreditsResponse` API schema.
-class CommerceCreditsResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommerceCreditsResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommerceCreditsResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommerceCreditsResponseMetadata::DECODERS
-
-  # @return [CommerceProrationCreditDetailResponse] Required object value serialized in the `proration` wire field.
-  attr_reader :proration
-  # @return [CommercePayerCreditResponse] Required object value serialized in the `payer` wire field.
-  attr_reader :payer
-  # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
-  attr_reader :total
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommerceCreditsResponseMetadata
+    FIELDS = {
+      proration: 'proration',
+      payer: 'payer',
+      total: 'total'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      proration
+      payer
+      total
+    ].freeze
+    DECODERS = {
+      proration: lambda do |value|
+        ::OctridevClerk::CommerceProrationCreditDetailResponse.from_hash(value)
+      end,
+      payer: lambda do |value|
+        ::OctridevClerk::CommercePayerCreditResponse.from_hash(value)
+      end,
+      total: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      proration
+      payer
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceCreditsResponseMetadata::NULLABLE_FIELDS)
+  # API model for CommerceCreditsResponse.
+  # Typed representation of the `CommerceCreditsResponse` API schema.
+  class CommerceCreditsResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommerceCreditsResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommerceCreditsResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommerceCreditsResponseMetadata::DECODERS
+
+    # @return [CommerceProrationCreditDetailResponse] Required object value serialized in the `proration` wire field.
+    attr_reader :proration
+    # @return [CommercePayerCreditResponse] Required object value serialized in the `payer` wire field.
+    attr_reader :payer
+    # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
+    attr_reader :total
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceCreditsResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommerceDiscountsResponseMetadata
-  FIELDS = {
-    proration: "proration",
-    total: "total",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    proration
-    total
-  ].freeze
-  DECODERS = {
-    proration: lambda do |value|
-      ::OctridevClerk::CommerceProrationDiscountResponse.from_hash(value)
-    end,
-    total: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    proration
-  ].freeze
-end
-
-# API model for CommerceDiscountsResponse.
-# Typed representation of the `CommerceDiscountsResponse` API schema.
-class CommerceDiscountsResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommerceDiscountsResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommerceDiscountsResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommerceDiscountsResponseMetadata::DECODERS
-
-  # @return [CommerceProrationDiscountResponse] Required object value serialized in the `proration` wire field.
-  attr_reader :proration
-  # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
-  attr_reader :total
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommerceDiscountsResponseMetadata
+    FIELDS = {
+      proration: 'proration',
+      total: 'total'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      proration
+      total
+    ].freeze
+    DECODERS = {
+      proration: lambda do |value|
+        ::OctridevClerk::CommerceProrationDiscountResponse.from_hash(value)
+      end,
+      total: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      proration
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceDiscountsResponseMetadata::NULLABLE_FIELDS)
+  # API model for CommerceDiscountsResponse.
+  # Typed representation of the `CommerceDiscountsResponse` API schema.
+  class CommerceDiscountsResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommerceDiscountsResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommerceDiscountsResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommerceDiscountsResponseMetadata::DECODERS
+
+    # @return [CommerceProrationDiscountResponse] Required object value serialized in the `proration` wire field.
+    attr_reader :proration
+    # @return [CommerceMoneyResponse] Required object value serialized in the `total` wire field.
+    attr_reader :total
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommerceDiscountsResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommerceMoneyResponseMetadata
-  FIELDS = {
-    amount: "amount",
-    amount_formatted: "amount_formatted",
-    currency: "currency",
-    currency_symbol: "currency_symbol",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    amount
-    amount_formatted
-    currency
-    currency_symbol
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for CommerceMoneyResponse.
-# Typed representation of the `CommerceMoneyResponse` API schema.
-class CommerceMoneyResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommerceMoneyResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommerceMoneyResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommerceMoneyResponseMetadata::DECODERS
-
-  # @return [Integer] The amount in cents.
-  attr_reader :amount
-  # @return [String] The formatted amount as a string (e.g., "$49.99").
-  attr_reader :amount_formatted
-  # @return [String] The currency code (e.g., "USD").
-  attr_reader :currency
-  # @return [String] The currency symbol (e.g., "$").
-  attr_reader :currency_symbol
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommerceMoneyResponseMetadata
+    FIELDS = {
+      amount: 'amount',
+      amount_formatted: 'amount_formatted',
+      currency: 'currency',
+      currency_symbol: 'currency_symbol'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      amount
+      amount_formatted
+      currency
+      currency_symbol
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CommerceMoneyResponse.
+  # Typed representation of the `CommerceMoneyResponse` API schema.
+  class CommerceMoneyResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommerceMoneyResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommerceMoneyResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommerceMoneyResponseMetadata::DECODERS
+
+    # @return [Integer] The amount in cents.
+    attr_reader :amount
+    # @return [String] The formatted amount as a string (e.g., "$49.99").
+    attr_reader :amount_formatted
+    # @return [String] The currency code (e.g., "USD").
+    attr_reader :currency
+    # @return [String] The currency symbol (e.g., "$").
+    attr_reader :currency_symbol
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePayerCreditResponseMetadata
-  FIELDS = {
-    remaining_balance: "remaining_balance",
-    applied_amount: "applied_amount",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    remaining_balance
-    applied_amount
-  ].freeze
-  DECODERS = {
-    remaining_balance: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    applied_amount: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for CommercePayerCreditResponse.
-# Typed representation of the `CommercePayerCreditResponse` API schema.
-class CommercePayerCreditResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePayerCreditResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePayerCreditResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePayerCreditResponseMetadata::DECODERS
-
-  # @return [CommerceMoneyResponse] Required object value serialized in the `remaining_balance` wire field.
-  attr_reader :remaining_balance
-  # @return [CommerceMoneyResponse] Required object value serialized in the `applied_amount` wire field.
-  attr_reader :applied_amount
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommercePayerCreditResponseMetadata
+    FIELDS = {
+      remaining_balance: 'remaining_balance',
+      applied_amount: 'applied_amount'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      remaining_balance
+      applied_amount
+    ].freeze
+    DECODERS = {
+      remaining_balance: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      applied_amount: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CommercePayerCreditResponse.
+  # Typed representation of the `CommercePayerCreditResponse` API schema.
+  class CommercePayerCreditResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePayerCreditResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePayerCreditResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePayerCreditResponseMetadata::DECODERS
+
+    # @return [CommerceMoneyResponse] Required object value serialized in the `remaining_balance` wire field.
+    attr_reader :remaining_balance
+    # @return [CommerceMoneyResponse] Required object value serialized in the `applied_amount` wire field.
+    attr_reader :applied_amount
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePayerResponseMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    instance_id: "instance_id",
-    user_id: "user_id",
-    first_name: "first_name",
-    last_name: "last_name",
-    email: "email",
-    organization_id: "organization_id",
-    organization_name: "organization_name",
-    image_url: "image_url",
-    credits_balance: "credits_balance",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    instance_id
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePayerResponseObject.from_value(value)
-    end,
-    credits_balance: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for CommercePayerResponse.
-# Typed representation of the `CommercePayerResponse` API schema.
-class CommercePayerResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePayerResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePayerResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePayerResponseMetadata::DECODERS
-
-  # @return [CommercePayerResponseObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Unique identifier for the payer.
-  attr_reader :id
-  # @return [String] Unique identifier for the Clerk instance.
-  attr_reader :instance_id
-  # @return [String] User ID for user-type payers.
-  attr_reader :user_id
-  # @return [String] First name of the payer.
-  attr_reader :first_name
-  # @return [String] Last name of the payer.
-  attr_reader :last_name
-  # @return [String] Email address of the payer.
-  attr_reader :email
-  # @return [String] Organization ID for org-type payers.
-  attr_reader :organization_id
-  # @return [String] Organization name for org-type payers.
-  attr_reader :organization_name
-  # @return [String] URL of the payer's image/avatar.
-  attr_reader :image_url
-  # @return [CommerceMoneyResponse] Current credits balance for the payer.
-  attr_reader :credits_balance
-  # @return [Integer] Unix timestamp (in milliseconds) when the payer was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp (in milliseconds) when the payer was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCommercePayerResponseMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      instance_id: 'instance_id',
+      user_id: 'user_id',
+      first_name: 'first_name',
+      last_name: 'last_name',
+      email: 'email',
+      organization_id: 'organization_id',
+      organization_name: 'organization_name',
+      image_url: 'image_url',
+      credits_balance: 'credits_balance',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      instance_id
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePayerResponseObject.from_value(value)
+      end,
+      credits_balance: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CommercePayerResponse.
+  # Typed representation of the `CommercePayerResponse` API schema.
+  class CommercePayerResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePayerResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePayerResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePayerResponseMetadata::DECODERS
+
+    # @return [CommercePayerResponseObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Unique identifier for the payer.
+    attr_reader :id
+    # @return [String] Unique identifier for the Clerk instance.
+    attr_reader :instance_id
+    # @return [String] User ID for user-type payers.
+    attr_reader :user_id
+    # @return [String] First name of the payer.
+    attr_reader :first_name
+    # @return [String] Last name of the payer.
+    attr_reader :last_name
+    # @return [String] Email address of the payer.
+    attr_reader :email
+    # @return [String] Organization ID for org-type payers.
+    attr_reader :organization_id
+    # @return [String] Organization name for org-type payers.
+    attr_reader :organization_name
+    # @return [String] URL of the payer's image/avatar.
+    attr_reader :image_url
+    # @return [CommerceMoneyResponse] Current credits balance for the payer.
+    attr_reader :credits_balance
+    # @return [Integer] Unix timestamp (in milliseconds) when the payer was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp (in milliseconds) when the payer was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the CommercePayerResponseObject SDK namespace.
-module CommercePayerResponseObject
-  COMMERCE_PAYER = 'commerce_payer'
-  VALUES = ['commerce_payer'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePaymentMethodResponseMetadata
-  FIELDS = {
-    object: "object",
-    id: "id",
-    payer_id: "payer_id",
-    payment_type: "payment_type",
-    is_default: "is_default",
-    gateway: "gateway",
-    gateway_external_id: "gateway_external_id",
-    gateway_external_account_id: "gateway_external_account_id",
-    last4: "last4",
-    status: "status",
-    wallet_type: "wallet_type",
-    card_type: "card_type",
-    expiry_year: "expiry_year",
-    expiry_month: "expiry_month",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    is_removable: "is_removable",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    object
-    id
-    payer_id
-    payment_type
-    gateway
-    gateway_external_id
-    gateway_external_account_id
-    last4
-    status
-    card_type
-  ].freeze
-  DECODERS = {
-    object: lambda do |value|
-      ::OctridevClerk::CommercePaymentMethodResponseObject.from_value(value)
-    end,
-    payment_type: lambda do |value|
-      ::OctridevClerk::CommercePaymentMethodResponsePaymentType.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevClerk::CommercePaymentMethodResponseStatus.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    gateway_external_account_id
-    last4
-    card_type
-  ].freeze
-end
-
-# API model for CommercePaymentMethodResponse.
-# Typed representation of the `CommercePaymentMethodResponse` API schema.
-class CommercePaymentMethodResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePaymentMethodResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePaymentMethodResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePaymentMethodResponseMetadata::DECODERS
-
-  # @return [CommercePaymentMethodResponseObject] String representing the object's type. Objects of the same type share the same value.
-  attr_reader :object
-  # @return [String] Unique identifier for the payment method.
-  attr_reader :id
-  # @return [String] Unique identifier for the payer.
-  attr_reader :payer_id
-  # @return [CommercePaymentMethodResponsePaymentType] The payment method type.
-  attr_reader :payment_type
-  # @return [Boolean] Whether this is the default payment method for the payer.
-  attr_reader :is_default
-  # @return [String] The payment gateway.
-  attr_reader :gateway
-  # @return [String] External ID in the payment gateway.
-  attr_reader :gateway_external_id
-  # @return [String] External account ID in the payment gateway.
-  attr_reader :gateway_external_account_id
-  # @return [String] Last 4 digits of the card (for card payment methods).
-  attr_reader :last4
-  # @return [CommercePaymentMethodResponseStatus] Status of the payment method.
-  attr_reader :status
-  # @return [String] Type of wallet (if applicable).
-  attr_reader :wallet_type
-  # @return [String] Type of card (if applicable).
-  attr_reader :card_type
-  # @return [Integer] Card expiration year (for card payment methods).
-  attr_reader :expiry_year
-  # @return [Integer] Card expiration month (for card payment methods).
-  attr_reader :expiry_month
-  # @return [Integer] Unix timestamp (in milliseconds) when the payment method was created.
-  attr_reader :created_at
-  # @return [Integer] Unix timestamp (in milliseconds) when the payment method was last updated.
-  attr_reader :updated_at
-  # @return [Boolean] Whether this payment method can be removed.
-  attr_reader :is_removable
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the CommercePayerResponseObject SDK namespace.
+  module CommercePayerResponseObject
+    COMMERCE_PAYER = 'commerce_payer'
+    VALUES = ['commerce_payer'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommercePaymentMethodResponseMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalCommercePaymentMethodResponseMetadata
+    FIELDS = {
+      object: 'object',
+      id: 'id',
+      payer_id: 'payer_id',
+      payment_type: 'payment_type',
+      is_default: 'is_default',
+      gateway: 'gateway',
+      gateway_external_id: 'gateway_external_id',
+      gateway_external_account_id: 'gateway_external_account_id',
+      last4: 'last4',
+      status: 'status',
+      wallet_type: 'wallet_type',
+      card_type: 'card_type',
+      expiry_year: 'expiry_year',
+      expiry_month: 'expiry_month',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      is_removable: 'is_removable'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      object
+      id
+      payer_id
+      payment_type
+      gateway
+      gateway_external_id
+      gateway_external_account_id
+      last4
+      status
+      card_type
+    ].freeze
+    DECODERS = {
+      object: lambda do |value|
+        ::OctridevClerk::CommercePaymentMethodResponseObject.from_value(value)
+      end,
+      payment_type: lambda do |value|
+        ::OctridevClerk::CommercePaymentMethodResponsePaymentType.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevClerk::CommercePaymentMethodResponseStatus.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      gateway_external_account_id
+      last4
+      card_type
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for CommercePaymentMethodResponse.
+  # Typed representation of the `CommercePaymentMethodResponse` API schema.
+  class CommercePaymentMethodResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePaymentMethodResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePaymentMethodResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePaymentMethodResponseMetadata::DECODERS
 
-# Defines the CommercePaymentMethodResponseObject SDK namespace.
-module CommercePaymentMethodResponseObject
-  COMMERCE_PAYMENT_METHOD = 'commerce_payment_method'
-  VALUES = ['commerce_payment_method'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [CommercePaymentMethodResponseObject] String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # @return [String] Unique identifier for the payment method.
+    attr_reader :id
+    # @return [String] Unique identifier for the payer.
+    attr_reader :payer_id
+    # @return [CommercePaymentMethodResponsePaymentType] The payment method type.
+    attr_reader :payment_type
+    # @return [Boolean] Whether this is the default payment method for the payer.
+    attr_reader :is_default
+    # @return [String] The payment gateway.
+    attr_reader :gateway
+    # @return [String] External ID in the payment gateway.
+    attr_reader :gateway_external_id
+    # @return [String] External account ID in the payment gateway.
+    attr_reader :gateway_external_account_id
+    # @return [String] Last 4 digits of the card (for card payment methods).
+    attr_reader :last4
+    # @return [CommercePaymentMethodResponseStatus] Status of the payment method.
+    attr_reader :status
+    # @return [String] Type of wallet (if applicable).
+    attr_reader :wallet_type
+    # @return [String] Type of card (if applicable).
+    attr_reader :card_type
+    # @return [Integer] Card expiration year (for card payment methods).
+    attr_reader :expiry_year
+    # @return [Integer] Card expiration month (for card payment methods).
+    attr_reader :expiry_month
+    # @return [Integer] Unix timestamp (in milliseconds) when the payment method was created.
+    attr_reader :created_at
+    # @return [Integer] Unix timestamp (in milliseconds) when the payment method was last updated.
+    attr_reader :updated_at
+    # @return [Boolean] Whether this payment method can be removed.
+    attr_reader :is_removable
 
-# Defines the CommercePaymentMethodResponsePaymentType SDK namespace.
-module CommercePaymentMethodResponsePaymentType
-  CARD = 'card'
-  LINK = 'link'
-  PAYER_CREDITS = 'payer-credits'
-  VALUES = ['card', 'link', 'payer-credits'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Defines the CommercePaymentMethodResponseStatus SDK namespace.
-module CommercePaymentMethodResponseStatus
-  ACTIVE = 'active'
-  DISCONNECTED = 'disconnected'
-  VALUES = ['active', 'disconnected'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalCommercePaymentMethodResponseMetadata::NULLABLE_FIELDS)
+    end
 
-# Internal model hydration metadata.
-class SdkInternalCommercePerUnitTotalMetadata
-  FIELDS = {
-    name: "name",
-    block_size: "block_size",
-    tiers: "tiers",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-    block_size
-    tiers
-  ].freeze
-  DECODERS = {
-    tiers: lambda do |value|
-      value&.map { |item| ::OctridevClerk::CommercePerUnitTotalTier.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for CommercePerUnitTotal.
-# Typed representation of the `CommercePerUnitTotal` API schema.
-class CommercePerUnitTotal
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePerUnitTotalMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePerUnitTotalMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePerUnitTotalMetadata::DECODERS
-
-  # @return [String] Name of the billable unit (for example, `seats`).
-  attr_reader :name
-  # @return [Integer] Number of units included in each pricing block.
-  attr_reader :block_size
-  # @return [Array_of_CommercePerUnitTotalTier] Computed totals for each pricing tier.
-  attr_reader :tiers
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the CommercePaymentMethodResponseObject SDK namespace.
+  module CommercePaymentMethodResponseObject
+    COMMERCE_PAYMENT_METHOD = 'commerce_payment_method'
+    VALUES = ['commerce_payment_method'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalCommercePerUnitTotal2Metadata
-  FIELDS = {
-    name: "name",
-    block_size: "block_size",
-    tiers: "tiers",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-    block_size
-    tiers
-  ].freeze
-  DECODERS = {
-    tiers: lambda do |value|
-      value&.map { |item| ::OctridevClerk::CommercePerUnitTotalTier2.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for CommercePerUnitTotal2.
-# Typed representation of the `CommercePerUnitTotal2` API schema.
-class CommercePerUnitTotal2
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCommercePerUnitTotal2Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCommercePerUnitTotal2Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCommercePerUnitTotal2Metadata::DECODERS
-
-  # @return [String] Name of the billable unit (for example, seats)
-  attr_reader :name
-  # @return [Integer] Number of units included in each pricing block
-  attr_reader :block_size
-  # @return [Array_of_CommercePerUnitTotalTier2] Computed totals for each pricing tier
-  attr_reader :tiers
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the CommercePaymentMethodResponsePaymentType SDK namespace.
+  module CommercePaymentMethodResponsePaymentType
+    CARD = 'card'
+    LINK = 'link'
+    PAYER_CREDITS = 'payer-credits'
+    VALUES = %w[card link payer-credits].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the CommercePaymentMethodResponseStatus SDK namespace.
+  module CommercePaymentMethodResponseStatus
+    ACTIVE = 'active'
+    DISCONNECTED = 'disconnected'
+    VALUES = %w[active disconnected].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalCommercePerUnitTotalMetadata
+    FIELDS = {
+      name: 'name',
+      block_size: 'block_size',
+      tiers: 'tiers'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+      block_size
+      tiers
+    ].freeze
+    DECODERS = {
+      tiers: lambda do |value|
+        value&.map { |item| ::OctridevClerk::CommercePerUnitTotalTier.from_hash(item) }
+      end
+    }.freeze
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalCommercePerUnitTotalTierMetadata
-  FIELDS = {
-    quantity: "quantity",
-    fee_per_block: "fee_per_block",
-    total: "total",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    fee_per_block
-    total
-  ].freeze
-  DECODERS = {
-    fee_per_block: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-    total: lambda do |value|
-      ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
-    end,
-  }.freeze
-end
+  # API model for CommercePerUnitTotal.
+  # Typed representation of the `CommercePerUnitTotal` API schema.
+  class CommercePerUnitTotal
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePerUnitTotalMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePerUnitTotalMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePerUnitTotalMetadata::DECODERS
+
+    # @return [String] Name of the billable unit (for example, `seats`).
+    attr_reader :name
+    # @return [Integer] Number of units included in each pricing block.
+    attr_reader :block_size
+    # @return [Array_of_CommercePerUnitTotalTier] Computed totals for each pricing tier.
+    attr_reader :tiers
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalCommercePerUnitTotal2Metadata
+    FIELDS = {
+      name: 'name',
+      block_size: 'block_size',
+      tiers: 'tiers'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+      block_size
+      tiers
+    ].freeze
+    DECODERS = {
+      tiers: lambda do |value|
+        value&.map { |item| ::OctridevClerk::CommercePerUnitTotalTier2.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for CommercePerUnitTotal2.
+  # Typed representation of the `CommercePerUnitTotal2` API schema.
+  class CommercePerUnitTotal2
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCommercePerUnitTotal2Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCommercePerUnitTotal2Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCommercePerUnitTotal2Metadata::DECODERS
+
+    # @return [String] Name of the billable unit (for example, seats)
+    attr_reader :name
+    # @return [Integer] Number of units included in each pricing block
+    attr_reader :block_size
+    # @return [Array_of_CommercePerUnitTotalTier2] Computed totals for each pricing tier
+    attr_reader :tiers
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalCommercePerUnitTotalTierMetadata
+    FIELDS = {
+      quantity: 'quantity',
+      fee_per_block: 'fee_per_block',
+      total: 'total'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      fee_per_block
+      total
+    ].freeze
+    DECODERS = {
+      fee_per_block: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end,
+      total: lambda do |value|
+        ::OctridevClerk::CommerceMoneyResponse.from_hash(value)
+      end
+    }.freeze
+  end
 end

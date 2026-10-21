@@ -12,13 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateRoleSetMetadata
         FIELDS = {
-          name: "name",
-          key: "key",
-          description: "description",
-          default_role_key: "default_role_key",
-          creator_role_key: "creator_role_key",
-          type: "type",
-          roles: "roles",
+          name: 'name',
+          key: 'key',
+          description: 'description',
+          default_role_key: 'default_role_key',
+          creator_role_key: 'creator_role_key',
+          type: 'type',
+          roles: 'roles'
         }.freeze
         REQUIRED_FIELDS = %i[
           name
@@ -29,7 +29,7 @@ module OctridevClerk
         DECODERS = {
           type: lambda do |value|
             ::OctridevClerk::Methods::RoleSets::CreateRoleSetType.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -72,19 +72,18 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateRoleSetMetadata
         FIELDS = {
-          name: "name",
-          key: "key",
-          description: "description",
-          type: "type",
-          default_role_key: "default_role_key",
-          creator_role_key: "creator_role_key",
+          name: 'name',
+          key: 'key',
+          description: 'description',
+          type: 'type',
+          default_role_key: 'default_role_key',
+          creator_role_key: 'creator_role_key'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           type: lambda do |value|
             ::OctridevClerk::Methods::RoleSets::UpdateRoleSetType.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -125,8 +124,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceRoleSetMetadata
         FIELDS = {
-          dest_role_set_key: "dest_role_set_key",
-          reassignment_mappings: "reassignment_mappings",
+          dest_role_set_key: 'dest_role_set_key',
+          reassignment_mappings: 'reassignment_mappings'
         }.freeze
         REQUIRED_FIELDS = %i[
           dest_role_set_key
@@ -134,7 +133,7 @@ module OctridevClerk
         DECODERS = {
           reassignment_mappings: lambda do |value|
             ::OctridevClerk::ReassignmentMappings.from_hash(value)
-          end,
+          end
         }.freeze
       end
 
@@ -167,15 +166,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalAddRolesToRoleSetMetadata
         FIELDS = {
-          role_keys: "role_keys",
-          default_role_key: "default_role_key",
-          creator_role_key: "creator_role_key",
+          role_keys: 'role_keys',
+          default_role_key: 'default_role_key',
+          creator_role_key: 'creator_role_key'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_keys
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for AddRolesToRoleSet.
@@ -209,15 +207,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalReplaceRoleInRoleSetMetadata
         FIELDS = {
-          role_key: "role_key",
-          to_role_key: "to_role_key",
+          role_key: 'role_key',
+          to_role_key: 'to_role_key'
         }.freeze
         REQUIRED_FIELDS = %i[
           role_key
           to_role_key
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for ReplaceRoleInRoleSet.
@@ -250,7 +247,7 @@ module OctridevClerk
       module CreateRoleSetType
         INITIAL = 'initial'
         CUSTOM = 'custom'
-        VALUES = ['initial', 'custom'].freeze
+        VALUES = %w[initial custom].freeze
         def self.from_value(value)
           value
         end
@@ -290,26 +287,25 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/role_sets",
+          '/role_sets',
           config: config,
           query: {
             'query' => QueryValue.new(query, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::RoleSets,
           decoder: :json,
           operation_id: 'list_role_sets',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -341,10 +337,9 @@ module OctridevClerk
         type: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/role_sets",
+          '/role_sets',
           config: config,
           body: {
             'name' => name,
@@ -353,13 +348,13 @@ module OctridevClerk
             'roles' => roles,
             'key' => key,
             'description' => description,
-            'type' => type,
+            'type' => type
           },
           return_type: ::OctridevClerk::RoleSet,
           decoder: :json,
           operation_id: 'create_role_set',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -368,16 +363,11 @@ module OctridevClerk
       # Retrieves an existing role set by its key or ID.
       #
       # @param role_set_key_or_id [String] The key or ID of the role set
-      singleton_class.define_method(:get_role_set) do |
-        config:,
-        role_set_key_or_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_role_set) do |config:, role_set_key_or_id:, request_options: nil|
         SdkClient.request(
           'GET',
           [
-            "/role_sets/",
+            '/role_sets/',
             SdkClient.encode_path_segment(role_set_key_or_id)
           ].join,
           config: config,
@@ -385,7 +375,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'get_role_set',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -416,11 +406,10 @@ module OctridevClerk
         creator_role_key: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/role_sets/",
+            '/role_sets/',
             SdkClient.encode_path_segment(role_set_key_or_id)
           ].join,
           config: config,
@@ -430,13 +419,13 @@ module OctridevClerk
             'description' => description,
             'type' => type,
             'default_role_key' => default_role_key,
-            'creator_role_key' => creator_role_key,
+            'creator_role_key' => creator_role_key
           },
           return_type: ::OctridevClerk::RoleSet,
           decoder: :json,
           operation_id: 'update_role_set',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -454,24 +443,23 @@ module OctridevClerk
         reassignment_mappings: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/role_sets/",
+            '/role_sets/',
             SdkClient.encode_path_segment(role_set_key_or_id),
-            "/replace"
+            '/replace'
           ].join,
           config: config,
           body: {
             'dest_role_set_key' => dest_role_set_key,
-            'reassignment_mappings' => reassignment_mappings,
+            'reassignment_mappings' => reassignment_mappings
           },
           return_type: ::OctridevClerk::DeletedObject,
           decoder: :json,
           operation_id: 'replace_role_set',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -492,25 +480,24 @@ module OctridevClerk
         creator_role_key: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/role_sets/",
+            '/role_sets/',
             SdkClient.encode_path_segment(role_set_key_or_id),
-            "/roles"
+            '/roles'
           ].join,
           config: config,
           body: {
             'role_keys' => role_keys,
             'default_role_key' => default_role_key,
-            'creator_role_key' => creator_role_key,
+            'creator_role_key' => creator_role_key
           },
           return_type: ::OctridevClerk::RoleSet,
           decoder: :json,
           operation_id: 'add_roles_to_role_set',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -526,24 +513,23 @@ module OctridevClerk
         to_role_key:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/role_sets/",
+            '/role_sets/',
             SdkClient.encode_path_segment(role_set_key_or_id),
-            "/roles/replace"
+            '/roles/replace'
           ].join,
           config: config,
           body: {
             'role_key' => role_key,
-            'to_role_key' => to_role_key,
+            'to_role_key' => to_role_key
           },
           return_type: ::OctridevClerk::RoleSet,
           decoder: :json,
           operation_id: 'replace_role_in_role_set',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

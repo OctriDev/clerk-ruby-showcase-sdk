@@ -10,26 +10,21 @@ module OctridevClerk
     # Defines the ApiKeys SDK namespace.
     module ApiKeys
       # Retrieves the secret for an API key by its identifier. Supply the key ID using the `ak_` or `api_key_` prefix followed by 32 hexadecimal characters. Treat the returned secret as a credential.
-      singleton_class.define_method(:get_api_key_secret) do |
-        config:,
-        api_key_id:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_api_key_secret) do |config:, api_key_id:, request_options: nil|
         Validation.validate_pattern('apiKeyID', api_key_id, '^(ak|api_key)_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'GET',
           [
-            "/api_keys/",
+            '/api_keys/',
             SdkClient.encode_path_segment(api_key_id),
-            "/secret"
+            '/secret'
           ].join,
           config: config,
           return_type: ::OctridevClerk::Methods::ApiKeys::GetApiKeySecretResponse,
           decoder: :json,
           operation_id: 'get_api_key_secret',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end

@@ -10,19 +10,15 @@ module OctridevClerk
     # Defines the InstanceSettings SDK namespace.
     module InstanceSettings
       # Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT access tokens, etc.).
-      singleton_class.define_method(:get_instance_oauth_application_settings) do |
-        config:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_instance_oauth_application_settings) do |config:, request_options: nil|
         SdkClient.request(
           'GET',
-          "/instance/oauth_application_settings",
+          '/instance/oauth_application_settings',
           config: config,
           return_type: ::OctridevClerk::OAuthApplicationSettings,
           decoder: :json,
           operation_id: 'get_instance_oauth_application_settings',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
 
@@ -74,10 +70,9 @@ module OctridevClerk
         client_id_metadata_documents_block_implicitly_allowed_clients: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
-          "/instance/oauth_application_settings",
+          '/instance/oauth_application_settings',
           config: config,
           body: {
             'dynamic_oauth_client_registration' => dynamic_oauth_client_registration,
@@ -89,13 +84,13 @@ module OctridevClerk
             'pkce_required' => pkce_required,
             'client_id_metadata_documents_advertised' => client_id_metadata_documents_advertised,
             'client_id_metadata_documents_only_allow_pre_registered_clients' => client_id_metadata_documents_only_allow_pre_registered_clients,
-            'client_id_metadata_documents_block_implicitly_allowed_clients' => client_id_metadata_documents_block_implicitly_allowed_clients,
+            'client_id_metadata_documents_block_implicitly_allowed_clients' => client_id_metadata_documents_block_implicitly_allowed_clients
           },
           return_type: ::OctridevClerk::OAuthApplicationSettings,
           decoder: :json,
           operation_id: 'update_instance_oauth_application_settings',
           request_options: request_options,
-          errors: { '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

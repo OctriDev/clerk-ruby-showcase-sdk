@@ -31,25 +31,24 @@ module OctridevClerk
         unsafe_metadata: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/metadata"
+            '/metadata'
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
             'private_metadata' => private_metadata,
-            'unsafe_metadata' => unsafe_metadata,
+            'unsafe_metadata' => unsafe_metadata
           },
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'update_user_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
 
@@ -74,25 +73,24 @@ module OctridevClerk
         unsafe_metadata: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PUT',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/metadata"
+            '/metadata'
           ].join,
           config: config,
           body: {
             'public_metadata' => public_metadata,
             'private_metadata' => private_metadata,
-            'unsafe_metadata' => unsafe_metadata,
+            'unsafe_metadata' => unsafe_metadata
           },
           return_type: ::OctridevClerk::User,
           decoder: :json,
           operation_id: 'replace_user_metadata',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '401' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

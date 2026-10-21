@@ -21,23 +21,22 @@ module OctridevClerk
         block_disposable_email_domains: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'PATCH',
-          "/instance/restrictions",
+          '/instance/restrictions',
           config: config,
           body: {
             'allowlist' => allowlist,
             'blocklist' => blocklist,
             'allowlist_blocklist_disabled_on_sign_in' => allowlist_blocklist_disabled_on_sign_in,
             'block_email_subaddresses' => block_email_subaddresses,
-            'block_disposable_email_domains' => block_disposable_email_domains,
+            'block_disposable_email_domains' => block_disposable_email_domains
           },
           return_type: ::OctridevClerk::InstanceRestrictions,
           decoder: :json,
           operation_id: 'update_instance_restrictions',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

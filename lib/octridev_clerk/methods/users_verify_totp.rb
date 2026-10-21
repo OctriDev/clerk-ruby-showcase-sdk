@@ -36,15 +36,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyTOTPResponseMetadata
         FIELDS = {
-          verified: "verified",
-          code_type: "code_type",
+          verified: 'verified',
+          code_type: 'code_type'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
+        REQUIRED_FIELDS = %i[].freeze
         DECODERS = {
           code_type: lambda do |value|
             ::OctridevClerk::Methods::Users::VerifyTOTPResponseCodeType.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -74,12 +73,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDisableMFAResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DisableMFAResponse.
@@ -108,12 +105,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDeleteBackupCodeResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DeleteBackupCodeResponse.
@@ -142,12 +137,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDeleteTOTPResponseMetadata
         FIELDS = {
-          user_id: "user_id",
+          user_id: 'user_id'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for DeleteTOTPResponse.
@@ -176,12 +169,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalSetUserPasswordCompromisedMetadata
         FIELDS = {
-          revoke_all_sessions: "revoke_all_sessions",
+          revoke_all_sessions: 'revoke_all_sessions'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for SetUserPasswordCompromised.
@@ -211,7 +202,7 @@ module OctridevClerk
       module CreateUserPhoneNumberIdentificationStatusItem
         VERIFIED = 'verified'
         RESERVED = 'reserved'
-        VALUES = ['verified', 'reserved'].freeze
+        VALUES = %w[verified reserved].freeze
         def self.from_value(value)
           value
         end
@@ -223,7 +214,7 @@ module OctridevClerk
         ACCEPTED = 'accepted'
         REVOKED = 'revoked'
         EXPIRED = 'expired'
-        VALUES = ['pending', 'accepted', 'revoked', 'expired'].freeze
+        VALUES = %w[pending accepted revoked expired].freeze
         def self.from_value(value)
           value
         end
@@ -233,7 +224,7 @@ module OctridevClerk
       module VerifyTOTPResponseCodeType
         TOTP = 'totp'
         BACKUP_CODE = 'backup_code'
-        VALUES = ['totp', 'backup_code'].freeze
+        VALUES = %w[totp backup_code].freeze
         def self.from_value(value)
           value
         end
@@ -243,7 +234,7 @@ module OctridevClerk
       module CreateUserEmailAddressIdentificationStatusItem
         VERIFIED = 'verified'
         RESERVED = 'reserved'
-        VALUES = ['verified', 'reserved'].freeze
+        VALUES = %w[verified reserved].freeze
         def self.from_value(value)
           value
         end

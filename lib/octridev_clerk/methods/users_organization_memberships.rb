@@ -25,7 +25,6 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
@@ -33,20 +32,20 @@ module OctridevClerk
         SdkClient.request(
           'GET',
           [
-            "/users/",
+            '/users/',
             SdkClient.encode_path_segment(user_id),
-            "/organization_memberships"
+            '/organization_memberships'
           ].join,
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: ::OctridevClerk::OrganizationMemberships,
           decoder: :json,
           operation_id: 'users_get_organization_memberships',
           request_options: request_options,
-          errors: { '403' => ::OctridevClerk::ClerkErrors },
+          errors: { '403' => ::OctridevClerk::ClerkErrors }
         ).data
       end
     end

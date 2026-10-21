@@ -12,19 +12,15 @@ module OctridevClerk
       # Retrieves the instance's JSON Web Key Set. Use the returned keys when you need the public key material associated with the instance.
       #
       # Retrieve the JSON Web Key Set of the instance
-      singleton_class.define_method(:get_jwks) do |
-        config:,
-        request_options: nil
-      |
-
+      singleton_class.define_method(:get_jwks) do |config:, request_options: nil|
         SdkClient.request(
           'GET',
-          "/jwks",
+          '/jwks',
           config: config,
           return_type: ::OctridevClerk::JWKS,
           decoder: :json,
           operation_id: 'get_jwks',
-          request_options: request_options,
+          request_options: request_options
         ).data
       end
     end
