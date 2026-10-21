@@ -9,380 +9,6 @@ module OctridevClerk
   module Methods
     # Defines the SamlConnections SDK namespace.
     module SamlConnections
-      # Internal model hydration metadata.
-      class SdkInternalCreateSAMLConnectionAttributeMappingMetadata
-        FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
-        }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
-      end
-
-      # API model for CreateSAMLConnectionAttributeMapping.
-      # Define the attribute name mapping between Identity Provider and Clerk's user properties
-      class CreateSAMLConnectionAttributeMapping
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateSAMLConnectionAttributeMappingMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateSAMLConnectionAttributeMappingMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateSAMLConnectionAttributeMappingMetadata::DECODERS
-
-        attr_reader :user_id, :email_address, :first_name, :last_name
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalCreateSAMLConnectionLoginHintMetadata
-        FIELDS = {
-          mode: 'mode',
-          source: 'source'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          mode
-        ].freeze
-        DECODERS = {
-          mode: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionLoginHintMode.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for CreateSAMLConnectionLoginHint.
-      # Configuration for the login_hint sent to the IdP on SSO sign-in
-      class CreateSAMLConnectionLoginHint
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateSAMLConnectionLoginHintMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateSAMLConnectionLoginHintMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateSAMLConnectionLoginHintMetadata::DECODERS
-
-        # @return [CreateSAMLConnectionLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
-        attr_reader :mode
-        # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
-        attr_reader :source
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalCreateSAMLConnectionMetadata
-        FIELDS = {
-          name: 'name',
-          domain: 'domain',
-          domains: 'domains',
-          provider: 'provider',
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          organization_id: 'organization_id',
-          attribute_mapping: 'attribute_mapping',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          name
-          provider
-        ].freeze
-        DECODERS = {
-          provider: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionProvider.from_value(value)
-          end,
-          attribute_mapping: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionAttributeMapping.from_hash(value)
-          end,
-          login_hint: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::CreateSAMLConnectionLoginHint.from_hash(value)
-          end
-        }.freeze
-      end
-
-      # API model for CreateSAMLConnection.
-      class CreateSAMLConnection
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalCreateSAMLConnectionMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalCreateSAMLConnectionMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalCreateSAMLConnectionMetadata::DECODERS
-
-        # @return [String] The name to use as a label for this SAML Connection
-        attr_reader :name
-        # @return [String] The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
-        attr_reader :domain
-        # @return [Array_of_String] The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
-        attr_reader :domains
-        # @return [CreateSAMLConnectionProvider] The IdP provider of the connection.
-        attr_reader :provider
-        # @return [String] The Entity ID as provided by the IdP
-        attr_reader :idp_entity_id
-        # @return [String] The Single-Sign On URL as provided by the IdP
-        attr_reader :idp_sso_url
-        # @return [String] Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated PEM certificates; replaces the connection's whole certificate set
-        attr_reader :idp_certificate
-        # @return [Array_of_String] The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64. Replaces the connection's whole certificate set and takes precedence over idp_certificate
-        attr_reader :idp_certificates
-        # @return [String] The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
-        attr_reader :idp_metadata_url
-        # @return [String] The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
-        attr_reader :idp_metadata
-        # @return [String] The ID of the organization to which users of this SAML Connection will be added
-        attr_reader :organization_id
-        # @return [CreateSAMLConnectionAttributeMapping] Define the attribute name mapping between Identity Provider and Clerk's user properties
-        attr_reader :attribute_mapping
-        # @return [Boolean] Enable or deactivate ForceAuthn
-        attr_reader :force_authn
-        # @return [CreateSAMLConnectionLoginHint] Configuration for the login_hint sent to the IdP on SSO sign-in
-        attr_reader :login_hint
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateSAMLConnectionAttributeMappingMetadata
-        FIELDS = {
-          user_id: 'user_id',
-          email_address: 'email_address',
-          first_name: 'first_name',
-          last_name: 'last_name'
-        }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {}.freeze
-      end
-
-      # API model for UpdateSAMLConnectionAttributeMapping.
-      # Define the attribute name mapping between Identity Provider and Clerk's user properties
-      class UpdateSAMLConnectionAttributeMapping
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateSAMLConnectionAttributeMappingMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateSAMLConnectionAttributeMappingMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateSAMLConnectionAttributeMappingMetadata::DECODERS
-
-        attr_reader :user_id, :email_address, :first_name, :last_name
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateSAMLConnectionLoginHintMetadata
-        FIELDS = {
-          mode: 'mode',
-          source: 'source'
-        }.freeze
-        REQUIRED_FIELDS = %i[
-          mode
-        ].freeze
-        DECODERS = {
-          mode: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionLoginHintMode.from_value(value)
-          end
-        }.freeze
-      end
-
-      # API model for UpdateSAMLConnectionLoginHint.
-      # Configuration for the login_hint sent to the IdP on SSO sign-in
-      class UpdateSAMLConnectionLoginHint
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateSAMLConnectionLoginHintMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateSAMLConnectionLoginHintMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateSAMLConnectionLoginHintMetadata::DECODERS
-
-        # @return [UpdateSAMLConnectionLoginHintMode] Controls the login_hint sent to the IdP on SSO sign-in
-        attr_reader :mode
-        # @return [String] The user public_metadata key whose value is sent as the login_hint when mode is custom_attribute
-        attr_reader :source
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Internal model hydration metadata.
-      class SdkInternalUpdateSAMLConnectionMetadata
-        FIELDS = {
-          name: 'name',
-          domain: 'domain',
-          domains: 'domains',
-          idp_entity_id: 'idp_entity_id',
-          idp_sso_url: 'idp_sso_url',
-          idp_certificate: 'idp_certificate',
-          idp_certificates: 'idp_certificates',
-          idp_metadata_url: 'idp_metadata_url',
-          idp_metadata: 'idp_metadata',
-          organization_id: 'organization_id',
-          attribute_mapping: 'attribute_mapping',
-          active: 'active',
-          sync_user_attributes: 'sync_user_attributes',
-          allow_subdomains: 'allow_subdomains',
-          allow_idp_initiated: 'allow_idp_initiated',
-          disable_additional_identifications: 'disable_additional_identifications',
-          allow_organization_account_linking: 'allow_organization_account_linking',
-          force_authn: 'force_authn',
-          login_hint: 'login_hint',
-          consent_verified_domains_deletion: 'consent_verified_domains_deletion'
-        }.freeze
-        REQUIRED_FIELDS = %i[].freeze
-        DECODERS = {
-          attribute_mapping: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionAttributeMapping.from_hash(value)
-          end,
-          login_hint: lambda do |value|
-            ::OctridevClerk::Methods::SamlConnections::UpdateSAMLConnectionLoginHint.from_hash(value)
-          end
-        }.freeze
-      end
-
-      # API model for UpdateSAMLConnection.
-      class UpdateSAMLConnection
-        CONSTRUCTION_SURFACE = :named
-        FIELDS = SdkInternalUpdateSAMLConnectionMetadata::FIELDS
-        REQUIRED_FIELDS = SdkInternalUpdateSAMLConnectionMetadata::REQUIRED_FIELDS
-        DECODERS = SdkInternalUpdateSAMLConnectionMetadata::DECODERS
-
-        # @return [String] The name of the new SAML Connection
-        attr_reader :name
-        # @return [String] The domain to use for the new SAML Connection
-        attr_reader :domain
-        # @return [Array_of_String] A list of the domains on use for the SAML connection
-        attr_reader :domains
-        # @return [String] The Entity ID as provided by the IdP
-        attr_reader :idp_entity_id
-        # @return [String] The SSO URL as provided by the IdP
-        attr_reader :idp_sso_url
-        # @return [String] Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated PEM certificates; replaces the connection's whole certificate set
-        attr_reader :idp_certificate
-        # @return [Array_of_String] The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64. Replaces the connection's whole certificate set and takes precedence over idp_certificate
-        attr_reader :idp_certificates
-        # @return [String] The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
-        attr_reader :idp_metadata_url
-        # @return [String] The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
-        attr_reader :idp_metadata
-        # @return [String] The ID of the organization to which users of this SAML Connection will be added
-        attr_reader :organization_id
-        # @return [UpdateSAMLConnectionAttributeMapping] Define the attribute name mapping between Identity Provider and Clerk's user properties
-        attr_reader :attribute_mapping
-        # @return [Boolean] Activate or de-activate the SAML Connection
-        attr_reader :active
-        # @return [Boolean] Controls whether to update the user's attributes in each sign-in
-        attr_reader :sync_user_attributes
-        # @return [Boolean] Allow users with an email address subdomain to use this connection in order to authenticate
-        attr_reader :allow_subdomains
-        # @return [Boolean] Enable or deactivate IdP-initiated flows
-        attr_reader :allow_idp_initiated
-        # @return [Boolean] Enable or deactivate additional identifications
-        attr_reader :disable_additional_identifications
-        # @return [Boolean] Whether this connection supports account linking via organization membership
-        attr_reader :allow_organization_account_linking
-        # @return [Boolean] Enable or deactivate ForceAuthn
-        attr_reader :force_authn
-        # @return [UpdateSAMLConnectionLoginHint] Configuration for the login_hint sent to the IdP on SSO sign-in
-        attr_reader :login_hint
-        # @return [Boolean] When enabling the connection, controls behavior when verified domains used for enrollment modes like automatic invitation or automatic suggestion already exist for the same domain. If true, those verified domains are removed and the connection is enabled. If false or omitted, the request fails when any such verified domain exists.
-        attr_reader :consent_verified_domains_deletion
-
-        def initialize(**attributes)
-          SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-          freeze
-        end
-
-        def self.from_hash(data)
-          SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-        end
-
-        def to_h
-          SdkModel.to_h(self, FIELDS)
-        end
-      end
-
-      # Defines the UpdateSAMLConnectionLoginHintMode SDK namespace.
-      module UpdateSAMLConnectionLoginHintMode
-        EMAIL_ADDRESS = 'email_address'
-        CUSTOM_ATTRIBUTE = 'custom_attribute'
-        OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
-        def self.from_value(value)
-          value
-        end
-      end
-
-      # Defines the CreateSAMLConnectionLoginHintMode SDK namespace.
-      module CreateSAMLConnectionLoginHintMode
-        EMAIL_ADDRESS = 'email_address'
-        CUSTOM_ATTRIBUTE = 'custom_attribute'
-        OFF = 'off'
-        VALUES = %w[email_address custom_attribute off].freeze
-        def self.from_value(value)
-          value
-        end
-      end
-
-      # Defines the CreateSAMLConnectionProvider SDK namespace.
-      module CreateSAMLConnectionProvider
-        SAML_CUSTOM = 'saml_custom'
-        SAML_OKTA = 'saml_okta'
-        SAML_GOOGLE = 'saml_google'
-        SAML_MICROSOFT = 'saml_microsoft'
-        VALUES = %w[saml_custom saml_okta saml_google saml_microsoft].freeze
-        def self.from_value(value)
-          value
-        end
-      end
-
       # Returns the list of SAML Connections for an instance. Results can be paginated using the optional `limit` and `offset` query parameters. The SAML Connections are ordered by descending creation date and the most recent will be returned first. Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
       #
       # @param limit [Integer] Applies a limit to the number of results returned.
@@ -536,8 +162,187 @@ module OctridevClerk
           errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).data
       end
+
+      # Updates the SAML Connection whose ID matches the provided `id` in the path. Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+      #
+      # @param saml_connection_id [String] The ID of the SAML Connection to update
+      # @param name [String] The name of the new SAML Connection
+      # @param domain [String] The domain to use for the new SAML Connection
+      # @param domains [Array_of_String] A list of the domains on use for the SAML
+      #   connection
+      # @param idp_entity_id [String] The Entity ID as provided by the IdP
+      # @param idp_sso_url [String] The SSO URL as provided by the IdP
+      # @param idp_certificate [String] Deprecated, use idp_certificates. One X.509
+      #   certificate, PEM or bare base64, or several concatenated PEM certificates;
+      #   replaces the connection's whole certificate set
+      # @param idp_certificates [Array_of_String] The IdP X.509 signing certificates
+      #   the connection trusts, one per entry, in PEM or bare base64. Replaces the
+      #   connection's whole certificate set and takes precedence over idp_certificate
+      # @param idp_metadata_url [String] The URL which serves the IdP metadata. If
+      #   present, it takes priority over the corresponding individual properties and
+      #   replaces them
+      # @param idp_metadata [String] The XML content of the IdP metadata file. If
+      #   present, it takes priority over the corresponding individual properties
+      # @param organization_id [String] The ID of the organization to which users of
+      #   this SAML Connection will be added
+      # @param attribute_mapping [UpdateSAMLConnectionAttributeMapping] Define the
+      #   attribute name mapping between Identity Provider and Clerk's user properties
+      # @param active [Boolean] Activate or de-activate the SAML Connection
+      # @param sync_user_attributes [Boolean] Controls whether to update the user's
+      #   attributes in each sign-in
+      # @param allow_subdomains [Boolean] Allow users with an email address
+      #   subdomain to use this connection in order to authenticate
+      # @param allow_idp_initiated [Boolean] Enable or deactivate IdP-initiated
+      #   flows
+      # @param disable_additional_identifications [Boolean] Enable or deactivate
+      #   additional identifications
+      # @param allow_organization_account_linking [Boolean] Whether this connection
+      #   supports account linking via organization membership
+      # @param force_authn [Boolean] Enable or deactivate ForceAuthn
+      # @param login_hint [UpdateSAMLConnectionLoginHint] Configuration for the
+      #   login_hint sent to the IdP on SSO sign-in
+      # @param consent_verified_domains_deletion [Boolean] When enabling the
+      #   connection, controls behavior when verified domains used for enrollment
+      #   modes like automatic invitation or automatic suggestion already exist for
+      #   the same domain. If true, those verified domains are removed and the
+      #   connection is enabled. If false or omitted, the request fails when any such
+      #   verified domain exists.
+      #
+      # @deprecated This operation is deprecated and may be removed in a future release.
+      def self.update_saml_connection(
+        config:,
+        saml_connection_id:,
+        name: NOT_GIVEN,
+        domain: NOT_GIVEN,
+        domains: NOT_GIVEN,
+        idp_entity_id: NOT_GIVEN,
+        idp_sso_url: NOT_GIVEN,
+        idp_certificate: NOT_GIVEN,
+        idp_certificates: NOT_GIVEN,
+        idp_metadata_url: NOT_GIVEN,
+        idp_metadata: NOT_GIVEN,
+        organization_id: NOT_GIVEN,
+        attribute_mapping: NOT_GIVEN,
+        active: NOT_GIVEN,
+        sync_user_attributes: NOT_GIVEN,
+        allow_subdomains: NOT_GIVEN,
+        allow_idp_initiated: NOT_GIVEN,
+        disable_additional_identifications: NOT_GIVEN,
+        allow_organization_account_linking: NOT_GIVEN,
+        force_authn: NOT_GIVEN,
+        login_hint: NOT_GIVEN,
+        consent_verified_domains_deletion: NOT_GIVEN,
+        request_options: nil
+      )
+        __sdk_validate_update_saml_connection(idp_certificates: idp_certificates)
+
+        SdkClient.request(
+          'PATCH',
+          [
+            '/saml_connections/',
+            SdkClient.encode_path_segment(saml_connection_id)
+          ].join,
+          config: config,
+          body: __sdk_body_update_saml_connection_part1(name: name, domain: domain, domains: domains, idp_entity_id: idp_entity_id, idp_sso_url: idp_sso_url, idp_certificate: idp_certificate, idp_certificates: idp_certificates, idp_metadata_url: idp_metadata_url, idp_metadata: idp_metadata, organization_id: organization_id, attribute_mapping: attribute_mapping, active: active, sync_user_attributes: sync_user_attributes, allow_subdomains: allow_subdomains, allow_idp_initiated: allow_idp_initiated, disable_additional_identifications: disable_additional_identifications, allow_organization_account_linking: allow_organization_account_linking, force_authn: force_authn).merge(
+            __sdk_body_update_saml_connection_part2(login_hint: login_hint, consent_verified_domains_deletion: consent_verified_domains_deletion)
+          ),
+          return_type: ::OctridevClerk::SAMLConnection,
+          decoder: :json,
+          operation_id: 'update_saml_connection',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors, '409' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
+
+      def self.__sdk_validate_update_saml_connection(
+        idp_certificates:
+      )
+        Validation.if_given(idp_certificates) do
+          Validation.validate_items('idp_certificates', idp_certificates, min: 1, max: 5)
+        end
+      end
+      private_class_method :__sdk_validate_update_saml_connection
+
+      def self.__sdk_body_update_saml_connection_part1(
+        name:,
+        domain:,
+        domains:,
+        idp_entity_id:,
+        idp_sso_url:,
+        idp_certificate:,
+        idp_certificates:,
+        idp_metadata_url:,
+        idp_metadata:,
+        organization_id:,
+        attribute_mapping:,
+        active:,
+        sync_user_attributes:,
+        allow_subdomains:,
+        allow_idp_initiated:,
+        disable_additional_identifications:,
+        allow_organization_account_linking:,
+        force_authn:
+      )
+        {
+          'name' => name,
+          'domain' => domain,
+          'domains' => domains,
+          'idp_entity_id' => idp_entity_id,
+          'idp_sso_url' => idp_sso_url,
+          'idp_certificate' => idp_certificate,
+          'idp_certificates' => idp_certificates,
+          'idp_metadata_url' => idp_metadata_url,
+          'idp_metadata' => idp_metadata,
+          'organization_id' => organization_id,
+          'attribute_mapping' => attribute_mapping,
+          'active' => active,
+          'sync_user_attributes' => sync_user_attributes,
+          'allow_subdomains' => allow_subdomains,
+          'allow_idp_initiated' => allow_idp_initiated,
+          'disable_additional_identifications' => disable_additional_identifications,
+          'allow_organization_account_linking' => allow_organization_account_linking,
+          'force_authn' => force_authn
+        }
+      end
+      private_class_method :__sdk_body_update_saml_connection_part1
+
+      def self.__sdk_body_update_saml_connection_part2(
+        login_hint:,
+        consent_verified_domains_deletion:
+      )
+        {
+          'login_hint' => login_hint,
+          'consent_verified_domains_deletion' => consent_verified_domains_deletion
+        }
+      end
+      private_class_method :__sdk_body_update_saml_connection_part2
+
+      # Deletes the SAML Connection whose ID matches the provided `id` in the path. Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+      #
+      # @param saml_connection_id [String] The ID of the SAML Connection to delete
+      #
+      # @deprecated This operation is deprecated and may be removed in a future release.
+      def self.delete_saml_connection(
+        config:,
+        saml_connection_id:,
+        request_options: nil
+      )
+        SdkClient.request(
+          'DELETE',
+          [
+            '/saml_connections/',
+            SdkClient.encode_path_segment(saml_connection_id)
+          ].join,
+          config: config,
+          return_type: ::OctridevClerk::DeletedObject,
+          decoder: :json,
+          operation_id: 'delete_saml_connection',
+          request_options: request_options,
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '403' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
+        ).data
+      end
     end
   end
 end
 
-require_relative 'saml_connections_part_2'
+require_relative 'saml_connections_types'

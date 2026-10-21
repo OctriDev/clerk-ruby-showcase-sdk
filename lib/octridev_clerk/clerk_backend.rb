@@ -1287,7 +1287,7 @@ module OctridevClerk
       passkey_identification_id:,
       request_options: nil
     )
-      ::OctridevClerk::Methods::Users.delete_users_passkey(
+      ::OctridevClerk::Methods::Users.delete_user_passkey(
         config: @config,
         user_id: user_id,
         passkey_identification_id: passkey_identification_id,
