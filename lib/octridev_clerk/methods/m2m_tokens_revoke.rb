@@ -18,24 +18,23 @@ module OctridevClerk
         revocation_reason: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('m2m_token_id', m2m_token_id, '^mt_[0-9A-Fa-f]{32}$')
 
         SdkClient.request(
           'POST',
           [
-            "/m2m_tokens/",
+            '/m2m_tokens/',
             SdkClient.encode_path_segment(m2m_token_id),
-            "/revoke"
+            '/revoke'
           ].join,
           config: config,
           body: {
-            'revocation_reason' => revocation_reason,
+            'revocation_reason' => revocation_reason
           },
           return_type: ::OctridevClerk::Methods::M2mTokens::RevokeM2MTokenResponse,
           decoder: :json,
           operation_id: 'revoke_m2_mtoken',
-          request_options: request_options,
+          request_options: request_options
         ).result
       end
     end

@@ -17,18 +17,17 @@ module OctridevClerk
         token:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/m2m_tokens/verify",
+          '/m2m_tokens/verify',
           config: config,
           body: {
-            'token' => token,
+            'token' => token
           },
           return_type: ::OctridevClerk::Methods::M2mTokens::VerifyM2MTokenResponse,
           decoder: :json,
           operation_id: 'verify_m2_mtoken',
-          request_options: request_options,
+          request_options: request_options
         ).result
       end
     end

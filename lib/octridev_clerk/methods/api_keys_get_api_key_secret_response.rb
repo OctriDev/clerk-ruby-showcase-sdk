@@ -39,12 +39,10 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeApiKeyMetadata
         FIELDS = {
-          revocation_reason: "revocation_reason",
+          revocation_reason: 'revocation_reason'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for RevokeApiKey.
@@ -77,22 +75,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalRevokeApiKeyResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -114,7 +112,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::RevokeApiKeyResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -164,13 +162,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyApiKeyMetadata
         FIELDS = {
-          secret: "secret",
+          secret: 'secret'
         }.freeze
         REQUIRED_FIELDS = %i[
           secret
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for VerifyApiKey.
@@ -203,22 +200,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalVerifyApiKeyResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -240,7 +237,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::VerifyApiKeyResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -327,7 +324,7 @@ module OctridevClerk
       module ListApiKeysParameter
         TRUE = 'true'
         FALSE = 'false'
-        VALUES = ['true', 'false'].freeze
+        VALUES = %w[true false].freeze
         def self.from_value(value)
           value
         end

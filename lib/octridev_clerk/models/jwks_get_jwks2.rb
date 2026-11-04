@@ -5,58 +5,59 @@
 
 # jwks domain models
 module OctridevClerk
-# API model for JWKSSymmetricKey.
-# Typed representation of the `JWKSSymmetricKey` API schema.
-class JWKSSymmetricKey
-  include JWKSKeysItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalJWKSSymmetricKeyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalJWKSSymmetricKeyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalJWKSSymmetricKeyMetadata::DECODERS
+  # API model for JWKSSymmetricKey.
+  # Typed representation of the `JWKSSymmetricKey` API schema.
+  class JWKSSymmetricKey
+    include JWKSKeysItem
 
-  # @return [String] Required `string` value serialized in the `kid` wire field.
-  attr_reader :kid
-  # @return [String] Required `string` value serialized in the `alg` wire field.
-  attr_reader :alg
-  # @return [String] Required `string` value serialized in the `use` wire field.
-  attr_reader :use
-  # @return [JWKSSymmetricKeyKty] Required enumerated value serialized in the `kty` wire field.
-  attr_reader :kty
-  # @return [String] Required `string` value serialized in the `k` wire field.
-  attr_reader :k_value
-  # @return [Array_of_String] Optional array value serialized in the `x5c` wire field.
-  attr_reader :x5c
-  # @return [String] Optional `string` value serialized in the `x5t` wire field.
-  attr_reader :x5t
-  # @return [String] Optional `string` value serialized in the `x5t#S256` wire field.
-  attr_reader :x5t_s256
-  # @return [String] Optional `string` value serialized in the `x5u` wire field.
-  attr_reader :x5u
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalJWKSSymmetricKeyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalJWKSSymmetricKeyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalJWKSSymmetricKeyMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [String] Required `string` value serialized in the `kid` wire field.
+    attr_reader :kid
+    # @return [String] Required `string` value serialized in the `alg` wire field.
+    attr_reader :alg
+    # @return [String] Required `string` value serialized in the `use` wire field.
+    attr_reader :use
+    # @return [JWKSSymmetricKeyKty] Required enumerated value serialized in the `kty` wire field.
+    attr_reader :kty
+    # @return [String] Required `string` value serialized in the `k` wire field.
+    attr_reader :k_value
+    # @return [Array_of_String] Optional array value serialized in the `x5c` wire field.
+    attr_reader :x5c
+    # @return [String] Optional `string` value serialized in the `x5t` wire field.
+    attr_reader :x5t
+    # @return [String] Optional `string` value serialized in the `x5t#S256` wire field.
+    attr_reader :x5t_s256
+    # @return [String] Optional `string` value serialized in the `x5u` wire field.
+    attr_reader :x5u
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the JWKSSymmetricKeyKty SDK namespace.
+  module JWKSSymmetricKeyKty
+    OCT = 'oct'
+    VALUES = ['oct'].freeze
+    def self.from_value(value)
+      value
+    end
   end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the JWKSSymmetricKeyKty SDK namespace.
-module JWKSSymmetricKeyKty
-  OCT = 'oct'
-  VALUES = ['oct'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

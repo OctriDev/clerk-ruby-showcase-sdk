@@ -12,21 +12,20 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateApiKeyMetadata
         FIELDS = {
-          type: "type",
-          name: "name",
-          description: "description",
-          subject: "subject",
-          claims: "claims",
-          scopes: "scopes",
-          created_by: "created_by",
-          seconds_until_expiration: "seconds_until_expiration",
+          type: 'type',
+          name: 'name',
+          description: 'description',
+          subject: 'subject',
+          claims: 'claims',
+          scopes: 'scopes',
+          created_by: 'created_by',
+          seconds_until_expiration: 'seconds_until_expiration'
         }.freeze
         REQUIRED_FIELDS = %i[
           name
           subject
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateApiKey.
@@ -60,23 +59,23 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateApiKeyResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          secret: "secret",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          secret: 'secret',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -99,7 +98,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::CreateApiKeyResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -149,22 +148,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalListApiKeysResponseDataItemMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -186,7 +185,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponseDataItemObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -236,8 +235,8 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalListApiKeysResponseMetadata
         FIELDS = {
-          data: "data",
-          total_count: "total_count",
+          data: 'data',
+          total_count: 'total_count'
         }.freeze
         REQUIRED_FIELDS = %i[
           data
@@ -246,7 +245,7 @@ module OctridevClerk
         DECODERS = {
           data: lambda do |value|
             value&.map { |item| ::OctridevClerk::Methods::ApiKeys::ListApiKeysResponseDataItem.from_hash(item) }
-          end,
+          end
         }.freeze
       end
 
@@ -280,22 +279,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalGetApiKeyResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -317,7 +316,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::GetApiKeyResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -367,16 +366,14 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateApiKeyMetadata
         FIELDS = {
-          claims: "claims",
-          scopes: "scopes",
-          description: "description",
-          subject: "subject",
-          seconds_until_expiration: "seconds_until_expiration",
+          claims: 'claims',
+          scopes: 'scopes',
+          description: 'description',
+          subject: 'subject',
+          seconds_until_expiration: 'seconds_until_expiration'
         }.freeze
-        REQUIRED_FIELDS = %i[
-        ].freeze
-        DECODERS = {
-        }.freeze
+        REQUIRED_FIELDS = %i[].freeze
+        DECODERS = {}.freeze
       end
 
       # API model for UpdateApiKey.
@@ -409,22 +406,22 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalUpdateApiKeyResponseMetadata
         FIELDS = {
-          object: "object",
-          id: "id",
-          type: "type",
-          subject: "subject",
-          name: "name",
-          description: "description",
-          claims: "claims",
-          scopes: "scopes",
-          revoked: "revoked",
-          revocation_reason: "revocation_reason",
-          expired: "expired",
-          expiration: "expiration",
-          created_by: "created_by",
-          last_used_at: "last_used_at",
-          created_at: "created_at",
-          updated_at: "updated_at",
+          object: 'object',
+          id: 'id',
+          type: 'type',
+          subject: 'subject',
+          name: 'name',
+          description: 'description',
+          claims: 'claims',
+          scopes: 'scopes',
+          revoked: 'revoked',
+          revocation_reason: 'revocation_reason',
+          expired: 'expired',
+          expiration: 'expiration',
+          created_by: 'created_by',
+          last_used_at: 'last_used_at',
+          created_at: 'created_at',
+          updated_at: 'updated_at'
         }.freeze
         REQUIRED_FIELDS = %i[
           object
@@ -446,7 +443,7 @@ module OctridevClerk
         DECODERS = {
           object: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::UpdateApiKeyResponseObject.from_value(value)
-          end,
+          end
         }.freeze
         NULLABLE_FIELDS = %i[
           claims
@@ -496,9 +493,9 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalDeleteApiKeyResponseMetadata
         FIELDS = {
-          id: "id",
-          object: "object",
-          deleted: "deleted",
+          id: 'id',
+          object: 'object',
+          deleted: 'deleted'
         }.freeze
         REQUIRED_FIELDS = %i[
           id
@@ -511,7 +508,7 @@ module OctridevClerk
           end,
           deleted: lambda do |value|
             ::OctridevClerk::Methods::ApiKeys::DeleteApiKeyResponseDeleted.from_value(value)
-          end,
+          end
         }.freeze
       end
 
@@ -545,13 +542,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalGetApiKeySecretResponseMetadata
         FIELDS = {
-          secret: "secret",
+          secret: 'secret'
         }.freeze
         REQUIRED_FIELDS = %i[
           secret
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
     end
   end

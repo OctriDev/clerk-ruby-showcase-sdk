@@ -12,14 +12,13 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateAllowlistIdentifierMetadata
         FIELDS = {
-          identifier: "identifier",
-          notify: "notify",
+          identifier: 'identifier',
+          notify: 'notify'
         }.freeze
         REQUIRED_FIELDS = %i[
           identifier
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateAllowlistIdentifier.
@@ -55,13 +54,12 @@ module OctridevClerk
       # Internal model hydration metadata.
       class SdkInternalCreateBlocklistIdentifierMetadata
         FIELDS = {
-          identifier: "identifier",
+          identifier: 'identifier'
         }.freeze
         REQUIRED_FIELDS = %i[
           identifier
         ].freeze
-        DECODERS = {
-        }.freeze
+        DECODERS = {}.freeze
       end
 
       # API model for CreateBlocklistIdentifier.
@@ -108,25 +106,24 @@ module OctridevClerk
         offset: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 500) }
 
         Validation.if_given(offset) { Validation.validate_range('offset', offset, min: 0) }
 
         SdkClient.request(
           'GET',
-          "/allowlist_identifiers",
+          '/allowlist_identifiers',
           config: config,
           query: {
             'paginated' => QueryValue.new(paginated, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'offset' => QueryValue.new(offset, style: 'form', explode: true),
+            'offset' => QueryValue.new(offset, style: 'form', explode: true)
           },
           return_type: [::OctridevClerk::AllowlistIdentifier],
           decoder: :json,
           operation_id: 'list_allowlist_identifiers',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors }
         ).result
       end
 
@@ -143,20 +140,19 @@ module OctridevClerk
         notify: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/allowlist_identifiers",
+          '/allowlist_identifiers',
           config: config,
           body: {
             'identifier' => identifier,
-            'notify' => notify,
+            'notify' => notify
           },
           return_type: ::OctridevClerk::AllowlistIdentifier,
           decoder: :json,
           operation_id: 'create_allowlist_identifier',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).result
       end
 
@@ -171,11 +167,10 @@ module OctridevClerk
         identifier_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/allowlist_identifiers/",
+            '/allowlist_identifiers/',
             SdkClient.encode_path_segment(identifier_id)
           ].join,
           config: config,
@@ -183,7 +178,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_allowlist_identifier',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).result
       end
 
@@ -192,16 +187,15 @@ module OctridevClerk
         config:,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
-          "/blocklist_identifiers",
+          '/blocklist_identifiers',
           config: config,
           return_type: ::OctridevClerk::BlocklistIdentifiers,
           decoder: :json,
           operation_id: 'list_blocklist_identifiers',
           request_options: request_options,
-          errors: { '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors },
+          errors: { '401' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors }
         ).result
       end
 
@@ -214,19 +208,18 @@ module OctridevClerk
         identifier:,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/blocklist_identifiers",
+          '/blocklist_identifiers',
           config: config,
           body: {
-            'identifier' => identifier,
+            'identifier' => identifier
           },
           return_type: ::OctridevClerk::BlocklistIdentifier,
           decoder: :json,
           operation_id: 'create_blocklist_identifier',
           request_options: request_options,
-          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors },
+          errors: { '400' => ::OctridevClerk::ClerkErrors, '402' => ::OctridevClerk::ClerkErrors, '422' => ::OctridevClerk::ClerkErrors }
         ).result
       end
 
@@ -241,11 +234,10 @@ module OctridevClerk
         identifier_id:,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/blocklist_identifiers/",
+            '/blocklist_identifiers/',
             SdkClient.encode_path_segment(identifier_id)
           ].join,
           config: config,
@@ -253,7 +245,7 @@ module OctridevClerk
           decoder: :json,
           operation_id: 'delete_blocklist_identifier',
           request_options: request_options,
-          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors },
+          errors: { '402' => ::OctridevClerk::ClerkErrors, '404' => ::OctridevClerk::ClerkErrors }
         ).result
       end
     end
